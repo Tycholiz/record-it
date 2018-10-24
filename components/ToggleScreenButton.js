@@ -7,13 +7,11 @@ import {
 } from 'react-native';
 import { } from 'expo';
 
-import RecordControl from '../components/RecordControl';
-
-export default class Record extends Component {
+export default class ToggleScreenButton extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text>Record</Text>
+				<Text>ToggleScreensButton</Text>
 			</View>
 		);
 	}

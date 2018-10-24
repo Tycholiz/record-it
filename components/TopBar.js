@@ -7,13 +7,15 @@ import {
 } from 'react-native';
 import { } from 'expo';
 
-import RecordControl from '../components/RecordControl';
+import ToggleScreenButton from './ToggleScreenButton';
+import Settings from './Settings';
+import BreadcrumbBar from './BreadcrumbBar';
 
-export default class Record extends Component {
+export default class TopBar extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text>Record</Text>
+				<Text>TopBar</Text>
 			</View>
 		);
 	}

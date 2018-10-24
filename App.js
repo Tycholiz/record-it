@@ -1,11 +1,22 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import {
+  View,
+  Text,
+  StyleSheet,
+} from 'react-native';
+import { Constants } from 'expo';
 
-export default class App extends React.Component {
+import Playback from './screens/Playback';
+import Record from './screens/Record';
+import FolderStructure from './components/FolderStructure';
+import TopBar from './components/TopBar';
+
+export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
+        <TopBar />
       </View>
     );
   }
@@ -13,9 +24,10 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+   marginTop: Constants.statusBarHeight,
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
   },
 });
