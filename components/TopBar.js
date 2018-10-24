@@ -15,7 +15,9 @@ export default class TopBar extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text>TopBar</Text>
+				<ToggleScreenButton />
+				<Settings />
+				<BreadcrumbBar />
 			</View>
 		);
 	}
@@ -23,7 +25,8 @@ export default class TopBar extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
+		// flex: 1,
 		backgroundColor: '#fff',
+		flexDirection: 'row'
 	},
 });
