@@ -14,7 +14,7 @@ export default class Control extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text>Control</Text>
+				<RecordControl />
 			</View>
 		);
 	}
@@ -22,7 +22,6 @@ export default class Control extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-		height: 200,
-		backgroundColor: 'purple',
+		height: 160,
 	},
 });

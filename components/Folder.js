@@ -7,15 +7,18 @@ import {
 } from 'react-native';
 import { } from 'expo';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
-const upOneLevelIcon = (<Icon name="arrow-circle-left" size={40} color='black' />)
+// import Icon from 'react-native-vector-icons/FontAwesome';
+// const upOneLevelIcon = (<Icon name="arrow-circle-left" size={40} color='black' />)
 
 export default class Folder extends Component {
 	render() {
+		const { text, icon } = this.props;
 		return (
 			<View style={styles.container}>
-				{/* {upOneLevelIcon} */}
-				<Text>Up One Level</Text>
+				{icon}
+				<Text icon={icon}>
+					{text}
+				</Text>
 			</View>
 		);
 	}
@@ -29,7 +32,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 		alignItems: 'center',
 		justifyContent: 'flex-end',
-		margin: 3,
+		margin: 6,
 	},
 	icon: {
 		justifyContent: 'center',

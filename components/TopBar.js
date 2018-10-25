@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 		// justifyContent: 'flex-start',
 		// flexDirection: 'row',
 		flexWrap: 'wrap',
-		backgroundColor: 'dimgrey',
+		backgroundColor: 'hsla(253, 14%, 24%, 1)',
 	},
 	topbarUpper: {
 		flexDirection: 'row',
