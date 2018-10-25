@@ -22,7 +22,7 @@ export default class Control extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 2,
-		backgroundColor: '#fff',
+		height: 200,
+		backgroundColor: 'purple',
 	},
 });

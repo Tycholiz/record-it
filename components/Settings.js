@@ -4,6 +4,7 @@ import {
 	View,
 	Text,
 	StyleSheet,
+	TouchableOpacity,
 } from 'react-native';
 import { } from 'expo';
 
@@ -13,18 +14,18 @@ const optionsIcon = (<Icon name="ellipsis-v" size={40} color='black' />)
 export default class Settings extends Component {
 	render() {
 		return (
-			<View style={styles.settingsIcon}>
+			<TouchableOpacity style={styles.settingsIcon}>
 				{optionsIcon}
-			</View>
+			</TouchableOpacity>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
 	settingsIcon: {
-		// width: '20%',
 		flex: 1,
-		backgroundColor: 'blue',
 		height: 60,
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 });

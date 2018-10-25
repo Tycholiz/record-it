@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     marginTop: Constants.statusBarHeight,
     flex: 1,
     // alignItems: 'flex-start',
-    backgroundColor: 'salmon',
+    backgroundColor: '#fff',
     flexWrap: 'wrap',
   },
 });

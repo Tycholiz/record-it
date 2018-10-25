@@ -8,11 +8,27 @@ import {
 } from 'react-native';
 import { } from 'expo';
 
+import Folder from './Folder';
+
 export default class FolderStructure extends Component {
+
+	renderFolder = () => {
+		return (
+			<Folder/>
+		);
+	};
+
 	render() {
 		return (
 			<ScrollView style={styles.container}>
-				<Text>FolderStructure</Text>
+				<Folder />
+				<Folder />
+				<Folder />
+				<Folder />
+				<Folder />
+				<Folder />
+				<Folder />
+				<Folder />
 			</ScrollView>
 		);
 	}
@@ -20,7 +36,9 @@ export default class FolderStructure extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 4,
-		backgroundColor: '#fff',
+		flex: 7,
+		flexDirection: 'column',
+		flexWrap: 'wrap',
+		backgroundColor: 'orange',
 	},
 });

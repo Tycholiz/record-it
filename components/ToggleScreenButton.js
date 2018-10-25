@@ -25,12 +25,14 @@ export default class ToggleScreenButton extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 4,
-		// width: '80%',
 		height: 60,
-		backgroundColor: 'pink',
+		alignItems: 'center',
+		backgroundColor: 'red',
+		borderRadius: 7,
 	},
 	buttonText: {
 		fontWeight: '700',
 		fontSize: 40,
+
 	}
 });
