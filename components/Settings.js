@@ -13,8 +13,7 @@ const optionsIcon = (<Icon name="ellipsis-v" size={40} color='black' />)
 export default class Settings extends Component {
 	render() {
 		return (
-			<View style={styles.container}>
-				<Text>Settings</Text>
+			<View style={styles.settingsIcon}>
 				{optionsIcon}
 			</View>
 		);
@@ -22,8 +21,10 @@ export default class Settings extends Component {
 }
 
 const styles = StyleSheet.create({
-	container: {
+	settingsIcon: {
+		// width: '20%',
 		flex: 1,
 		backgroundColor: 'blue',
+		height: 60,
 	},
 });

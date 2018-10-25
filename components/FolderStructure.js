@@ -4,22 +4,23 @@ import {
 	View,
 	Text,
 	StyleSheet,
+	ScrollView,
 } from 'react-native';
 import { } from 'expo';
 
 export default class FolderStructure extends Component {
 	render() {
 		return (
-			<View style={styles.container}>
+			<ScrollView style={styles.container}>
 				<Text>FolderStructure</Text>
-			</View>
+			</ScrollView>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
+		flex: 4,
 		backgroundColor: '#fff',
 	},
 });

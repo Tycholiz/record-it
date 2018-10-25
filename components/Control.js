@@ -7,13 +7,14 @@ import {
 } from 'react-native';
 import { } from 'expo';
 
-import RecordControl from '../components/RecordControl';
+import RecordControl from './RecordControl';
+import PlaybackControl from './PlaybackControl';
 
-export default class Record extends Component {
+export default class Control extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text>Record</Text>
+				<Text>Control</Text>
 			</View>
 		);
 	}
@@ -21,7 +22,7 @@ export default class Record extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
+		flex: 2,
 		backgroundColor: '#fff',
 	},
 });
