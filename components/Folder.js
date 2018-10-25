@@ -14,7 +14,7 @@ export default class Folder extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				{upOneLevelIcon}
+				{/* {upOneLevelIcon} */}
 				<Text>Up One Level</Text>
 			</View>
 		);

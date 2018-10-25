@@ -21,14 +21,22 @@ export default class FolderStructure extends Component {
 	render() {
 		return (
 			<ScrollView style={styles.container}>
-				<Folder />
-				<Folder />
-				<Folder />
-				<Folder />
-				<Folder />
-				<Folder />
-				<Folder />
-				<Folder />
+				<View style={styles.innerContainer}>
+					<Folder />
+					<Folder />
+					<Folder />
+					<Folder />
+					<Folder />
+					<Folder />
+					<Folder />
+					<Folder />
+					<Folder />
+					<Folder />
+					<Folder />
+					<Folder />
+					<Folder />
+					<Folder />
+				</View>
 			</ScrollView>
 		);
 	}
@@ -36,9 +44,12 @@ export default class FolderStructure extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 7,
+		// flex: 1,
 		flexDirection: 'column',
-		flexWrap: 'wrap',
-		backgroundColor: 'orange',
 	},
+	innerContainer: {
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+		backgroundColor: 'magenta',
+	}
 });

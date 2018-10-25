@@ -29,8 +29,6 @@ const styles = StyleSheet.create({
   container: {
     marginTop: Constants.statusBarHeight,
     flex: 1,
-    // alignItems: 'flex-start',
     backgroundColor: '#fff',
-    flexWrap: 'wrap',
   },
 });
