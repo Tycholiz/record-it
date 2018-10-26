@@ -9,9 +9,9 @@ import {
 import { } from 'expo';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-const upOneLevelIcon = (<Icon name="arrow-circle-left" size={40} color='black' />)
-const addFolderIcon = (<Icon name="folder-open" size={40} color='black' />)
-const folderIcon = (<Icon name="folder" size={40} color='black' />)
+const upOneLevelIcon = (<Icon name="arrow-circle-left" size={40} color='darkslategrey' />)
+const addFolderIcon = (<Icon name="folder-open" size={40} color='darkslategrey' />)
+const folderIcon = (<Icon name="folder" size={40} color='darkslategrey' />)
 
 import Folder from './Folder';
 

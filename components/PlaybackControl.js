@@ -28,7 +28,7 @@ export default class PlaybackControl extends Component {
 						00:10
 					</Text>
 					<Text style={[styles.time, styles.scroller]}>
-						------------------------------------------------------
+						-----------------------------------------------
 					</Text>
 					<Text style={styles.time}>
 						00:34
@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		marginLeft: 15,
-		backgroundColor: "green"
 	},
 	iconContainer: {
 		flexDirection: 'row',
@@ -71,6 +70,7 @@ const styles = StyleSheet.create({
 		borderRadius: 1,
 		borderWidth: 0.5,
 		margin: 15,
+		padding: 3,
 	},
 	scroller: {
 		borderWidth: 0,
