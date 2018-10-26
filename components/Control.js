@@ -14,7 +14,8 @@ export default class Control extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<RecordControl />
+				{/* <RecordControl /> */}
+				<PlaybackControl />
 			</View>
 		);
 	}

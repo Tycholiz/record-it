@@ -14,6 +14,10 @@ import FolderStructure from './components/FolderStructure';
 import Control from './components/Control';
 
 export default class App extends Component {
+  state = {
+
+  }
+
   render() {
     return (
       <View style={styles.container}>

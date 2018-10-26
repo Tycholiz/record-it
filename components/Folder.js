@@ -4,6 +4,7 @@ import {
 	View,
 	Text,
 	StyleSheet,
+	TouchableOpacity
 } from 'react-native';
 import { } from 'expo';
 
@@ -14,12 +15,12 @@ export default class Folder extends Component {
 	render() {
 		const { text, icon } = this.props;
 		return (
-			<View style={styles.container}>
+			<TouchableOpacity style={styles.container}>
 				{icon}
 				<Text icon={icon}>
 					{text}
 				</Text>
-			</View>
+			</TouchableOpacity>
 		);
 	}
 }
