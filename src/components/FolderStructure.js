@@ -30,7 +30,7 @@ export default class FolderStructure extends Component {
 					<Folder text={'New Folder'} icon={addFolderIcon} />
 					<Folder text={'Chimera'} icon={folderIcon} />
 					<Folder text={'Law of the Jungle'} icon={folderIcon} />
-					<Folder text={'Chimera'} icon={folderIcon} />
+					<Folder text={'Since You'} icon={folderIcon} />
 					<Folder text={'Chimera'} icon={folderIcon} />
 					<Folder text={'Chimera'} icon={folderIcon} />
 					<Folder text={'Chimera'} icon={folderIcon} />

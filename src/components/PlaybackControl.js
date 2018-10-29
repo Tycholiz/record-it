@@ -28,7 +28,7 @@ export default class PlaybackControl extends Component {
 						00:10
 					</Text>
 					<Text style={[styles.time, styles.scroller]}>
-						-----------------------------------------------
+						-----------O-----------------------------------
 					</Text>
 					<Text style={styles.time}>
 						00:34
