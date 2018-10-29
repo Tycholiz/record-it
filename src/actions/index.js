@@ -1,6 +1,8 @@
 import { TOGGLE_RECORD } from "../constants/action-types";
 
-export const toggleRecord = article => ({
+export const toggleRecordPlayback = toggleRecord => ({
 	type: TOGGLE_RECORD,
-	payload: article
+	payload: {
+		toggleRecord: !toggleRecord
+	},
 });
