@@ -14,7 +14,7 @@ export default class ToggleScreenButton extends Component {
 			<TouchableOpacity style={styles.container}>
 				<View>
 					<Text style={styles.buttonText}>
-						RECORD
+						PLAYBACK
 					</Text>
 				</View>
 			</TouchableOpacity>

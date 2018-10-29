@@ -5,8 +5,10 @@ import {
 	View,
 	StyleSheet,
 	Platform,
-	StatusBar
+	StatusBar,
+	YellowBox,
 } from 'react-native';
+YellowBox.ignoreWarnings(['Remote debugger']);
 
 import {
 	Constants,
@@ -18,9 +20,9 @@ import {
 
 import store from './store'
 
-import TopBar from './components/TopBar';
-import FolderStructure from './components/FolderStructure';
-import Control from './components/Control';
+import TopBar from './components/TopBar/index';
+import FolderStructure from './components/FolderStructure/index';
+import Control from './components/Control/index';
 
 export default class App extends Component {
 	state = {
@@ -72,6 +74,10 @@ export default class App extends Component {
 	_handleFinishLoading = () => {
 		this.setState({ isLoadingComplete: true });
 	};
+}
+
+if (__DEV__) {
+	console.ignoredYellowBox = ['Remote debugger'];
 }
 
 
