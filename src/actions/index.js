@@ -1,6 +1,6 @@
-import { ADD_ARTICLE } from "../constants/action-types";
+import { TOGGLE_RECORD } from "../constants/action-types";
 
-export const addArticle = article => ({
-	type: "ADD_ARTICLE",
+export const toggleRecord = article => ({
+	type: TOGGLE_RECORD,
 	payload: article
 });

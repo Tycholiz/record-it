@@ -1,18 +1,15 @@
-import { ADD_ARTICLE } from "../constants/action-types";
+import { TOGGLE_RECORD } from "../constants/action-types";
 
 const initialState = {
-	articles: []
+	toggleRecord: true,
 };
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
-		case ADD_ARTICLE:
+		case TOGGLE_RECORD:
 			return {
 				...state,
-				articles: [
-					...state.articles,
-					action.payload
-				]
+				toggleRecord: !state.toggleRecord
 			};
 		default:
 			return state;

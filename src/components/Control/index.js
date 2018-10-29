@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import toggleRecord from '../../actions/index';
 import {
 	View,
 	Text,
@@ -10,7 +12,7 @@ import { } from 'expo';
 import RecordControl from './RecordControl';
 import PlaybackControl from './PlaybackControl';
 
-export default class Control extends Component {
+class Control extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
@@ -20,6 +22,16 @@ export default class Control extends Component {
 		);
 	}
 }
+
+export default Control;
+
+mapStateToProps = (state) => {
+	return {
+
+	}
+}
+
+// export default connect(mapStateToProps)(Control);
 
 const styles = StyleSheet.create({
 	container: {
