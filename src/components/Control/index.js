@@ -19,7 +19,7 @@ class Control extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				{this.props.toggle.toggleRecord ?
+				{this.props.toggleRecord ?
 					<RecordControl />
 					:
 					<PlaybackControl />
@@ -33,8 +33,10 @@ class Control extends Component {
 
 //The mapStateToProps function's first argument is the entire Redux store’s state and it returns an object to be passed as props.
 mapStateToProps = (state) => {
-	return state;
-};
+	return {
+		toggleRecord: state.toggle.toggleRecord
+	}
+}
 
 // export default Control;
 export default connect(mapStateToProps)(Control);
