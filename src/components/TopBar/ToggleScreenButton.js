@@ -22,7 +22,7 @@ class ToggleScreenButton extends Component {
 			>
 				<View>
 					<Text style={styles.buttonText}>
-						RECORD
+						{this.props.toggleText}
 					</Text>
 				</View>
 			</TouchableOpacity>
@@ -31,16 +31,15 @@ class ToggleScreenButton extends Component {
 }
 
 mapStateToProps = (state) => {
-	return state;
+	return {
+		toggleText: state.toggle.toggleText
+	}
 }
 
 mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({toggleRecordPlayback}, dispatch)
 }
 
-// export default ToggleScreenButton;
-// // it seems we need mapStateToProps here, since we want the button to re-render to display the opposite Record/Playback whenever it is pressed
-// export default connect(mapStateToProps, mapDispatchToProps)(ToggleScreenButton);
 export default connect(mapStateToProps, mapDispatchToProps)(ToggleScreenButton);
 
 const styles = StyleSheet.create({

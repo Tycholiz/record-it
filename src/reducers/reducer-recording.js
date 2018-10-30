@@ -1,4 +1,4 @@
-import { TOGGLE_RECORD_PLAYBACK } from "../constants/action-types";
+import { TOGGLE_RECORD } from "../constants/action-types";
 
 const initialState = {
 	toggleRecord: true,
@@ -7,7 +7,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
-		case TOGGLE_RECORD_PLAYBACK:
+		case TOGGLE_RECORD:
 			return {
 				...state,
 				toggleRecord: !state.toggleRecord,

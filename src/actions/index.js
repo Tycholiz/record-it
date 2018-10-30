@@ -1,8 +1,9 @@
-import { TOGGLE_RECORD } from "../constants/action-types";
+import { TOGGLE_RECORD_PLAYBACK } from "../constants/action-types";
 
 export const toggleRecordPlayback = toggleRecord => ({
-	type: TOGGLE_RECORD,
+	type: TOGGLE_RECORD_PLAYBACK,
 	payload: {
-		toggleRecord: !toggleRecord
+		toggleRecord: !toggleRecord,
+		toggleText: toggleRecord ? "Record" : "Playback",
 	},
 });

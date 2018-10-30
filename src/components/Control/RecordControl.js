@@ -11,6 +11,7 @@ import { } from 'expo';
 import Icon from 'react-native-vector-icons/FontAwesome';
 const cancelIcon = (<Icon name="times" size={40} color='white' />)
 const microphoneIcon = (<Icon name="microphone" size={50} color='black' />)
+const pauseIcon = (<Icon name="pause" size={50} color='black' />)
 const acceptIcon = (<Icon name="check" size={40} color='white' />)
 
 export default class RecordControl extends Component {
