@@ -2,6 +2,7 @@
 import {
 	TOGGLE_RECORD_PLAYBACK,
 	START_RECORDING,
+	START_PLAYING,
 } from "../constants/action-types";
 
 export const toggleRecordPlayback = toggleRecord => ({
@@ -17,4 +18,8 @@ export const startRecording = () => ({
 	// payload: {
 	// 	recording: recording ? false : true,
 	// }
+});
+
+export const startPlaying = () => ({
+	type: START_PLAYING
 });

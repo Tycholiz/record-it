@@ -23,7 +23,7 @@ const acceptIcon = (<Icon name="check" size={40} color='white' />)
 
 class RecordControl extends Component {
 	sayHi = () => {
-		console.log(this.props.recording)
+		console.log(this.props)
 	}
 	render() {
 		return (

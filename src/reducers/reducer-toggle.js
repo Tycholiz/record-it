@@ -1,7 +1,7 @@
 import { TOGGLE_RECORD_PLAYBACK } from "../constants/action-types";
 
 const initialState = {
-	toggleRecord: true,
+	toggleRecord: false,
 	toggleText: "Playback"
 };
 

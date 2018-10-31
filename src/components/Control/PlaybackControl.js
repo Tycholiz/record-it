@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
 	View,
 	Text,
 	StyleSheet,
+	TouchableOpacity
 } from 'react-native';
 import { } from 'expo';
+import { bindActionCreators } from 'redux';
+
+import { startPlaying } from '../../actions/index'
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 const starIcon = (<Icon name="star" size={30} color='gold' />)
@@ -13,14 +18,22 @@ const trashIcon = (<Icon name="trash" size={30} color='darkslategrey' />)
 const backwardIcon = (<Icon name="fast-backward" size={30} color='darkslategrey' />)
 const forwardIcon = (<Icon name="fast-forward" size={30} color='darkslategrey' />)
 const playIcon = (<Icon name="play" size={40} color='darkslategrey' />)
+const pauseIcon = (<Icon name="pause" size={40} color='darkslategrey' />)
 
-export default class PlaybackControl extends Component {
+class PlaybackControl extends Component {
+	fun = () => {
+		console.log(this.props)
+	}
 	render() {
 		return (
 			<View style={styles.container}>
 				<View style={styles.iconContainer}>
-					{trashIcon}
-					{starIcon}
+					<TouchableOpacity>
+						{trashIcon}
+					</TouchableOpacity>
+					<TouchableOpacity>
+						{starIcon}
+					</TouchableOpacity>
 				</View>
 				<Text style={styles.text}>chimeraSolo.mp3</Text>
 				<View style={styles.clipScroll}>
@@ -35,14 +48,32 @@ export default class PlaybackControl extends Component {
 					</Text>
 				</View>
 				<View style={styles.clipNavigation}>
-					{backwardIcon}
-					{playIcon}
-					{forwardIcon}
+					<TouchableOpacity>
+						{backwardIcon}
+					</TouchableOpacity>
+					<TouchableOpacity onPress={this.props.startPlaying}>
+						{this.props.playing ? pauseIcon : playIcon}
+					</TouchableOpacity>
+					<TouchableOpacity onPress={this.fun}>
+						{forwardIcon}
+					</TouchableOpacity>
 				</View>
 			</View>
 		);
 	}
 }
+
+mapStateToProps = (state) => {
+	return {
+		playing: state.playing.playing
+	}
+}
+
+mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({ startPlaying }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlaybackControl);
 
 const styles = StyleSheet.create({
 	container: {
