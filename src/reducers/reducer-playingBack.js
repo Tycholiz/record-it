@@ -1,16 +1,16 @@
-import { START_RECORDING } from "../constants/action-types";
+import { PLAYING_BACK } from "../constants/action-types";
 
 const initialState = {
-	recording: false,
+	toggleRecord: true,
+	toggleText: "Playback"
 };
 
 const reducer = (state = initialState, action) => {
-	console.log("heya! we made it to the reducer")
 	switch (action.type) {
-		case START_RECORDING:
+		case PLAYING_BACK:
 			return {
 				...state,
-				recording: !state.recording
+
 			};
 		default:
 			return state;
