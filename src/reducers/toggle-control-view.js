@@ -1,8 +1,8 @@
-import { TOGGLE_CONTROL_VIEW } from "../constants/action-types";
+import { TOGGLE_CONTROL_VIEW, RECORD, PLAYBACK } from "../constants/action-types";
 
 const initialState = {
 	controlView: 'record',
-	toggleText: "Playback"
+	toggleText: PLAYBACK,
 };
 
 const reducer = (state = initialState, action) => {
@@ -11,7 +11,7 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				controlView: state.controlView === 'record' ? 'playback' : 'record',
-				toggleText: state.toggleText === "Playback" ? "Record" : "Playback",
+				toggleText: state.toggleText === PLAYBACK ? RECORD : PLAYBACK,
 			};
 		default:
 			return state;

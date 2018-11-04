@@ -24,32 +24,36 @@ export default class FolderStructure extends Component {
 
 	render() {
 		return (
-			<ScrollView style={styles.container}>
+			<View style={styles.container}>
 				<View style={styles.innerContainer}>
 					<Folder text={'Up One Level'} icon={upOneLevelIcon}/>
 					<Folder text={'New Folder'} icon={addFolderIcon} />
-					<Folder text={'Chimera'} icon={folderIcon} />
-					<Folder text={'Law of the Jungle'} icon={folderIcon} />
-					<Folder text={'Since You'} icon={folderIcon} />
-					<Folder text={'Chimera'} icon={folderIcon} />
-					<Folder text={'Chimera'} icon={folderIcon} />
-					<Folder text={'Chimera'} icon={folderIcon} />
-					<Folder text={'Chimera'} icon={folderIcon} />
-					<Folder text={'Chimera'} icon={folderIcon} />
-					<Folder text={'Chimera'} icon={folderIcon} />
-					<Folder text={'Chimera'} icon={folderIcon} />
-					<Folder text={'Chimera'} icon={folderIcon} />
-					<Folder text={'Chimera'} icon={folderIcon} />
-					<Folder text={'Chimera'} icon={folderIcon} />
-					<Folder text={'Chimera'} icon={folderIcon} />
-					<Folder text={'Chimera'} icon={folderIcon} />
-					<Folder text={'Chimera'} icon={folderIcon} />
-					<Folder text={'Chimera'} icon={folderIcon} />
-					<Folder text={'Chimera'} icon={folderIcon} />
-					<Folder text={'Chimera'} icon={folderIcon} />
-
 				</View>
-			</ScrollView>
+				<ScrollView style={styles.container}>
+					<View style={styles.innerContainer}>
+						<Folder text={'Chimera'} icon={folderIcon} />
+						<Folder text={'Law of the Jungle'} icon={folderIcon} />
+						<Folder text={'Since You'} icon={folderIcon} />
+						<Folder text={'Chimera'} icon={folderIcon} />
+						<Folder text={'Chimera'} icon={folderIcon} />
+						<Folder text={'Chimera'} icon={folderIcon} />
+						<Folder text={'Chimera'} icon={folderIcon} />
+						<Folder text={'Chimera'} icon={folderIcon} />
+						<Folder text={'Chimera'} icon={folderIcon} />
+						<Folder text={'Chimera'} icon={folderIcon} />
+						<Folder text={'Chimera'} icon={folderIcon} />
+						<Folder text={'Chimera'} icon={folderIcon} />
+						<Folder text={'Chimera'} icon={folderIcon} />
+						<Folder text={'Chimera'} icon={folderIcon} />
+						<Folder text={'Chimera'} icon={folderIcon} />
+						<Folder text={'Chimera'} icon={folderIcon} />
+						<Folder text={'Chimera'} icon={folderIcon} />
+						<Folder text={'Chimera'} icon={folderIcon} />
+						<Folder text={'Chimera'} icon={folderIcon} />
+
+					</View>
+				</ScrollView>
+			</View>
 		);
 	}
 }

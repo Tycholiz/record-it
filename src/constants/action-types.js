@@ -1,3 +1,6 @@
 export const TOGGLE_CONTROL_VIEW = "TOGGLE_CONTROL_VIEW";
 export const START_RECORDING = "START_RECORDING";
 export const START_PLAYING = "START_PLAYING";
+
+export const RECORD = "RECORD";
+export const PLAYBACK = "PLAYBACK";
