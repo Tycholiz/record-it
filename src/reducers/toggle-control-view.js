@@ -1,16 +1,16 @@
-import { TOGGLE_RECORD_PLAYBACK } from "../constants/action-types";
+import { TOGGLE_CONTROL_VIEW } from "../constants/action-types";
 
 const initialState = {
-	toggleRecord: false,
+	controlView: 'record',
 	toggleText: "Playback"
 };
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
-		case TOGGLE_RECORD_PLAYBACK:
+		case TOGGLE_CONTROL_VIEW:
 			return {
 				...state,
-				toggleRecord: !state.toggleRecord,
+				controlView: state.controlView === 'record' ? 'playback' : 'record',
 				toggleText: state.toggleText === "Playback" ? "Record" : "Playback",
 			};
 		default:

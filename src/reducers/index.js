@@ -1,9 +1,8 @@
-import { combineReducers } from 'redux';
-import toggle from './reducer-toggle';
+import toggle from './toggle-control-view';
 import recording from './reducer-recording';
 import playing from './reducer-playing';
 
-export default combineReducers({
+export default ({
 	toggle,
 	recording,
 	playing,

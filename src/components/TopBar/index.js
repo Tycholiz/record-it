@@ -27,10 +27,6 @@ export default class TopBar extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-		// flex: 1,
-		// height: 100,
-		// justifyContent: 'flex-start',
-		// flexDirection: 'row',
 		flexWrap: 'wrap',
 		backgroundColor: 'hsla(253, 14%, 24%, 1)',
 	},

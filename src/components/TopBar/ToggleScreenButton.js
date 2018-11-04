@@ -10,7 +10,7 @@ import {
 import { } from 'expo';
 import {bindActionCreators} from 'redux';
 
-import { toggleRecordPlayback } from '../../actions/index'
+import { toggleControlView } from '../../actions'
 
 class ToggleScreenButton extends Component {
 	render() {
@@ -18,7 +18,7 @@ class ToggleScreenButton extends Component {
 		return (
 			<TouchableOpacity
 				style={styles.container}
-				onPress={this.props.toggleRecordPlayback}
+				onPress={this.props.toggleControlView}
 			>
 				<View>
 					<Text style={styles.buttonText}>
@@ -37,7 +37,7 @@ mapStateToProps = (state) => {
 }
 
 mapDispatchToProps = (dispatch) => {
-	return bindActionCreators({toggleRecordPlayback}, dispatch)
+	return bindActionCreators({toggleControlView}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ToggleScreenButton);

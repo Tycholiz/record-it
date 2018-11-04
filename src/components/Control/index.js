@@ -9,8 +9,6 @@ import {
 } from 'react-native';
 import { } from 'expo';
 
-import { toggleRecordPlayback } from '../../actions/index'
-
 import RecordControl from './RecordControl';
 import PlaybackControl from './PlaybackControl';
 
@@ -19,7 +17,7 @@ class Control extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				{this.props.toggleRecord ?
+				{this.props.controlView === 'record' ?
 					<RecordControl />
 					:
 					<PlaybackControl />
@@ -34,7 +32,7 @@ class Control extends Component {
 //The mapStateToProps function's first argument is the entire Redux store’s state and it returns an object to be passed as props.
 mapStateToProps = (state) => {
 	return {
-		toggleRecord: state.toggle.toggleRecord
+		controlView: state.toggle.controlView
 	}
 }
 

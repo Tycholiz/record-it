@@ -1,23 +1,23 @@
 import {
 	createStore,
 	applyMiddleware,
-	compose,
+	combineReducers,
 } from "redux";
 import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'remote-redux-devtools';
-import devToolsEnhancer from 'remote-redux-devtools';
+import logger from 'redux-logger'
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-import reducer from "../reducers/index";
+import reducers from "../reducers";
 
+const reducer = combineReducers(reducers)
 let store = null;
 
 if (__DEV__) {
 	store = createStore(
 		reducer,
-		compose(
-			applyMiddleware(thunk),
-			devToolsEnhancer())
-	);
+		composeWithDevTools(
+			applyMiddleware(thunk, logger), //Note: logger must be the last middleware in chain, otherwise it will log thunk and promise, not actual actions
+	));
 } else {
 	store = createStore(
 		reducer,
