@@ -16,10 +16,12 @@ const folderIcon = (<Icon name="folder" size={40} color='darkslategrey' />)
 import Folder from './Folder';
 
 export default class FolderStructure extends Component {
-	renderFolder = () => {
-		return (
-			<Folder/>
-		);
+	fetchUnits = () => {
+
+	};
+
+	async componentDidMount() {
+		// await
 	};
 
 	render() {
@@ -50,7 +52,6 @@ export default class FolderStructure extends Component {
 						<Folder text={'Chimera'} icon={folderIcon} />
 						<Folder text={'Chimera'} icon={folderIcon} />
 						<Folder text={'Chimera'} icon={folderIcon} />
-
 					</View>
 				</ScrollView>
 			</View>

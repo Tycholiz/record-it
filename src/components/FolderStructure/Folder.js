@@ -8,9 +8,6 @@ import {
 } from 'react-native';
 import { } from 'expo';
 
-// import Icon from 'react-native-vector-icons/FontAwesome';
-// const upOneLevelIcon = (<Icon name="arrow-circle-left" size={40} color='black' />)
-
 export default class Folder extends Component {
 	render() {
 		const { text, icon } = this.props;
