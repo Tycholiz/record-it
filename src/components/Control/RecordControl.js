@@ -8,8 +8,6 @@ import {
 	TouchableOpacity,
 } from 'react-native';
 import { } from 'expo';
-import { bindActionCreators } from 'redux';
-
 
 import { startRecording } from '../../actions/index'
 
@@ -43,16 +41,13 @@ class RecordControl extends Component {
 }
 
 mapStateToProps = (state) => {
+	console.log(state.folders);
 	return {
-		recording: state.recording.recording
+		recording: state.toggle.recording
 	}
 }
 
-mapDispatchToProps = (dispatch) => {
-	return bindActionCreators({ startRecording }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(RecordControl);
+export default connect(mapStateToProps, { startRecording })(RecordControl);
 
 
 const styles = StyleSheet.create({

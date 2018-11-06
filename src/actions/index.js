@@ -5,7 +5,7 @@ import {
 	POPULATE_FOLDERS,
 } from "../constants/action-types";
 
-export const toggleControlView = toggleRecord => ({
+export const toggleControlView = () => ({
 	type: TOGGLE_CONTROL_VIEW,
 });
 
@@ -17,6 +17,6 @@ export const startPlaying = () => ({
 	type: START_PLAYING,
 });
 
-export const populateFolderStructure = () => ({
+export const populateFolders = () => ({
 	type: POPULATE_FOLDERS,
 });

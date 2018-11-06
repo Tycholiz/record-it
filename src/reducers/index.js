@@ -1,9 +1,7 @@
-import toggle from './toggle-control-view';
-import recording from './reducer-recording';
-import playing from './reducer-playing';
+import toggle from './toggle';
+import folders from './folders';
 
 export default ({
 	toggle,
-	recording,
-	playing,
+	folders,
 });

@@ -65,7 +65,7 @@ class PlaybackControl extends Component {
 
 mapStateToProps = (state) => {
 	return {
-		playing: state.playing.playing
+		playing: state.toggle.playing
 	}
 }
 
