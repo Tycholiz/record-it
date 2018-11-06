@@ -1,4 +1,4 @@
-import { POPULATE_FOLDERS } from "../constants/action-types";
+import { ENTER_FOLDER } from "../constants/action-types";
 
 const initialState = {
 	'22': {
@@ -92,7 +92,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
-		case POPULATE_FOLDERS:
+		case ENTER_FOLDER:
 			return {
 				...state,
 			};

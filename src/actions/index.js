@@ -2,7 +2,7 @@ import {
 	TOGGLE_CONTROL_VIEW,
 	START_RECORDING,
 	START_PLAYING,
-	POPULATE_FOLDERS,
+	ENTER_FOLDER,
 } from "../constants/action-types";
 
 export const toggleControlView = () => ({
@@ -17,6 +17,10 @@ export const startPlaying = () => ({
 	type: START_PLAYING,
 });
 
-export const populateFolders = () => ({
-	type: POPULATE_FOLDERS,
+export const enterFolder = (currentFolder) => ({
+	type: ENTER_FOLDER,
+	payload: {
+		currentFolder: currentFolder,
+		// currentFolder: state.currentFolder
+	}
 });

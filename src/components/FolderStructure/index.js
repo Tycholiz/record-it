@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
 	View,
@@ -14,15 +15,16 @@ const upOneLevelIcon = (<Icon name="arrow-circle-left" size={40} color='darkslat
 const addFolderIcon = (<Icon name="folder-open" size={40} color='darkslategrey' />)
 const folderIcon = (<Icon name="folder" size={40} color='darkslategrey' />)
 
+import { enterFolder } from '../../actions';
+
 import Folder from './Folder';
 
-export default class FolderStructure extends Component {
-	fetchUnits = () => {
+class FolderStructure extends Component {
 
-	};
+	componentDidMount() {
+		const { currentFolder, dispatch } = this.props;
 
-	async componentDidMount() {
-		// await
+		dispatch(enterFolder(currentFolder));
 	};
 
 	render() {
@@ -59,6 +61,14 @@ export default class FolderStructure extends Component {
 		);
 	}
 }
+
+const mapStateToProps = state => {
+	return {
+		currentFolder: state.currentFolder
+	};
+}
+
+export default connect(mapStateToProps)(FolderStructure);
 
 const styles = StyleSheet.create({
 	container: {

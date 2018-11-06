@@ -1,7 +1,8 @@
 export const TOGGLE_CONTROL_VIEW = "TOGGLE_CONTROL_VIEW";
 export const START_RECORDING = "START_RECORDING";
 export const START_PLAYING = "START_PLAYING";
-export const POPULATE_FOLDERS = "POPULATE_FOLDERS";
+export const ENTER_FOLDER = "ENTER_FOLDER";
+export const CURRENT_FOLDER = "CURRENT_FOLDER";
 
 export const RECORD = "RECORD";
 export const PLAYBACK = "PLAYBACK";
