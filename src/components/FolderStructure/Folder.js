@@ -10,7 +10,7 @@ import { } from 'expo';
 
 export default class Folder extends Component {
 	render() {
-		const { text, icon } = this.props;
+		const { text, icon, childrenCount } = this.props;
 		return (
 			<TouchableOpacity style={styles.container}>
 				{icon}
@@ -34,6 +34,5 @@ const styles = StyleSheet.create({
 	},
 	icon: {
 		justifyContent: 'center',
-
-	}
+	},
 });
