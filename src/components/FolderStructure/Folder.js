@@ -10,9 +10,9 @@ import { } from 'expo';
 
 export default class Folder extends Component {
 	render() {
-		const { text, icon, childrenCount } = this.props;
+		const { text, icon, onPress } = this.props;
 		return (
-			<TouchableOpacity style={styles.container}>
+			<TouchableOpacity style={styles.container} onPress={onPress}>
 				{icon}
 				<Text icon={icon}>
 					{text}

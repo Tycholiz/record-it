@@ -21,15 +21,18 @@ import Folder from './Folder';
 
 class FolderStructure extends Component {
 
+	sayHi = (name) => {
+		console.log("hey", name)
+	}
+
 	componentDidMount() {
 		const { currentFolder, dispatch } = this.props;
 		dispatch(enterFolder(currentFolder));
 	};
 
 	renderFolders = () => {
-		const { currentFolder } = this.props;
+		const { currentFolder, dispatch } = this.props;
 		const childrenOfCurrentFolder = getChildrenOfFolder(this.props, currentFolder);
-		console.log(childrenOfCurrentFolder)
 
 		return Object.keys(childrenOfCurrentFolder).map((obj) => {
 			return (
@@ -37,6 +40,8 @@ class FolderStructure extends Component {
 					text={childrenOfCurrentFolder[obj].title}
 					icon={childrenOfCurrentFolder[obj].unitType === 'file' ? fileIcon : folderIcon}
 					key={childrenOfCurrentFolder[obj].id}
+					// handleEnterFolder={enterFolder(childrenOfCurrentFolder[obj].id)}
+					onPress={() => this.sayHi(childrenOfCurrentFolder[obj].id)}
 				/>
 			)
 		})
@@ -52,30 +57,6 @@ class FolderStructure extends Component {
 				<ScrollView style={styles.container}>
 					<View style={styles.innerContainer}>
 						{this.renderFolders()}
-
-
-
-
-
-						{/* <Folder text={'Chimera'} icon={folderIcon}  />
-						<Folder text={'Law of the Jungle'} icon={folderIcon} />
-						<Folder text={'Since You'} icon={folderIcon} />
-						<Folder text={'Over Again'} icon={folderIcon} />
-						<Folder text={'Chimera'} icon={folderIcon} />
-						<Folder text={'Chimera'} icon={folderIcon} />
-						<Folder text={'Chimera'} icon={folderIcon} />
-						<Folder text={'Chimera'} icon={folderIcon} />
-						<Folder text={'Chimera'} icon={folderIcon} />
-						<Folder text={'Chimera'} icon={folderIcon} />
-						<Folder text={'Chimera'} icon={folderIcon} />
-						<Folder text={'Chimera'} icon={folderIcon} />
-						<Folder text={'Chimera'} icon={folderIcon} />
-						<Folder text={'Chimera'} icon={folderIcon} />
-						<Folder text={'Chimera'} icon={folderIcon} />
-						<Folder text={'Chimera'} icon={folderIcon} />
-						<Folder text={'Chimera'} icon={folderIcon} />
-						<Folder text={'Chimera'} icon={folderIcon} />
-						<Folder text={'Chimera'} icon={folderIcon} /> */}
 					</View>
 				</ScrollView>
 			</View>
