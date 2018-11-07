@@ -21,9 +21,6 @@ const playIcon = (<Icon name="play" size={40} color='darkslategrey' />)
 const pauseIcon = (<Icon name="pause" size={40} color='darkslategrey' />)
 
 class PlaybackControl extends Component {
-	fun = () => {
-		console.log(this.props)
-	}
 	render() {
 		return (
 			<View style={styles.container}>
@@ -54,7 +51,7 @@ class PlaybackControl extends Component {
 					<TouchableOpacity onPress={this.props.startPlaying}>
 						{this.props.playing ? pauseIcon : playIcon}
 					</TouchableOpacity>
-					<TouchableOpacity onPress={this.fun}>
+					<TouchableOpacity>
 						{forwardIcon}
 					</TouchableOpacity>
 				</View>

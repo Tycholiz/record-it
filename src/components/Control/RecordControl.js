@@ -20,9 +20,6 @@ const acceptIcon = (<Icon name="check" size={40} color='white' />)
 
 
 class RecordControl extends Component {
-	sayHi = () => {
-		console.log(this.props)
-	}
 	render() {
 		return (
 			<View style={styles.container}>
@@ -41,7 +38,6 @@ class RecordControl extends Component {
 }
 
 mapStateToProps = (state) => {
-	console.log(state.folders);
 	return {
 		recording: state.toggle.recording
 	}

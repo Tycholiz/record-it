@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import {
 	View,
 	Text,
 	StyleSheet,
 	ScrollView,
 } from 'react-native';
-import { } from 'expo';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -27,18 +25,39 @@ class FolderStructure extends Component {
 		dispatch(enterFolder(currentFolder));
 	};
 
+	renderFolders = () => {
+		const { currentFolder, folders, units } = this.props;
+		const referenceToChildrenOfCurrentFolder = folders[currentFolder].children; //an array of all the children that the currentFolder has
+		const childrenOfCurrentFolder = referenceToChildrenOfCurrentFolder.map(x => units.files[x])
+
+
+		console.log(childrenOfCurrentFolder)
+
+		return (
+			<Folder text={folders[currentFolder].title}
+			/>
+		)
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
 				<View style={styles.innerContainer}>
-					<Folder text={'Up One Level'} icon={upOneLevelIcon}/>
+					<Folder text={'Up One Level'} icon={upOneLevelIcon} onPress={this.renderFolders()}/>
 					<Folder text={'New Folder'} icon={addFolderIcon} />
 				</View>
 				<ScrollView style={styles.container}>
 					<View style={styles.innerContainer}>
-						<Folder text={'Chimera'} icon={folderIcon} />
+						{}
+
+
+
+
+
+						{/* <Folder text={'Chimera'} icon={folderIcon}  />
 						<Folder text={'Law of the Jungle'} icon={folderIcon} />
 						<Folder text={'Since You'} icon={folderIcon} />
+						<Folder text={'Over Again'} icon={folderIcon} />
 						<Folder text={'Chimera'} icon={folderIcon} />
 						<Folder text={'Chimera'} icon={folderIcon} />
 						<Folder text={'Chimera'} icon={folderIcon} />
@@ -53,8 +72,7 @@ class FolderStructure extends Component {
 						<Folder text={'Chimera'} icon={folderIcon} />
 						<Folder text={'Chimera'} icon={folderIcon} />
 						<Folder text={'Chimera'} icon={folderIcon} />
-						<Folder text={'Chimera'} icon={folderIcon} />
-						<Folder text={'Chimera'} icon={folderIcon} />
+						<Folder text={'Chimera'} icon={folderIcon} /> */}
 					</View>
 				</ScrollView>
 			</View>
@@ -64,7 +82,9 @@ class FolderStructure extends Component {
 
 const mapStateToProps = state => {
 	return {
-		currentFolder: state.currentFolder
+		currentFolder: state.currentFolder,
+		folders: state.units.folders,
+		units: state.units,
 	};
 }
 

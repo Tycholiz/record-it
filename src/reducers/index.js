@@ -1,9 +1,9 @@
 import toggle from './toggle';
-import folders from './folders';
+import units from './units';
 import currentFolder from './currentFolder';
 
 export default ({
 	toggle,
-	folders,
+	units,
 	currentFolder,
 });
