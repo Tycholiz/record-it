@@ -32,7 +32,7 @@ class PlaybackControl extends Component {
 						{starIcon}
 					</TouchableOpacity>
 				</View>
-				<Text style={styles.text}>chimeraSolo.mp3</Text>
+				<Text style={styles.text}>{this.props.activeFile}</Text>
 				<View style={styles.clipScroll}>
 					<Text style={styles.time}>
 						00:10
@@ -62,9 +62,10 @@ class PlaybackControl extends Component {
 
 mapStateToProps = (state) => {
 	return {
-		playing: state.toggle.playing
-	}
-}
+		playing: state.toggle.playing,
+		activeFile: state.units.files[state.activeFile].title,
+	};
+};
 
 export default connect(mapStateToProps, { startPlaying })(PlaybackControl);
 
