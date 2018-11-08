@@ -64,7 +64,21 @@ const initialState = {
 			duration: 23055,
 			parentId: 32,
 			unitType: 'file',
-		}
+		},
+		'286': {
+			id: 286,
+			title: 'outro guitar',
+			duration: 23055,
+			parentId: 1,
+			unitType: 'file',
+		},
+		'287': {
+			id: 287,
+			title: 'outro guitar',
+			duration: 23055,
+			parentId: 1,
+			unitType: 'file',
+		},
 	},
 	folders: {
 		'0': {
@@ -132,7 +146,7 @@ const initialState = {
 		},
 		'3': {
 			id: 3,
-			title: 'Bloack out the Sun',
+			title: 'Block out the Sun',
 			dateCreated: 150238403,
 			parentId: 0,
 			unitType: 'folder',
@@ -148,7 +162,7 @@ const initialState = {
 			id: 4,
 			title: 'Guitar parts',
 			dateCreated: 150238403,
-			parentId: 22,
+			parentId: 1,
 			unitType: 'folder',
 		},
 		'5': {
@@ -176,7 +190,14 @@ const initialState = {
 			id: 8,
 			title: 'Vocals',
 			dateCreated: 150238403,
-			parentId: 22,
+			parentId: 4,
+			unitType: 'folder',
+		},
+		'56': {
+			id: 56,
+			title: 'Even better Vocals',
+			dateCreated: 150238403,
+			parentId: 8,
 			unitType: 'folder',
 		},
 	}

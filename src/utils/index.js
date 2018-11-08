@@ -15,6 +15,7 @@ export const getChildrenOfFolder = (state, folderId) => {
 export const displayBreadCrumb = (state) => {
 	let currentFolderId = state.currentFolder
 	let currentParent = state.units.folders[currentFolderId].parentId
+	const LENGTH_LIMIT = 45;
 	const path = [];
 
 	if (currentParent === null) {
@@ -33,5 +34,13 @@ export const displayBreadCrumb = (state) => {
 		breadcrumbString += path[i]
 		if (i > 0) breadcrumbString += ' > '
 	}
-	return breadcrumbString;
+	if (breadcrumbString.length <= LENGTH_LIMIT) {
+		return breadcrumbString;
+	} else {
+		const START_POINT = breadcrumbString.length - LENGTH_LIMIT;
+		const amountOverLimit = breadcrumbString.length - LENGTH_LIMIT
+		let truncatedBreadcrumbString = breadcrumbString.substring(START_POINT, LENGTH_LIMIT + amountOverLimit);
+
+		return `...${truncatedBreadcrumbString}`;
+	}
 }
