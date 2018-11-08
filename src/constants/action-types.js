@@ -3,6 +3,7 @@ export const START_RECORDING = "START_RECORDING";
 export const START_PLAYING = "START_PLAYING";
 export const ENTER_FOLDER = "ENTER_FOLDER";
 export const CURRENT_FOLDER = "CURRENT_FOLDER";
+export const GET_INITIAL_UNITS = "GET_INITIAL_UNITS";
 
 export const RECORD = "RECORD";
 export const PLAYBACK = "PLAYBACK";

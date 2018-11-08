@@ -10,28 +10,36 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const upOneLevelIcon = (<Icon name="arrow-circle-left" size={40} color='darkslategrey' />)
-const addFolderIcon = (<Icon name="folder-open" size={40} color='darkslategrey' />)
+const addFolderIcon = (<Icon name="plus" size={40} color='darkslategrey' />)
 const folderIcon = (<Icon name="folder" size={40} color='darkslategrey' />)
-const fileIcon = (<Icon name="file" size={40} color='darkslategrey' />)
+const fileIcon = (<Icon name="headphones" size={40} color='darkslategrey' />)
 
-import { enterFolder } from '../../actions';
+import { enterFolder, getInitialUnits } from '../../actions';
 import { getChildrenOfFolder } from '../../utils';
 
 import Folder from './Folder';
 
 class FolderStructure extends Component {
 
-	sayHi = (name) => {
-		console.log("hey", name)
+	handleUnitPress = (unitId, unitType) => {
+		const { dispatch } = this.props;
+
+		if (unitType === 'folder') {
+			dispatch(enterFolder(unitId));
+		} else if (unitType === 'file') {
+			console.log('the file shall be played!!! at a later date...')
+		} else {
+			console.error("wtf did you just do?")
+		}
 	}
 
 	componentDidMount() {
 		const { currentFolder, dispatch } = this.props;
-		dispatch(enterFolder(currentFolder));
+		dispatch(getInitialUnits(currentFolder));
 	};
 
 	renderFolders = () => {
-		const { currentFolder, dispatch } = this.props;
+		const { currentFolder } = this.props;
 		const childrenOfCurrentFolder = getChildrenOfFolder(this.props, currentFolder);
 
 		return Object.keys(childrenOfCurrentFolder).map((obj) => {
@@ -41,7 +49,7 @@ class FolderStructure extends Component {
 					icon={childrenOfCurrentFolder[obj].unitType === 'file' ? fileIcon : folderIcon}
 					key={childrenOfCurrentFolder[obj].id}
 					// handleEnterFolder={enterFolder(childrenOfCurrentFolder[obj].id)}
-					onPress={() => this.sayHi(childrenOfCurrentFolder[obj].id)}
+					onPress={() => this.handleUnitPress(childrenOfCurrentFolder[obj].id, childrenOfCurrentFolder[obj].unitType)}
 				/>
 			)
 		})

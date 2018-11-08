@@ -15,6 +15,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case TOGGLE_CONTROL_VIEW:
+		console.log(action.type)
 			return {
 				...state,
 				controlView: state.controlView === 'record' ? 'playback' : 'record',

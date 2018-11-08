@@ -4,6 +4,6 @@ import currentFolder from './currentFolder';
 
 export default ({
 	toggle,
-	units,
 	currentFolder,
+	units,
 });

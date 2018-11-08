@@ -1,6 +1,7 @@
-import { ENTER_FOLDER } from "../constants/action-types";
+import { GET_INITIAL_UNITS } from "../constants/action-types";
 
 const initialState = {
+	currentFolder: 22,
 	files: {
 		'944': {
 			id: 944,
@@ -149,10 +150,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
-		case ENTER_FOLDER:
+		case GET_INITIAL_UNITS:
+			console.log(action.payload.currentFolder)
 			return {
 				...state,
-				currentFolder: action.payload.currentFolder
+				// currentFolder: action.payload.currentFolder
 			};
 			// case CREATE_FOLDER:
 			// return {

@@ -3,6 +3,7 @@ import {
 	START_RECORDING,
 	START_PLAYING,
 	ENTER_FOLDER,
+	GET_INITIAL_UNITS,
 } from "../constants/action-types";
 
 export const toggleControlView = () => ({
@@ -21,6 +22,12 @@ export const enterFolder = (currentFolder) => ({
 	type: ENTER_FOLDER,
 	payload: {
 		currentFolder: currentFolder,
-		// currentFolder: state.currentFolder
+	}
+});
+
+export const getInitialUnits = (currentFolder) => ({
+	type: GET_INITIAL_UNITS,
+	payload: {
+		currentFolder: currentFolder,
 	}
 });

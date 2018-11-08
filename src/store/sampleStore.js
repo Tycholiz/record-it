@@ -78,7 +78,7 @@ const store = {
 				id: 22,
 				title: 'Chimera',
 				dateCreated: 1502500102,
-				parentId: nu,
+				parentId: null,
 				unitType: 'folder',
 			},
 			'29': {
