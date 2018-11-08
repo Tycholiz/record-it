@@ -4,15 +4,21 @@ import {
 	StyleSheet,
 	TouchableOpacity,
 } from 'react-native';
-import { } from 'expo';
+
+import ModalDropdown from 'react-native-modal-dropdown';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 const optionsIcon = (<Icon name="ellipsis-v" size={40} color='black' />)
 
 export default class Settings extends Component {
+
+	handleOpenSettings = () => {
+		console.log("hey!")
+	}
+
 	render() {
 		return (
-			<TouchableOpacity style={styles.settingsIcon}>
+			<TouchableOpacity style={styles.settingsIcon} onPress={() => handleOpenSettings()}>
 				{optionsIcon}
 			</TouchableOpacity>
 		);

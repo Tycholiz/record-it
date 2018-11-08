@@ -14,7 +14,10 @@ export const getChildrenOfFolder = (state, folderId) => {
 
 export const displayBreadCrumb = (state) => {
 	let currentFolderId = state.currentFolder
-	let currentParent = state.units.folders[currentFolderId].parentId
+	const { folders } = state.units;
+
+	let currentParent = folders[currentFolderId].parentId
+
 	const LENGTH_LIMIT = 45;
 	const path = [];
 
@@ -23,9 +26,9 @@ export const displayBreadCrumb = (state) => {
 	}
 
 	do {
-		path.push(state.units.folders[currentFolderId].title)
+		path.push(folders[currentFolderId].title)
 		currentFolderId = currentParent;
-		if (currentParent != null) currentParent = state.units.folders[currentParent].parentId
+		if (currentParent != null) currentParent = folders[currentParent].parentId
 	} while (currentParent != null)
 	path.push("Home")
 

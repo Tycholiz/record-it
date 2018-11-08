@@ -53,12 +53,13 @@ class FolderStructure extends Component {
 		const childrenOfCurrentFolder = getChildrenOfFolder(this.props, currentFolder);
 
 		return Object.keys(childrenOfCurrentFolder).map((obj) => {
+			const { title, unitType, id } = childrenOfCurrentFolder[obj];
 			return (
 				<Folder
-					text={childrenOfCurrentFolder[obj].title}
-					icon={childrenOfCurrentFolder[obj].unitType === 'file' ? fileIcon : folderIcon}
-					key={childrenOfCurrentFolder[obj].id}
-					onPress={() => this.handleUnitPress(childrenOfCurrentFolder[obj].id, childrenOfCurrentFolder[obj].unitType)}
+					text={title}
+					icon={unitType === 'file' ? fileIcon : folderIcon}
+					key={id}
+					onPress={() => this.handleUnitPress(id, unitType)}
 				/>
 			)
 		})
