@@ -5,6 +5,7 @@ export const ENTER_FOLDER = "ENTER_FOLDER";
 export const CURRENT_FOLDER = "CURRENT_FOLDER";
 export const GET_INITIAL_UNITS = "GET_INITIAL_UNITS";
 export const SET_ACTIVE_FILE = "SET_ACTIVE_FILE";
+export const CREATE_FOLDER = "CREATE_FOLDER";
 
 export const RECORD = "RECORD";
 export const PLAYBACK = "PLAYBACK";

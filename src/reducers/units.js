@@ -1,4 +1,7 @@
-import { GET_INITIAL_UNITS } from "../constants/action-types";
+import {
+	GET_INITIAL_UNITS,
+	CREATE_FOLDER
+} from "../constants/action-types";
 
 const initialState = {
 	files: {
@@ -210,20 +213,30 @@ const initialState = {
 	}
 };
 
-const reducer = (state = initialState, action) => {
+const units = (state = initialState, action) => {
 	switch (action.type) {
 		case GET_INITIAL_UNITS:
-			console.log(action.payload.currentFolder)
 			return {
 				...state,
-				// currentFolder: action.payload.currentFolder
 			};
-			// case CREATE_FOLDER:
-			// return {
-			// 	...state,
-			// };
+		case CREATE_FOLDER:
+
+			const newFolder = {}
+			newFolder[action.payload.id] = {
+				id: action.payload.id,
+				title: "new folder",
+				dateCreated: Date.now(),
+				parentId: action.payload.parentId,
+				unitType: 'folder'
+			}
+
+			return {
+				...state,
+				folders: Object.assign({}, state.folders, newFolder)
+			}
+
 		default:
 			return state;
 	}
 };
-export default reducer;
+export default units;

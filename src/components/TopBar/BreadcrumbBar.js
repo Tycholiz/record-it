@@ -15,11 +15,9 @@ const searchIcon = (<Icon name="search" size={30} color='black' />)
 
 class BreadcrumbBar extends Component {
 	render() {
-		const { currentFolder } = this.props;
 		return (
 			<TouchableOpacity style={styles.container}>
 				<Text style={styles.text}>{displayBreadCrumb(this.props.state)}</Text>
-				{/* <Text style={styles.text}>{currentFolder}</Text> */}
 				<View style={styles.searchIcon}>
 					{searchIcon}
 				</View>
