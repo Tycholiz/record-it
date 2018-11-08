@@ -66,11 +66,8 @@ mapStateToProps = (state) => {
 	}
 }
 
-mapDispatchToProps = (dispatch) => {
-	return bindActionCreators({ startPlaying }, dispatch)
-}
+export default connect(mapStateToProps, { startPlaying })(PlaybackControl);
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlaybackControl);
 
 const styles = StyleSheet.create({
 	container: {

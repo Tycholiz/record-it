@@ -12,7 +12,7 @@ const addFolderIcon = (<Icon name="plus" size={40} color='darkslategrey' />)
 const folderIcon = (<Icon name="folder" size={40} color='darkslategrey' />)
 const fileIcon = (<Icon name="headphones" size={40} color='darkslategrey' />)
 
-import { enterFolder, getInitialUnits } from '../../actions';
+import { enterFolder, getInitialUnits, setActiveFile } from '../../actions';
 import { getChildrenOfFolder } from '../../utils';
 
 import Folder from './Folder';
@@ -25,16 +25,17 @@ class FolderStructure extends Component {
 		if (unitType === 'folder') {
 			dispatch(enterFolder(unitId));
 		} else if (unitType === 'file') {
-			console.log('the file shall be played!!! at a later date...')
+			// console.log(unitId, unitType)
+			dispatch(setActiveFile(unitId))
 		} else {
 			console.error("wtf did you just do?")
 		}
 	}
 
 	handleGoUpOneLevel = (folderId) => {
-		const { dispatch, units } = this.props;
+		const { dispatch, units, currentFolder } = this.props;
 		const parentId = units.folders[folderId].parentId
-		dispatch(enterFolder(parentId));
+		if (currentFolder) dispatch(enterFolder(parentId));
 	}
 
 	componentDidMount() {

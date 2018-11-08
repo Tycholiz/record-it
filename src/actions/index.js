@@ -4,6 +4,7 @@ import {
 	START_PLAYING,
 	ENTER_FOLDER,
 	GET_INITIAL_UNITS,
+	SET_ACTIVE_FILE,
 } from "../constants/action-types";
 
 export const toggleControlView = () => ({
@@ -29,5 +30,12 @@ export const getInitialUnits = (currentFolder) => ({
 	type: GET_INITIAL_UNITS,
 	payload: {
 		currentFolder,
+	}
+});
+
+export const setActiveFile = (fileId) => ({
+	type: SET_ACTIVE_FILE,
+	payload: {
+		fileId,
 	}
 });

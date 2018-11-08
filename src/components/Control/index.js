@@ -36,7 +36,6 @@ mapStateToProps = (state) => {
 	}
 }
 
-// export default Control;
 export default connect(mapStateToProps)(Control);
 
 const styles = StyleSheet.create({
