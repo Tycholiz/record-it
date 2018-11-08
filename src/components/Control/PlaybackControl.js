@@ -32,7 +32,7 @@ class PlaybackControl extends Component {
 						{starIcon}
 					</TouchableOpacity>
 				</View>
-				<Text style={styles.text}>{this.props.activeFile}</Text>
+				<Text style={styles.text}>{this.props.activeFile}.mp3</Text>
 				<View style={styles.clipScroll}>
 					<Text style={styles.time}>
 						00:10

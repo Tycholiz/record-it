@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
 	View,
@@ -6,16 +7,19 @@ import {
 	StyleSheet,
 	TouchableOpacity,
 } from 'react-native';
-import { } from 'expo';
+
+import { displayBreadCrumb } from '../../utils';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 const searchIcon = (<Icon name="search" size={30} color='black' />)
 
-export default class BreadcrumbBar extends Component {
+class BreadcrumbBar extends Component {
 	render() {
+		const { currentFolder } = this.props;
 		return (
 			<TouchableOpacity style={styles.container}>
-				<Text style={styles.text}>Home > WiP > Middle East Song</Text>
+				<Text style={styles.text}>{displayBreadCrumb(this.props.state)}</Text>
+				{/* <Text style={styles.text}>{currentFolder}</Text> */}
 				<View style={styles.searchIcon}>
 					{searchIcon}
 				</View>
@@ -23,6 +27,15 @@ export default class BreadcrumbBar extends Component {
 		);
 	}
 }
+
+const mapStateToProps = state => {
+	return {
+		currentFolder: state.currentFolder,
+		state
+	};
+}
+
+export default connect(mapStateToProps)(BreadcrumbBar);
 
 const styles = StyleSheet.create({
 	container: {

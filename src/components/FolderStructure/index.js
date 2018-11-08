@@ -25,7 +25,6 @@ class FolderStructure extends Component {
 		if (unitType === 'folder') {
 			dispatch(enterFolder(unitId));
 		} else if (unitType === 'file') {
-			// console.log(unitId, unitType)
 			dispatch(setActiveFile(unitId))
 		} else {
 			console.error("wtf did you just do?")
