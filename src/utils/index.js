@@ -7,6 +7,7 @@ export const getChildrenOfFolder = (state, folderId) => {
 		.map((fileId) => state.units.files[fileId])
 		.filter((file) => file.parentId === folderId)
 
-	const allChildrenOfFolder = { ...foldersWithinFolder, ...filesWithinFolder }
-	return allChildrenOfFolder;
+	// const allChildrenOfFolder = { ...foldersWithinFolder, ...filesWithinFolder }
+	Array.prototype.push.apply(foldersWithinFolder, filesWithinFolder);
+	return foldersWithinFolder;
 }
