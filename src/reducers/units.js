@@ -220,7 +220,6 @@ const units = (state = initialState, action) => {
 				...state,
 			};
 		case CREATE_FOLDER:
-
 			const newFolder = {}
 			newFolder[action.payload.id] = {
 				id: action.payload.id,

@@ -71,7 +71,7 @@ class FolderStructure extends Component {
 			<View style={styles.container}>
 				<View style={styles.innerContainer}>
 					<Folder text={'Up One Level'} icon={upOneLevelIcon} onPress={() => this.handleGoUpOneLevel(currentFolder)}/>
-					<Folder text={'New Folder'} icon={addFolderIcon} onPress={() => this.handleNewFolder()} />
+					<Folder text={'Add New Folder'} icon={addFolderIcon} onPress={() => this.handleNewFolder()} />
 				</View>
 				<ScrollView style={styles.container}>
 					<View style={styles.innerContainer}>
