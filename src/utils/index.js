@@ -17,6 +17,10 @@ export const displayBreadCrumb = (state) => {
 	let currentParent = state.units.folders[currentFolderId].parentId
 	const path = [];
 
+	if (currentParent === null) {
+		return "Home";
+	}
+
 	do {
 		path.push(state.units.folders[currentFolderId].title)
 		currentFolderId = currentParent;
