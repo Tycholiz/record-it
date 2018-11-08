@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
 	View,
-	Text,
 	StyleSheet,
 	ScrollView,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 const upOneLevelIcon = (<Icon name="arrow-circle-left" size={40} color='darkslategrey' />)
 const addFolderIcon = (<Icon name="plus" size={40} color='darkslategrey' />)
 const folderIcon = (<Icon name="folder" size={40} color='darkslategrey' />)
@@ -33,6 +31,14 @@ class FolderStructure extends Component {
 		}
 	}
 
+	handleGoUpOneLevel = (folderId) => {
+		const { dispatch, units } = this.props;
+
+		const parentId = units.folders[folderId].parentId
+
+		dispatch(enterFolder(parentId));
+	}
+
 	componentDidMount() {
 		const { currentFolder, dispatch } = this.props;
 		dispatch(getInitialUnits(currentFolder));
@@ -48,7 +54,6 @@ class FolderStructure extends Component {
 					text={childrenOfCurrentFolder[obj].title}
 					icon={childrenOfCurrentFolder[obj].unitType === 'file' ? fileIcon : folderIcon}
 					key={childrenOfCurrentFolder[obj].id}
-					// handleEnterFolder={enterFolder(childrenOfCurrentFolder[obj].id)}
 					onPress={() => this.handleUnitPress(childrenOfCurrentFolder[obj].id, childrenOfCurrentFolder[obj].unitType)}
 				/>
 			)
@@ -56,10 +61,12 @@ class FolderStructure extends Component {
 	}
 
 	render() {
+		const { currentFolder } = this.props;
+
 		return (
 			<View style={styles.container}>
 				<View style={styles.innerContainer}>
-					<Folder text={'Up One Level'} icon={upOneLevelIcon}/>
+					<Folder text={'Up One Level'} icon={upOneLevelIcon} onPress={() => this.handleGoUpOneLevel(currentFolder)}/>
 					<Folder text={'New Folder'} icon={addFolderIcon} />
 				</View>
 				<ScrollView style={styles.container}>

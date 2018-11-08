@@ -1,7 +1,6 @@
 import { GET_INITIAL_UNITS } from "../constants/action-types";
 
 const initialState = {
-	currentFolder: 22,
 	files: {
 		'944': {
 			id: 944,

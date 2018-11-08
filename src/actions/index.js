@@ -21,13 +21,13 @@ export const startPlaying = () => ({
 export const enterFolder = (currentFolder) => ({
 	type: ENTER_FOLDER,
 	payload: {
-		currentFolder: currentFolder,
+		currentFolder,
 	}
 });
 
 export const getInitialUnits = (currentFolder) => ({
 	type: GET_INITIAL_UNITS,
 	payload: {
-		currentFolder: currentFolder,
+		currentFolder,
 	}
 });
