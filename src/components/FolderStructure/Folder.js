@@ -2,20 +2,57 @@ import React, { Component } from 'react';
 import {
 	Text,
 	StyleSheet,
-	TouchableOpacity
+	TouchableOpacity,
+	View
 } from 'react-native';
 
+import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
-const optionsIcon = (<Icon name="ellipsis-v" size={30} color='black' />)
+const barsIcon = (<Icon name="bars" size={30} color='black' />)
 
 export default class Folder extends Component {
+	_menu = null;
+
+	setMenuRef = ref => {
+		this._menu = ref;
+	};
+
+	hideMenu = () => {
+		this._menu.hide();
+	};
+
+	showMenu = () => {
+		this._menu.show();
+	};
 	render() {
-		const { text, icon, onPress } = this.props;
+		const { text, icon, onPress, unitType } = this.props;
 		return (
 			<TouchableOpacity style={styles.container} onPress={onPress}>
-				<TouchableOpacity style={styles.optionsIcon}>
-					{optionsIcon}
-				</TouchableOpacity>
+
+				{unitType &&
+					<TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}} onPress={this.showMenu}>
+						<Menu
+							ref={this.setMenuRef}
+							button={barsIcon}
+						>
+							<MenuItem onPress={this.hideMenu}>Rename</MenuItem>
+							<MenuDivider />
+							<MenuItem onPress={this.hideMenu}>Delete</MenuItem>
+							<MenuDivider />
+							<MenuItem onPress={this.hideMenu}>Favorite</MenuItem>
+							{unitType === 'file' &&
+								<View>
+									<MenuDivider />
+									<MenuItem onPress={this.hideMenu}>Share</MenuItem>
+								</View>
+							}
+							<MenuDivider />
+							<MenuItem onPress={this.hideMenu}>Close</MenuItem>
+						</Menu>
+					</TouchableOpacity>
+				}
+
 				{icon}
 				<Text icon={icon}>
 					{text}
@@ -38,9 +75,9 @@ const styles = StyleSheet.create({
 	icon: {
 		justifyContent: 'center',
 	},
-	optionsIcon: {
+	barsIcon: {
 		alignSelf: 'flex-end',
 		marginRight: 20,
-		marginTop: 40,
+		marginTop: 80,
 	},
 });

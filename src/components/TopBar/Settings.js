@@ -7,21 +7,12 @@ import {
 	View,
 } from 'react-native';
 
-import { toggleOptions } from '../../actions'
-
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-const closedOptionsIcon = (<Icon name="ellipsis-v" size={40} color='black' />)
-const openOptionsIcon = (<Icon name="ellipsis-h" size={40} color='black' />)
+const optionsIcon = (<Icon name="ellipsis-v" size={40} color='black' />)
 
 class Settings extends Component {
-
-	handleOpenSettings = () => {
-		const { dispatch } = this.props;
-		dispatch(toggleOptions());
-	}
-
 	_menu = null;
 
 	setMenuRef = ref => {
@@ -29,31 +20,26 @@ class Settings extends Component {
 	};
 
 	hideMenu = () => {
-		const { dispatch } = this.props;
 		this._menu.hide();
-		dispatch(toggleOptions());
 	};
 
 	showMenu = () => {
-		const { dispatch } = this.props;
 		this._menu.show();
-		dispatch(toggleOptions());
 	};
 
 	render() {
-		const { optionsOpen } = this.props;
 		return (
 			<TouchableOpacity style={styles.settingsIcon} onPress={this.showMenu}>
 				<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 					<Menu
 						ref={this.setMenuRef}
-						button={optionsOpen ? openOptionsIcon : closedOptionsIcon}
+						button={optionsIcon}
 					>
 						<MenuItem onPress={this.hideMenu}>Import</MenuItem>
 						<MenuDivider />
-						<MenuItem onPress={this.hideMenu}>Cloud Connection</MenuItem>
+						<MenuItem onPress={this.hideMenu}>Select Multiple</MenuItem>
 						<MenuDivider />
-						<MenuItem onPress={this.hideMenu}>Sound Quality</MenuItem>
+						<MenuItem onPress={this.hideMenu}>Cloud Connection</MenuItem>
 						<MenuDivider />
 						<MenuItem onPress={this.hideMenu}>Encoding</MenuItem>
 						<MenuDivider />

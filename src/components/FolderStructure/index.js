@@ -60,6 +60,7 @@ class FolderStructure extends Component {
 					icon={unitType === 'file' ? fileIcon : folderIcon}
 					key={id}
 					onPress={() => this.handleUnitPress(id, unitType)}
+					unitType={unitType}
 				/>
 			)
 		})
