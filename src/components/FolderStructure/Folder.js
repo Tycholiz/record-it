@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import {
 	Text,
 	StyleSheet,
 	TouchableOpacity
 } from 'react-native';
-import { } from 'expo';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
+const optionsIcon = (<Icon name="ellipsis-v" size={30} color='black' />)
 
 export default class Folder extends Component {
 	render() {
 		const { text, icon, onPress } = this.props;
 		return (
 			<TouchableOpacity style={styles.container} onPress={onPress}>
+				<TouchableOpacity style={styles.optionsIcon}>
+					{optionsIcon}
+				</TouchableOpacity>
 				{icon}
 				<Text icon={icon}>
 					{text}
@@ -33,5 +37,10 @@ const styles = StyleSheet.create({
 	},
 	icon: {
 		justifyContent: 'center',
+	},
+	optionsIcon: {
+		alignSelf: 'flex-end',
+		marginRight: 20,
+		marginTop: 40,
 	},
 });

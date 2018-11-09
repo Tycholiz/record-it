@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import PropTypes from 'prop-types';
 import {
 	StyleSheet,
 	TouchableOpacity,
 	View,
 } from 'react-native';
 
+import { toggleOptions } from '../../actions'
+
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-const optionsIcon = (<Icon name="ellipsis-v" size={40} color='black' />)
+const closedOptionsIcon = (<Icon name="ellipsis-v" size={40} color='black' />)
+const openOptionsIcon = (<Icon name="ellipsis-h" size={40} color='black' />)
 
 class Settings extends Component {
+
+	handleOpenSettings = () => {
+		const { dispatch } = this.props;
+		dispatch(toggleOptions());
+	}
+
 	_menu = null;
 
 	setMenuRef = ref => {
@@ -21,20 +29,25 @@ class Settings extends Component {
 	};
 
 	hideMenu = () => {
+		const { dispatch } = this.props;
 		this._menu.hide();
+		dispatch(toggleOptions());
 	};
 
 	showMenu = () => {
+		const { dispatch } = this.props;
 		this._menu.show();
+		dispatch(toggleOptions());
 	};
 
 	render() {
+		const { optionsOpen } = this.props;
 		return (
 			<TouchableOpacity style={styles.settingsIcon} onPress={this.showMenu}>
 				<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 					<Menu
 						ref={this.setMenuRef}
-						button={optionsIcon}
+						button={optionsOpen ? openOptionsIcon : closedOptionsIcon}
 					>
 						<MenuItem onPress={this.hideMenu}>Import</MenuItem>
 						<MenuDivider />
