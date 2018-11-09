@@ -19,10 +19,10 @@ const optionsIcon = (<Icon name="ellipsis-v" size={40} color='black' />)
 
 class Settings extends Component {
 
-	handleOpenSettings = () => {
-		const { dispatch } = this.props;
-		dispatch(toggleOptions());
-	}
+	// handleOpenSettings = () => {
+	// 	const { dispatch } = this.props;
+	// 	dispatch(toggleOptions());
+	// }
 
 	_menu = null;
 
