@@ -69,7 +69,6 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps)(Settings);
-
 const styles = StyleSheet.create({
 	settingsIcon: {
 		flex: 1,
