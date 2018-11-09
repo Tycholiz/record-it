@@ -40,23 +40,23 @@ class Settings extends Component {
 
 	render() {
 		return (
-			<TouchableOpacity style={styles.settingsIcon} onPress={() => this.handleOpenSettings()}>
-					<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-						<Menu
-							ref={this.setMenuRef}
-							button={<Text onPress={this.showMenu}>{optionsIcon}</Text>}
-						>
-							<MenuItem onPress={this.hideMenu}>Import</MenuItem>
-							<MenuDivider />
-							<MenuItem onPress={this.hideMenu}>Cloud Connection</MenuItem>
-							<MenuDivider />
-							<MenuItem onPress={this.hideMenu}>Sound Quality</MenuItem>
-							<MenuDivider />
-							<MenuItem onPress={this.hideMenu}>Encoding</MenuItem>
-							<MenuDivider />
-							<MenuItem onPress={this.hideMenu}>Close</MenuItem>
-						</Menu>
-					</View>
+			<TouchableOpacity style={styles.settingsIcon} onPress={this.showMenu}>
+				<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+					<Menu
+						ref={this.setMenuRef}
+						button={optionsIcon}
+					>
+						<MenuItem onPress={this.hideMenu}>Import</MenuItem>
+						<MenuDivider />
+						<MenuItem onPress={this.hideMenu}>Cloud Connection</MenuItem>
+						<MenuDivider />
+						<MenuItem onPress={this.hideMenu}>Sound Quality</MenuItem>
+						<MenuDivider />
+						<MenuItem onPress={this.hideMenu}>Encoding</MenuItem>
+						<MenuDivider />
+						<MenuItem onPress={this.hideMenu}>Close</MenuItem>
+					</Menu>
+				</View>
 			</TouchableOpacity>
 		);
 	}
@@ -76,27 +76,5 @@ const styles = StyleSheet.create({
 		height: 60,
 		justifyContent: 'center',
 		alignItems: 'center',
-	},
-	modalMask: {
-		flex: 1,
-		backgroundColor: 'rgba(0, 0, 0, 0.5)',
-	},
-	modalContainer: {
-		flex: 1,
-		alignItems: 'center',
-		marginHorizontal: 43,
-		marginTop: 43,
-		marginBottom: 240,
-		backgroundColor: 'dimgrey',
-		borderRadius: 4,
-
-	},
-	closeModalButton: {
-		paddingBottom: 10,
-	},
-	option: {
-		backgroundColor: 'darkslategrey'
-	},
-	closeOption: {
 	},
 });
