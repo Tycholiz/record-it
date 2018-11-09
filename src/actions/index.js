@@ -7,6 +7,7 @@ import {
 	SET_ACTIVE_FILE,
 	CREATE_FOLDER,
 	TOGGLE_OPTIONS,
+	DELETE_UNIT
 } from "../constants/action-types";
 
 import uuid from 'uuid/v4'
@@ -52,6 +53,14 @@ export const createFolder = (currentFolder) => ({
 		dateCreated: Date.now(),
 		parentId: currentFolder,
 		unitType: 'folder'
+	}
+});
+
+export const deleteUnit = (unitId, unitType) => ({
+	type: DELETE_UNIT,
+	payload: {
+		unitId,
+		unitType,
 	}
 });
 

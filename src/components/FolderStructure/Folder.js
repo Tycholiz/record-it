@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
 	Text,
 	StyleSheet,
@@ -6,12 +7,14 @@ import {
 	View
 } from 'react-native';
 
+import { deleteUnit } from '../../actions';
+
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 const barsIcon = (<Icon name="bars" size={30} color='black' />)
 
-export default class Folder extends Component {
+class Folder extends Component {
 	_menu = null;
 
 	setMenuRef = ref => {
@@ -26,10 +29,11 @@ export default class Folder extends Component {
 		this._menu.show();
 	};
 
-	handleDelete = (unitId) => {
+	handleDelete = (unitId, unitType) => {
+		const { dispatch } = this.props;
 		this.hideMenu()
-		console.log(unitId)
-	}
+		dispatch(deleteUnit(unitId, unitType));
+	};
 
 	render() {
 		const { text, icon, onPress, unitType, id } = this.props;
@@ -44,7 +48,7 @@ export default class Folder extends Component {
 						>
 							<MenuItem onPress={this.hideMenu}>Rename</MenuItem>
 							<MenuDivider />
-							<MenuItem onPress={(e) => this.handleDelete(id)}>Delete</MenuItem>
+							<MenuItem onPress={(e) => this.handleDelete(id, unitType)}>Delete</MenuItem>
 							<MenuDivider />
 							<MenuItem onPress={this.hideMenu}>Favorite</MenuItem>
 							{unitType === 'file' &&
@@ -67,6 +71,15 @@ export default class Folder extends Component {
 		);
 	}
 }
+
+const mapStateToProps = state => {
+	return {
+		currentFolder: state.currentFolder,
+		units: state.units,
+	};
+}
+
+export default connect(mapStateToProps)(Folder);
 
 const styles = StyleSheet.create({
 	container: {

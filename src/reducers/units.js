@@ -1,6 +1,7 @@
 import {
 	GET_INITIAL_UNITS,
-	CREATE_FOLDER
+	CREATE_FOLDER,
+	DELETE_UNIT
 } from "../constants/action-types";
 
 const initialState = {
@@ -220,22 +221,34 @@ const units = (state = initialState, action) => {
 				...state,
 			};
 		case CREATE_FOLDER:
+			const { id, parentId } = action.payload
+
 			const newFolder = {}
-			newFolder[action.payload.id] = {
-				id: action.payload.id,
+			newFolder[id] = {
+				id: id,
 				title: "new folder",
 				dateCreated: Date.now(),
-				parentId: action.payload.parentId,
+				parentId: parentId,
 				unitType: 'folder'
-			}
-
+			};
 			return {
 				...state,
 				folders: Object.assign({}, state.folders, newFolder)
-			}
+			};
+		case DELETE_UNIT:
+			const { unitType, unitId } = action.payload
+
+			const newState = state;
+			const actualUnitType = unitType === 'folder' ? 'folders' : 'files'
+
+			delete newState[actualUnitType][unitId]
+			return {
+				...state,
+				newState
+			};
 
 		default:
 			return state;
-	}
+	};
 };
 export default units;
