@@ -5,12 +5,8 @@ import PropTypes from 'prop-types';
 import {
 	StyleSheet,
 	TouchableOpacity,
-	Modal,
-	Text,
 	View,
 } from 'react-native';
-
-import { toggleOptions } from '../../actions'
 
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
@@ -18,12 +14,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const optionsIcon = (<Icon name="ellipsis-v" size={40} color='black' />)
 
 class Settings extends Component {
-
-	// handleOpenSettings = () => {
-	// 	const { dispatch } = this.props;
-	// 	dispatch(toggleOptions());
-	// }
-
 	_menu = null;
 
 	setMenuRef = ref => {
