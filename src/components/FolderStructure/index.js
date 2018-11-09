@@ -19,6 +19,11 @@ import Folder from './Folder';
 
 class FolderStructure extends Component {
 
+	componentDidMount() {
+		const { currentFolder, dispatch } = this.props;
+		dispatch(getInitialUnits(currentFolder));
+	};
+
 	handleUnitPress = (unitId, unitType) => {
 		const { dispatch } = this.props;
 
@@ -42,11 +47,6 @@ class FolderStructure extends Component {
 
 		dispatch(createFolder(currentFolder));
 	}
-
-	componentDidMount() {
-		const { currentFolder, dispatch } = this.props;
-		dispatch(getInitialUnits(currentFolder));
-	};
 
 	renderFolders = () => {
 		const { currentFolder } = this.props;

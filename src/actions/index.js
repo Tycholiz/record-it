@@ -6,6 +6,7 @@ import {
 	GET_INITIAL_UNITS,
 	SET_ACTIVE_FILE,
 	CREATE_FOLDER,
+	TOGGLE_OPTIONS,
 } from "../constants/action-types";
 
 import uuid from 'uuid/v4'
@@ -52,4 +53,8 @@ export const createFolder = (currentFolder) => ({
 		parentId: currentFolder,
 		unitType: 'folder'
 	}
+});
+
+export const toggleOptions = () => ({
+	type: TOGGLE_OPTIONS,
 });

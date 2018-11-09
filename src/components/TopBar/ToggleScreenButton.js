@@ -8,7 +8,6 @@ import {
 	TouchableOpacity,
 } from 'react-native';
 import { } from 'expo';
-import {bindActionCreators} from 'redux';
 
 import { toggleControlView } from '../../actions'
 
@@ -36,11 +35,7 @@ mapStateToProps = (state) => {
 	}
 }
 
-mapDispatchToProps = (dispatch) => {
-	return bindActionCreators({toggleControlView}, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ToggleScreenButton);
+export default connect(mapStateToProps, { toggleControlView })(ToggleScreenButton);
 
 const styles = StyleSheet.create({
 	container: {
