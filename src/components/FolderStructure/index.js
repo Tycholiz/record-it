@@ -56,11 +56,12 @@ class FolderStructure extends Component {
 			const { title, unitType, id } = childrenOfCurrentFolder[obj];
 			return (
 				<Folder
-					text={title}
-					icon={unitType === 'file' ? fileIcon : folderIcon}
 					key={id}
-					onPress={() => this.handleUnitPress(id, unitType)}
+					id={id}
+					text={title}
 					unitType={unitType}
+					icon={unitType === 'file' ? fileIcon : folderIcon}
+					onPress={() => this.handleUnitPress(id, unitType)}
 				/>
 			)
 		})

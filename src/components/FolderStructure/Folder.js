@@ -25,8 +25,14 @@ export default class Folder extends Component {
 	showMenu = () => {
 		this._menu.show();
 	};
+
+	handleDelete = (unitId) => {
+		this.hideMenu()
+		console.log(unitId)
+	}
+
 	render() {
-		const { text, icon, onPress, unitType } = this.props;
+		const { text, icon, onPress, unitType, id } = this.props;
 		return (
 			<TouchableOpacity style={styles.container} onPress={onPress}>
 
@@ -38,7 +44,7 @@ export default class Folder extends Component {
 						>
 							<MenuItem onPress={this.hideMenu}>Rename</MenuItem>
 							<MenuDivider />
-							<MenuItem onPress={this.hideMenu}>Delete</MenuItem>
+							<MenuItem onPress={(e) => this.handleDelete(id)}>Delete</MenuItem>
 							<MenuDivider />
 							<MenuItem onPress={this.hideMenu}>Favorite</MenuItem>
 							{unitType === 'file' &&

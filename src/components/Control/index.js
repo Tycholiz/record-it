@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { createBottomTabNavigator } from 'react-navigation';
+
 import {
 	View,
 	Text,
@@ -35,6 +36,11 @@ mapStateToProps = (state) => {
 		controlView: state.toggle.controlView
 	}
 }
+
+// const ControlWithNav = createBottomTabNavigator({
+// 	Home: HomeScreen,
+// 	Settings: SettingsScreen,
+// });
 
 export default connect(mapStateToProps)(Control);
 

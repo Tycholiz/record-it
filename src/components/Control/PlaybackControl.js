@@ -8,7 +8,6 @@ import {
 	TouchableOpacity
 } from 'react-native';
 import { } from 'expo';
-import { bindActionCreators } from 'redux';
 
 import { startPlaying } from '../../actions/index'
 
