@@ -8,10 +8,11 @@ import {
 	Modal,
 	Text,
 	View,
-	TouchableHighlight
 } from 'react-native';
 
 import { toggleOptions } from '../../actions'
+
+import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 const optionsIcon = (<Icon name="ellipsis-v" size={40} color='black' />)
@@ -19,35 +20,43 @@ const optionsIcon = (<Icon name="ellipsis-v" size={40} color='black' />)
 class Settings extends Component {
 
 	handleOpenSettings = () => {
-		const { dispatch, optionsOpen } = this.props;
+		const { dispatch } = this.props;
 		dispatch(toggleOptions());
-
-		//below in render() section, render conditionally the modal if settingsOpen = true
-		console.log("hey mama")
 	}
 
+	_menu = null;
+
+	setMenuRef = ref => {
+		this._menu = ref;
+	};
+
+	hideMenu = () => {
+		this._menu.hide();
+	};
+
+	showMenu = () => {
+		this._menu.show();
+	};
+
 	render() {
-		const { optionsOpen } = this.props;
 		return (
 			<TouchableOpacity style={styles.settingsIcon} onPress={() => this.handleOpenSettings()}>
-				{optionsIcon}
-
-				<Modal
-					animationType="fade"
-					transparent={false}
-					visible={optionsOpen}
-					onRequestClose={() => { () => this.handleOpenSettings()}}>
-					<View style={styles.modal}>
-						<View style={styles.container}>
-							<Text>Hello World!</Text>
-
-							<TouchableHighlight onPress={() => this.handleOpenSettings()}>
-								<Text>Hide Modal</Text>
-							</TouchableHighlight>
-						</View>
+					<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+						<Menu
+							ref={this.setMenuRef}
+							button={<Text onPress={this.showMenu}>{optionsIcon}</Text>}
+						>
+							<MenuItem onPress={this.hideMenu}>Import</MenuItem>
+							<MenuDivider />
+							<MenuItem onPress={this.hideMenu}>Cloud Connection</MenuItem>
+							<MenuDivider />
+							<MenuItem onPress={this.hideMenu}>Sound Quality</MenuItem>
+							<MenuDivider />
+							<MenuItem onPress={this.hideMenu}>Encoding</MenuItem>
+							<MenuDivider />
+							<MenuItem onPress={this.hideMenu}>Close</MenuItem>
+						</Menu>
 					</View>
-				</Modal>
-
 			</TouchableOpacity>
 		);
 	}
@@ -68,18 +77,26 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
-	modal: {
-		// marginTop: 22,
+	modalMask: {
 		flex: 1,
 		backgroundColor: 'rgba(0, 0, 0, 0.5)',
-
 	},
-	container: {
+	modalContainer: {
 		flex: 1,
-		margin: 22,
-		backgroundColor: 'white',
+		alignItems: 'center',
+		marginHorizontal: 43,
+		marginTop: 43,
+		marginBottom: 240,
+		backgroundColor: 'dimgrey',
+		borderRadius: 4,
+
 	},
 	closeModalButton: {
 		paddingBottom: 10,
+	},
+	option: {
+		backgroundColor: 'darkslategrey'
+	},
+	closeOption: {
 	},
 });
