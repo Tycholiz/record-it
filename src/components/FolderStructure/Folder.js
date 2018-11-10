@@ -38,35 +38,40 @@ class Folder extends Component {
 		this.state._menu.show();
 	};
 
+	// handleDropdownPrompt = () => {
+	// 	this.hideMenu()
+
+	// }
+
 	handleDelete = (unitId, unitType) => {
 		const { dispatch } = this.props;
-		this.hideMenu()
 		dispatch(deleteUnit(unitId, unitType));
 	};
 
-	handleRenamePrompt = () => {
+	handleDropdownPrompt = (modal) => {
 		this.hideMenu()
 		this.setState(() => {
 			return {
-				renaming: true
+				[modal]: true
 			};
 		});
 	};
-
-	handleCloseModal = () => {
-		this.setState(() => {
-			return {
-				renaming: false
-			};
-		});
-	}
 
 	handleRename = (unitId, unitType) => {
 		const { dispatch } = this.props;
 		const { title } = this.state;
-		this.handleCloseModal();
+		this.handleCloseModal('renaming');
 		title ? dispatch(renameUnit(unitId, unitType, title)) : null
 	}
+
+	handleCloseModal = (modal) => {
+		this.setState(() => {
+			return {
+				[modal]: false
+			};
+		});
+	}
+
 
 	render() {
 		const { renaming } = this.state;
@@ -80,7 +85,7 @@ class Folder extends Component {
 							ref={this.setMenuRef}
 							button={barsIcon}
 						>
-						<MenuItem onPress={() => this.handleRenamePrompt(id, unitType, text)}>Rename</MenuItem>
+						<MenuItem onPress={() => this.handleDropdownPrompt('renaming')}>Rename</MenuItem>
 							<MenuDivider />
 							<MenuItem onPress={() => this.handleDelete(id, unitType)}>Delete</MenuItem>
 							<MenuDivider />
@@ -96,7 +101,6 @@ class Folder extends Component {
 						</Menu>
 					</TouchableOpacity>
 				}
-
 				<Modal
 					animationType="slide"
 					transparent={true}
@@ -125,7 +129,7 @@ class Folder extends Component {
 							<View style={styles.modalOptions}>
 								<TouchableHighlight
 									onPress={() => {
-										this.handleCloseModal();
+										this.handleCloseModal('renaming');
 									}}
 									style={styles.modalOption}
 								>
@@ -145,7 +149,6 @@ class Folder extends Component {
 						</View>
 					</KeyboardAvoidingView>
 				</Modal>
-
 				{icon}
 				<Text icon={icon}>
 					{text}
