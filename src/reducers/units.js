@@ -260,7 +260,6 @@ const units = (state = initialState, action) => {
 			return {
 				...state,
 				newStateWithRenamedObj
-				//all that's left to do is to combine these 2 objects
 			};
 
 		default:

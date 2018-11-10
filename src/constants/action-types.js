@@ -9,7 +9,7 @@ export const CREATE_FOLDER = "CREATE_FOLDER";
 export const TOGGLE_OPTIONS = "TOGGLE_OPTIONS";
 export const DELETE_UNIT = "DELETE_UNIT";
 export const RENAME_UNIT = "RENAME_UNIT";
-
+export const TOGGLE_SELECT_MULTIPLE = "TOGGLE_SELECT_MULTIPLE";
 
 export const RECORD = "RECORD";
 export const PLAYBACK = "PLAYBACK";

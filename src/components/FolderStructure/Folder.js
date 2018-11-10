@@ -17,7 +17,7 @@ import { deleteUnit, renameUnit } from '../../actions';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-const barsIcon = (<Icon name="bars" size={30} color='black' />)
+const barsIcon = (<Icon name="bars" size={25} color='black' />)
 
 class Folder extends Component {
 	state = {
@@ -68,14 +68,13 @@ git
 		title ? dispatch(renameUnit(unitId, unitType, title)) : null
 	}
 
-
-
 	render() {
 		const { renaming, deleteConfirmation } = this.state;
-		const { text, icon, onPress, unitType, id } = this.props;
+		const { id, text, icon, onPress, unitType, selected } = this.props;
 		return (
-			<TouchableOpacity style={styles.container} onPress={onPress}>
+			<TouchableOpacity style={[styles.container, selected && styles.containerSelected ]} onPress={onPress}>
 
+				{/* FOLDER OPTIONS */}
 				{unitType &&
 					<TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}} onPress={this.showMenu}>
 						<Menu
@@ -99,6 +98,7 @@ git
 					</TouchableOpacity>
 				}
 
+				{/* RENAME MODAL */}
 				<Modal
 					animationType="slide"
 					transparent={true}
@@ -148,6 +148,7 @@ git
 					</KeyboardAvoidingView>
 				</Modal>
 
+				{/* DELETE CONFIRMATION MODAL */}
 				<Modal
 					animationType="slide"
 					transparent={true}
@@ -210,6 +211,9 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'flex-end',
 		margin: 6,
+	},
+	containerSelected: {
+		backgroundColor: 'green'
 	},
 	modalMask: {
 		flex: 1,

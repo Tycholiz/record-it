@@ -8,7 +8,8 @@ import {
 	CREATE_FOLDER,
 	TOGGLE_OPTIONS,
 	DELETE_UNIT,
-	RENAME_UNIT
+	RENAME_UNIT,
+	TOGGLE_SELECT_MULTIPLE
 } from "../constants/action-types";
 
 import uuid from 'uuid/v4'
@@ -76,4 +77,8 @@ export const renameUnit = (unitId, unitType, newTitle) => ({
 
 export const toggleOptions = () => ({
 	type: TOGGLE_OPTIONS,
+});
+
+export const toggleSelectMultple = () => ({
+	type: TOGGLE_SELECT_MULTIPLE,
 });

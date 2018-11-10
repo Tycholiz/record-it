@@ -32,7 +32,7 @@ class FolderStructure extends Component {
 		} else if (unitType === 'file') {
 			dispatch(setActiveFile(unitId))
 		} else {
-			console.error("wtf did you just do?")
+			return;
 		}
 	}
 
@@ -62,13 +62,14 @@ class FolderStructure extends Component {
 					unitType={unitType}
 					icon={unitType === 'file' ? fileIcon : folderIcon}
 					onPress={() => this.handleUnitPress(id, unitType)}
+					selected={false}
 				/>
 			)
 		})
 	}
 
 	render() {
-		const { currentFolder } = this.props;
+		const { currentFolder, selectMultiple } = this.props;
 
 		return (
 			<View style={styles.container}>
@@ -90,6 +91,7 @@ const mapStateToProps = state => {
 	return {
 		currentFolder: state.currentFolder,
 		units: state.units,
+		selectMultiple: state.multiple.selectMultiple
 	};
 }
 
