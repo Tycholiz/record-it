@@ -6,6 +6,10 @@ import {
 	TouchableOpacity,
 	View,
 	TextInput,
+	Modal,
+	TouchableHighlight,
+	Alert,
+	KeyboardAvoidingView,
 } from 'react-native';
 
 import { deleteUnit, renameUnit } from '../../actions';
@@ -19,6 +23,7 @@ class Folder extends Component {
 	state = {
 		_menu: null,
 		renaming: false,
+		title: '',
 	};
 
 	setMenuRef = ref => {
@@ -44,14 +49,28 @@ class Folder extends Component {
 		this.setState(() => {
 			return {
 				renaming: true
-			}
-		})
+			};
+		});
 	};
 
-	handleRename = (unitId, unitType, newTitle) => {
+	handleCloseModal = () => {
+		this.setState(() => {
+			return {
+				renaming: false
+			};
+		});
+	}
+
+	handleInputChange = (event) => {
+		console.log(event);
+		return event;
+	}
+
+	handleRename = (unitId, unitType) => {
 		const { dispatch } = this.props;
-		dispatch(renameUnit(unitId, unitType, newTitle));
-		console.log("hey buddy")
+		const { title } = this.state;
+		// this.handleCloseModal();
+		dispatch(renameUnit(unitId, unitType, title));
 	}
 
 	render() {
@@ -83,17 +102,56 @@ class Folder extends Component {
 					</TouchableOpacity>
 				}
 
+				<Modal
+					animationType="slide"
+					transparent={true}
+					visible={renaming}
+					onRequestClose={() => {
+						Alert.alert('Modal has been closed.');
+					}}>
+					<KeyboardAvoidingView style={styles.modalMask} behavior="padding">
+						<View style={styles.modalContainer}>
+							{unitType === 'file' ?
+								<Text style={styles.modalHeader}>Rename clip:</Text>
+									:
+								<Text style={styles.modalHeader}>Rename folder:</Text>
+							}
+
+							<TextInput
+								style={styles.modalInput}
+								onChangeText={(newTitle) => this.setState({title: newTitle})}
+								// onSubmitEditing={this.handleRename(id, unitType)}
+							/>
+
+							<View style={styles.modalOptions}>
+								<TouchableHighlight
+									onPress={() => {
+										this.handleCloseModal();
+									}}
+									style={styles.modalOption}
+								>
+									<Text>CANCEL</Text>
+								</TouchableHighlight>
+
+								<TouchableHighlight
+									onPress={() => {
+										this.handleRename(id, unitType)}
+										// this.handleInputChange()}
+									}
+									style={[styles.modalOption, styles.renameOption]}
+								>
+									<Text style={{color: 'white'}}>RENAME</Text>
+								</TouchableHighlight>
+							</View>
+
+						</View>
+					</KeyboardAvoidingView>
+				</Modal>
+
 				{icon}
-				{renaming ?
-					<TextInput
-						defaultValue={text}
-						onSubmitEditing={(newTitle) => this.handleRename(id, unitType, newTitle)}
-					/>
-						:
-					<Text icon={icon}>
-						{text}
-					</Text>
-				}
+				<Text icon={icon}>
+					{text}
+				</Text>
 			</TouchableOpacity>
 		);
 	}
@@ -117,6 +175,40 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'flex-end',
 		margin: 6,
+	},
+	modalMask: {
+		flex: 1,
+		backgroundColor: 'rgba(0, 0, 0, 0.4)',
+	},
+	modalContainer: {
+		flex: 1,
+		flexDirection: 'column',
+		flexWrap: 'wrap',
+		alignItems: 'center',
+		marginHorizontal: 43,
+		marginTop: 240,
+		marginBottom: 240,
+		borderRadius: 4,
+		backgroundColor: '#2B2B2B',
+		zIndex: 1
+	},
+	modalHeader: {
+		flex: 1,
+		fontSize: 25
+	},
+	modalinput: {
+		flex: 1,
+	},
+	modalOptions: {
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'flex-end',
+	},
+	modalOption: {
+	},
+	renameOption: {
+		borderRadius: 4,
+		backgroundColor: 'teal',
 	},
 	icon: {
 		justifyContent: 'center',

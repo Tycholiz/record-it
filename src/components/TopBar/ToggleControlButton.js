@@ -10,7 +10,7 @@ import { } from 'expo';
 
 import { toggleControlView } from '../../actions'
 
-class ToggleScreenButton extends Component {
+class ToggleControlButton extends Component {
 	render() {
 
 		return (
@@ -34,7 +34,7 @@ mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps, { toggleControlView })(ToggleScreenButton);
+export default connect(mapStateToProps, { toggleControlView })(ToggleControlButton);
 
 const styles = StyleSheet.create({
 	container: {

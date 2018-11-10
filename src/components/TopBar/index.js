@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { } from 'expo';
 
-import ToggleScreenButton from './ToggleScreenButton';
+import ToggleControlButton from './ToggleControlButton';
 import Settings from './Settings';
 import BreadcrumbBar from './BreadcrumbBar';
 
@@ -15,7 +15,7 @@ export default class TopBar extends Component {
 		return (
 			<View style={styles.container}>
 				<View style={styles.topbarUpper}>
-					<ToggleScreenButton />
+					<ToggleControlButton />
 					<Settings />
 				</View>
 				<BreadcrumbBar />
