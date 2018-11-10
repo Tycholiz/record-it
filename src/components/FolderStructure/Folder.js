@@ -4,10 +4,11 @@ import {
 	Text,
 	StyleSheet,
 	TouchableOpacity,
-	View
+	View,
+	TextInput,
 } from 'react-native';
 
-import { deleteUnit } from '../../actions';
+import { deleteUnit, renameUnit } from '../../actions';
 
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
@@ -15,18 +16,21 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const barsIcon = (<Icon name="bars" size={30} color='black' />)
 
 class Folder extends Component {
-	_menu = null;
+	state = {
+		_menu: null,
+		renaming: false,
+	};
 
 	setMenuRef = ref => {
-		this._menu = ref;
+		this.state._menu = ref;
 	};
 
 	hideMenu = () => {
-		this._menu.hide();
+		this.state._menu.hide();
 	};
 
 	showMenu = () => {
-		this._menu.show();
+		this.state._menu.show();
 	};
 
 	handleDelete = (unitId, unitType) => {
@@ -35,7 +39,23 @@ class Folder extends Component {
 		dispatch(deleteUnit(unitId, unitType));
 	};
 
+	handleRenamePrompt = () => {
+		this.hideMenu()
+		this.setState(() => {
+			return {
+				renaming: true
+			}
+		})
+	};
+
+	handleRename = (unitId, unitType, newTitle) => {
+		const { dispatch } = this.props;
+		dispatch(renameUnit(unitId, unitType, newTitle));
+		console.log("hey buddy")
+	}
+
 	render() {
+		const { renaming } = this.state;
 		const { text, icon, onPress, unitType, id } = this.props;
 		return (
 			<TouchableOpacity style={styles.container} onPress={onPress}>
@@ -46,9 +66,9 @@ class Folder extends Component {
 							ref={this.setMenuRef}
 							button={barsIcon}
 						>
-							<MenuItem onPress={this.hideMenu}>Rename</MenuItem>
+						<MenuItem onPress={() => this.handleRenamePrompt(id, unitType, text)}>Rename</MenuItem>
 							<MenuDivider />
-							<MenuItem onPress={(e) => this.handleDelete(id, unitType)}>Delete</MenuItem>
+							<MenuItem onPress={() => this.handleDelete(id, unitType)}>Delete</MenuItem>
 							<MenuDivider />
 							<MenuItem onPress={this.hideMenu}>Favorite</MenuItem>
 							{unitType === 'file' &&
@@ -64,9 +84,16 @@ class Folder extends Component {
 				}
 
 				{icon}
-				<Text icon={icon}>
-					{text}
-				</Text>
+				{renaming ?
+					<TextInput
+						defaultValue={text}
+						onSubmitEditing={(newTitle) => this.handleRename(id, unitType, newTitle)}
+					/>
+						:
+					<Text icon={icon}>
+						{text}
+					</Text>
+				}
 			</TouchableOpacity>
 		);
 	}

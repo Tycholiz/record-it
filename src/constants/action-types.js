@@ -8,6 +8,7 @@ export const SET_ACTIVE_FILE = "SET_ACTIVE_FILE";
 export const CREATE_FOLDER = "CREATE_FOLDER";
 export const TOGGLE_OPTIONS = "TOGGLE_OPTIONS";
 export const DELETE_UNIT = "DELETE_UNIT";
+export const RENAME_UNIT = "RENAME_UNIT";
 
 
 export const RECORD = "RECORD";

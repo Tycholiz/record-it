@@ -1,7 +1,8 @@
 import {
 	GET_INITIAL_UNITS,
 	CREATE_FOLDER,
-	DELETE_UNIT
+	DELETE_UNIT,
+	RENAME_UNIT
 } from "../constants/action-types";
 
 const initialState = {
@@ -245,6 +246,11 @@ const units = (state = initialState, action) => {
 			return {
 				...state,
 				newState
+			};
+		case RENAME_UNIT:
+			// const { unitType, unitId, newTitle } = action.payload
+			return {
+				...state,
 			};
 
 		default:

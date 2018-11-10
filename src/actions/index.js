@@ -7,7 +7,8 @@ import {
 	SET_ACTIVE_FILE,
 	CREATE_FOLDER,
 	TOGGLE_OPTIONS,
-	DELETE_UNIT
+	DELETE_UNIT,
+	RENAME_UNIT
 } from "../constants/action-types";
 
 import uuid from 'uuid/v4'
@@ -61,6 +62,15 @@ export const deleteUnit = (unitId, unitType) => ({
 	payload: {
 		unitId,
 		unitType,
+	}
+});
+
+export const renameUnit = (unitId, unitType, newTitle) => ({
+	type: RENAME_UNIT,
+	payload: {
+		unitId,
+		unitType,
+		newTitle
 	}
 });
 
