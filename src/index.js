@@ -8,7 +8,7 @@ import {
 	StatusBar,
 	YellowBox,
 } from 'react-native';
-YellowBox.ignoreWarnings(['Remote debugger']);
+// YellowBox.ignoreWarnings(['Remote debugger']);
 
 import {
 	Constants,
@@ -76,9 +76,9 @@ export default class App extends Component {
 	};
 }
 
-if (__DEV__) {
-	console.ignoredYellowBox = ['Remote debugger'];
-}
+// if (__DEV__) {
+// 	console.ignoredYellowBox = ['Remote debugger'];
+// }
 
 
 const styles = StyleSheet.create({

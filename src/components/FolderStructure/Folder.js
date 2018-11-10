@@ -65,7 +65,7 @@ class Folder extends Component {
 		const { dispatch } = this.props;
 		const { title } = this.state;
 		this.handleCloseModal();
-		dispatch(renameUnit(unitId, unitType, title));
+		title ? dispatch(renameUnit(unitId, unitType, title)) : null
 	}
 
 	render() {
@@ -115,7 +115,11 @@ class Folder extends Component {
 							<TextInput
 								style={styles.modalInput}
 								onChangeText={(newTitle) => this.setState({title: newTitle})}
-								// onSubmitEditing={this.handleRename(id, unitType)}
+								defaultValue={'tits'}
+								autoFocus={true}
+								selectTextOnFocus={true}
+								keyboardAppearance={'dark'}
+								maxLength={30}
 							/>
 
 							<View style={styles.modalOptions}>
