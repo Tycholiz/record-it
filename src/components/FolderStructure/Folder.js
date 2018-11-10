@@ -38,7 +38,7 @@ class Folder extends Component {
 	showMenu = () => {
 		this.state._menu.show();
 	};
-
+git
 	handleOpenModal = (modal) => {
 		this.hideMenu()
 		this.setState(() => {
@@ -159,30 +159,26 @@ class Folder extends Component {
 					<KeyboardAvoidingView style={styles.modalMask} behavior="padding">
 						<View style={styles.modalContainer}>
 							<Text>Are you sure you want to delete {text}?</Text>
-
-
-
 							<View style={styles.modalOptions}>
 								<TouchableHighlight
 									onPress={() => {
 										this.handleCloseModal('deleteConfirmation');
 									}}
 									style={styles.modalOption}
-								>
+									>
 									<Text>CANCEL</Text>
 								</TouchableHighlight>
 
 								<TouchableHighlight
 									onPress={() => {
 										this.handleDelete(id, unitType)
-									}
-									}
+									}}
 									style={[styles.modalOption, styles.renameOption]}
-								>
+									>
 									<Text style={{ color: 'white' }}>CONFIRM</Text>
 								</TouchableHighlight>
 							</View>
-
+							<Text>This action is not reversible</Text>
 						</View>
 					</KeyboardAvoidingView>
 				</Modal>
