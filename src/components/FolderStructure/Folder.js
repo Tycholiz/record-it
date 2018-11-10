@@ -23,6 +23,7 @@ class Folder extends Component {
 	state = {
 		_menu: null,
 		renaming: false,
+		deleteConfirmation: false,
 		title: '',
 	};
 
@@ -38,17 +39,7 @@ class Folder extends Component {
 		this.state._menu.show();
 	};
 
-	// handleDropdownPrompt = () => {
-	// 	this.hideMenu()
-
-	// }
-
-	handleDelete = (unitId, unitType) => {
-		const { dispatch } = this.props;
-		dispatch(deleteUnit(unitId, unitType));
-	};
-
-	handleDropdownPrompt = (modal) => {
+	handleOpenModal = (modal) => {
 		this.hideMenu()
 		this.setState(() => {
 			return {
@@ -56,13 +47,6 @@ class Folder extends Component {
 			};
 		});
 	};
-
-	handleRename = (unitId, unitType) => {
-		const { dispatch } = this.props;
-		const { title } = this.state;
-		this.handleCloseModal('renaming');
-		title ? dispatch(renameUnit(unitId, unitType, title)) : null
-	}
 
 	handleCloseModal = (modal) => {
 		this.setState(() => {
@@ -72,9 +56,22 @@ class Folder extends Component {
 		});
 	}
 
+	handleDelete = (unitId, unitType) => {
+		const { dispatch } = this.props;
+		dispatch(deleteUnit(unitId, unitType));
+	};
+
+	handleRename = (unitId, unitType) => {
+		const { dispatch } = this.props;
+		const { title } = this.state;
+		this.handleCloseModal('renaming');
+		title ? dispatch(renameUnit(unitId, unitType, title)) : null
+	}
+
+
 
 	render() {
-		const { renaming } = this.state;
+		const { renaming, deleteConfirmation } = this.state;
 		const { text, icon, onPress, unitType, id } = this.props;
 		return (
 			<TouchableOpacity style={styles.container} onPress={onPress}>
@@ -85,9 +82,9 @@ class Folder extends Component {
 							ref={this.setMenuRef}
 							button={barsIcon}
 						>
-						<MenuItem onPress={() => this.handleDropdownPrompt('renaming')}>Rename</MenuItem>
+						<MenuItem onPress={() => this.handleOpenModal('renaming')}>Rename</MenuItem>
 							<MenuDivider />
-							<MenuItem onPress={() => this.handleDelete(id, unitType)}>Delete</MenuItem>
+							<MenuItem onPress={() => this.handleOpenModal('deleteConfirmation')}>Delete</MenuItem>
 							<MenuDivider />
 							<MenuItem onPress={this.hideMenu}>Favorite</MenuItem>
 							{unitType === 'file' &&
@@ -101,6 +98,7 @@ class Folder extends Component {
 						</Menu>
 					</TouchableOpacity>
 				}
+
 				<Modal
 					animationType="slide"
 					transparent={true}
@@ -149,6 +147,46 @@ class Folder extends Component {
 						</View>
 					</KeyboardAvoidingView>
 				</Modal>
+
+				<Modal
+					animationType="slide"
+					transparent={true}
+					visible={deleteConfirmation}
+					onRequestClose={() => {
+						Alert.alert('Modal has been closed.');
+					}}
+				>
+					<KeyboardAvoidingView style={styles.modalMask} behavior="padding">
+						<View style={styles.modalContainer}>
+							<Text>Are you sure you want to delete {text}?</Text>
+
+
+
+							<View style={styles.modalOptions}>
+								<TouchableHighlight
+									onPress={() => {
+										this.handleCloseModal('deleteConfirmation');
+									}}
+									style={styles.modalOption}
+								>
+									<Text>CANCEL</Text>
+								</TouchableHighlight>
+
+								<TouchableHighlight
+									onPress={() => {
+										this.handleDelete(id, unitType)
+									}
+									}
+									style={[styles.modalOption, styles.renameOption]}
+								>
+									<Text style={{ color: 'white' }}>CONFIRM</Text>
+								</TouchableHighlight>
+							</View>
+
+						</View>
+					</KeyboardAvoidingView>
+				</Modal>
+
 				{icon}
 				<Text icon={icon}>
 					{text}
