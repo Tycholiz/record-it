@@ -61,15 +61,10 @@ class Folder extends Component {
 		});
 	}
 
-	handleInputChange = (event) => {
-		console.log(event);
-		return event;
-	}
-
 	handleRename = (unitId, unitType) => {
 		const { dispatch } = this.props;
 		const { title } = this.state;
-		// this.handleCloseModal();
+		this.handleCloseModal();
 		dispatch(renameUnit(unitId, unitType, title));
 	}
 
@@ -136,7 +131,6 @@ class Folder extends Component {
 								<TouchableHighlight
 									onPress={() => {
 										this.handleRename(id, unitType)}
-										// this.handleInputChange()}
 									}
 									style={[styles.modalOption, styles.renameOption]}
 								>

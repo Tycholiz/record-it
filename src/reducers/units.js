@@ -248,9 +248,19 @@ const units = (state = initialState, action) => {
 				newState
 			};
 		case RENAME_UNIT:
-			// const { unitType, unitId, newTitle } = action.payload
+			const { newTitle } = action.payload
+			let type = action.payload.unitType === 'folder' ? 'folders' : 'files';
+			const newStateWithRenamedObj = state;
+
+			const renamedUnit = state[type][action.payload.unitId]
+			renamedUnit.title = newTitle
+
+			newStateWithRenamedObj[type][action.payload.unitId] = renamedUnit;
+
 			return {
 				...state,
+				newStateWithRenamedObj
+				//all that's left to do is to combine these 2 objects
 			};
 
 		default:
