@@ -27,13 +27,21 @@ class FolderStructure extends Component {
 		dispatch(getInitialUnits(currentFolder));
 	};
 
+	//will run if selectMultipleMode is turned off while there are items in state.selectedUnits
+	static getDerivedStateFromProps(props, state) {
+		if (props.selectMultipleMode === false && state.selectedUnits.length > 0) {
+			return {
+				selectedUnits: []
+			}
+		}
+		return null;
+	}
+
 	handleUnitPress = (unitId, unitType, selectMultipleMode) => {
 		const { dispatch } = this.props;
 
 		switch(selectMultipleMode) {
 			case true:
-				//set the unit's prop 'selected' to true
-
 				if (this.state.selectedUnits.indexOf(unitId) === -1) {
 					this.setState(prevState => ({
 						selectedUnits: [...prevState.selectedUnits, unitId]
@@ -63,6 +71,7 @@ class FolderStructure extends Component {
 
 	handleGoUpOneLevel = (folderId) => {
 		const { dispatch, units, currentFolder } = this.props;
+
 		const parentId = units.folders[folderId].parentId
 		if (currentFolder) dispatch(enterFolder(parentId));
 	}
@@ -94,7 +103,6 @@ class FolderStructure extends Component {
 					unitType={unitType}
 					icon={unitType === 'file' ? fileIcon : folderIcon}
 					handleUnitPress={() => this.handleUnitPress(id, unitType, selectMultipleMode)}
-					// selected={false}
 					selected={this.unitSelectedStatus(id)}
 				/>
 			)
