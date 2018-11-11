@@ -33,12 +33,24 @@ class FolderStructure extends Component {
 		switch(selectMultiple) {
 			case true:
 				//set the unit's prop 'selected' to true
+
 				if (this.state.selectedUnits.indexOf(unitId) === -1) {
 					this.setState(prevState => ({
 						selectedUnits: [...prevState.selectedUnits, unitId]
 					}));
+				} else {
+
+					const newState = this.state.selectedUnits;
+					const index = newState.indexOf(unitId);
+					if (index !== -1) newState.splice(index, 1);
+
+					this.setState(() => {
+						return {
+							selectedUnits: newState
+						}
+					})
+
 				}
-				console.log(this.state.selectedUnits)
 				break;
 			case false:
 				if (unitType === 'folder') {
@@ -66,6 +78,12 @@ class FolderStructure extends Component {
 		dispatch(createFolder(currentFolder));
 	}
 
+	// unitSelectedStatus = (id) => {
+	// 	if (this.state.selectedUnits.indexOf(id) === -1) {
+	// 		return
+	// 	}
+	// }
+
 	renderFolders = () => {
 		const { currentFolder, selectMultiple } = this.props;
 		const childrenOfCurrentFolder = getChildrenOfFolder(this.props, currentFolder);
@@ -81,6 +99,7 @@ class FolderStructure extends Component {
 					icon={unitType === 'file' ? fileIcon : folderIcon}
 					handleUnitPress={() => this.handleUnitPress(id, unitType, selectMultiple)}
 					selected={false}
+					// selected={this.unitSelectedStatus(id)}
 				/>
 			)
 		})

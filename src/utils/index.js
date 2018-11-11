@@ -47,16 +47,3 @@ export const displayBreadCrumb = (state) => {
 		return `...${truncatedBreadcrumbString}`;
 	}
 }
-
-export const dropdownMethods = {
-	_menu: null,
-	setMenuRef: function(ref) {
-		this._menu = ref;
-	},
-	hideMenu: function() {
-		this._menu.hide();
-	},
-	showMenu: function() {
-		this._menu.show();
-	},
-}
