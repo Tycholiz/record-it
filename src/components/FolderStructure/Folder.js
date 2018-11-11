@@ -38,7 +38,7 @@ class Folder extends Component {
 	showMenu = () => {
 		this.state._menu.show();
 	};
-git
+
 	handleOpenModal = (modal) => {
 		this.hideMenu()
 		this.setState(() => {
@@ -74,18 +74,25 @@ git
 
 		return (
 			<TouchableOpacity
-				style={[styles.container, selectMultiple && styles.containerMultipleMode, selected && styles.containerSelected ]}
+				style={[
+					styles.container,
+					selectMultiple && styles.containerMultipleMode,
+					selected && styles.containerSelected
+				]}
 				onPress={handleUnitPress}
 			>
 
 				{/* FOLDER OPTIONS */}
 				{unitType &&
-					<TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}} onPress={this.showMenu}>
+					<TouchableOpacity
+						style={styles.folderOptionsContainer}
+						onPress={this.showMenu}
+					>
 						<Menu
 							ref={this.setMenuRef}
 							button={barsIcon}
 						>
-						<MenuItem onPress={() => this.handleOpenModal('renaming')}>Rename</MenuItem>
+							<MenuItem onPress={() => this.handleOpenModal('renaming')}>Rename</MenuItem>
 							<MenuDivider />
 							<MenuItem onPress={() => this.handleOpenModal('deleteConfirmation')}>Delete</MenuItem>
 							<MenuDivider />
@@ -223,6 +230,11 @@ const styles = StyleSheet.create({
 	containerMultipleMode: {
 		borderWidth: 1,
 		borderColor: 'red',
+	},
+	folderOptionsContainer: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
 	},
 	modalMask: {
 		flex: 1,

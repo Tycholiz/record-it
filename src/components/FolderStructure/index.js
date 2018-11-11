@@ -19,7 +19,7 @@ import Folder from './Folder';
 
 class FolderStructure extends Component {
 	state = {
-		selectedUnits: []
+		selectedUnits: [],
 	}
 
 	componentDidMount() {
@@ -33,7 +33,12 @@ class FolderStructure extends Component {
 		switch(selectMultiple) {
 			case true:
 				//set the unit's prop 'selected' to true
-				//add the unit id to state.selectedUnits
+				if (this.state.selectedUnits.indexOf(unitId) === -1) {
+					this.setState(prevState => ({
+						selectedUnits: [...prevState.selectedUnits, unitId]
+					}));
+				}
+				console.log(this.state.selectedUnits)
 				break;
 			case false:
 				if (unitType === 'folder') {
