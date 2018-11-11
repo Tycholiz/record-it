@@ -70,9 +70,13 @@ git
 
 	render() {
 		const { renaming, deleteConfirmation } = this.state;
-		const { id, text, icon, handleUnitPress, unitType, selected } = this.props;
+		const { id, text, icon, handleUnitPress, unitType, selected, selectMultiple } = this.props;
+
 		return (
-			<TouchableOpacity style={[styles.container, selected && styles.containerSelected ]} onPress={handleUnitPress}>
+			<TouchableOpacity
+				style={[styles.container, selectMultiple && styles.containerMultipleMode, selected && styles.containerSelected ]}
+				onPress={handleUnitPress}
+			>
 
 				{/* FOLDER OPTIONS */}
 				{unitType &&
@@ -197,6 +201,7 @@ const mapStateToProps = state => {
 	return {
 		currentFolder: state.currentFolder,
 		units: state.units,
+		selectMultiple: state.multiple.selectMultiple
 	};
 }
 
@@ -215,6 +220,10 @@ const styles = StyleSheet.create({
 	containerSelected: {
 		backgroundColor: 'green'
 	},
+	containerMultipleMode: {
+		borderWidth: 1,
+		borderColor: 'red',
+	},
 	modalMask: {
 		flex: 1,
 		backgroundColor: 'rgba(0, 0, 0, 0.4)',
@@ -229,7 +238,6 @@ const styles = StyleSheet.create({
 		marginBottom: 240,
 		borderRadius: 4,
 		backgroundColor: '#2B2B2B',
-		zIndex: 1
 	},
 	modalHeader: {
 		flex: 1,
