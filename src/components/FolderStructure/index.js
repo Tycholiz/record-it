@@ -27,10 +27,10 @@ class FolderStructure extends Component {
 		dispatch(getInitialUnits(currentFolder));
 	};
 
-	handleUnitPress = (unitId, unitType, selectMultiple) => {
+	handleUnitPress = (unitId, unitType, selectMultipleMode) => {
 		const { dispatch } = this.props;
 
-		switch(selectMultiple) {
+		switch(selectMultipleMode) {
 			case true:
 				//set the unit's prop 'selected' to true
 
@@ -39,17 +39,14 @@ class FolderStructure extends Component {
 						selectedUnits: [...prevState.selectedUnits, unitId]
 					}));
 				} else {
-
 					const newState = this.state.selectedUnits;
 					const index = newState.indexOf(unitId);
 					if (index !== -1) newState.splice(index, 1);
-
 					this.setState(() => {
 						return {
 							selectedUnits: newState
 						}
 					})
-
 				}
 				break;
 			case false:
@@ -60,8 +57,6 @@ class FolderStructure extends Component {
 					} else {
 						return;
 					}
-				break;
-			default:
 				break;
 		}
 	}
@@ -78,14 +73,15 @@ class FolderStructure extends Component {
 		dispatch(createFolder(currentFolder));
 	}
 
-	// unitSelectedStatus = (id) => {
-	// 	if (this.state.selectedUnits.indexOf(id) === -1) {
-	// 		return
-	// 	}
-	// }
+	unitSelectedStatus = (id) => {
+		if (this.state.selectedUnits.indexOf(id) !== -1) {
+			return true;
+		}
+		return false;
+	}
 
 	renderFolders = () => {
-		const { currentFolder, selectMultiple } = this.props;
+		const { currentFolder, selectMultipleMode } = this.props;
 		const childrenOfCurrentFolder = getChildrenOfFolder(this.props, currentFolder);
 
 		return Object.keys(childrenOfCurrentFolder).map((obj) => {
@@ -97,16 +93,16 @@ class FolderStructure extends Component {
 					text={title}
 					unitType={unitType}
 					icon={unitType === 'file' ? fileIcon : folderIcon}
-					handleUnitPress={() => this.handleUnitPress(id, unitType, selectMultiple)}
-					selected={false}
-					// selected={this.unitSelectedStatus(id)}
+					handleUnitPress={() => this.handleUnitPress(id, unitType, selectMultipleMode)}
+					// selected={false}
+					selected={this.unitSelectedStatus(id)}
 				/>
 			)
 		})
 	}
 
 	render() {
-		const { currentFolder, selectMultiple } = this.props;
+		const { currentFolder, selectMultipleMode } = this.props;
 
 		return (
 			<View style={styles.container}>
@@ -140,7 +136,7 @@ const mapStateToProps = state => {
 	return {
 		currentFolder: state.currentFolder,
 		units: state.units,
-		selectMultiple: state.multiple.selectMultiple
+		selectMultipleMode: state.multiple.selectMultiple
 	};
 }
 
