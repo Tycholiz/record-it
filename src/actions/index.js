@@ -75,10 +75,6 @@ export const renameUnit = (unitId, unitType, newTitle) => ({
 	}
 });
 
-export const toggleOptions = () => ({
-	type: TOGGLE_OPTIONS,
-});
-
-export const toggleSelectMultple = () => ({
+export const toggleSelectMultiple = () => ({
 	type: TOGGLE_SELECT_MULTIPLE,
 });

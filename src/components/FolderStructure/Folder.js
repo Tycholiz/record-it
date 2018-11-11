@@ -70,9 +70,9 @@ git
 
 	render() {
 		const { renaming, deleteConfirmation } = this.state;
-		const { id, text, icon, onPress, unitType, selected } = this.props;
+		const { id, text, icon, handleUnitPress, unitType, selected } = this.props;
 		return (
-			<TouchableOpacity style={[styles.container, selected && styles.containerSelected ]} onPress={onPress}>
+			<TouchableOpacity style={[styles.container, selected && styles.containerSelected ]} onPress={handleUnitPress}>
 
 				{/* FOLDER OPTIONS */}
 				{unitType &&

@@ -21,6 +21,7 @@ const pauseIcon = (<Icon name="pause" size={40} color='darkslategrey' />)
 
 class PlaybackControl extends Component {
 	render() {
+		const { startPlaying, playing, activeFile } = this.props;
 		return (
 			<View style={styles.container}>
 				<View style={styles.iconContainer}>
@@ -31,7 +32,7 @@ class PlaybackControl extends Component {
 						{starIcon}
 					</TouchableOpacity>
 				</View>
-				<Text style={styles.text}>{this.props.activeFile}.mp3</Text>
+				<Text style={styles.text}>{activeFile}.mp3</Text>
 				<View style={styles.clipScroll}>
 					<Text style={styles.time}>
 						00:10
@@ -47,8 +48,8 @@ class PlaybackControl extends Component {
 					<TouchableOpacity>
 						{backwardIcon}
 					</TouchableOpacity>
-					<TouchableOpacity onPress={this.props.startPlaying}>
-						{this.props.playing ? pauseIcon : playIcon}
+					<TouchableOpacity onPress={startPlaying}>
+						{playing ? pauseIcon : playIcon}
 					</TouchableOpacity>
 					<TouchableOpacity>
 						{forwardIcon}

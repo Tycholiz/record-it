@@ -7,6 +7,8 @@ import {
 	View,
 } from 'react-native';
 
+import { toggleSelectMultiple } from '../../actions';
+
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -27,6 +29,13 @@ class Settings extends Component {
 		this._menu.show();
 	};
 
+	handleSelectMultiple = () => {
+		const { dispatch } = this.props;
+
+		this.hideMenu();
+		dispatch(toggleSelectMultiple());
+	}
+
 	render() {
 		return (
 			<TouchableOpacity style={styles.settingsIcon} onPress={this.showMenu}>
@@ -37,7 +46,7 @@ class Settings extends Component {
 					>
 						<MenuItem onPress={this.hideMenu}>Import</MenuItem>
 						<MenuDivider />
-						<MenuItem onPress={this.hideMenu}>Select Multiple</MenuItem>
+						<MenuItem onPress={this.handleSelectMultiple}>Select Multiple</MenuItem>
 						<MenuDivider />
 						<MenuItem onPress={this.hideMenu}>Cloud Connection</MenuItem>
 						<MenuDivider />
@@ -53,7 +62,7 @@ class Settings extends Component {
 
 const mapStateToProps = state => {
 	return {
-		optionsOpen: state.toggle.optionsOpen,
+		// optionsOpen: state.toggle.optionsOpen,
 	};
 }
 

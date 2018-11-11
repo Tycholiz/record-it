@@ -18,21 +18,34 @@ import { getChildrenOfFolder } from '../../utils';
 import Folder from './Folder';
 
 class FolderStructure extends Component {
+	state = {
+		selectedUnits: []
+	}
 
 	componentDidMount() {
 		const { currentFolder, dispatch } = this.props;
 		dispatch(getInitialUnits(currentFolder));
 	};
 
-	handleUnitPress = (unitId, unitType) => {
+	handleUnitPress = (unitId, unitType, selectMultiple) => {
 		const { dispatch } = this.props;
 
-		if (unitType === 'folder') {
-			dispatch(enterFolder(unitId));
-		} else if (unitType === 'file') {
-			dispatch(setActiveFile(unitId))
-		} else {
-			return;
+		switch(selectMultiple) {
+			case true:
+				//set the unit's prop 'selected' to true
+				//add the unit id to state.selectedUnits
+				break;
+			case false:
+				if (unitType === 'folder') {
+						dispatch(enterFolder(unitId));
+					} else if (unitType === 'file') {
+						dispatch(setActiveFile(unitId))
+					} else {
+						return;
+					}
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -49,7 +62,7 @@ class FolderStructure extends Component {
 	}
 
 	renderFolders = () => {
-		const { currentFolder } = this.props;
+		const { currentFolder, selectMultiple } = this.props;
 		const childrenOfCurrentFolder = getChildrenOfFolder(this.props, currentFolder);
 
 		return Object.keys(childrenOfCurrentFolder).map((obj) => {
@@ -61,7 +74,7 @@ class FolderStructure extends Component {
 					text={title}
 					unitType={unitType}
 					icon={unitType === 'file' ? fileIcon : folderIcon}
-					onPress={() => this.handleUnitPress(id, unitType)}
+					handleUnitPress={() => this.handleUnitPress(id, unitType, selectMultiple)}
 					selected={false}
 				/>
 			)
@@ -74,8 +87,8 @@ class FolderStructure extends Component {
 		return (
 			<View style={styles.container}>
 				<View style={styles.innerContainer}>
-					<Folder text={'Up One Level'} icon={upOneLevelIcon} onPress={() => this.handleGoUpOneLevel(currentFolder)}/>
-					<Folder text={'Add New Folder'} icon={addFolderIcon} onPress={() => this.handleNewFolder()} />
+					<Folder text={'Up One Level'} icon={upOneLevelIcon} handleUnitPress={() => this.handleGoUpOneLevel(currentFolder)}/>
+					<Folder text={'Add New Folder'} icon={addFolderIcon} handleUnitPress={() => this.handleNewFolder()} />
 				</View>
 				<ScrollView style={styles.container}>
 					<View style={styles.innerContainer}>

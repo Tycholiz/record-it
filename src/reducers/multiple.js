@@ -9,7 +9,8 @@ const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case TOGGLE_SELECT_MULTIPLE:
 			return {
-				...state
+				...state,
+				selectMultiple: !state.selectMultiple
 			}
 
 		default:
