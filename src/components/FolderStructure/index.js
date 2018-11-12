@@ -10,6 +10,8 @@ import {
 	TouchableOpacity,
 } from 'react-native';
 
+import { toggleSelectMultiple } from '../../actions';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 const upOneLevelIcon = (<Icon name="arrow-circle-left" size={40} color='darkslategrey' />)
 const addFolderIcon = (<Icon name="plus" size={40} color='darkslategrey' />)
@@ -24,6 +26,7 @@ import Folder from './Folder';
 class FolderStructure extends Component {
 	state = {
 		selectedUnits: [],
+		multipleSelectAction: false,
 	}
 
 	componentDidMount() {
@@ -93,6 +96,12 @@ class FolderStructure extends Component {
 		return false;
 	}
 
+	handleCancelMultipleSelection = () => {
+		const { dispatch } = this.props;
+
+		dispatch(toggleSelectMultiple());
+	}
+
 	renderFolders = () => {
 		const { currentFolder, selectMultipleMode } = this.props;
 		const childrenOfCurrentFolder = getChildrenOfFolder(this.props, currentFolder);
@@ -115,18 +124,48 @@ class FolderStructure extends Component {
 
 	render() {
 		const { currentFolder, selectMultipleMode } = this.props;
+		const { multipleSelectAction } = this.state;
 
 		return (
 			<View style={styles.container}>
 
 				{selectMultipleMode &&
 					<View style={styles.selectMultipleTopBar}>
-						<TouchableOpacity style={styles.confirmButton}>
-							<Text>CONFIRM SELECTION</Text>
-						</TouchableOpacity>
-						<TouchableOpacity style={styles.cancelButton}>
-							<Text>CANCEL</Text>
-						</TouchableOpacity>
+
+						{!multipleSelectAction ?
+							<View>
+								<TouchableOpacity style={styles.confirmButton}>
+									<Text>CONFIRM SELECTION</Text>
+								</TouchableOpacity>
+								<TouchableOpacity
+									style={styles.cancelButton}
+									onPress={() =>
+										this.handleCancelMultipleSelection()
+									}
+								>
+									<Text>CANCEL</Text>
+								</TouchableOpacity>
+							</View>
+								:
+							<View>
+								<TouchableOpacity style={styles.confirmButton}>
+									<Text>MOVE TO CURRENT FOLDER</Text>
+								</TouchableOpacity>
+								<TouchableOpacity style={styles.confirmButton}>
+									<Text>DELETE SELECTION</Text>
+								</TouchableOpacity>
+								<TouchableOpacity
+									style={styles.cancelButton}
+									onPress={() =>
+										this.handleCancelMultipleSelection()
+									}
+								>
+									<Text>CANCEL</Text>
+								</TouchableOpacity>
+							</View>
+						}
+
+
 					</View>
 				}
 
