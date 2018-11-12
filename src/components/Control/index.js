@@ -6,9 +6,7 @@ import {
 	View,
 	Text,
 	StyleSheet,
-	Button,
 } from 'react-native';
-import { } from 'expo';
 
 import RecordControl from './RecordControl';
 import PlaybackControl from './PlaybackControl';
@@ -16,11 +14,12 @@ import PlaybackControl from './PlaybackControl';
 class Control extends Component {
 
 	render() {
+		const { controlView, selectMultipleMode } = this.props;
 		return (
 			<View style={styles.container}>
-				{this.props.controlView === 'record' ?
+				{controlView === 'record' ?
 					<RecordControl />
-					:
+						:
 					<PlaybackControl />
 				}
 			</View>
@@ -33,7 +32,8 @@ class Control extends Component {
 //The mapStateToProps function's first argument is the entire Redux store’s state and it returns an object to be passed as props.
 mapStateToProps = (state) => {
 	return {
-		controlView: state.toggle.controlView
+		controlView: state.toggle.controlView,
+		selectMultipleMode: state.multiple.selectMultiple,
 	}
 }
 

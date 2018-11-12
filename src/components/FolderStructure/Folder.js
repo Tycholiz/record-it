@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		fontSize: 25
 	},
-	modalinput: {
+	modalInput: {
 		flex: 1,
 	},
 	modalOptions: {

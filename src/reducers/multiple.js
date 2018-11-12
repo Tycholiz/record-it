@@ -1,7 +1,7 @@
 import { TOGGLE_SELECT_MULTIPLE } from "../constants/action-types";
 
 const initialState = {
-	selectMultiple: true,
+	selectMultiple: false,
 	selectedUnits: [],
 };
 

@@ -4,6 +4,10 @@ import {
 	View,
 	StyleSheet,
 	ScrollView,
+	Modal,
+	TouchableHighlight,
+	Text,
+	TouchableOpacity,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -27,7 +31,7 @@ class FolderStructure extends Component {
 		dispatch(getInitialUnits(currentFolder));
 	};
 
-	//will run if selectMultipleMode is turned off while there are items in state.selectedUnits
+	//empty state.selectedUnits if selectMultipleMode is off
 	static getDerivedStateFromProps(props, state) {
 		if (props.selectMultipleMode === false && state.selectedUnits.length > 0) {
 			return {
@@ -114,6 +118,18 @@ class FolderStructure extends Component {
 
 		return (
 			<View style={styles.container}>
+
+				{selectMultipleMode &&
+					<View style={styles.selectMultipleTopBar}>
+						<TouchableOpacity style={styles.confirmButton}>
+							<Text>CONFIRM SELECTION</Text>
+						</TouchableOpacity>
+						<TouchableOpacity style={styles.cancelButton}>
+							<Text>CANCEL</Text>
+						</TouchableOpacity>
+					</View>
+				}
+
 				<View style={styles.innerContainer}>
 					<Folder
 						text={'Up One Level'}
@@ -161,5 +177,27 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-evenly',
 		flexWrap: 'wrap',
 		backgroundColor: 'hsla(253, 14%, 24%, 1)',
-	}
+	},
+	selectMultipleTopBar: {
+		position: 'absolute',
+		top: -100,
+		right: 0,
+		bottom: 0,
+		left: 0,
+		height: 60,
+		flexDirection: 'row',
+		backgroundColor: 'dimgrey'
+	},
+	confirmButton: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: 'green',
+	},
+	cancelButton: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: 'red',
+	},
 });
