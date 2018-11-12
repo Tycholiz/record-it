@@ -8,8 +8,8 @@ import {
 	CREATE_FOLDER,
 	DELETE_UNIT,
 	RENAME_UNIT,
-	TOGGLE_SELECT_MULTIPLE,
-	CONFIRM_MULTIPLE_SELECTION
+	MODIFY_SELECTED_UNIT,
+	MULTIPLE_MODE
 } from "../constants/action-types";
 
 import uuid from 'uuid/v4'
@@ -75,13 +75,17 @@ export const renameUnit = (unitId, unitType, newTitle) => ({
 	}
 });
 
-export const toggleSelectMultiple = () => ({
-	type: TOGGLE_SELECT_MULTIPLE,
+export const multipleMode = (mode) => ({
+	type: MULTIPLE_MODE,
+	payload: {
+		mode
+	}
 });
 
-export const confirmMultipleSelection = (selectedUnits) => ({
-	type: CONFIRM_MULTIPLE_SELECTION,
+export const modifySelectedUnit = (modification, unitId) => ({
+	type: MODIFY_SELECTED_UNIT,
 	payload: {
-		selectedUnits
+		modification,
+		unitId
 	}
 });

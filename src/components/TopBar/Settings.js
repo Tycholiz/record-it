@@ -7,7 +7,8 @@ import {
 	View,
 } from 'react-native';
 
-import { toggleSelectMultiple } from '../../actions';
+import { multipleMode } from '../../actions';
+import { Mode } from '../../constants/enumerables';
 
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
@@ -33,7 +34,7 @@ class Settings extends Component {
 		const { dispatch } = this.props;
 
 		this.hideMenu();
-		dispatch(toggleSelectMultiple());
+		dispatch(multipleMode(Mode.Select));
 	}
 
 	render() {

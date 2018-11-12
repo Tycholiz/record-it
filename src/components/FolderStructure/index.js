@@ -13,10 +13,11 @@ import {
 	getInitialUnits,
 	setActiveFile,
 	createFolder,
-	toggleSelectMultiple,
-	confirmMultipleSelection
+	multipleMode,
+	modifySelectedUnit,
 } from '../../actions';
 import { getChildrenOfFolder } from '../../utils';
+import { Mode, Modification } from '../../constants/enumerables';
 
 import Folder from './Folder';
 
@@ -27,47 +28,17 @@ const folderIcon = (<Icon name="folder" size={40} color='darkslategrey' />)
 const fileIcon = (<Icon name="headphones" size={40} color='darkslategrey' />)
 
 class FolderStructure extends Component {
-	state = {
-		selectedUnits: [],
-		promptMultipleSelectAction: false,
-	}
-
 	componentDidMount() {
 		const { currentFolder, dispatch } = this.props;
 		dispatch(getInitialUnits(currentFolder));
 	};
 
-	//empty state.selectedUnits if selectMultipleMode is off
-	static getDerivedStateFromProps(props, state) {
-		if (props.selectMultipleMode === false && state.selectedUnits.length > 0) {
-			return {
-				selectedUnits: []
-			}
-		}
-		return null;
-	}
+	handleUnitPress = (unitId, unitType, mode) => {
+		const { dispatch, selectedUnits } = this.props;
 
-	handleUnitPress = (unitId, unitType, selectMultipleMode) => {
-		const { dispatch } = this.props;
-
-		switch(selectMultipleMode) {
-			case true:
-				if (this.state.selectedUnits.indexOf(unitId) === -1) {
-					this.setState(prevState => ({
-						selectedUnits: [...prevState.selectedUnits, unitId]
-					}));
-				} else {
-					const newState = this.state.selectedUnits;
-					const index = newState.indexOf(unitId);
-					if (index !== -1) newState.splice(index, 1);
-					this.setState(() => {
-						return {
-							selectedUnits: newState
-						}
-					})
-				}
-				break;
-			case false:
+		switch(mode) {
+			case Mode.Normal:
+			case Mode.Action:
 				if (unitType === 'folder') {
 						dispatch(enterFolder(unitId));
 					} else if (unitType === 'file') {
@@ -76,6 +47,18 @@ class FolderStructure extends Component {
 						return;
 					}
 				break;
+
+			case Mode.Select:
+				const { Add, Remove } = Modification;
+
+				if (selectedUnits.indexOf(unitId) === -1) {
+					dispatch(modifySelectedUnit(Add, unitId))
+				} else {
+					dispatch(modifySelectedUnit(Remove, unitId))
+				}
+				break;
+			default:
+				return;
 		}
 	}
 
@@ -93,33 +76,31 @@ class FolderStructure extends Component {
 	}
 
 	unitSelectedStatus = (id) => {
-		if (this.state.selectedUnits.indexOf(id) !== -1) {
+		const { selectedUnits } = this.props;
+		if (selectedUnits.indexOf(id) !== -1) {
 			return true;
 		}
 		return false;
 	}
 
 	handleConfirmMultipleSelection = () => {
-		const { selectedUnits } = this.state;
-		const { dispatch } = this.props;
+		const { dispatch, selectedUnits } = this.props;
 
-		dispatch(confirmMultipleSelection(selectedUnits))
-		dispatch(toggleSelectMultiple());
-		if (selectedUnits.length > 0) this.setState(() => {
-			return {
-				promptMultipleSelectAction: true
-			};
-		});
+		if (selectedUnits.length > 0) {
+			dispatch(multipleMode(Mode.Action));
+		} else {
+			dispatch(multipleMode(Mode.Normal));
+		}
 	}
 
 	handleCancelMultipleSelection = () => {
 		const { dispatch } = this.props;
 
-		dispatch(toggleSelectMultiple());
+		dispatch(multipleMode(Mode.Normal));
 	}
 
 	renderFolders = () => {
-		const { currentFolder, selectMultipleMode } = this.props;
+		const { currentFolder, mode } = this.props;
 		const childrenOfCurrentFolder = getChildrenOfFolder(this.props, currentFolder);
 
 		return Object.keys(childrenOfCurrentFolder).map((obj) => {
@@ -131,7 +112,7 @@ class FolderStructure extends Component {
 					text={title}
 					unitType={unitType}
 					icon={unitType === 'file' ? fileIcon : folderIcon}
-					handleUnitPress={() => this.handleUnitPress(id, unitType, selectMultipleMode)}
+					handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
 					selected={this.unitSelectedStatus(id)}
 				/>
 			)
@@ -139,54 +120,48 @@ class FolderStructure extends Component {
 	}
 
 	render() {
-		const { currentFolder, selectMultipleMode } = this.props;
-		const { promptMultipleSelectAction } = this.state;
+		const { currentFolder, mode } = this.props;
 
 		return (
 			<View style={styles.container}>
 
-				{selectMultipleMode &&
+				{mode === Mode.Select &&
 					<View style={styles.selectMultipleTopBar}>
+						<TouchableOpacity
+							style={styles.confirmButton}
+							onPress={() =>
+								this.handleConfirmMultipleSelection()
+							}
+						>
+							<Text>CONFIRM SELECTION</Text>
+						</TouchableOpacity>
+						<TouchableOpacity
+							style={styles.cancelButton}
+							onPress={() =>
+								this.handleCancelMultipleSelection()
+							}
+						>
+							<Text>CANCEL</Text>
+						</TouchableOpacity>
+					</View>
+				}
 
-						{!promptMultipleSelectAction ?
-							<View>
-								<TouchableOpacity
-									style={styles.confirmButton}
-									onPress={() =>
-										this.handleConfirmMultipleSelection()
-									}
-								>
-									<Text>CONFIRM SELECTION</Text>
-								</TouchableOpacity>
-								<TouchableOpacity
-									style={styles.cancelButton}
-									onPress={() =>
-										this.handleCancelMultipleSelection()
-									}
-								>
-									<Text>CANCEL</Text>
-								</TouchableOpacity>
-							</View>
-								:
-							<View>
-								<TouchableOpacity style={styles.confirmButton}>
-									<Text>MOVE TO CURRENT FOLDER</Text>
-								</TouchableOpacity>
-								<TouchableOpacity style={styles.confirmButton}>
-									<Text>DELETE SELECTION</Text>
-								</TouchableOpacity>
-								<TouchableOpacity
-									style={styles.cancelButton}
-									onPress={() =>
-										this.handleCancelMultipleSelection()
-									}
-								>
-									<Text>CANCEL</Text>
-								</TouchableOpacity>
-							</View>
-						}
-
-
+				{mode === Mode.Action &&
+					<View style={styles.selectMultipleTopBar}>
+						<TouchableOpacity style={styles.moveButton}>
+							<Text>MOVE TO CURRENT FOLDER</Text>
+						</TouchableOpacity>
+						<TouchableOpacity style={styles.deleteButton}>
+							<Text>DELETE SELECTION</Text>
+						</TouchableOpacity>
+						<TouchableOpacity
+							style={styles.cancelButton}
+							onPress={() =>
+								this.handleCancelMultipleSelection()
+							}
+						>
+							<Text>CANCEL</Text>
+						</TouchableOpacity>
 					</View>
 				}
 
@@ -220,7 +195,8 @@ const mapStateToProps = state => {
 	return {
 		currentFolder: state.currentFolder,
 		units: state.units,
-		selectMultipleMode: state.multiple.selectMultiple
+		mode: state.multiple.mode,
+		selectedUnits: state.multiple.selectedUnits
 	};
 }
 
@@ -254,10 +230,22 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		backgroundColor: 'green',
 	},
+	moveButton: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: 'blue',
+	},
+	deleteButton: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: 'tomato',
+	},
 	cancelButton: {
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: 'red',
+		backgroundColor: 'grey',
 	},
 });
