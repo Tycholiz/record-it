@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createBottomTabNavigator } from 'react-navigation';
 
 import {
 	View,
@@ -36,11 +35,6 @@ mapStateToProps = (state) => {
 		selectMultipleMode: state.multiple.selectMultiple,
 	}
 }
-
-// const ControlWithNav = createBottomTabNavigator({
-// 	Home: HomeScreen,
-// 	Settings: SettingsScreen,
-// });
 
 export default connect(mapStateToProps)(Control);
 

@@ -11,7 +11,6 @@ import {
 // YellowBox.ignoreWarnings(['Remote debugger']);
 
 import {
-	Constants,
 	AppLoading,
 	Asset,
 	Font,
@@ -20,11 +19,9 @@ import {
 
 import store from './store'
 
-import TopBar from './components/TopBar/index';
-import FolderStructure from './components/FolderStructure/index';
-import Control from './components/Control/index';
+import App from './components/App';
 
-export default class App extends Component {
+export default class Root extends Component {
 	state = {
 		isLoadingComplete: false,
 	};
@@ -41,12 +38,7 @@ export default class App extends Component {
 		} else {
 			return (
 				<Provider store={store}>
-					<View style={styles.container}>
-						{Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-						<TopBar />
-						<FolderStructure />
-						<Control />
-					</View>
+					<App />
 				</Provider>
 			);
 		}
@@ -81,9 +73,9 @@ export default class App extends Component {
 // }
 
 
-const styles = StyleSheet.create({
-	container: {
-		marginTop: Constants.statusBarHeight,
-		flex: 1,
-	},
-});
+// const styles = StyleSheet.create({
+// 	container: {
+// 		marginTop: Constants.statusBarHeight,
+// 		flex: 1,
+// 	},
+// });
