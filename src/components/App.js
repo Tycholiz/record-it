@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import {
 	View,
-	Text,
 	StyleSheet,
 	Platform,
 	StatusBar
@@ -15,8 +16,9 @@ import TopBar from './TopBar';
 import FolderStructure from './FolderStructure';
 import Control from './Control';
 
-export default class filename extends Component {
+class App extends Component {
 	render() {
+		const { selectMultipleMode } = this.props;
 		return (
 			<View style={styles.container}>
 				{Platform.OS === 'ios' &&
@@ -24,11 +26,22 @@ export default class filename extends Component {
 				}
 				<TopBar />
 				<FolderStructure />
-				<Control />
+				{!selectMultipleMode &&
+					<Control />
+				}
 			</View>
 		);
 	}
 }
+
+const mapStateToProps = state => {
+	return {
+		selectMultipleMode: state.multiple.selectMultiple
+	};
+}
+
+export default connect(mapStateToProps)(App);
+
 
 const styles = StyleSheet.create({
 	container: {
