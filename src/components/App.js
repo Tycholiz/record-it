@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import {
 	View,
 	StyleSheet,
 	Platform,
 	StatusBar
 } from 'react-native';
-
 import {
 	Constants,
 } from 'expo';
+import { Mode } from '../constants/enumerables';
 
 import TopBar from './TopBar';
 import FolderStructure from './FolderStructure';
@@ -18,7 +17,7 @@ import Control from './Control';
 
 class App extends Component {
 	render() {
-		const { selectMultipleMode } = this.props;
+		const { mode } = this.props;
 		return (
 			<View style={styles.container}>
 				{Platform.OS === 'ios' &&
@@ -26,7 +25,7 @@ class App extends Component {
 				}
 				<TopBar />
 				<FolderStructure />
-				{!selectMultipleMode &&
+				{mode === Mode.Normal &&
 					<Control />
 				}
 			</View>
@@ -36,7 +35,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
 	return {
-		selectMultipleMode: state.multiple.selectMultiple
+		mode: state.multiple.mode
 	};
 }
 

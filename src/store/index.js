@@ -16,7 +16,8 @@ if (__DEV__) {
 	store = createStore(
 		reducer,
 		composeWithDevTools(
-			applyMiddleware(thunk, logger), //Note: logger must be the last middleware in chain, otherwise it will log thunk and promise, not actual actions
+			// applyMiddleware(thunk, logger), //Note: logger must be the last middleware in chain, otherwise it will log thunk and promise, not actual actions
+			applyMiddleware(thunk),
 	));
 } else {
 	store = createStore(

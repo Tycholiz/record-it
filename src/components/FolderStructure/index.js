@@ -39,6 +39,7 @@ class FolderStructure extends Component {
 		switch(mode) {
 			case Mode.Normal:
 			case Mode.Action:
+				if (selectedUnits.indexOf(unitId) !== -1 && Mode.Action) return;
 				if (unitType === 'folder') {
 						dispatch(enterFolder(unitId));
 					} else if (unitType === 'file') {
@@ -72,14 +73,12 @@ class FolderStructure extends Component {
 	handleNewFolder = () => {
 		const { currentFolder, dispatch } = this.props;
 
-		this.forceUpdate();
 		dispatch(createFolder(currentFolder));
 	}
 
 	unitSelectedStatus = (unitId) => {
 		const { selectedUnits } = this.props;
 
-		console.log(selectedUnits);
 		if (selectedUnits.indexOf(unitId) !== -1) {
 			return true;
 		}

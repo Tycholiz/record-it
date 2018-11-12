@@ -11,6 +11,7 @@ import {
 	Alert,
 	KeyboardAvoidingView,
 } from 'react-native';
+import { Mode } from '../../constants/enumerables';
 
 import { deleteUnit, renameUnit } from '../../actions';
 
@@ -70,13 +71,13 @@ class Folder extends Component {
 
 	render() {
 		const { renaming, deleteConfirmation } = this.state;
-		const { id, text, icon, handleUnitPress, unitType, selected, selectMultiple } = this.props;
+		const { id, text, icon, handleUnitPress, unitType, selected, mode } = this.props;
 
 		return (
 			<TouchableOpacity
 				style={[
 					styles.container,
-					selectMultiple && styles.containerMultipleMode,
+					mode === Mode.Select && unitType ? styles.containerMultipleMode : null,
 					selected && styles.containerSelected
 				]}
 				onPress={handleUnitPress}
@@ -208,7 +209,7 @@ const mapStateToProps = state => {
 	return {
 		currentFolder: state.currentFolder,
 		units: state.units,
-		selectMultiple: state.multiple.selectMultiple
+		mode: state.multiple.mode
 	};
 }
 
