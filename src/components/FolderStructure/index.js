@@ -6,6 +6,7 @@ import {
 	ScrollView,
 	Text,
 	TouchableOpacity,
+	Alert,
 } from 'react-native';
 
 import {
@@ -39,7 +40,10 @@ class FolderStructure extends Component {
 		switch(mode) {
 			case Mode.Normal:
 			case Mode.Action:
-				if (selectedUnits.indexOf(unitId) !== -1 && Mode.Action) return;
+				if (selectedUnits.indexOf(unitId) !== -1 && Mode.Action) {
+					Alert.alert('Cannot enter a selected folder');
+					return;
+				}
 				if (unitType === 'folder') {
 						dispatch(enterFolder(unitId));
 					} else if (unitType === 'file') {
