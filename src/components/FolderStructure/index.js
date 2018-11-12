@@ -72,11 +72,14 @@ class FolderStructure extends Component {
 	handleNewFolder = () => {
 		const { currentFolder, dispatch } = this.props;
 
+		this.forceUpdate();
 		dispatch(createFolder(currentFolder));
 	}
 
 	unitSelectedStatus = (unitId) => {
 		const { selectedUnits } = this.props;
+
+		console.log(selectedUnits);
 		if (selectedUnits.indexOf(unitId) !== -1) {
 			return true;
 		}

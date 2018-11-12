@@ -18,26 +18,22 @@ const reducer = (state = initialState, action) => {
 				mode: action.payload.mode
 			}
 		case MODIFY_SELECTED_UNIT:
-			let newState = state.selectedUnits;
-			const index = newState.indexOf(action.payload.unitId);
-
 			if (action.payload.modification === Modification.Add) {
-				newState.push(action.payload.unitId)
 				return {
 					...state,
-					selectedUnits: newState
+					selectedUnits: [...state.selectedUnits, action.payload.unitId]
 				}
 			} else if (action.payload.modification === Modification.Remove) {
-				newState.splice(index, 1);
-					return {
-						...state,
-						selectedUnits: newState
-					}
+				return {
+					...state,
+					selectedUnits: deleteSingleUnit(state.selectedUnits, action.payload.unitId)
+				}
+
 			} else if (action.payload.modification === Modification.Empty) {
 				newState = [];
 				return {
 					...state,
-					selectedUnits: newState
+					selectedUnits: []
 				}
 			} else {
 				console.log("you made a grave error my friend...")
@@ -49,3 +45,9 @@ const reducer = (state = initialState, action) => {
 	}
 };
 export default reducer;
+
+function deleteSingleUnit(selectedUnits, unitId) {
+	return selectedUnits.filter((unit) => {
+		return unit !== unitId
+	});
+}
