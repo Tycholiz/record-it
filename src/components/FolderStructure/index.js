@@ -18,7 +18,7 @@ import {
 	modifySelectedUnit,
 } from '../../actions';
 import { getChildrenOfFolder } from '../../utils';
-import { Mode, Modification } from '../../constants/enumerables';
+import { Mode, Modification, UnitType } from '../../constants/enumerables';
 
 import Folder from './Folder';
 
@@ -44,9 +44,9 @@ class FolderStructure extends Component {
 					Alert.alert('Cannot enter a selected folder');
 					return;
 				}
-				if (unitType === 'folder') {
+				if (unitType === UnitType.Folder) {
 						dispatch(enterFolder(unitId));
-					} else if (unitType === 'file') {
+					} else if (unitType === UnitType.File) {
 						dispatch(setActiveFile(unitId))
 					} else {
 						return;

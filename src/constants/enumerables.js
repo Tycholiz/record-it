@@ -11,3 +11,9 @@ export const Modification = {
 	Empty: 'empty'
 }
 Object.freeze(Modification)
+
+export const UnitType = {
+	File: 'file',
+	Folder: 'folder',
+}
+Object.freeze(UnitType)
