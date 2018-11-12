@@ -75,9 +75,9 @@ class FolderStructure extends Component {
 		dispatch(createFolder(currentFolder));
 	}
 
-	unitSelectedStatus = (id) => {
+	unitSelectedStatus = (unitId) => {
 		const { selectedUnits } = this.props;
-		if (selectedUnits.indexOf(id) !== -1) {
+		if (selectedUnits.indexOf(unitId) !== -1) {
 			return true;
 		}
 		return false;
@@ -89,13 +89,15 @@ class FolderStructure extends Component {
 		if (selectedUnits.length > 0) {
 			dispatch(multipleMode(Mode.Action));
 		} else {
-			dispatch(multipleMode(Mode.Normal));
+			this.handleCancelMultipleSelection();
 		}
 	}
 
 	handleCancelMultipleSelection = () => {
 		const { dispatch } = this.props;
+		const { Empty } = Modification;
 
+		dispatch(modifySelectedUnit(Empty))
 		dispatch(multipleMode(Mode.Normal));
 	}
 

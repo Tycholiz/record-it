@@ -18,7 +18,7 @@ const reducer = (state = initialState, action) => {
 				mode: action.payload.mode
 			}
 		case MODIFY_SELECTED_UNIT:
-			const newState = state.selectedUnits;
+			let newState = state.selectedUnits;
 			const index = newState.indexOf(action.payload.unitId);
 
 			if (action.payload.modification === Modification.Add) {
@@ -33,6 +33,12 @@ const reducer = (state = initialState, action) => {
 						...state,
 						selectedUnits: newState
 					}
+			} else if (action.payload.modification === Modification.Empty) {
+				newState = [];
+				return {
+					...state,
+					selectedUnits: newState
+				}
 			} else {
 				console.log("you made a grave error my friend...")
 				return;
