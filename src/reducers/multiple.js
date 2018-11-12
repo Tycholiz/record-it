@@ -10,7 +10,7 @@ const initialState = {
 	selectedUnits: [],
 };
 
-const reducer = (state = initialState, action) => {
+const multipleReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case MULTIPLE_MODE:
 			return {
@@ -18,33 +18,32 @@ const reducer = (state = initialState, action) => {
 				mode: action.payload.mode
 			}
 		case MODIFY_SELECTED_UNIT:
-			if (action.payload.modification === Modification.Add) {
-				return {
-					...state,
-					selectedUnits: [...state.selectedUnits, action.payload.unitId]
-				}
-			} else if (action.payload.modification === Modification.Remove) {
-				return {
-					...state,
-					selectedUnits: deleteSingleUnit(state.selectedUnits, action.payload.unitId)
-				}
 
-			} else if (action.payload.modification === Modification.Empty) {
-				newState = [];
-				return {
-					...state,
-					selectedUnits: []
-				}
-			} else {
-				console.log("you made a grave error my friend...")
-				return;
+			switch (action.payload.modification) {
+				case Modification.Add:
+					return {
+						...state,
+						selectedUnits: [...state.selectedUnits, action.payload.unitId]
+					}
+				case Modification.Remove:
+					return {
+						...state,
+						selectedUnits: deleteSingleUnit(state.selectedUnits, action.payload.unitId)
+					}
+				case Modification.Empty:
+					return {
+						...state,
+						selectedUnits: []
+					}
+				default:
+					return;
 			}
 
-		default:
-			return state;
-	}
-};
-export default reducer;
+			default:
+				return state;
+		}
+	};
+	export default multipleReducer;
 
 function deleteSingleUnit(selectedUnits, unitId) {
 	return selectedUnits.filter((unit) => {
