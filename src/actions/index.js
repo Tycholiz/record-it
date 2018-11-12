@@ -6,10 +6,10 @@ import {
 	GET_INITIAL_UNITS,
 	SET_ACTIVE_FILE,
 	CREATE_FOLDER,
-	TOGGLE_OPTIONS,
 	DELETE_UNIT,
 	RENAME_UNIT,
-	TOGGLE_SELECT_MULTIPLE
+	TOGGLE_SELECT_MULTIPLE,
+	CONFIRM_MULTIPLE_SELECTION
 } from "../constants/action-types";
 
 import uuid from 'uuid/v4'
@@ -77,4 +77,11 @@ export const renameUnit = (unitId, unitType, newTitle) => ({
 
 export const toggleSelectMultiple = () => ({
 	type: TOGGLE_SELECT_MULTIPLE,
+});
+
+export const confirmMultipleSelection = (selectedUnits) => ({
+	type: CONFIRM_MULTIPLE_SELECTION,
+	payload: {
+		selectedUnits
+	}
 });

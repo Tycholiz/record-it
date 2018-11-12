@@ -4,13 +4,21 @@ import {
 	View,
 	StyleSheet,
 	ScrollView,
-	Modal,
-	TouchableHighlight,
 	Text,
 	TouchableOpacity,
 } from 'react-native';
 
-import { toggleSelectMultiple } from '../../actions';
+import {
+	enterFolder,
+	getInitialUnits,
+	setActiveFile,
+	createFolder,
+	toggleSelectMultiple,
+	confirmMultipleSelection
+} from '../../actions';
+import { getChildrenOfFolder } from '../../utils';
+
+import Folder from './Folder';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 const upOneLevelIcon = (<Icon name="arrow-circle-left" size={40} color='darkslategrey' />)
@@ -18,15 +26,10 @@ const addFolderIcon = (<Icon name="plus" size={40} color='darkslategrey' />)
 const folderIcon = (<Icon name="folder" size={40} color='darkslategrey' />)
 const fileIcon = (<Icon name="headphones" size={40} color='darkslategrey' />)
 
-import { enterFolder, getInitialUnits, setActiveFile, createFolder } from '../../actions';
-import { getChildrenOfFolder } from '../../utils';
-
-import Folder from './Folder';
-
 class FolderStructure extends Component {
 	state = {
 		selectedUnits: [],
-		multipleSelectAction: false,
+		promptMultipleSelectAction: false,
 	}
 
 	componentDidMount() {
@@ -96,6 +99,19 @@ class FolderStructure extends Component {
 		return false;
 	}
 
+	handleConfirmMultipleSelection = () => {
+		const { selectedUnits } = this.state;
+		const { dispatch } = this.props;
+
+		dispatch(confirmMultipleSelection(selectedUnits))
+		dispatch(toggleSelectMultiple());
+		if (selectedUnits.length > 0) this.setState(() => {
+			return {
+				promptMultipleSelectAction: true
+			};
+		});
+	}
+
 	handleCancelMultipleSelection = () => {
 		const { dispatch } = this.props;
 
@@ -124,7 +140,7 @@ class FolderStructure extends Component {
 
 	render() {
 		const { currentFolder, selectMultipleMode } = this.props;
-		const { multipleSelectAction } = this.state;
+		const { promptMultipleSelectAction } = this.state;
 
 		return (
 			<View style={styles.container}>
@@ -132,9 +148,14 @@ class FolderStructure extends Component {
 				{selectMultipleMode &&
 					<View style={styles.selectMultipleTopBar}>
 
-						{!multipleSelectAction ?
+						{!promptMultipleSelectAction ?
 							<View>
-								<TouchableOpacity style={styles.confirmButton}>
+								<TouchableOpacity
+									style={styles.confirmButton}
+									onPress={() =>
+										this.handleConfirmMultipleSelection()
+									}
+								>
 									<Text>CONFIRM SELECTION</Text>
 								</TouchableOpacity>
 								<TouchableOpacity

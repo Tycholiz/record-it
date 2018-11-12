@@ -1,4 +1,7 @@
-import { TOGGLE_SELECT_MULTIPLE } from "../constants/action-types";
+import {
+	TOGGLE_SELECT_MULTIPLE,
+	CONFIRM_MULTIPLE_SELECTION
+ } from "../constants/action-types";
 
 const initialState = {
 	selectMultiple: false,
@@ -11,6 +14,11 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				selectMultiple: !state.selectMultiple
+			}
+		case CONFIRM_MULTIPLE_SELECTION:
+			return {
+				...state,
+				selectedUnits: action.payload.selectedUnits
 			}
 
 		default:
