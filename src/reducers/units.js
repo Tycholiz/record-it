@@ -269,10 +269,10 @@ const units = (state = initialState, action) => {
 			const unitType = action.payload.unitType === UnitType.Folder ? 'folders' : 'files';
 			const unitToDelete = action.payload.unitId;
 
-			const { [unitType]: unitsOfType, ...rest } = state;
+			const { [unitType]: unitsOfType, ...oppositeUnitType } = state;
 			const { [unitToDelete]: unitValue, ...objWithRemovedUnit } = unitsOfType;
 
-			const newState = { ...rest, [unitType]: objWithRemovedUnit }
+			const newState = { ...oppositeUnitType, [unitType]: objWithRemovedUnit }
 
 			return {
 				...state,
@@ -296,21 +296,53 @@ const units = (state = initialState, action) => {
 
 
 
+		// case RENAME_UNIT:
+		// 	const { newTitle } = action.payload
+
+		// 	let type = action.payload.unitType === UnitType.Folder ? 'folders' : 'files';
+		// 	const newStateWithRenamedObj = state; //this is mutating state
+
+		// 	const renamedUnit = state[type][action.payload.unitId]
+		// 	renamedUnit.title = newTitle
+
+		// 	newStateWithRenamedObj[type][action.payload.unitId] = renamedUnit;
+
+		// 	return {
+		// 		...state,
+		// 		newStateWithRenamedObj
+		// 	};
+
+
+
+
+
 		case RENAME_UNIT:
-			const { newTitle } = action.payload
+			const unitToRename = action.payload.unitId
+			const type = action.payload.unitType === UnitType.Folder ? 'folders' : 'files';
+			const { newTitle } = action.payload;
 
-			let type = action.payload.unitType === UnitType.Folder ? 'folders' : 'files';
-			const newStateWithRenamedObj = state; //this is mutating state
+			const { [type]: unitsOfType, ...opposingUnitType } = state;
+			const { [unitToRename]: unit, ...restOfUnitType } = unitsOfType;
+			const { title, ...unitDataWithoutTitle } = unit;
 
-			const renamedUnit = state[type][action.payload.unitId]
-			renamedUnit.title = newTitle
+			const updatedUnit = unitDataWithoutTitle;
+			updatedUnit.title = newTitle;
 
-			newStateWithRenamedObj[type][action.payload.unitId] = renamedUnit;
+			const updatedUnitType = { [unitToRename]: updatedUnit, ...restOfUnitType };
+			const newStateWithRenamedObj = { ...opposingUnitType, [type]: updatedUnitType }
 
 			return {
 				...state,
-				newStateWithRenamedObj
-			};
+				...newStateWithRenamedObj
+			}
+
+
+
+
+
+
+
+
 
 		case MOVE_UNITS:
 			return {
