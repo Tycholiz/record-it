@@ -1,12 +1,12 @@
 import {
 	MULTIPLE_MODE,
-	MODIFY_SELECTED_UNIT
+	MODIFY_SELECTED_UNIT,
  } from "../constants/action-types";
 
-import { Modification } from '../constants/enumerables';
+import { Modification, Mode } from '../constants/enumerables';
 
 const initialState = {
-	mode: 0,
+	mode: Mode.Normal,
 	selectedUnits: [],
 };
 
@@ -18,7 +18,6 @@ const multipleReducer = (state = initialState, action) => {
 				mode: action.payload.mode
 			}
 		case MODIFY_SELECTED_UNIT:
-
 			switch (action.payload.modification) {
 				case Modification.Add:
 					return {

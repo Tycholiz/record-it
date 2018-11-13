@@ -16,7 +16,9 @@ import {
 	createFolder,
 	multipleMode,
 	modifySelectedUnit,
+	moveUnits,
 } from '../../actions';
+
 import { getChildrenOfFolder } from '../../utils';
 import { Mode, Modification, UnitType } from '../../constants/enumerables';
 
@@ -99,6 +101,13 @@ class FolderStructure extends Component {
 		}
 	}
 
+	handleMoveUnits = () => {
+		const { dispatch, selectedUnits, currentFolder } = this.props;
+
+		dispatch(moveUnits(selectedUnits, currentFolder))
+		this.handleCancelMultipleSelection();
+	}
+
 	handleCancelMultipleSelection = () => {
 		const { dispatch } = this.props;
 		const { Empty } = Modification;
@@ -119,7 +128,7 @@ class FolderStructure extends Component {
 					id={id}
 					text={title}
 					unitType={unitType}
-					icon={unitType === 'file' ? fileIcon : folderIcon}
+					icon={unitType === UnitType.File ? fileIcon : folderIcon}
 					handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
 					selected={this.unitSelectedStatus(id)}
 				/>
@@ -156,7 +165,12 @@ class FolderStructure extends Component {
 
 				{mode === Mode.Action &&
 					<View style={styles.selectMultipleTopBar}>
-						<TouchableOpacity style={styles.moveButton}>
+						<TouchableOpacity
+							style={styles.moveButton}
+							onPress={() =>
+								this.handleMoveUnits()
+							}
+						>
 							<Text>MOVE TO CURRENT FOLDER</Text>
 						</TouchableOpacity>
 						<TouchableOpacity style={styles.deleteButton}>

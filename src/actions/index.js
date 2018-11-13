@@ -9,8 +9,11 @@ import {
 	DELETE_UNIT,
 	RENAME_UNIT,
 	MODIFY_SELECTED_UNIT,
-	MULTIPLE_MODE
+	MULTIPLE_MODE,
+	MOVE_UNITS
 } from "../constants/action-types";
+
+import { UnitType } from '../constants/enumerables';
 
 import uuid from 'uuid/v4'
 
@@ -54,7 +57,7 @@ export const createFolder = (currentFolder) => ({
 		title: "New folder",
 		dateCreated: Date.now(),
 		parentId: currentFolder,
-		unitType: 'folder'
+		unitType: UnitType.Folder
 	}
 });
 
@@ -87,5 +90,13 @@ export const modifySelectedUnit = (modification, unitId) => ({
 	payload: {
 		modification,
 		unitId
+	}
+});
+
+export const moveUnits = (unitIds, currentFolder) => ({
+	type: MOVE_UNITS,
+	payload: {
+		unitIds,
+		currentFolder
 	}
 });

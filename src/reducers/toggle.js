@@ -7,11 +7,12 @@ import {
 	TOGGLE_OPTIONS,
 } from "../constants/action-types";
 
+import { Mode, ControlView, UnitType } from '../constants/enumerables';
+
 const initialState = {
-	controlView: 'record',
+	controlView: ControlView.Record,
 	toggleText: PLAYBACK,
 	recording: false,
-	optionsOpen: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -19,7 +20,7 @@ const reducer = (state = initialState, action) => {
 		case TOGGLE_CONTROL_VIEW:
 			return {
 				...state,
-				controlView: state.controlView === 'record' ? 'playback' : 'record',
+				controlView: state.controlView === ControlView.Record ? ControlView.Playback : ControlView.Record,
 				toggleText: state.toggleText === PLAYBACK ? RECORD : PLAYBACK,
 			};
 		case START_RECORDING:
@@ -31,11 +32,6 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				playing: !state.playing
-			};
-		case TOGGLE_OPTIONS:
-			return {
-				...state,
-				optionsOpen: !state.optionsOpen
 			};
 		default:
 			return state;

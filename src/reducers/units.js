@@ -2,8 +2,12 @@ import {
 	GET_INITIAL_UNITS,
 	CREATE_FOLDER,
 	DELETE_UNIT,
-	RENAME_UNIT
+	RENAME_UNIT,
+	MOVE_UNITS
 } from "../constants/action-types";
+
+import { UnitType } from '../constants/enumerables';
+
 
 const initialState = {
 	files: {
@@ -227,30 +231,76 @@ const units = (state = initialState, action) => {
 			const newFolder = {}
 			newFolder[id] = {
 				id: id,
-				title: "new folder",
+				title: "New Folder",
 				dateCreated: Date.now(),
 				parentId: parentId,
-				unitType: 'folder'
+				unitType: UnitType.Folder
 			};
 			return {
 				...state,
 				folders: Object.assign({}, state.folders, newFolder)
 			};
+
+
+		// case DELETE_UNIT:
+		// 	const { unitType, unitId } = action.payload
+
+		// 	const newState = state; //this is mutating state
+		// 	const actualUnitType = unitType === UnitType.Folder ? 'folders' : 'files'
+
+		// 	delete newState[actualUnitType][unitId]
+		// 	return {
+		// 		...state,
+		// 		newState
+		// 	};
+
+
+
+
+
+
+
+
+
+
+
+
 		case DELETE_UNIT:
-			const { unitType, unitId } = action.payload
+			const unitType = action.payload.unitType === UnitType.Folder ? 'folders' : 'files';
+			const unitToDelete = action.payload.unitId;
 
-			const newState = state;
-			const actualUnitType = unitType === 'folder' ? 'folders' : 'files'
+			const { [unitType]: unitsOfType, ...rest } = state;
+			const { [unitToDelete]: unitValue, ...objWithRemovedUnit } = unitsOfType;
 
-			delete newState[actualUnitType][unitId]
+			const newState = { ...rest, [unitType]: objWithRemovedUnit }
+
 			return {
 				...state,
-				newState
-			};
+				...newState
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		case RENAME_UNIT:
 			const { newTitle } = action.payload
-			let type = action.payload.unitType === 'folder' ? 'folders' : 'files';
-			const newStateWithRenamedObj = state;
+
+			let type = action.payload.unitType === UnitType.Folder ? 'folders' : 'files';
+			const newStateWithRenamedObj = state; //this is mutating state
 
 			const renamedUnit = state[type][action.payload.unitId]
 			renamedUnit.title = newTitle
@@ -261,6 +311,12 @@ const units = (state = initialState, action) => {
 				...state,
 				newStateWithRenamedObj
 			};
+
+		case MOVE_UNITS:
+			return {
+				...state,
+
+			}
 
 		default:
 			return state;

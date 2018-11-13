@@ -11,7 +11,7 @@ import {
 	Alert,
 	KeyboardAvoidingView,
 } from 'react-native';
-import { Mode } from '../../constants/enumerables';
+import { Mode, ControlView, UnitType } from '../../constants/enumerables';
 
 import { deleteUnit, renameUnit } from '../../actions';
 
@@ -25,7 +25,7 @@ class Folder extends Component {
 		_menu: null,
 		renaming: false,
 		deleteConfirmation: false,
-		title: '',
+		title: this.props.text,
 	};
 
 	setMenuRef = ref => {
@@ -65,6 +65,7 @@ class Folder extends Component {
 	handleRename = (unitId, unitType) => {
 		const { dispatch } = this.props;
 		const { title } = this.state;
+
 		this.handleCloseModal('renaming');
 		title ? dispatch(renameUnit(unitId, unitType, title)) : null
 	}
@@ -98,12 +99,14 @@ class Folder extends Component {
 							<MenuItem onPress={() => this.handleOpenModal('deleteConfirmation')}>Delete</MenuItem>
 							<MenuDivider />
 							<MenuItem onPress={this.hideMenu}>Favorite</MenuItem>
-							{unitType === 'file' &&
+							{unitType === UnitType.File &&
 								<View>
 									<MenuDivider />
 									<MenuItem onPress={this.hideMenu}>Share</MenuItem>
 								</View>
 							}
+							<MenuDivider />
+							<MenuItem onPress={this.hideMenu}>More info...</MenuItem>
 							<MenuDivider />
 							<MenuItem onPress={this.hideMenu}>Close</MenuItem>
 						</Menu>
@@ -120,7 +123,7 @@ class Folder extends Component {
 					}}>
 					<KeyboardAvoidingView style={styles.modalMask} behavior="padding">
 						<View style={styles.modalContainer}>
-							{unitType === 'file' ?
+							{unitType === UnitType.File ?
 								<Text style={styles.modalHeader}>Rename clip:</Text>
 									:
 								<Text style={styles.modalHeader}>Rename folder:</Text>
@@ -128,8 +131,12 @@ class Folder extends Component {
 
 							<TextInput
 								style={styles.modalInput}
-								onChangeText={(newTitle) => this.setState({title: newTitle})}
-								defaultValue={'tits'}
+								onChangeText={(newTitle) =>
+									this.setState({
+										title: newTitle
+									})
+								}
+								defaultValue={text !== 'New Folder' ? text : ''}
 								autoFocus={true}
 								selectTextOnFocus={true}
 								keyboardAppearance={'dark'}

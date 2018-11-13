@@ -9,14 +9,15 @@ import {
 
 import RecordControl from './RecordControl';
 import PlaybackControl from './PlaybackControl';
+import { ControlView } from '../../constants/enumerables';
 
 class Control extends Component {
 
 	render() {
-		const { controlView, selectMultipleMode } = this.props;
+		const { controlView } = this.props;
 		return (
 			<View style={styles.container}>
-				{controlView === 'record' ?
+				{controlView === ControlView.Record ?
 					<RecordControl />
 						:
 					<PlaybackControl />

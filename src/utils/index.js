@@ -1,10 +1,11 @@
 export const getChildrenOfFolder = (state, folderId) => {
+	const { folders, files } = state.units;
 
-	const foldersWithinFolder = Object.keys(state.units.folders)
-		.map((folderId) => state.units.folders[folderId])
+	const foldersWithinFolder = Object.keys(folders)
+		.map((folderId) => folders[folderId])
 		.filter((folder) => folder.parentId === folderId)
-	const filesWithinFolder = Object.keys(state.units.files)
-		.map((fileId) => state.units.files[fileId])
+	const filesWithinFolder = Object.keys(files)
+		.map((fileId) => files[fileId])
 		.filter((file) => file.parentId === folderId)
 
 	// const allChildrenOfFolder = { ...foldersWithinFolder, ...filesWithinFolder }

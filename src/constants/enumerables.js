@@ -1,7 +1,7 @@
 export const Mode = {
-	Normal: 0,
-	Select: 1,
-	Action: 2,
+	Normal: 'normal',
+	Select: 'select',
+	Action: 'action',
 }
 Object.freeze(Mode)
 
@@ -17,3 +17,9 @@ export const UnitType = {
 	Folder: 'folder',
 }
 Object.freeze(UnitType)
+
+export const ControlView = {
+	Record: 'record',
+	Playback: 'playback',
+}
+Object.freeze(ControlView)
