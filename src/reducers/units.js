@@ -242,6 +242,22 @@ const units = (state = initialState, action) => produce(state, draft => {
 				draft[type][unitToRename].title = action.payload.newTitle
 				break;
 
+			case MOVE_UNITS:
+				const { unitIds, currentFolder } = action.payload;
+
+				const unitTypes = ['files', 'folders']
+
+				for (let unitType of unitTypes) {
+					unitIds.forEach((unitId) => {
+						if (unitId in state[unitType]) {
+							draft[unitType][unitId].parentId = currentFolder
+						}
+					})
+				}
+				break;
+
+			// case
+
 
 		};
 })
