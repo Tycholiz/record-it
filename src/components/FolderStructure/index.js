@@ -31,10 +31,10 @@ const folderIcon = (<Icon name="folder" size={40} color='darkslategrey' />)
 const fileIcon = (<Icon name="headphones" size={40} color='darkslategrey' />)
 
 class FolderStructure extends Component {
-	componentDidMount() {
-		const { currentFolder, dispatch } = this.props;
-		dispatch(getInitialUnits(currentFolder));
-	};
+	// componentDidMount() {
+	// 	const { currentFolder, dispatch } = this.props;
+	// 	dispatch(getInitialUnits(currentFolder));
+	// };
 
 	handleUnitPress = (unitId, unitType, mode) => {
 		const { dispatch, selectedUnits } = this.props;

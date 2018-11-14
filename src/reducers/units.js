@@ -1,5 +1,5 @@
+import produce from 'immer';
 import {
-	GET_INITIAL_UNITS,
 	CREATE_FOLDER,
 	DELETE_UNIT,
 	RENAME_UNIT,
@@ -7,7 +7,6 @@ import {
 } from "../constants/action-types";
 
 import { UnitType } from '../constants/enumerables';
-
 
 const initialState = {
 	files: {
@@ -219,140 +218,31 @@ const initialState = {
 	}
 };
 
-const units = (state = initialState, action) => {
-	switch (action.type) {
-		case GET_INITIAL_UNITS:
-			return {
-				...state,
-			};
+const units = (state = initialState, action) => produce(state, draft => {
+		switch (action.type) {
+			case CREATE_FOLDER:
+				draft.folders[action.payload.id] = {
+					id: action.payload.id,
+					title: "New Folder",
+					dateCreated: Date.now(),
+					parentId: action.payload.parentId,
+					unitType: UnitType.Folder
+				}
+				break;
 
-		case CREATE_FOLDER:
-			const { id, parentId } = action.payload
+			case DELETE_UNIT:
+				const unitType = action.payload.unitType === UnitType.Folder ? 'folders' : 'files';
+				const unitToDelete = action.payload.unitId;
+				delete draft[unitType][unitToDelete]
+				break;
 
-			const newFolder = {}
-			newFolder[id] = {
-				id: id,
-				title: "New Folder",
-				dateCreated: Date.now(),
-				parentId: parentId,
-				unitType: UnitType.Folder
-			};
-			return {
-				...state,
-				folders: Object.assign({}, state.folders, newFolder)
-			};
-
-
-		// case DELETE_UNIT:
-		// 	const { unitType, unitId } = action.payload
-
-		// 	const newState = state; //this is mutating state
-		// 	const actualUnitType = unitType === UnitType.Folder ? 'folders' : 'files'
-
-		// 	delete newState[actualUnitType][unitId]
-		// 	return {
-		// 		...state,
-		// 		newState
-		// 	};
+			case RENAME_UNIT:
+				const unitToRename = action.payload.unitId
+				const type = action.payload.unitType === UnitType.Folder ? 'folders' : 'files';
+				draft[type][unitToRename].title = action.payload.newTitle
+				break;
 
 
-
-
-
-
-
-
-
-
-
-
-		case DELETE_UNIT:
-			const unitType = action.payload.unitType === UnitType.Folder ? 'folders' : 'files';
-			const unitToDelete = action.payload.unitId;
-
-			const { [unitType]: unitsOfType, ...oppositeUnitType } = state;
-			const { [unitToDelete]: unitValue, ...objWithRemovedUnit } = unitsOfType;
-
-			const newState = { ...oppositeUnitType, [unitType]: objWithRemovedUnit }
-
-			return {
-				...state,
-				...newState
-			}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		// case RENAME_UNIT:
-		// 	const { newTitle } = action.payload
-
-		// 	let type = action.payload.unitType === UnitType.Folder ? 'folders' : 'files';
-		// 	const newStateWithRenamedObj = state; //this is mutating state
-
-		// 	const renamedUnit = state[type][action.payload.unitId]
-		// 	renamedUnit.title = newTitle
-
-		// 	newStateWithRenamedObj[type][action.payload.unitId] = renamedUnit;
-
-		// 	return {
-		// 		...state,
-		// 		newStateWithRenamedObj
-		// 	};
-
-
-
-
-
-		case RENAME_UNIT:
-			const unitToRename = action.payload.unitId
-			const type = action.payload.unitType === UnitType.Folder ? 'folders' : 'files';
-			const { newTitle } = action.payload;
-
-			const { [type]: unitsOfType, ...opposingUnitType } = state;
-			const { [unitToRename]: unit, ...restOfUnitType } = unitsOfType;
-			const { title, ...unitDataWithoutTitle } = unit;
-
-			const updatedUnit = unitDataWithoutTitle;
-			updatedUnit.title = newTitle;
-
-			const updatedUnitType = { [unitToRename]: updatedUnit, ...restOfUnitType };
-			const newStateWithRenamedObj = { ...opposingUnitType, [type]: updatedUnitType }
-
-			return {
-				...state,
-				...newStateWithRenamedObj
-			}
-
-
-
-
-
-
-
-
-
-		case MOVE_UNITS:
-			return {
-				...state,
-
-			}
-
-		default:
-			return state;
-	};
-};
+		};
+})
 export default units;

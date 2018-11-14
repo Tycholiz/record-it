@@ -59,7 +59,9 @@ class Folder extends Component {
 
 	handleDelete = (unitId, unitType) => {
 		const { dispatch } = this.props;
+
 		dispatch(deleteUnit(unitId, unitType));
+		this.handleCloseModal('deleteConfirmation');
 	};
 
 	handleRename = (unitId, unitType) => {
