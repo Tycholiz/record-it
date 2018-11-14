@@ -2,6 +2,7 @@ import produce from 'immer';
 import {
 	CREATE_FOLDER,
 	DELETE_UNIT,
+	DELETE_UNITS,
 	RENAME_UNIT,
 	MOVE_UNITS
 } from "../constants/action-types";
@@ -243,21 +244,30 @@ const units = (state = initialState, action) => produce(state, draft => {
 				break;
 
 			case MOVE_UNITS:
-				const { unitIds, currentFolder } = action.payload;
+				const { unitIds, targetFolder } = action.payload;
 
 				const unitTypes = ['files', 'folders']
 
 				for (let unitType of unitTypes) {
 					unitIds.forEach((unitId) => {
 						if (unitId in state[unitType]) {
-							draft[unitType][unitId].parentId = currentFolder
+							draft[unitType][unitId].parentId = targetFolder
 						}
 					})
 				}
 				break;
 
-			// case
+			case DELETE_UNITS:
+				const typesOfUnits = ['files', 'folders']
 
+				for (let unitType of typesOfUnits) {
+					action.payload.unitIds.forEach((unitId) => {
+						if (unitId in state[unitType]) {
+							delete state[unitType][unitId];
+						}
+					});
+				};
+				break;
 
 		};
 })

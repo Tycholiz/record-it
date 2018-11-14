@@ -11,12 +11,12 @@ import {
 
 import {
 	enterFolder,
-	getInitialUnits,
 	setActiveFile,
 	createFolder,
 	multipleMode,
 	modifySelectedUnit,
 	moveUnits,
+	deleteUnits,
 } from '../../actions';
 
 import { getChildrenOfFolder } from '../../utils';
@@ -31,11 +31,6 @@ const folderIcon = (<Icon name="folder" size={40} color='darkslategrey' />)
 const fileIcon = (<Icon name="headphones" size={40} color='darkslategrey' />)
 
 class FolderStructure extends Component {
-	// componentDidMount() {
-	// 	const { currentFolder, dispatch } = this.props;
-	// 	dispatch(getInitialUnits(currentFolder));
-	// };
-
 	handleUnitPress = (unitId, unitType, mode) => {
 		const { dispatch, selectedUnits } = this.props;
 
@@ -108,6 +103,14 @@ class FolderStructure extends Component {
 		this.handleCancelMultipleSelection();
 	}
 
+	handleDeleteUnits = () => {
+		const { dispatch, selectedUnits } = this.props;
+		console.log("hey")
+
+		dispatch(deleteUnits(selectedUnits))
+		this.handleCancelMultipleSelection();
+	}
+
 	handleCancelMultipleSelection = () => {
 		const { dispatch } = this.props;
 		const { Empty } = Modification;
@@ -165,6 +168,7 @@ class FolderStructure extends Component {
 
 				{mode === Mode.Action &&
 					<View style={styles.selectMultipleTopBar}>
+
 						<TouchableOpacity
 							style={styles.moveButton}
 							onPress={() =>
@@ -173,9 +177,16 @@ class FolderStructure extends Component {
 						>
 							<Text>MOVE TO CURRENT FOLDER</Text>
 						</TouchableOpacity>
-						<TouchableOpacity style={styles.deleteButton}>
+
+						<TouchableOpacity
+							style={styles.deleteButton}
+							onPress={() =>
+								this.handleDeleteUnits()
+							}
+						>
 							<Text>DELETE SELECTION</Text>
 						</TouchableOpacity>
+
 						<TouchableOpacity
 							style={styles.cancelButton}
 							onPress={() =>
@@ -184,6 +195,7 @@ class FolderStructure extends Component {
 						>
 							<Text>CANCEL</Text>
 						</TouchableOpacity>
+
 					</View>
 				}
 

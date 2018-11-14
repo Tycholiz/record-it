@@ -7,6 +7,7 @@ import {
 	SET_ACTIVE_FILE,
 	CREATE_FOLDER,
 	DELETE_UNIT,
+	DELETE_UNITS,
 	RENAME_UNIT,
 	MODIFY_SELECTED_UNIT,
 	MULTIPLE_MODE,
@@ -97,6 +98,13 @@ export const moveUnits = (unitIds, currentFolder) => ({
 	type: MOVE_UNITS,
 	payload: {
 		unitIds,
-		currentFolder
+		targetFolder: currentFolder
+	}
+});
+
+export const deleteUnits = (unitIds) => ({
+	type: DELETE_UNITS,
+	payload: {
+		unitIds,
 	}
 });
