@@ -225,6 +225,7 @@ const units = (state = initialState, action) => {
 			return {
 				...state,
 			};
+
 		case CREATE_FOLDER:
 			const { id, parentId } = action.payload
 

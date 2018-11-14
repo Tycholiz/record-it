@@ -3,6 +3,7 @@
 		"darkslategrey",
 		"dimgrey",
 		"enumerables",
-		"hsla"
+		"hsla",
+		"immer"
 	]
 }
