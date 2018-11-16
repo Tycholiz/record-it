@@ -4,6 +4,7 @@
 		"dimgrey",
 		"enumerables",
 		"hsla",
-		"immer"
+		"immer",
+		"scroller"
 	]
 }

@@ -259,6 +259,7 @@ const units = (state = initialState, action) => produce(state, draft => {
 
 			case DELETE_UNITS:
 				const typesOfUnits = ['files', 'folders']
+				console.log("sup")
 
 				for (let unitType of typesOfUnits) {
 					action.payload.unitIds.forEach((unitId) => {

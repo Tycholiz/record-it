@@ -21,41 +21,54 @@ const pauseIcon = (<Icon name="pause" size={40} color='darkslategrey' />)
 
 class PlaybackControl extends Component {
 	render() {
-		const { startPlaying, playing, activeFile } = this.props;
+		const { startPlaying, playing, activeFile, title } = this.props;
 		return (
 			<View style={styles.container}>
-				<View style={styles.iconContainer}>
-					<TouchableOpacity>
-						{trashIcon}
-					</TouchableOpacity>
-					<TouchableOpacity>
-						{starIcon}
-					</TouchableOpacity>
+				{/* {activeFile ? ( */}
+
+					<View>
+						<View style={styles.iconContainer}>
+							<TouchableOpacity>
+								{trashIcon}
+							</TouchableOpacity>
+							<TouchableOpacity>
+								{starIcon}
+							</TouchableOpacity>
+						</View>
+
+						<Text style={styles.text}>{title}.mp3</Text>
+
+						<View style={styles.clipScroll}>
+							<Text style={styles.time}>
+								00:10
+							</Text>
+							<Text style={[styles.time, styles.scroller]}>
+								-----------O-----------------------------------
+							</Text>
+							<Text style={styles.time}>
+								00:34
+							</Text>
+						</View>
+
+						<View style={styles.clipNavigation}>
+							<TouchableOpacity>
+								{backwardIcon}
+							</TouchableOpacity>
+							<TouchableOpacity onPress={startPlaying}>
+								{playing ? pauseIcon : playIcon}
+							</TouchableOpacity>
+							<TouchableOpacity>
+								{forwardIcon}
+							</TouchableOpacity>
+						</View>
+
+					</View>
+				{/* )	: (
+					<View>
+						<Text>Please select an audio clip</Text>
+					</View>
+				)} */}
 				</View>
-				<Text style={styles.text}>{activeFile}.mp3</Text>
-				<View style={styles.clipScroll}>
-					<Text style={styles.time}>
-						00:10
-					</Text>
-					<Text style={[styles.time, styles.scroller]}>
-						-----------O-----------------------------------
-					</Text>
-					<Text style={styles.time}>
-						00:34
-					</Text>
-				</View>
-				<View style={styles.clipNavigation}>
-					<TouchableOpacity>
-						{backwardIcon}
-					</TouchableOpacity>
-					<TouchableOpacity onPress={startPlaying}>
-						{playing ? pauseIcon : playIcon}
-					</TouchableOpacity>
-					<TouchableOpacity>
-						{forwardIcon}
-					</TouchableOpacity>
-				</View>
-			</View>
 		);
 	}
 }
@@ -63,7 +76,8 @@ class PlaybackControl extends Component {
 mapStateToProps = (state) => {
 	return {
 		playing: state.toggle.playing,
-		activeFile: state.units.files[state.activeFile].title,
+		activeFile: state.activeFile,
+		title: state.units.files[state.activeFile].title,
 	};
 };
 

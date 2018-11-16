@@ -6,16 +6,19 @@ import {
 	TouchableOpacity,
 	View,
 	TextInput,
-	Modal,
 	TouchableHighlight,
 	Alert,
 	KeyboardAvoidingView,
+	Dimensions
 } from 'react-native';
+const screen = Dimensions.get('window');
+
 import { Mode, ControlView, UnitType } from '../../constants/enumerables';
 
 import { deleteUnit, renameUnit } from '../../actions';
 
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+import Modal from "react-native-modal";
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 const barsIcon = (<Icon name="bars" size={25} color='black' />)
@@ -77,96 +80,104 @@ class Folder extends Component {
 		const { id, text, icon, handleUnitPress, unitType, selected, mode } = this.props;
 
 		return (
-			<TouchableOpacity
-				style={[
-					styles.container,
-					mode === Mode.Select && unitType ? styles.containerMultipleMode : null,
-					selected && styles.containerSelected
-				]}
-				onPress={handleUnitPress}
-			>
+			<View>
 
-				{/* FOLDER OPTIONS */}
-				{unitType &&
-					<TouchableOpacity
-						style={styles.folderOptionsContainer}
-						onPress={this.showMenu}
-					>
-						<Menu
-							ref={this.setMenuRef}
-							button={barsIcon}
+				<TouchableOpacity
+					style={[
+						styles.container,
+						mode === Mode.Select && unitType ? styles.containerMultipleMode : null,
+						selected && styles.containerSelected
+					]}
+					onPress={handleUnitPress}
+				>
+
+					{/* FOLDER OPTIONS */}
+					{unitType &&
+						<TouchableOpacity
+							style={styles.folderOptionsContainer}
+							onPress={this.showMenu}
 						>
-							<MenuItem onPress={() => this.handleOpenModal('renaming')}>Rename</MenuItem>
-							<MenuDivider />
-							<MenuItem onPress={() => this.handleOpenModal('deleteConfirmation')}>Delete</MenuItem>
-							<MenuDivider />
-							<MenuItem onPress={this.hideMenu}>Favorite</MenuItem>
-							{unitType === UnitType.File &&
-								<View>
-									<MenuDivider />
-									<MenuItem onPress={this.hideMenu}>Share</MenuItem>
-								</View>
-							}
-							<MenuDivider />
-							<MenuItem onPress={this.hideMenu}>More info...</MenuItem>
-							<MenuDivider />
-							<MenuItem onPress={this.hideMenu}>Close</MenuItem>
-						</Menu>
-					</TouchableOpacity>
-				}
+							<Menu
+								ref={this.setMenuRef}
+								button={barsIcon}
+							>
+								<MenuItem onPress={() => this.handleOpenModal('renaming')}>Rename</MenuItem>
+								<MenuDivider />
+								<MenuItem onPress={() => this.handleOpenModal('deleteConfirmation')}>Delete</MenuItem>
+								<MenuDivider />
+								<MenuItem onPress={this.hideMenu}>Favorite</MenuItem>
+								{unitType === UnitType.File &&
+									<View>
+										<MenuDivider />
+										<MenuItem onPress={this.hideMenu}>Share</MenuItem>
+									</View>
+								}
+								<MenuDivider />
+								<MenuItem onPress={this.hideMenu}>More info...</MenuItem>
+								<MenuDivider />
+								<MenuItem onPress={this.hideMenu}>Close</MenuItem>
+							</Menu>
+						</TouchableOpacity>
+					}
+
+
+					{icon}
+					<Text icon={icon}>
+						{text}
+					</Text>
+				</TouchableOpacity>
 
 				{/* RENAME MODAL */}
 				<Modal
-					animationType="slide"
-					transparent={true}
-					visible={renaming}
-					onRequestClose={() => {
-						Alert.alert('Modal has been closed.');
-					}}>
-					<KeyboardAvoidingView style={styles.modalMask} behavior="padding">
-						<View style={styles.modalContainer}>
-							{unitType === UnitType.File ?
-								<Text style={styles.modalHeader}>Rename clip:</Text>
-									:
-								<Text style={styles.modalHeader}>Rename folder:</Text>
+					onBackdropPress={() => this.setState({ renaming: false })}
+					isVisible={renaming}
+					style={styles.modalContainer}
+					avoidKeyboard={true}
+				>
+					<View style={style.modalContainerInner}>
+
+						{unitType === UnitType.File ?
+							<Text style={styles.modalHeader}>Rename clip:</Text>
+								:
+							<Text style={styles.modalHeader}>Rename folder:</Text>
+						}
+
+						<TextInput
+							style={styles.modalInput}
+							onChangeText={(newTitle) =>
+								this.setState({
+									title: newTitle
+								})
 							}
+							defaultValue={text !== 'New Folder' ? text : ''}
+							autoFocus={true}
+							selectTextOnFocus={true}
+							keyboardAppearance={'dark'}
+							maxLength={30}
+							underlineColorAndroid='transparent'
+						/>
 
-							<TextInput
-								style={styles.modalInput}
-								onChangeText={(newTitle) =>
-									this.setState({
-										title: newTitle
-									})
+						<View style={styles.modalOptions}>
+							<TouchableHighlight
+								onPress={() => {
+									this.handleCloseModal('renaming');
+								}}
+								style={styles.modalOption}
+							>
+								<Text>CANCEL</Text>
+							</TouchableHighlight>
+
+							<TouchableHighlight
+								onPress={() => {
+									this.handleRename(id, unitType)}
 								}
-								defaultValue={text !== 'New Folder' ? text : ''}
-								autoFocus={true}
-								selectTextOnFocus={true}
-								keyboardAppearance={'dark'}
-								maxLength={30}
-							/>
-
-							<View style={styles.modalOptions}>
-								<TouchableHighlight
-									onPress={() => {
-										this.handleCloseModal('renaming');
-									}}
-									style={styles.modalOption}
-								>
-									<Text>CANCEL</Text>
-								</TouchableHighlight>
-
-								<TouchableHighlight
-									onPress={() => {
-										this.handleRename(id, unitType)}
-									}
-									style={[styles.modalOption, styles.renameOption]}
-								>
-									<Text style={{color: 'white'}}>RENAME</Text>
-								</TouchableHighlight>
-							</View>
-
+								style={[styles.modalOption, styles.renameOption]}
+							>
+								<Text style={{color: 'white'}}>RENAME</Text>
+							</TouchableHighlight>
 						</View>
-					</KeyboardAvoidingView>
+					</View>
+
 				</Modal>
 
 				{/* DELETE CONFIRMATION MODAL */}
@@ -204,12 +215,7 @@ class Folder extends Component {
 						</View>
 					</KeyboardAvoidingView>
 				</Modal>
-
-				{icon}
-				<Text icon={icon}>
-					{text}
-				</Text>
-			</TouchableOpacity>
+			</View>
 		);
 	}
 }
@@ -251,15 +257,22 @@ const styles = StyleSheet.create({
 		backgroundColor: 'rgba(0, 0, 0, 0.4)',
 	},
 	modalContainer: {
-		flex: 1,
+		flex: 0,
+		width: 330,
+		height: 150,
+		backgroundColor: '#2B2B2B',
+		marginHorizontal: 40,
+		justifyContent: 'center',
+		alignItems: 'center',
+		borderRadius: 4,
 		flexDirection: 'column',
 		flexWrap: 'wrap',
+	},
+	modalContainerInner: {
+		flex: 1,
+		justifyContent: 'center',
 		alignItems: 'center',
-		marginHorizontal: 43,
-		marginTop: 240,
-		marginBottom: 240,
-		borderRadius: 4,
-		backgroundColor: '#2B2B2B',
+		alignSelf: 'center'
 	},
 	modalHeader: {
 		flex: 1,
@@ -277,7 +290,7 @@ const styles = StyleSheet.create({
 	},
 	renameOption: {
 		borderRadius: 4,
-		backgroundColor: 'teal',
+		backgroundColor: 'red',
 	},
 	icon: {
 		justifyContent: 'center',
