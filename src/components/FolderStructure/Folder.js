@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
 	Text,
-	StyleSheet,
 	TouchableOpacity,
 	View,
 	TextInput,
@@ -12,6 +11,7 @@ import {
 	Dimensions
 } from 'react-native';
 const screen = Dimensions.get('window');
+import s from '../../styles/FolderStructure/Folder'
 
 import { Mode, ControlView, UnitType } from '../../constants/enumerables';
 
@@ -84,9 +84,9 @@ class Folder extends Component {
 
 				<TouchableOpacity
 					style={[
-						styles.container,
-						mode === Mode.Select && unitType ? styles.containerMultipleMode : null,
-						selected && styles.containerSelected
+						s.container,
+						mode === Mode.Select && unitType ? s.containerMultipleMode : null,
+						selected && s.containerSelected
 					]}
 					onPress={handleUnitPress}
 				>
@@ -94,7 +94,7 @@ class Folder extends Component {
 					{/* FOLDER OPTIONS */}
 					{unitType &&
 						<TouchableOpacity
-							style={styles.folderOptionsContainer}
+							style={s.folderOptionsContainer}
 							onPress={this.showMenu}
 						>
 							<Menu
@@ -131,19 +131,19 @@ class Folder extends Component {
 				<Modal
 					onBackdropPress={() => this.setState({ renaming: false })}
 					isVisible={renaming}
-					style={styles.modalContainer}
+					style={s.modalContainer}
 					avoidKeyboard={true}
 				>
-					<View style={style.modalContainerInner}>
+					<View style={s.modalContainerInner}>
 
 						{unitType === UnitType.File ?
-							<Text style={styles.modalHeader}>Rename clip:</Text>
+							<Text style={s.modalHeader}>Rename clip:</Text>
 								:
-							<Text style={styles.modalHeader}>Rename folder:</Text>
+							<Text style={s.modalHeader}>Rename folder:</Text>
 						}
 
 						<TextInput
-							style={styles.modalInput}
+							style={s.modalInput}
 							onChangeText={(newTitle) =>
 								this.setState({
 									title: newTitle
@@ -157,12 +157,12 @@ class Folder extends Component {
 							underlineColorAndroid='transparent'
 						/>
 
-						<View style={styles.modalOptions}>
+						<View style={s.modalOptions}>
 							<TouchableHighlight
 								onPress={() => {
 									this.handleCloseModal('renaming');
 								}}
-								style={styles.modalOption}
+								style={s.modalOption}
 							>
 								<Text>CANCEL</Text>
 							</TouchableHighlight>
@@ -171,7 +171,7 @@ class Folder extends Component {
 								onPress={() => {
 									this.handleRename(id, unitType)}
 								}
-								style={[styles.modalOption, styles.renameOption]}
+								style={[s.modalOption, s.renameOption]}
 							>
 								<Text style={{color: 'white'}}>RENAME</Text>
 							</TouchableHighlight>
@@ -189,15 +189,15 @@ class Folder extends Component {
 						Alert.alert('Modal has been closed.');
 					}}
 				>
-					<KeyboardAvoidingView style={styles.modalMask} behavior="padding">
-						<View style={styles.modalContainer}>
+					<KeyboardAvoidingView style={s.modalMask} behavior="padding">
+						<View style={s.modalContainer}>
 							<Text>Are you sure you want to delete {text}?</Text>
-							<View style={styles.modalOptions}>
+							<View style={s.modalOptions}>
 								<TouchableHighlight
 									onPress={() => {
 										this.handleCloseModal('deleteConfirmation');
 									}}
-									style={styles.modalOption}
+									style={s.modalOption}
 									>
 									<Text>CANCEL</Text>
 								</TouchableHighlight>
@@ -206,7 +206,7 @@ class Folder extends Component {
 									onPress={() => {
 										this.handleDelete(id, unitType)
 									}}
-									style={[styles.modalOption, styles.renameOption]}
+									style={[s.modalOption, s.renameOption]}
 									>
 									<Text style={{ color: 'white' }}>CONFIRM</Text>
 								</TouchableHighlight>
@@ -230,74 +230,80 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps)(Folder);
 
-const styles = StyleSheet.create({
-	container: {
-		width: 140,
-		height: 80,
-		borderRadius: 15,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'flex-end',
-		margin: 6,
-	},
-	containerSelected: {
-		backgroundColor: 'green'
-	},
-	containerMultipleMode: {
-		borderWidth: 1,
-		borderColor: 'red',
-	},
-	folderOptionsContainer: {
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	modalMask: {
-		flex: 1,
-		backgroundColor: 'rgba(0, 0, 0, 0.4)',
-	},
-	modalContainer: {
-		flex: 0,
-		width: 330,
-		height: 150,
-		backgroundColor: '#2B2B2B',
-		marginHorizontal: 40,
-		justifyContent: 'center',
-		alignItems: 'center',
-		borderRadius: 4,
-		flexDirection: 'column',
-		flexWrap: 'wrap',
-	},
-	modalContainerInner: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		alignSelf: 'center'
-	},
-	modalHeader: {
-		flex: 1,
-		fontSize: 25
-	},
-	modalInput: {
-		flex: 1,
-	},
-	modalOptions: {
-		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'flex-end',
-	},
-	modalOption: {
-	},
-	renameOption: {
-		borderRadius: 4,
-		backgroundColor: 'red',
-	},
-	icon: {
-		justifyContent: 'center',
-	},
-	barsIcon: {
-		alignSelf: 'flex-end',
-		marginRight: 20,
-		marginTop: 80,
-	},
-});
+// const styles = StyleSheet.create({
+// 	container: {
+// 		width: 140,
+// 		height: 80,
+// 		borderRadius: 15,
+// 		backgroundColor: '#fff',
+// 		alignItems: 'center',
+// 		justifyContent: 'flex-end',
+// 		margin: 6,
+// 	},
+// 	containerSelected: {
+// 		backgroundColor: 'green'
+// 	},
+// 	containerMultipleMode: {
+// 		borderWidth: 1,
+// 		borderColor: 'red',
+// 	},
+// 	folderOptionsContainer: {
+// 		flex: 1,
+// 		alignItems: 'center',
+// 		justifyContent: 'center',
+// 	},
+// 	modalMask: {
+// 		flex: 1,
+// 		backgroundColor: 'rgba(0, 0, 0, 0.4)',
+// 	},
+// 	modalContainer: {
+// 		flex: 0,
+// 		width: 330,
+// 		height: 150,
+// 		backgroundColor: '#2B2B2B',
+// 		// marginHorizontal: 40,
+// 		// justifyContent: 'center',
+// 		// alignItems: 'center',
+// 		borderRadius: 4,
+// 		// flexDirection: 'column',
+// 		// flexWrap: 'wrap',
+// 		// flex: 1,
+// 		justifyContent: 'center',
+// 		alignItems: 'center',
+// 	},
+// 	modalContainerInner: {
+// 		// flex: 1,
+// 		backgroundColor: 'white',
+// 		padding: 22,
+// 		justifyContent: 'center',
+// 		alignItems: 'center',
+// 		borderRadius: 4,
+// 		borderColor: 'rgba(0, 0, 0, 0.1)',
+// 	},
+// 	modalHeader: {
+// 		flex: 1,
+// 		fontSize: 25
+// 	},
+// 	modalInput: {
+// 		flex: 1,
+// 	},
+// 	modalOptions: {
+// 		flex: 1,
+// 		flexDirection: 'row',
+// 		justifyContent: 'flex-end',
+// 	},
+// 	modalOption: {
+// 	},
+// 	renameOption: {
+// 		borderRadius: 4,
+// 		backgroundColor: 'red',
+// 	},
+// 	icon: {
+// 		justifyContent: 'center',
+// 	},
+// 	barsIcon: {
+// 		alignSelf: 'flex-end',
+// 		marginRight: 20,
+// 		marginTop: 80,
+// 	},
+// });

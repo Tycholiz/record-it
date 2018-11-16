@@ -6,7 +6,7 @@ import {
 	StyleSheet,
 	TouchableOpacity,
 } from 'react-native';
-import { } from 'expo';
+import s from '../../styles/TopBar/ToggleControlButton';
 
 import { toggleControlView } from '../../actions'
 
@@ -15,11 +15,11 @@ class ToggleControlButton extends Component {
 
 		return (
 			<TouchableOpacity
-				style={styles.container}
+				style={s.container}
 				onPress={this.props.toggleControlView}
 			>
 				<View>
-					<Text style={styles.buttonText}>
+					<Text style={s.buttonText}>
 						{this.props.toggleText}
 					</Text>
 				</View>
@@ -35,18 +35,3 @@ mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, { toggleControlView })(ToggleControlButton);
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 4,
-		height: 60,
-		alignItems: 'center',
-		backgroundColor: 'red',
-		borderRadius: 7,
-	},
-	buttonText: {
-		fontWeight: '700',
-		fontSize: 40,
-
-	}
-});

@@ -8,6 +8,7 @@ import {
 	TouchableOpacity
 } from 'react-native';
 import { } from 'expo';
+import s from '../../styles/Control/PlaybackControl';
 
 import { startPlaying } from '../../actions/index'
 
@@ -23,11 +24,11 @@ class PlaybackControl extends Component {
 	render() {
 		const { startPlaying, playing, activeFile, title } = this.props;
 		return (
-			<View style={styles.container}>
+			<View style={s.container}>
 				{/* {activeFile ? ( */}
 
 					<View>
-						<View style={styles.iconContainer}>
+						<View style={s.iconContainer}>
 							<TouchableOpacity>
 								{trashIcon}
 							</TouchableOpacity>
@@ -36,21 +37,21 @@ class PlaybackControl extends Component {
 							</TouchableOpacity>
 						</View>
 
-						<Text style={styles.text}>{title}.mp3</Text>
+						<Text style={s.text}>{title}.mp3</Text>
 
-						<View style={styles.clipScroll}>
-							<Text style={styles.time}>
+						<View style={s.clipScroll}>
+							<Text style={s.time}>
 								00:10
 							</Text>
-							<Text style={[styles.time, styles.scroller]}>
+							<Text style={[s.time, s.scroller]}>
 								-----------O-----------------------------------
 							</Text>
-							<Text style={styles.time}>
+							<Text style={s.time}>
 								00:34
 							</Text>
 						</View>
 
-						<View style={styles.clipNavigation}>
+						<View style={s.clipNavigation}>
 							<TouchableOpacity>
 								{backwardIcon}
 							</TouchableOpacity>
@@ -82,41 +83,3 @@ mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, { startPlaying })(PlaybackControl);
-
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		borderRadius: 4,
-		borderWidth: 0.5,
-		borderColor: 'darkslategrey',
-	},
-	namePlate: {
-		flexDirection: 'row',
-	},
-	text: {
-		marginLeft: 15,
-	},
-	iconContainer: {
-		flexDirection: 'row',
-		justifyContent: 'flex-end',
-	},
-	clipScroll: {
-		flexDirection: 'row',
-		// flexWrap: 'wrap',
-	},
-	time: {
-		borderRadius: 1,
-		borderWidth: 0.5,
-		margin: 15,
-		padding: 3,
-	},
-	scroller: {
-		borderWidth: 0,
-	},
-	clipNavigation: {
-		flexDirection: 'row',
-		justifyContent: 'space-around'
-	}
-});

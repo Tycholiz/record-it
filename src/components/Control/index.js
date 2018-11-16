@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import {
 	View,
 	Text,
-	StyleSheet,
 } from 'react-native';
+import s from '../../styles/Control/index';
 
 import RecordControl from './RecordControl';
 import PlaybackControl from './PlaybackControl';
@@ -16,7 +16,7 @@ class Control extends Component {
 	render() {
 		const { controlView } = this.props;
 		return (
-			<View style={styles.container}>
+			<View style={s.container}>
 				{controlView === ControlView.Record ?
 					<RecordControl />
 						:
@@ -38,9 +38,3 @@ mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(Control);
-
-const styles = StyleSheet.create({
-	container: {
-		height: 160,
-	},
-});

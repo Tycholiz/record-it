@@ -8,6 +8,7 @@ import {
 	TouchableOpacity,
 } from 'react-native';
 import { } from 'expo';
+import s from '../../styles/Control/RecordControl';
 
 import { startRecording } from '../../actions/index'
 
@@ -22,11 +23,11 @@ const acceptIcon = (<Icon name="check" size={40} color='white' />)
 class RecordControl extends Component {
 	render() {
 		return (
-			<View style={styles.container}>
+			<View style={s.container}>
 				<TouchableOpacity>
 					{cancelIcon}
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.icon} onPress={this.props.startRecording}>
+				<TouchableOpacity style={s.icon} onPress={this.props.startRecording}>
 					{this.props.recording ? pauseIcon : microphoneIcon}
 				</TouchableOpacity>
 				<TouchableOpacity onPress={this.sayHi}>
@@ -44,23 +45,3 @@ mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, { startRecording })(RecordControl);
-
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: 'hsla(253, 14%, 26%, 0.8)',
-		justifyContent: 'center',
-		alignItems: 'center',
-		flexDirection: 'row',
-	},
-	icon: {
-		backgroundColor: 'red',
-		width: 80,
-		height: 80,
-		borderRadius: 80 / 2,
-		justifyContent: 'center',
-		alignItems: 'center',
-		marginHorizontal: 60,
-	},
-});

@@ -4,7 +4,7 @@ import {
 	View,
 	StyleSheet,
 } from 'react-native';
-import { } from 'expo';
+import s from '../../styles/TopBar/index';
 
 import ToggleControlButton from './ToggleControlButton';
 import Settings from './Settings';
@@ -13,8 +13,8 @@ import BreadcrumbBar from './BreadcrumbBar';
 export default class TopBar extends Component {
 	render() {
 		return (
-			<View style={styles.container}>
-				<View style={styles.topbarUpper}>
+			<View style={s.container}>
+				<View style={s.topbarUpper}>
 					<ToggleControlButton />
 					<Settings />
 				</View>
@@ -23,13 +23,3 @@ export default class TopBar extends Component {
 		);
 	}
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flexWrap: 'wrap',
-		backgroundColor: 'hsla(253, 14%, 24%, 1)',
-	},
-	topbarUpper: {
-		flexDirection: 'row',
-	}
-});

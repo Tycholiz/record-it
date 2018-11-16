@@ -8,6 +8,7 @@ import {
 	TouchableOpacity,
 	Alert,
 } from 'react-native';
+import s from '../../styles/FolderStructure/index';
 
 import {
 	enterFolder,
@@ -142,12 +143,12 @@ class FolderStructure extends Component {
 		const { currentFolder, mode } = this.props;
 
 		return (
-			<View style={styles.container}>
+			<View style={s.container}>
 
 				{mode === Mode.Select &&
-					<View style={styles.selectMultipleTopBar}>
+					<View style={s.selectMultipleTopBar}>
 						<TouchableOpacity
-							style={styles.confirmButton}
+							style={s.confirmButton}
 							onPress={() =>
 								this.handleConfirmMultipleSelection()
 							}
@@ -155,7 +156,7 @@ class FolderStructure extends Component {
 							<Text>CONFIRM SELECTION</Text>
 						</TouchableOpacity>
 						<TouchableOpacity
-							style={styles.cancelButton}
+							style={s.cancelButton}
 							onPress={() =>
 								this.handleCancelMultipleSelection()
 							}
@@ -166,10 +167,10 @@ class FolderStructure extends Component {
 				}
 
 				{mode === Mode.Action &&
-					<View style={styles.selectMultipleTopBar}>
+					<View style={s.selectMultipleTopBar}>
 
 						<TouchableOpacity
-							style={styles.moveButton}
+							style={s.moveButton}
 							onPress={() =>
 								this.handleMoveUnits()
 							}
@@ -178,7 +179,7 @@ class FolderStructure extends Component {
 						</TouchableOpacity>
 
 						<TouchableOpacity
-							style={styles.deleteButton}
+							style={s.deleteButton}
 							onPress={() =>
 								this.handleDeleteUnits()
 							}
@@ -187,7 +188,7 @@ class FolderStructure extends Component {
 						</TouchableOpacity>
 
 						<TouchableOpacity
-							style={styles.cancelButton}
+							style={s.cancelButton}
 							onPress={() =>
 								this.handleCancelMultipleSelection()
 							}
@@ -198,7 +199,7 @@ class FolderStructure extends Component {
 					</View>
 				}
 
-				<View style={styles.innerContainer}>
+				<View style={s.innerContainer}>
 					<Folder
 						text={'Up One Level'}
 						icon={upOneLevelIcon}
@@ -214,8 +215,8 @@ class FolderStructure extends Component {
 						}
 					/>
 				</View>
-				<ScrollView style={styles.container}>
-					<View style={styles.innerContainer}>
+				<ScrollView style={s.container}>
+					<View style={s.innerContainer}>
 						{this.renderFolders()}
 					</View>
 				</ScrollView>
@@ -234,51 +235,3 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps)(FolderStructure);
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		flexDirection: 'column',
-		flexGrow: 1,
-	},
-	innerContainer: {
-		flexDirection: 'row',
-		justifyContent: 'space-evenly',
-		flexWrap: 'wrap',
-		backgroundColor: 'hsla(253, 14%, 24%, 1)',
-	},
-	selectMultipleTopBar: {
-		position: 'absolute',
-		top: -100,
-		right: 0,
-		bottom: 0,
-		left: 0,
-		height: 60,
-		flexDirection: 'row',
-		backgroundColor: 'dimgrey'
-	},
-	confirmButton: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: 'green',
-	},
-	moveButton: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: 'blue',
-	},
-	deleteButton: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: 'tomato',
-	},
-	cancelButton: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: 'grey',
-	},
-});

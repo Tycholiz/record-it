@@ -6,6 +6,7 @@ import {
 	TouchableOpacity,
 	View,
 } from 'react-native';
+import s from '../../styles/TopBar/Settings';
 
 import { multipleMode } from '../../actions';
 import { Mode } from '../../constants/enumerables';
@@ -39,7 +40,7 @@ class Settings extends Component {
 
 	render() {
 		return (
-			<TouchableOpacity style={styles.settingsIcon} onPress={this.showMenu}>
+			<TouchableOpacity style={s.settingsIcon} onPress={this.showMenu}>
 				<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 					<Menu
 						ref={this.setMenuRef}
@@ -68,11 +69,3 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps)(Settings);
-const styles = StyleSheet.create({
-	settingsIcon: {
-		flex: 1,
-		height: 60,
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-});
