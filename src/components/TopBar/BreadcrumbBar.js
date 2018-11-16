@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+
 import {
 	View,
 	Text,
-	StyleSheet,
 	TouchableOpacity,
 	TextInput,
-	TouchableHighlight
 } from 'react-native';
+import Modal from "react-native-modal";
 import s from '../../styles/TopBar/BreadcrumbBar';
 
 import { displayBreadCrumb } from '../../utils';
-import Modal from "react-native-modal";
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 const searchIcon = (<Icon name="search" size={30} color='black' />)
@@ -23,13 +21,21 @@ class BreadcrumbBar extends Component {
 	}
 	render() {
 		const { state } = this.props;
+		const { modalOpen } = this.state;
 		return (
-			<TouchableOpacity style={s.container} onPress={() => this.setState({ modalOpen: true })}>
-				<Text style={s.text}>{displayBreadCrumb(state)}</Text>
-				<View style={s.searchIcon}>
-					{searchIcon}
-				</View>
-			</TouchableOpacity>
+			<View>
+				<TouchableOpacity style={s.container} onPress={() => this.setState({ modalOpen: true })}>
+					<Text style={s.text}>{displayBreadCrumb(state)}</Text>
+					<View style={s.searchIcon}>
+						{searchIcon}
+					</View>
+				</TouchableOpacity>
+				{/* <Modal
+					isVisible={modalOpen}
+				>
+					<Text>Hey maw</Text>
+				</Modal> */}
+			</View>
 		);
 	}
 }
