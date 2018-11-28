@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
+import colors from '../colors';
 
 const styles = StyleSheet.create({
 	container: {
 		flexWrap: 'wrap',
-		backgroundColor: 'hsla(253, 14%, 24%, 1)',
+		backgroundColor: colors.darkgrey,
 	},
 	topbarUpper: {
 		flexDirection: 'row',

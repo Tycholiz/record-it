@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
+import colors from '../colors';
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#fff',
+		backgroundColor: colors.darkgrey,
 		borderRadius: 4,
 		borderWidth: 0.5,
 		borderColor: 'darkslategrey',
