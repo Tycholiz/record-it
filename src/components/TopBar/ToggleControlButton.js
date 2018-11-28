@@ -20,7 +20,7 @@ class ToggleControlButton extends Component {
 			>
 				<View>
 					<Text style={s.buttonText}>
-						{this.props.toggleText}
+						hey
 					</Text>
 				</View>
 			</TouchableOpacity>
