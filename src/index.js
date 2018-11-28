@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 
 import {
-	View,
-	StyleSheet,
 	Platform,
 	StatusBar,
 	YellowBox,
@@ -71,11 +69,3 @@ export default class Root extends Component {
 // if (__DEV__) {
 // 	console.ignoredYellowBox = ['Remote debugger'];
 // }
-
-
-// const styles = StyleSheet.create({
-// 	container: {
-// 		marginTop: Constants.statusBarHeight,
-// 		flex: 1,
-// 	},
-// });

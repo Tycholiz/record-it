@@ -7,13 +7,15 @@ import {
 	TouchableOpacity,
 	TextInput,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+
 import Modal from "react-native-modal";
 import s from '../../styles/TopBar/BreadcrumbBar';
 
 import { displayBreadCrumb } from '../../utils';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
-const searchIcon = (<Icon name="search" size={30} color='black' />)
+// import Icon from 'react-native-vector-icons/FontAwesome';
+// const searchIcon = (<Icon name="search" size={30} color='black' />)
 
 class BreadcrumbBar extends Component {
 	state = {
@@ -27,7 +29,7 @@ class BreadcrumbBar extends Component {
 				<TouchableOpacity style={s.container} onPress={() => this.setState({ modalOpen: true })}>
 					<Text style={s.text}>{displayBreadCrumb(state)}</Text>
 					<View style={s.searchIcon}>
-						{searchIcon}
+						<Ionicons name="md-search" size={32} color="green" />
 					</View>
 				</TouchableOpacity>
 				{/* <Modal

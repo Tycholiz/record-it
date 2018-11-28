@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 const screen = Dimensions.get('window');
 import s from '../../styles/FolderStructure/Folder'
+import { Ionicons } from '@expo/vector-icons';
 
 import { Mode, ControlView, UnitType } from '../../constants/enumerables';
 
@@ -20,8 +21,8 @@ import { deleteUnit, renameUnit } from '../../actions';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import Modal from "react-native-modal";
 
-import Icon from 'react-native-vector-icons/FontAwesome';
-const barsIcon = (<Icon name="bars" size={25} color='black' />)
+// import Icon from 'react-native-vector-icons/FontAwesome';
+// const barsIcon = (<Icon name="bars" size={25} color='black' />)
 
 class Folder extends Component {
 	state = {
@@ -99,7 +100,7 @@ class Folder extends Component {
 						>
 							<Menu
 								ref={this.setMenuRef}
-								button={barsIcon}
+								button={<Ionicons name="md-microphone" size={32} color="green" />}
 							>
 								<MenuItem onPress={() => this.handleOpenModal('renaming')}>Rename</MenuItem>
 								<MenuDivider />

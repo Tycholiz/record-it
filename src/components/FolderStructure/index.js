@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
 	View,
-	StyleSheet,
 	ScrollView,
 	Text,
 	TouchableOpacity,
 	Alert,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+
 import s from '../../styles/FolderStructure/index';
 
 import {
@@ -25,11 +26,11 @@ import { Mode, Modification, UnitType } from '../../constants/enumerables';
 
 import Folder from './Folder';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
-const upOneLevelIcon = (<Icon name="arrow-circle-left" size={40} color='darkslategrey' />)
-const addFolderIcon = (<Icon name="plus" size={40} color='darkslategrey' />)
-const folderIcon = (<Icon name="folder" size={40} color='darkslategrey' />)
-const fileIcon = (<Icon name="headphones" size={40} color='darkslategrey' />)
+// import Icon from 'react-native-vector-icons/FontAwesome';
+// const upOneLevelIcon = (<Icon name="arrow-circle-left" size={40} color='darkslategrey' />)
+// const addFolderIcon = (<Icon name="plus" size={40} color='darkslategrey' />)
+// const folderIcon = (<Icon name="folder" size={40} color='darkslategrey' />)
+// const fileIcon = (<Icon name="headphones" size={40} color='darkslategrey' />)
 
 class FolderStructure extends Component {
 	handleUnitPress = (unitId, unitType, mode) => {
@@ -131,7 +132,11 @@ class FolderStructure extends Component {
 					id={id}
 					text={title}
 					unitType={unitType}
-					icon={unitType === UnitType.File ? fileIcon : folderIcon}
+					icon={unitType === UnitType.File ?
+						<Ionicons name="md-alert" size={32} color="green" />
+							:
+						<Ionicons name="md-apps" size={32} color="green" />
+					}
 					handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
 					selected={this.unitSelectedStatus(id)}
 				/>
@@ -202,14 +207,14 @@ class FolderStructure extends Component {
 				<View style={s.innerContainer}>
 					<Folder
 						text={'Up One Level'}
-						icon={upOneLevelIcon}
+						icon={<Ionicons name="md-microphone" size={32} color="green" />}
 						handleUnitPress={() =>
 							this.handleGoUpOneLevel(currentFolder)
 						}
 					/>
 					<Folder
 						text={'Add New Folder'}
-						icon={addFolderIcon}
+						icon={<Ionicons name="md-microphone" size={32} color="green" />}
 						handleUnitPress={() =>
 							this.handleNewFolder()
 						}
