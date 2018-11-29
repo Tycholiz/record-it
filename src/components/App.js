@@ -4,7 +4,8 @@ import {
 	View,
 	StyleSheet,
 	Platform,
-	StatusBar
+	StatusBar,
+	Image
 } from 'react-native';
 import {
 	Constants,
@@ -20,14 +21,18 @@ class App extends Component {
 		const { mode } = this.props;
 		return (
 			<View style={styles.container}>
-				{Platform.OS === 'ios' &&
-					<StatusBar barStyle="default" />
-				}
-				<TopBar />
-				<FolderStructure />
-				{mode === Mode.Normal &&
-					<Control />
-				}
+				<Image
+					style={{flex: 1, position: 'absolute'}}
+					source={require('../../assets/images/background.png')}
+				/>
+					{Platform.OS === 'ios' &&
+						<StatusBar barStyle="default" />
+					}
+					<TopBar />
+					<FolderStructure />
+					{mode === Mode.Normal &&
+						<Control />
+					}
 			</View>
 		);
 	}
@@ -46,5 +51,6 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		marginTop: Constants.statusBarHeight,
+		backgroundColor: '#666666'
 	},
 });

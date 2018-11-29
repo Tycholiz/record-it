@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-evenly',
 		flexWrap: 'wrap',
-		backgroundColor: 'hsla(253, 14%, 24%, 1)',
 	},
 	selectMultipleTopBar: {
 		position: 'absolute',

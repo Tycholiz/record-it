@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import colors from '../colors';
 
 const styles = StyleSheet.create({
 	container: {
@@ -7,6 +8,7 @@ const styles = StyleSheet.create({
 		height: 60,
 		alignItems: 'center',
 		justifyContent: 'space-around',
+		backgroundColor: colors.darkgrey,
 	},
 	buttonText: {
 		fontWeight: '300',

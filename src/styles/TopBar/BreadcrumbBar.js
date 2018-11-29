@@ -6,6 +6,9 @@ const styles = StyleSheet.create({
 		height: 40,
 		alignItems: 'center',
 		flexDirection: 'row',
+		borderRadius: 20,
+		marginHorizontal: 5,
+		marginTop: 5,
 	},
 	text: {
 		flex: 1,
@@ -14,7 +17,6 @@ const styles = StyleSheet.create({
 	searchIcon: {
 		marginRight: 10,
 	},
-
 	modalMask: {
 		flex: 1,
 		backgroundColor: 'rgba(0, 0, 0, 0.4)',
