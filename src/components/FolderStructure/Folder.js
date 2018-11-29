@@ -18,7 +18,16 @@ import { Mode, ControlView, UnitType } from '../../constants/enumerables';
 
 import { deleteUnit, renameUnit } from '../../actions';
 
-import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+// import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+
+import {
+	MenuProvider,
+	Menu,
+	MenuOptions,
+	MenuOption,
+	MenuTrigger,
+} from 'react-native-popup-menu';
+
 import Modal from "react-native-modal";
 
 // import Icon from 'react-native-vector-icons/FontAwesome';
@@ -83,9 +92,13 @@ class Folder extends Component {
 		return (
 			<View>
 
+				{/* USER FOLDER */}
 				<TouchableOpacity
 					style={[
-						s.container,
+						s.container, //styles applied to all units
+						unitType === undefined && s.navContainer,
+						unitType === UnitType.File && s.fileContainer,
+						unitType === UnitType.Folder && s.folderContainer,
 						mode === Mode.Select && unitType ? s.containerMultipleMode : null,
 						selected && s.containerSelected
 					]}
@@ -93,14 +106,14 @@ class Folder extends Component {
 				>
 
 					{/* FOLDER OPTIONS */}
-					{unitType &&
+					{/* {unitType &&
 						<TouchableOpacity
 							style={s.folderOptionsContainer}
 							onPress={this.showMenu}
 						>
 							<Menu
 								ref={this.setMenuRef}
-								button={<Ionicons name="md-microphone" size={32} color="green" />}
+								button={<Ionicons name="md-microphone" size={10} color="green" />}
 							>
 								<MenuItem onPress={() => this.handleOpenModal('renaming')}>Rename</MenuItem>
 								<MenuDivider />
@@ -119,7 +132,8 @@ class Folder extends Component {
 								<MenuItem onPress={this.hideMenu}>Close</MenuItem>
 							</Menu>
 						</TouchableOpacity>
-					}
+					} */}
+
 
 
 					{icon}
@@ -136,13 +150,11 @@ class Folder extends Component {
 					avoidKeyboard={true}
 				>
 					<View style={s.modalContainerInner}>
-
 						{unitType === UnitType.File ?
 							<Text style={s.modalHeader}>Rename clip:</Text>
 								:
 							<Text style={s.modalHeader}>Rename folder:</Text>
 						}
-
 						<TextInput
 							style={s.modalInput}
 							onChangeText={(newTitle) =>
@@ -177,8 +189,8 @@ class Folder extends Component {
 								<Text style={{color: 'white'}}>RENAME</Text>
 							</TouchableHighlight>
 						</View>
-					</View>
 
+					</View>
 				</Modal>
 
 				{/* DELETE CONFIRMATION MODAL */}

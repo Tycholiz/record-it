@@ -133,9 +133,9 @@ class FolderStructure extends Component {
 					text={title}
 					unitType={unitType}
 					icon={unitType === UnitType.File ?
-						<Ionicons name="md-alert" size={32} color="green" />
+						<Ionicons name="md-thumbs-up" size={32} color="dimgrey" />
 							:
-						<Ionicons name="md-apps" size={32} color="green" />
+						<Ionicons name="md-square" size={32} color="dimgrey" />
 					}
 					handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
 					selected={this.unitSelectedStatus(id)}
@@ -150,6 +150,7 @@ class FolderStructure extends Component {
 		return (
 			<View style={s.container}>
 
+				{/* MODE SELECT */}
 				{mode === Mode.Select &&
 					<View style={s.selectMultipleTopBar}>
 						<TouchableOpacity
@@ -171,6 +172,7 @@ class FolderStructure extends Component {
 					</View>
 				}
 
+				{/* MODE ACTION */}
 				{mode === Mode.Action &&
 					<View style={s.selectMultipleTopBar}>
 
@@ -200,26 +202,30 @@ class FolderStructure extends Component {
 						>
 							<Text>CANCEL</Text>
 						</TouchableOpacity>
-
 					</View>
 				}
 
+				{/* NAVIGATION FOLDERS */}
 				<View style={s.innerContainer}>
 					<Folder
 						text={'Up One Level'}
-						icon={<Ionicons name="md-microphone" size={32} color="green" />}
+						icon={<Ionicons name="md-snow" size={32} color="green" />}
+						style={s.navContainer}
 						handleUnitPress={() =>
 							this.handleGoUpOneLevel(currentFolder)
 						}
 					/>
 					<Folder
 						text={'Add New Folder'}
-						icon={<Ionicons name="md-microphone" size={32} color="green" />}
+						icon={<Ionicons name="md-add" size={32} color="green" />}
+						style={s.navContainer}
 						handleUnitPress={() =>
 							this.handleNewFolder()
 						}
 					/>
 				</View>
+
+				{/* USER FOLDERS */}
 				<ScrollView style={s.container}>
 					<View style={s.innerContainer}>
 						{this.renderFolders()}
