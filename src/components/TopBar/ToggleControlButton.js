@@ -5,14 +5,17 @@ import {
 	Text,
 	TouchableOpacity,
 } from 'react-native';
+
 import s from '../../styles/TopBar/ToggleControlButton';
 import LinearGradient from 'react-native-linear-gradient';
+
+import { ControlView } from '../../constants/enumerables';
 
 import { toggleControlView } from '../../actions'
 
 class ToggleControlButton extends Component {
 	render() {
-		const { toggleControlView } = this.props;
+		const { toggleControlView, controlView } = this.props;
 
 		return (
 			<View
@@ -27,8 +30,8 @@ class ToggleControlButton extends Component {
 							Record
 						</Text>
 					</TouchableOpacity>
-					{/* <View style={s.toggleControlIndicator}></View> */}
-					<LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={s.toggleControlIndicator}></LinearGradient>
+					<View style={[s.toggleControlIndicator, controlView !== ControlView.Record && s.invisible]} />
+					{/* <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={s.toggleControlIndicator}></LinearGradient> */}
 				</View>
 				<View
 					style={s.controlViewButton}
@@ -38,7 +41,7 @@ class ToggleControlButton extends Component {
 							Playback
 						</Text>
 					</TouchableOpacity>
-					<View style={s.toggleControlIndicator}></View>
+					<View style={[s.toggleControlIndicator, controlView !== ControlView.Playback && s.invisible]} />
 				</View>
 			</View>
 		);
@@ -47,7 +50,8 @@ class ToggleControlButton extends Component {
 
 mapStateToProps = (state) => {
 	return {
-		toggleText: state.toggle.toggleText
+		toggleText: state.toggle.toggleText,
+		controlView: state.toggle.controlView
 	}
 }
 

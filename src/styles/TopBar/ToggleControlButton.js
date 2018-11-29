@@ -17,13 +17,16 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 	},
 	toggleControlIndicator: {
-		// backgroundColor: 'red',
-		// height: 10,
-		// width: '80%',
-		flex: 1,
-		paddingLeft: 15,
-		paddingRight: 15,
-		borderRadius: 5
+		backgroundColor: 'red',
+		height: 10,
+		width: '80%',
+		// flex: 1,
+		// paddingLeft: 15,
+		// paddingRight: 15,
+		// borderRadius: 5
+	},
+	invisible: {
+		backgroundColor: 'transparent',
 	},
 });
 
