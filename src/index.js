@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 // YellowBox.ignoreWarnings(['Remote debugger']);
 
+import { MenuProvider } from 'react-native-popup-menu';
+
 import {
 	AppLoading,
 	Asset,
@@ -36,7 +38,9 @@ export default class Root extends Component {
 		} else {
 			return (
 				<Provider store={store}>
-					<App />
+					<MenuProvider>
+						<App />
+					</MenuProvider>
 				</Provider>
 			);
 		}

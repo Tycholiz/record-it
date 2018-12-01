@@ -5,6 +5,7 @@ import {
 	View,
 	Text,
 	TouchableOpacity,
+	Image,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import s from '../../styles/Control/RecordControl';
@@ -28,9 +29,10 @@ class RecordControl extends Component {
 				</TouchableOpacity>
 				<TouchableOpacity style={s.icon} onPress={this.props.startRecording}>
 					{this.props.recording ?
-						<Ionicons name="md-pause" size={32} color="green" />
+						<Image source={require('../../../assets/images/pause.png')} style={{ width: 80, height: 80 }} />
 							:
-						<Ionicons name="md-microphone" size={32} color="green" />
+						// <Ionicons name="md-microphone" size={32} color="green" />
+						<Image source={require('../../../assets/images/microfono.png')} style={{ width: 80, height: 80 }} />
 					}
 				</TouchableOpacity>
 				<TouchableOpacity onPress={this.sayHi}>

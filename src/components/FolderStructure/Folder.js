@@ -6,6 +6,7 @@ import {
 	View,
 	TextInput,
 	TouchableHighlight,
+	TouchableWithoutFeedback,
 	Alert,
 	KeyboardAvoidingView,
 	Dimensions
@@ -18,15 +19,15 @@ import { Mode, ControlView, UnitType } from '../../constants/enumerables';
 
 import { deleteUnit, renameUnit } from '../../actions';
 
-// import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
-import {
-	MenuProvider,
-	Menu,
-	MenuOptions,
-	MenuOption,
-	MenuTrigger,
-} from 'react-native-popup-menu';
+// import {
+// 	MenuProvider,
+// 	Menu,
+// 	MenuOptions,
+// 	MenuOption,
+// 	MenuTrigger,
+// } from 'react-native-popup-menu';
 
 import Modal from "react-native-modal";
 
@@ -93,20 +94,29 @@ class Folder extends Component {
 			<View>
 
 				{/* USER FOLDER */}
-				<TouchableOpacity
-					style={[
-						s.container, //styles applied to all units
-						unitType === undefined && s.navContainer,
-						unitType === UnitType.File && s.fileContainer,
-						unitType === UnitType.Folder && s.folderContainer,
-						mode === Mode.Select && unitType ? s.containerMultipleMode : null,
-						selected && s.containerSelected
-					]}
-					onPress={handleUnitPress}
-				>
+				<TouchableOpacity>
+					<View
+						// style={{width: 60, height: 40, backgroundColor: 'green'}}
+						style={[
+							s.container, //styles applied to all units
+							unitType === undefined && s.navContainer,
+							unitType === UnitType.File && s.fileContainer,
+							unitType === UnitType.Folder && s.folderContainer,
+							mode === Mode.Select && unitType ? s.containerMultipleMode : null,
+							selected && s.containerSelected
+						]}
+						onPress={handleUnitPress}
+					>
+						{icon}
+						<Text icon={icon}>
+							{text}
+						</Text>
+					</View>
+
+				</TouchableOpacity>
 
 					{/* FOLDER OPTIONS */}
-					{/* {unitType &&
+					{unitType &&
 						<TouchableOpacity
 							style={s.folderOptionsContainer}
 							onPress={this.showMenu}
@@ -132,15 +142,47 @@ class Folder extends Component {
 								<MenuItem onPress={this.hideMenu}>Close</MenuItem>
 							</Menu>
 						</TouchableOpacity>
+					}
+
+					{/* {unitType &&
+
+							<View>
+								<Menu>
+									<MenuTrigger>
+										<TouchableWithoutFeedback delayLongerPress={3000} onLongPress={() => console.log("hey buddy")}>
+											<View
+												// style={{width: 60, height: 40, backgroundColor: 'green'}}
+												style={[
+													s.container, //styles applied to all units
+													unitType === undefined && s.navContainer,
+													unitType === UnitType.File && s.fileContainer,
+													unitType === UnitType.Folder && s.folderContainer,
+													mode === Mode.Select && unitType ? s.containerMultipleMode : null,
+													selected && s.containerSelected
+												]}
+												onPress={handleUnitPress}
+											>
+												{icon}
+												<Text icon={icon}>
+													{text}
+												</Text>
+											</View>
+
+										</TouchableWithoutFeedback>
+									</MenuTrigger>
+									<MenuOptions>
+										<MenuOption value={1} text='One' />
+										<MenuOption value={2} text='two' />
+										<MenuOption value={3} disabled={true} text='Three' />
+									</MenuOptions>
+
+								</Menu>
+
+							</View>
+
+
 					} */}
 
-
-
-					{icon}
-					<Text icon={icon}>
-						{text}
-					</Text>
-				</TouchableOpacity>
 
 				{/* RENAME MODAL */}
 				<Modal
