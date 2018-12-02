@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 import {
 	Text,
 	TouchableOpacity,
+	TouchableHighlight,
 	View,
 	TextInput,
-	TouchableHighlight,
+	Image,
 	Alert,
 	KeyboardAvoidingView,
 	Dimensions
 } from 'react-native';
-const screen = Dimensions.get('window');
 import s from '../../styles/FolderStructure/Folder'
-import { Ionicons } from '@expo/vector-icons';
+const screen = Dimensions.get('window');
 
 import { Mode, ControlView, UnitType } from '../../constants/enumerables';
 
@@ -82,7 +82,8 @@ class Folder extends Component {
 			<View>
 
 				{/* USER FOLDER */}
-				<TouchableOpacity>
+				<TouchableOpacity onPress={handleUnitPress}>
+
 					<View
 						style={[
 							s.container, //styles applied to all units
@@ -92,17 +93,15 @@ class Folder extends Component {
 							mode === Mode.Select && unitType ? s.containerMultipleMode : null,
 							selected && s.containerSelected
 						]}
-						// onPress={handleUnitPress}
-						onPress={() => console.log('wtf')}
 					>
 						{icon}
-						<Text icon={icon} style={{textAlign: 'center'}}>
+						<Text style={{textAlign: 'center'}}>
 							{text}
 						</Text>
 					</View>
 				</TouchableOpacity>
 
-					{/* FOLDER OPTIONS */}
+					{/* FOLDER OPTIONS **temporary** */}
 					{unitType &&
 						<TouchableOpacity
 							style={s.folderOptionsContainer}
@@ -110,7 +109,7 @@ class Folder extends Component {
 						>
 							<Menu
 								ref={this.setMenuRef}
-								button={<Ionicons name="md-microphone" size={10} color="green" />}
+								button={<Image source={require('../../../assets/images/settings.png')} style={ { height: 14, width: 14 } } />}
 							>
 								<MenuItem onPress={() => this.handleOpenModal('renaming')}>Rename</MenuItem>
 								<MenuDivider />

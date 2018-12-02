@@ -30,7 +30,7 @@ class FolderStructure extends Component {
 	handleUnitPress = (unitId, unitType, mode) => {
 		const { dispatch, selectedUnits } = this.props;
 
-		console.log('hey')
+		console.log('hey, were in the function!')
 
 		switch(mode) {
 			case Mode.Normal:
@@ -133,8 +133,7 @@ class FolderStructure extends Component {
 							:
 						<Image source={require('../../../assets/images/folder.png')} style={s.unitIcon} />
 					}
-					// handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
-					handleUnitPress={() => console.log("whaddup")}
+					handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
 					selected={this.unitSelectedStatus(id)}
 				/>
 			)
