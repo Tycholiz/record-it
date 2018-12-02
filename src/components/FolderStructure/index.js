@@ -5,9 +5,9 @@ import {
 	ScrollView,
 	Text,
 	TouchableOpacity,
+	Image,
 	Alert,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
 import s from '../../styles/FolderStructure/index';
 
@@ -26,15 +26,11 @@ import { Mode, Modification, UnitType } from '../../constants/enumerables';
 
 import Folder from './Folder';
 
-// import Icon from 'react-native-vector-icons/FontAwesome';
-// const upOneLevelIcon = (<Icon name="arrow-circle-left" size={40} color='darkslategrey' />)
-// const addFolderIcon = (<Icon name="plus" size={40} color='darkslategrey' />)
-// const folderIcon = (<Icon name="folder" size={40} color='darkslategrey' />)
-// const fileIcon = (<Icon name="headphones" size={40} color='darkslategrey' />)
-
 class FolderStructure extends Component {
 	handleUnitPress = (unitId, unitType, mode) => {
 		const { dispatch, selectedUnits } = this.props;
+
+		console.log('hey')
 
 		switch(mode) {
 			case Mode.Normal:
@@ -133,11 +129,12 @@ class FolderStructure extends Component {
 					text={title}
 					unitType={unitType}
 					icon={unitType === UnitType.File ?
-						<Ionicons name="md-thumbs-up" size={32} color="dimgrey" />
+						<Image source={require('../../../assets/images/audio.png')} style={[s.unitIcon, { height: 53}]} />
 							:
-						<Ionicons name="md-square" size={32} color="dimgrey" />
+						<Image source={require('../../../assets/images/folder.png')} style={s.unitIcon} />
 					}
-					handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
+					// handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
+					handleUnitPress={() => console.log("whaddup")}
 					selected={this.unitSelectedStatus(id)}
 				/>
 			)
@@ -207,22 +204,28 @@ class FolderStructure extends Component {
 
 				{/* NAVIGATION FOLDERS */}
 				<View style={s.innerContainer}>
-					<Folder
-						text={'Up One Level'}
-						icon={<Ionicons name="md-snow" size={32} color="green" />}
-						style={s.navContainer}
-						handleUnitPress={() =>
-							this.handleGoUpOneLevel(currentFolder)
-						}
-					/>
-					<Folder
-						text={'Add New Folder'}
-						icon={<Ionicons name="md-add" size={32} color="green" />}
-						style={s.navContainer}
-						handleUnitPress={() =>
-							this.handleNewFolder()
-						}
-					/>
+					<View>
+						<Folder
+							text={'Up One Level'}
+							icon={<Image source={require('../../../assets/images/uponelevel.png')} style={{ width: 40, height: 40 }} />}
+							style={s.navContainer}
+							handleUnitPress={() =>
+								this.handleGoUpOneLevel(currentFolder)
+							}
+						/>
+						<Image source={require('../../../assets/images/nav-unit-divider.png')} style={{ width: 100, height: 2.5, alignSelf: 'center', marginBottom: 5 }} />
+					</View>
+					<View>
+						<Folder
+							text={'Add New Folder'}
+							icon={<Image source={require('../../../assets/images/add-folder.png')} style={{ width: 50, height: 40 }} />}
+							style={s.navContainer}
+							handleUnitPress={() =>
+								this.handleNewFolder()
+							}
+						/>
+						<Image source={require('../../../assets/images/nav-unit-divider.png')} style={{ width: 100, height: 2.5, alignSelf: 'center', marginBottom: 5 }} />
+					</View>
 				</View>
 
 				{/* USER FOLDERS */}

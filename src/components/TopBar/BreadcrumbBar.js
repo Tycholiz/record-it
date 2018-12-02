@@ -6,6 +6,7 @@ import {
 	Text,
 	TouchableOpacity,
 	TextInput,
+	Image,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -29,7 +30,7 @@ class BreadcrumbBar extends Component {
 				<TouchableOpacity style={s.container} onPress={() => this.setState({ modalOpen: true })}>
 					<Text style={s.text}>{displayBreadCrumb(state)}</Text>
 					<View style={s.searchIcon}>
-						<Ionicons name="md-search" size={32} color="green" />
+						<Image source={require('../../../assets/images/search.png')} style={{ width: 20, height: 20 }} />
 					</View>
 				</TouchableOpacity>
 				{/* <Modal

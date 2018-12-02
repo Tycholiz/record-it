@@ -57,6 +57,10 @@
 		162C864512A24088B5FBD1C8 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 35323F4C45774352893CDB60 /* Octicons.ttf */; };
 		3E607A7CEA2046D185E299FA /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E8FBD0AC4DC4284863344E2 /* SimpleLineIcons.ttf */; };
 		E292E7E6E5A442D4855FFAB7 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E30E957A96954830AD3E54DF /* Zocial.ttf */; };
+		9E4161B6C9914EF4B37A86EE /* fontello.svg in Resources */ = {isa = PBXBuildFile; fileRef = 004258635CA0481798F4552C /* fontello.svg */; };
+		969AFEBDDE344B27921D534F /* fontello.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D24CE72D699849748BD86A9D /* fontello.ttf */; };
+		00D9FCD6C4884C21A297DAFD /* fontello.woff in Resources */ = {isa = PBXBuildFile; fileRef = 62FAD461EC4648E1BC11CD73 /* fontello.woff */; };
+		B167B049DCF64A9B84BC5763 /* fontello.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = 1F96F8A6BCC149AD8738411B /* fontello.woff2 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -385,6 +389,10 @@
 		35323F4C45774352893CDB60 /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		1E8FBD0AC4DC4284863344E2 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		E30E957A96954830AD3E54DF /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		004258635CA0481798F4552C /* fontello.svg */ = {isa = PBXFileReference; name = "fontello.svg"; path = "../assets/icons/fontello-a0996eaa/font/fontello.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D24CE72D699849748BD86A9D /* fontello.ttf */ = {isa = PBXFileReference; name = "fontello.ttf"; path = "../assets/icons/fontello-a0996eaa/font/fontello.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		62FAD461EC4648E1BC11CD73 /* fontello.woff */ = {isa = PBXFileReference; name = "fontello.woff"; path = "../assets/icons/fontello-a0996eaa/font/fontello.woff"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1F96F8A6BCC149AD8738411B /* fontello.woff2 */ = {isa = PBXFileReference; name = "fontello.woff2"; path = "../assets/icons/fontello-a0996eaa/font/fontello.woff2"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -673,6 +681,10 @@
 				35323F4C45774352893CDB60 /* Octicons.ttf */,
 				1E8FBD0AC4DC4284863344E2 /* SimpleLineIcons.ttf */,
 				E30E957A96954830AD3E54DF /* Zocial.ttf */,
+				004258635CA0481798F4552C /* fontello.svg */,
+				D24CE72D699849748BD86A9D /* fontello.ttf */,
+				62FAD461EC4648E1BC11CD73 /* fontello.woff */,
+				1F96F8A6BCC149AD8738411B /* fontello.woff2 */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1139,6 +1151,10 @@
 				162C864512A24088B5FBD1C8 /* Octicons.ttf in Resources */,
 				3E607A7CEA2046D185E299FA /* SimpleLineIcons.ttf in Resources */,
 				E292E7E6E5A442D4855FFAB7 /* Zocial.ttf in Resources */,
+				9E4161B6C9914EF4B37A86EE /* fontello.svg in Resources */,
+				969AFEBDDE344B27921D534F /* fontello.ttf in Resources */,
+				00D9FCD6C4884C21A297DAFD /* fontello.woff in Resources */,
+				B167B049DCF64A9B84BC5763 /* fontello.woff2 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,15 +5,15 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: colors.darkgrey,
-		borderRadius: 4,
-		borderWidth: 0.5,
-		borderColor: 'darkslategrey',
 	},
-	namePlate: {
+	topLine: {
 		flexDirection: 'row',
 	},
 	text: {
+		marginTop: 5,
 		marginLeft: 15,
+		flex: 1,
+		color: colors.white
 	},
 	iconContainer: {
 		flexDirection: 'row',
@@ -21,13 +21,13 @@ const styles = StyleSheet.create({
 	},
 	clipScroll: {
 		flexDirection: 'row',
-		// flexWrap: 'wrap',
 	},
 	time: {
 		borderRadius: 1,
 		borderWidth: 0.5,
-		margin: 15,
+		margin: 10,
 		padding: 3,
+		color: colors.white
 	},
 	scroller: {
 		borderWidth: 0,

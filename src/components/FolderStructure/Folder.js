@@ -6,7 +6,6 @@ import {
 	View,
 	TextInput,
 	TouchableHighlight,
-	TouchableWithoutFeedback,
 	Alert,
 	KeyboardAvoidingView,
 	Dimensions
@@ -21,18 +20,7 @@ import { deleteUnit, renameUnit } from '../../actions';
 
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
-// import {
-// 	MenuProvider,
-// 	Menu,
-// 	MenuOptions,
-// 	MenuOption,
-// 	MenuTrigger,
-// } from 'react-native-popup-menu';
-
 import Modal from "react-native-modal";
-
-// import Icon from 'react-native-vector-icons/FontAwesome';
-// const barsIcon = (<Icon name="bars" size={25} color='black' />)
 
 class Folder extends Component {
 	state = {
@@ -96,7 +84,6 @@ class Folder extends Component {
 				{/* USER FOLDER */}
 				<TouchableOpacity>
 					<View
-						// style={{width: 60, height: 40, backgroundColor: 'green'}}
 						style={[
 							s.container, //styles applied to all units
 							unitType === undefined && s.navContainer,
@@ -105,14 +92,14 @@ class Folder extends Component {
 							mode === Mode.Select && unitType ? s.containerMultipleMode : null,
 							selected && s.containerSelected
 						]}
-						onPress={handleUnitPress}
+						// onPress={handleUnitPress}
+						onPress={() => console.log('wtf')}
 					>
 						{icon}
-						<Text icon={icon}>
+						<Text icon={icon} style={{textAlign: 'center'}}>
 							{text}
 						</Text>
 					</View>
-
 				</TouchableOpacity>
 
 					{/* FOLDER OPTIONS */}
@@ -143,46 +130,6 @@ class Folder extends Component {
 							</Menu>
 						</TouchableOpacity>
 					}
-
-					{/* {unitType &&
-
-							<View>
-								<Menu>
-									<MenuTrigger>
-										<TouchableWithoutFeedback delayLongerPress={3000} onLongPress={() => console.log("hey buddy")}>
-											<View
-												// style={{width: 60, height: 40, backgroundColor: 'green'}}
-												style={[
-													s.container, //styles applied to all units
-													unitType === undefined && s.navContainer,
-													unitType === UnitType.File && s.fileContainer,
-													unitType === UnitType.Folder && s.folderContainer,
-													mode === Mode.Select && unitType ? s.containerMultipleMode : null,
-													selected && s.containerSelected
-												]}
-												onPress={handleUnitPress}
-											>
-												{icon}
-												<Text icon={icon}>
-													{text}
-												</Text>
-											</View>
-
-										</TouchableWithoutFeedback>
-									</MenuTrigger>
-									<MenuOptions>
-										<MenuOption value={1} text='One' />
-										<MenuOption value={2} text='two' />
-										<MenuOption value={3} disabled={true} text='Three' />
-									</MenuOptions>
-
-								</Menu>
-
-							</View>
-
-
-					} */}
-
 
 				{/* RENAME MODAL */}
 				<Modal
@@ -284,81 +231,3 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps)(Folder);
-
-// const styles = StyleSheet.create({
-// 	container: {
-// 		width: 140,
-// 		height: 80,
-// 		borderRadius: 15,
-// 		backgroundColor: '#fff',
-// 		alignItems: 'center',
-// 		justifyContent: 'flex-end',
-// 		margin: 6,
-// 	},
-// 	containerSelected: {
-// 		backgroundColor: 'green'
-// 	},
-// 	containerMultipleMode: {
-// 		borderWidth: 1,
-// 		borderColor: 'red',
-// 	},
-// 	folderOptionsContainer: {
-// 		flex: 1,
-// 		alignItems: 'center',
-// 		justifyContent: 'center',
-// 	},
-// 	modalMask: {
-// 		flex: 1,
-// 		backgroundColor: 'rgba(0, 0, 0, 0.4)',
-// 	},
-// 	modalContainer: {
-// 		flex: 0,
-// 		width: 330,
-// 		height: 150,
-// 		backgroundColor: '#2B2B2B',
-// 		// marginHorizontal: 40,
-// 		// justifyContent: 'center',
-// 		// alignItems: 'center',
-// 		borderRadius: 4,
-// 		// flexDirection: 'column',
-// 		// flexWrap: 'wrap',
-// 		// flex: 1,
-// 		justifyContent: 'center',
-// 		alignItems: 'center',
-// 	},
-// 	modalContainerInner: {
-// 		// flex: 1,
-// 		backgroundColor: 'white',
-// 		padding: 22,
-// 		justifyContent: 'center',
-// 		alignItems: 'center',
-// 		borderRadius: 4,
-// 		borderColor: 'rgba(0, 0, 0, 0.1)',
-// 	},
-// 	modalHeader: {
-// 		flex: 1,
-// 		fontSize: 25
-// 	},
-// 	modalInput: {
-// 		flex: 1,
-// 	},
-// 	modalOptions: {
-// 		flex: 1,
-// 		flexDirection: 'row',
-// 		justifyContent: 'flex-end',
-// 	},
-// 	modalOption: {
-// 	},
-// 	renameOption: {
-// 		borderRadius: 4,
-// 		backgroundColor: 'red',
-// 	},
-// 	icon: {
-// 		justifyContent: 'center',
-// 	},
-// 	barsIcon: {
-// 		alignSelf: 'flex-end',
-// 		marginRight: 20,
-// 		marginTop: 80,
-// 	},
-// });

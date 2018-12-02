@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import {
 	View,
 	Text,
 	TouchableOpacity,
-	Image,
+	Image
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import s from '../../styles/Control/RecordControl';
@@ -25,18 +24,17 @@ class RecordControl extends Component {
 		return (
 			<View style={s.container}>
 				<TouchableOpacity>
-					<Ionicons name="md-at" size={32} color="green" />
+					<Image source={require('../../../assets/images/cross.png')} style={{ width: 40, height: 40 }} />
 				</TouchableOpacity>
 				<TouchableOpacity style={s.icon} onPress={this.props.startRecording}>
 					{this.props.recording ?
 						<Image source={require('../../../assets/images/pause.png')} style={{ width: 80, height: 80 }} />
 							:
-						// <Ionicons name="md-microphone" size={32} color="green" />
-						<Image source={require('../../../assets/images/microfono.png')} style={{ width: 80, height: 80 }} />
+						<Image source={require('../../../assets/images/microphone.png')} style={{ width: 80, height: 80 }} />
 					}
 				</TouchableOpacity>
-				<TouchableOpacity onPress={this.sayHi}>
-					<Ionicons name="md-checkmark" size={32} color="green" />
+				<TouchableOpacity>
+					<Image source={require('../../../assets/images/checkmark.png')} style={{ width: 40, height: 40 }} />
 				</TouchableOpacity>
 			</View>
 		);

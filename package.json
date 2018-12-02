@@ -2,6 +2,7 @@
   "name": "empty-project-template",
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
+  "rnpm": { "assets": [ "assets/icons" ] },
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -24,7 +25,7 @@
     "react-native-modalbox": "^1.6.0",
     "react-native-popup-menu": "^0.14.1",
     "react-native-radial-gradient": "^1.0.5",
-    "react-native-vector-icons": "^6.0.2",
+    "react-native-vector-icons": "^6.1.0",
     "react-navigation": "^2.18.2",
     "react-redux": "^5.1.0",
     "redux": "^4.0.1",

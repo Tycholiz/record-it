@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: '#bbb',
 		alignItems: 'center',
-		justifyContent: 'flex-end',
+		justifyContent: 'flex-start',
 		margin: 6,
 	},
 	navContainer: {
@@ -15,14 +15,14 @@ const styles = StyleSheet.create({
 		borderRadius: 30,
 	},
 	fileContainer: {
-		width: 90,
-		height: 90,
-		borderRadius: 50,
+		width: 100,
+		height: 100,
+		borderRadius: 100,
 	},
 	folderContainer: {
-		width: 90,
-		height: 90,
-		borderRadius: 30,
+		width: 100,
+		height: 100,
+		borderRadius: 38,
 	},
 	containerSelected: {
 		backgroundColor: 'teal'

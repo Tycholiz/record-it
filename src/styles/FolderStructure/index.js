@@ -45,6 +45,11 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		backgroundColor: 'grey',
 	},
+	unitIcon: {
+		width: 50,
+		height: 40,
+		marginTop: 10,
+	},
 });
 
 export default styles;
