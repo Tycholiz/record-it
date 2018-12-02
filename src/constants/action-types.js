@@ -12,6 +12,7 @@ export const DELETE_UNITS = "DELETE_UNITS";
 export const RENAME_UNIT = "RENAME_UNIT";
 export const MULTIPLE_MODE = "MULTIPLE_MODE";
 export const MODIFY_SELECTED_UNIT = "MODIFY_SELECTED_UNIT";
+export const MOVE_UNIT = "MOVE_UNIT";
 export const MOVE_UNITS = "MOVE_UNITS";
 
 export const RECORD = "RECORD";

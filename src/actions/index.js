@@ -11,7 +11,8 @@ import {
 	RENAME_UNIT,
 	MODIFY_SELECTED_UNIT,
 	MULTIPLE_MODE,
-	MOVE_UNITS
+	MOVE_UNIT,
+	MOVE_UNITS,
 } from "../constants/action-types";
 
 import { UnitType } from '../constants/enumerables';
@@ -98,6 +99,14 @@ export const moveUnits = (unitIds, currentFolder) => ({
 	type: MOVE_UNITS,
 	payload: {
 		unitIds,
+		targetFolder: currentFolder
+	}
+});
+
+export const moveUnit = (unitId, currentFolder) => ({
+	type: MOVE_UNIT,
+	payload: {
+		unitId,
 		targetFolder: currentFolder
 	}
 });

@@ -111,6 +111,8 @@ class Folder extends Component {
 								ref={this.setMenuRef}
 								button={<Image source={require('../../../assets/images/settings.png')} style={ { height: 14, width: 14 } } />}
 							>
+								<MenuItem onPress={() => this.handleOpenModal('renaming')}>Move</MenuItem>
+								<MenuDivider />
 								<MenuItem onPress={() => this.handleOpenModal('renaming')}>Rename</MenuItem>
 								<MenuDivider />
 								<MenuItem onPress={() => this.handleOpenModal('deleteConfirmation')}>Delete</MenuItem>

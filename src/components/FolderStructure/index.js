@@ -30,8 +30,6 @@ class FolderStructure extends Component {
 	handleUnitPress = (unitId, unitType, mode) => {
 		const { dispatch, selectedUnits } = this.props;
 
-		console.log('hey, were in the function!')
-
 		switch(mode) {
 			case Mode.Normal:
 			case Mode.Action:
