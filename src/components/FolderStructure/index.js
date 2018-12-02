@@ -30,11 +30,10 @@ class FolderStructure extends Component {
 	handleUnitPress = (unitId, unitType, mode) => {
 		const { dispatch, selectedUnits } = this.props;
 
-		console.log('hey, were in the function!')
-
 		switch(mode) {
 			case Mode.Normal:
 			case Mode.Action:
+			case Mode.ActionSingle:
 				if (selectedUnits.indexOf(unitId) !== -1 && Mode.Action) {
 					Alert.alert('Cannot enter a selected folder');
 					return;
@@ -169,7 +168,7 @@ class FolderStructure extends Component {
 				}
 
 				{/* MODE ACTION */}
-				{mode === Mode.Action &&
+				{mode === Mode.Action || mode === Mode.ActionSingle &&
 					<View style={s.selectMultipleTopBar}>
 
 						<TouchableOpacity
@@ -181,14 +180,16 @@ class FolderStructure extends Component {
 							<Text>MOVE TO CURRENT FOLDER</Text>
 						</TouchableOpacity>
 
-						<TouchableOpacity
-							style={s.deleteButton}
-							onPress={() =>
-								this.handleDeleteUnits()
-							}
-						>
-							<Text>DELETE SELECTION</Text>
-						</TouchableOpacity>
+						{mode === Mode.Action &&
+							<TouchableOpacity
+								style={s.deleteButton}
+								onPress={() =>
+									this.handleDeleteUnits()
+								}
+							>
+								<Text>DELETE SELECTION</Text>
+							</TouchableOpacity>
+						}
 
 						<TouchableOpacity
 							style={s.cancelButton}

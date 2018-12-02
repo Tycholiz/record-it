@@ -14,9 +14,9 @@ import {
 import s from '../../styles/FolderStructure/Folder'
 const screen = Dimensions.get('window');
 
-import { Mode, ControlView, UnitType } from '../../constants/enumerables';
+import { Mode, ControlView, UnitType, Modification } from '../../constants/enumerables';
 
-import { deleteUnit, renameUnit } from '../../actions';
+import { deleteUnit, renameUnit, multipleMode, modifySelectedUnit } from '../../actions';
 
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
@@ -74,6 +74,18 @@ class Folder extends Component {
 		title ? dispatch(renameUnit(unitId, unitType, title)) : null
 	}
 
+	handleMoveUnit = (unitId) => {
+		const { dispatch } = this.props;
+		const { Add } = Modification;
+
+		this.hideMenu();
+		dispatch(multipleMode(Mode.ActionSingle));
+		dispatch(modifySelectedUnit(Add, unitId))
+	}
+
+
+
+
 	render() {
 		const { renaming, deleteConfirmation } = this.state;
 		const { id, text, icon, handleUnitPress, unitType, selected, mode } = this.props;
@@ -101,34 +113,36 @@ class Folder extends Component {
 					</View>
 				</TouchableOpacity>
 
-					{/* FOLDER OPTIONS **temporary** */}
-					{unitType &&
-						<TouchableOpacity
-							style={s.folderOptionsContainer}
-							onPress={this.showMenu}
+				{/* FOLDER OPTIONS **temporary** */}
+				{unitType &&
+					<TouchableOpacity
+						style={s.folderOptionsContainer}
+						onPress={this.showMenu}
+					>
+						<Menu
+							ref={this.setMenuRef}
+							button={<Image source={require('../../../assets/images/settings.png')} style={ { height: 14, width: 14 } } />}
 						>
-							<Menu
-								ref={this.setMenuRef}
-								button={<Image source={require('../../../assets/images/settings.png')} style={ { height: 14, width: 14 } } />}
-							>
-								<MenuItem onPress={() => this.handleOpenModal('renaming')}>Rename</MenuItem>
-								<MenuDivider />
-								<MenuItem onPress={() => this.handleOpenModal('deleteConfirmation')}>Delete</MenuItem>
-								<MenuDivider />
-								<MenuItem onPress={this.hideMenu}>Favorite</MenuItem>
-								{unitType === UnitType.File &&
-									<View>
-										<MenuDivider />
-										<MenuItem onPress={this.hideMenu}>Share</MenuItem>
-									</View>
-								}
-								<MenuDivider />
-								<MenuItem onPress={this.hideMenu}>More info...</MenuItem>
-								<MenuDivider />
-								<MenuItem onPress={this.hideMenu}>Close</MenuItem>
-							</Menu>
-						</TouchableOpacity>
-					}
+							<MenuItem onPress={() => this.handleMoveUnit(id)}>Move</MenuItem>
+							<MenuDivider />
+							<MenuItem onPress={() => this.handleOpenModal('renaming')}>Rename</MenuItem>
+							<MenuDivider />
+							<MenuItem onPress={() => this.handleOpenModal('deleteConfirmation')}>Delete</MenuItem>
+							<MenuDivider />
+							<MenuItem onPress={this.hideMenu}>Favorite</MenuItem>
+							{unitType === UnitType.File &&
+								<View>
+									<MenuDivider />
+									<MenuItem onPress={this.hideMenu}>Share</MenuItem>
+								</View>
+							}
+							<MenuDivider />
+							<MenuItem onPress={this.hideMenu}>More info...</MenuItem>
+							<MenuDivider />
+							<MenuItem onPress={this.hideMenu}>Close</MenuItem>
+						</Menu>
+					</TouchableOpacity>
+				}
 
 				{/* RENAME MODAL */}
 				<Modal
