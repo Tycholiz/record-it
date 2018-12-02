@@ -33,6 +33,14 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 		margin: 3,
 	},
+	selectMultipleText: {
+		color: colors.white,
+		fontWeight: 'bold',
+		fontSize: 23,
+		textShadowColor: 'rgba(0, 0, 0, 0.65)',
+		textShadowOffset: { width: -1, height: 1 },
+		textShadowRadius: 8
+	},
 	unitIcon: {
 		width: 50,
 		height: 40,

@@ -156,7 +156,7 @@ class FolderStructure extends Component {
 								this.handleConfirmMultipleSelection()
 							}
 						>
-							<Text>CONFIRM SELECTION</Text>
+							<Text style={s.selectMultipleText}>CONFIRM SELECTION</Text>
 						</TouchableOpacity>
 
 						<TouchableOpacity
@@ -165,7 +165,7 @@ class FolderStructure extends Component {
 								this.handleCancelMultipleSelection()
 							}
 						>
-							<Text>CANCEL</Text>
+							<Text style={[s.selectMultipleText, { color: '#333333ff' }]}>CANCEL</Text>
 						</TouchableOpacity>
 
 					</View>
@@ -181,7 +181,7 @@ class FolderStructure extends Component {
 									this.handleMoveUnits()
 								}
 							>
-								<Text>MOVE HERE</Text>
+								<Text style={s.selectMultipleText}>MOVE HERE</Text>
 							</TouchableOpacity>
 
 							{mode === Mode.Action &&
@@ -191,7 +191,7 @@ class FolderStructure extends Component {
 										this.handleDeleteUnits()
 									}
 								>
-									<Text>DELETE</Text>
+									<Text style={s.selectMultipleText}>DELETE</Text>
 								</TouchableOpacity>
 							}
 						</View>
@@ -202,7 +202,7 @@ class FolderStructure extends Component {
 								this.handleCancelMultipleSelection()
 							}
 						>
-							<Text>CANCEL</Text>
+							<Text style={[s.selectMultipleText, {color: '#333333ff' }]}>CANCEL</Text>
 						</TouchableOpacity>
 					</View>)
 						:
