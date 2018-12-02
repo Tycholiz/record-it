@@ -2,6 +2,7 @@ export const Mode = {
 	Normal: 'normal',
 	Select: 'select',
 	Action: 'action',
+	ActionSingle: 'actionSingle'
 }
 Object.freeze(Mode)
 
