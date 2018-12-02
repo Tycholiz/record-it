@@ -13,11 +13,11 @@ const styles = StyleSheet.create({
 	},
 	selectMultipleTopBar: {
 		position: 'absolute',
-		top: -100,
+		top: -125,
 		right: 0,
 		bottom: 0,
 		left: 0,
-		height: 60,
+		height: 80,
 		flexDirection: 'row',
 		backgroundColor: 'dimgrey'
 	},

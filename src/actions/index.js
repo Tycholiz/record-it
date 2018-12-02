@@ -103,14 +103,6 @@ export const moveUnits = (unitIds, currentFolder) => ({
 	}
 });
 
-export const moveUnit = (unitId, currentFolder) => ({
-	type: MOVE_UNIT,
-	payload: {
-		unitId,
-		targetFolder: currentFolder
-	}
-});
-
 export const deleteUnits = (unitIds) => ({
 	type: DELETE_UNITS,
 	payload: {

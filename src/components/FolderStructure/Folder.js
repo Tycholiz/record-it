@@ -83,9 +83,6 @@ class Folder extends Component {
 		dispatch(modifySelectedUnit(Add, unitId))
 	}
 
-
-
-
 	render() {
 		const { renaming, deleteConfirmation } = this.state;
 		const { id, text, icon, handleUnitPress, unitType, selected, mode } = this.props;

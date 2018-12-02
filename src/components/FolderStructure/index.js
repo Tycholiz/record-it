@@ -168,7 +168,7 @@ class FolderStructure extends Component {
 				}
 
 				{/* MODE ACTION */}
-				{mode === Mode.Action || mode === Mode.ActionSingle &&
+				{mode === Mode.Action || mode === Mode.ActionSingle ? (
 					<View style={s.selectMultipleTopBar}>
 
 						<TouchableOpacity
@@ -177,7 +177,7 @@ class FolderStructure extends Component {
 								this.handleMoveUnits()
 							}
 						>
-							<Text>MOVE TO CURRENT FOLDER</Text>
+							<Text>MOVE HERE</Text>
 						</TouchableOpacity>
 
 						{mode === Mode.Action &&
@@ -187,7 +187,7 @@ class FolderStructure extends Component {
 									this.handleDeleteUnits()
 								}
 							>
-								<Text>DELETE SELECTION</Text>
+								<Text>DELETE</Text>
 							</TouchableOpacity>
 						}
 
@@ -199,7 +199,9 @@ class FolderStructure extends Component {
 						>
 							<Text>CANCEL</Text>
 						</TouchableOpacity>
-					</View>
+					</View>)
+						:
+					null
 				}
 
 				{/* NAVIGATION FOLDERS */}
