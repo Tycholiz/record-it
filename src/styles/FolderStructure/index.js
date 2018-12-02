@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import colors from '../colors';
 
 const styles = StyleSheet.create({
 	container: {
@@ -18,32 +19,19 @@ const styles = StyleSheet.create({
 		bottom: 0,
 		left: 0,
 		height: 80,
+		backgroundColor: colors.darkgrey
+	},
+	containerMoveAndDelete: {
+		flex: 1.5,
 		flexDirection: 'row',
-		backgroundColor: 'dimgrey'
+		justifyContent: 'space-between',
 	},
-	confirmButton: {
+	selectMultipleUnitButton: {
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: 'green',
-	},
-	moveButton: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: 'blue',
-	},
-	deleteButton: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: 'tomato',
-	},
-	cancelButton: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: 'grey',
+		borderRadius: 10,
+		margin: 3,
 	},
 	unitIcon: {
 		width: 50,

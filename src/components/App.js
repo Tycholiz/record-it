@@ -51,6 +51,6 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		marginTop: Constants.statusBarHeight,
-		backgroundColor: '#666666'
+		// backgroundColor: '#666666'
 	},
 });

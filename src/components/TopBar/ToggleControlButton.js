@@ -31,7 +31,6 @@ class ToggleControlButton extends Component {
 						</Text>
 					</TouchableOpacity>
 					<View style={[s.toggleControlIndicator, controlView !== ControlView.Record && s.invisible]} />
-					{/* <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={s.toggleControlIndicator}></LinearGradient> */}
 				</View>
 				<View
 					style={s.controlViewButton}

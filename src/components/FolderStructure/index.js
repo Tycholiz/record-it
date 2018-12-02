@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import s from '../../styles/FolderStructure/index';
+import colors from '../../styles/colors';
 
 import {
 	enterFolder,
@@ -148,51 +149,55 @@ class FolderStructure extends Component {
 				{/* MODE SELECT */}
 				{mode === Mode.Select &&
 					<View style={s.selectMultipleTopBar}>
+
 						<TouchableOpacity
-							style={s.confirmButton}
+							style={[s.selectMultipleUnitButton, {backgroundColor: colors.secondaryColor, flex: 1.5} ]}
 							onPress={() =>
 								this.handleConfirmMultipleSelection()
 							}
 						>
 							<Text>CONFIRM SELECTION</Text>
 						</TouchableOpacity>
+
 						<TouchableOpacity
-							style={s.cancelButton}
+							style={[s.selectMultipleUnitButton, {backgroundColor: colors.gray} ]}
 							onPress={() =>
 								this.handleCancelMultipleSelection()
 							}
 						>
 							<Text>CANCEL</Text>
 						</TouchableOpacity>
+
 					</View>
 				}
 
 				{/* MODE ACTION */}
 				{mode === Mode.Action || mode === Mode.ActionSingle ? (
 					<View style={s.selectMultipleTopBar}>
-
-						<TouchableOpacity
-							style={s.moveButton}
-							onPress={() =>
-								this.handleMoveUnits()
-							}
-						>
-							<Text>MOVE HERE</Text>
-						</TouchableOpacity>
-
-						{mode === Mode.Action &&
+						<View style={s.containerMoveAndDelete}>
 							<TouchableOpacity
-								style={s.deleteButton}
+								style={[s.selectMultipleUnitButton, { backgroundColor: colors.secondaryColor }]}
 								onPress={() =>
-									this.handleDeleteUnits()
+									this.handleMoveUnits()
 								}
 							>
-								<Text>DELETE</Text>
+								<Text>MOVE HERE</Text>
 							</TouchableOpacity>
-						}
+
+							{mode === Mode.Action &&
+								<TouchableOpacity
+									style={[s.selectMultipleUnitButton, { backgroundColor: colors.primaryColor }]}
+									onPress={() =>
+										this.handleDeleteUnits()
+									}
+								>
+									<Text>DELETE</Text>
+								</TouchableOpacity>
+							}
+						</View>
 
 						<TouchableOpacity
-							style={s.cancelButton}
+							style={[s.selectMultipleUnitButton, { backgroundColor: colors.gray }]}
 							onPress={() =>
 								this.handleCancelMultipleSelection()
 							}
