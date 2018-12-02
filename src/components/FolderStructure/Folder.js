@@ -3,25 +3,24 @@ import { connect } from 'react-redux';
 import {
 	Text,
 	TouchableOpacity,
+	TouchableHighlight,
 	View,
 	TextInput,
-	TouchableHighlight,
+	Image,
 	Alert,
 	KeyboardAvoidingView,
 	Dimensions
 } from 'react-native';
-const screen = Dimensions.get('window');
 import s from '../../styles/FolderStructure/Folder'
+const screen = Dimensions.get('window');
 
 import { Mode, ControlView, UnitType } from '../../constants/enumerables';
 
 import { deleteUnit, renameUnit } from '../../actions';
 
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
-import Modal from "react-native-modal";
 
-import Icon from 'react-native-vector-icons/FontAwesome';
-const barsIcon = (<Icon name="bars" size={25} color='black' />)
+import Modal from "react-native-modal";
 
 class Folder extends Component {
 	state = {
@@ -82,16 +81,27 @@ class Folder extends Component {
 		return (
 			<View>
 
-				<TouchableOpacity
-					style={[
-						s.container,
-						mode === Mode.Select && unitType ? s.containerMultipleMode : null,
-						selected && s.containerSelected
-					]}
-					onPress={handleUnitPress}
-				>
+				{/* USER FOLDER */}
+				<TouchableOpacity onPress={handleUnitPress}>
 
-					{/* FOLDER OPTIONS */}
+					<View
+						style={[
+							s.container, //styles applied to all units
+							unitType === undefined && s.navContainer,
+							unitType === UnitType.File && s.fileContainer,
+							unitType === UnitType.Folder && s.folderContainer,
+							mode === Mode.Select && unitType ? s.containerMultipleMode : null,
+							selected && s.containerSelected
+						]}
+					>
+						{icon}
+						<Text style={{textAlign: 'center'}}>
+							{text}
+						</Text>
+					</View>
+				</TouchableOpacity>
+
+					{/* FOLDER OPTIONS **temporary** */}
 					{unitType &&
 						<TouchableOpacity
 							style={s.folderOptionsContainer}
@@ -99,7 +109,7 @@ class Folder extends Component {
 						>
 							<Menu
 								ref={this.setMenuRef}
-								button={barsIcon}
+								button={<Image source={require('../../../assets/images/settings.png')} style={ { height: 14, width: 14 } } />}
 							>
 								<MenuItem onPress={() => this.handleOpenModal('renaming')}>Rename</MenuItem>
 								<MenuDivider />
@@ -120,13 +130,6 @@ class Folder extends Component {
 						</TouchableOpacity>
 					}
 
-
-					{icon}
-					<Text icon={icon}>
-						{text}
-					</Text>
-				</TouchableOpacity>
-
 				{/* RENAME MODAL */}
 				<Modal
 					onBackdropPress={() => this.setState({ renaming: false })}
@@ -135,13 +138,11 @@ class Folder extends Component {
 					avoidKeyboard={true}
 				>
 					<View style={s.modalContainerInner}>
-
 						{unitType === UnitType.File ?
 							<Text style={s.modalHeader}>Rename clip:</Text>
 								:
 							<Text style={s.modalHeader}>Rename folder:</Text>
 						}
-
 						<TextInput
 							style={s.modalInput}
 							onChangeText={(newTitle) =>
@@ -176,8 +177,8 @@ class Folder extends Component {
 								<Text style={{color: 'white'}}>RENAME</Text>
 							</TouchableHighlight>
 						</View>
-					</View>
 
+					</View>
 				</Modal>
 
 				{/* DELETE CONFIRMATION MODAL */}
@@ -229,81 +230,3 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps)(Folder);
-
-// const styles = StyleSheet.create({
-// 	container: {
-// 		width: 140,
-// 		height: 80,
-// 		borderRadius: 15,
-// 		backgroundColor: '#fff',
-// 		alignItems: 'center',
-// 		justifyContent: 'flex-end',
-// 		margin: 6,
-// 	},
-// 	containerSelected: {
-// 		backgroundColor: 'green'
-// 	},
-// 	containerMultipleMode: {
-// 		borderWidth: 1,
-// 		borderColor: 'red',
-// 	},
-// 	folderOptionsContainer: {
-// 		flex: 1,
-// 		alignItems: 'center',
-// 		justifyContent: 'center',
-// 	},
-// 	modalMask: {
-// 		flex: 1,
-// 		backgroundColor: 'rgba(0, 0, 0, 0.4)',
-// 	},
-// 	modalContainer: {
-// 		flex: 0,
-// 		width: 330,
-// 		height: 150,
-// 		backgroundColor: '#2B2B2B',
-// 		// marginHorizontal: 40,
-// 		// justifyContent: 'center',
-// 		// alignItems: 'center',
-// 		borderRadius: 4,
-// 		// flexDirection: 'column',
-// 		// flexWrap: 'wrap',
-// 		// flex: 1,
-// 		justifyContent: 'center',
-// 		alignItems: 'center',
-// 	},
-// 	modalContainerInner: {
-// 		// flex: 1,
-// 		backgroundColor: 'white',
-// 		padding: 22,
-// 		justifyContent: 'center',
-// 		alignItems: 'center',
-// 		borderRadius: 4,
-// 		borderColor: 'rgba(0, 0, 0, 0.1)',
-// 	},
-// 	modalHeader: {
-// 		flex: 1,
-// 		fontSize: 25
-// 	},
-// 	modalInput: {
-// 		flex: 1,
-// 	},
-// 	modalOptions: {
-// 		flex: 1,
-// 		flexDirection: 'row',
-// 		justifyContent: 'flex-end',
-// 	},
-// 	modalOption: {
-// 	},
-// 	renameOption: {
-// 		borderRadius: 4,
-// 		backgroundColor: 'red',
-// 	},
-// 	icon: {
-// 		justifyContent: 'center',
-// 	},
-// 	barsIcon: {
-// 		alignSelf: 'flex-end',
-// 		marginRight: 20,
-// 		marginTop: 80,
-// 	},
-// });

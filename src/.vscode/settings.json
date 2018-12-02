@@ -3,8 +3,13 @@
 		"darkslategrey",
 		"dimgrey",
 		"enumerables",
+		"fastbackward",
+		"fastforward",
 		"hsla",
 		"immer",
-		"scroller"
+		"ionicons",
+		"microfono",
+		"scroller",
+		"uponelevel"
 	]
 }

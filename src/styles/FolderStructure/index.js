@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-evenly',
 		flexWrap: 'wrap',
-		backgroundColor: 'hsla(253, 14%, 24%, 1)',
 	},
 	selectMultipleTopBar: {
 		position: 'absolute',
@@ -45,6 +44,11 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: 'grey',
+	},
+	unitIcon: {
+		width: 50,
+		height: 40,
+		marginTop: 10,
 	},
 });
 

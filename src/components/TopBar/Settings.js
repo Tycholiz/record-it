@@ -2,19 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import {
-	StyleSheet,
 	TouchableOpacity,
 	View,
+	Image
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+
 import s from '../../styles/TopBar/Settings';
 
 import { multipleMode } from '../../actions';
 import { Mode } from '../../constants/enumerables';
 
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
-
-import Icon from 'react-native-vector-icons/FontAwesome';
-const optionsIcon = (<Icon name="ellipsis-v" size={40} color='black' />)
 
 class Settings extends Component {
 	_menu = null;
@@ -44,7 +43,7 @@ class Settings extends Component {
 				<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 					<Menu
 						ref={this.setMenuRef}
-						button={optionsIcon}
+						button={<Image source={require('../../../assets/images/hamburger.png')} style={{ width: 50, height: 40 }} />}
 					>
 						<MenuItem onPress={this.hideMenu}>Import</MenuItem>
 						<MenuDivider />

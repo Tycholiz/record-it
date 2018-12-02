@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 
 import {
-	View,
-	StyleSheet,
 	Platform,
 	StatusBar,
 	YellowBox,
 } from 'react-native';
 // YellowBox.ignoreWarnings(['Remote debugger']);
+
+import { MenuProvider } from 'react-native-popup-menu';
 
 import {
 	AppLoading,
@@ -38,7 +38,9 @@ export default class Root extends Component {
 		} else {
 			return (
 				<Provider store={store}>
-					<App />
+					<MenuProvider>
+						<App />
+					</MenuProvider>
 				</Provider>
 			);
 		}
@@ -71,11 +73,3 @@ export default class Root extends Component {
 // if (__DEV__) {
 // 	console.ignoredYellowBox = ['Remote debugger'];
 // }
-
-
-// const styles = StyleSheet.create({
-// 	container: {
-// 		marginTop: Constants.statusBarHeight,
-// 		flex: 1,
-// 	},
-// });

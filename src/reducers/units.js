@@ -88,11 +88,18 @@ const initialState = {
 			parentId: 1,
 			unitType: 'file',
 		},
+		'959': {
+			id: 959,
+			title: 'outro guitar',
+			duration: 23055,
+			parentId: 0,
+			unitType: 'file',
+		},
 	},
 	folders: {
 		'0': {
 			id: 0,
-			title: 'Home',
+			title: 'home',
 			dateCreated: 1502500102,
 			parentId: null,
 			unitType: 'folder',

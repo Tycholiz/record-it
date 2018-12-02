@@ -3,34 +3,55 @@ import { connect } from 'react-redux';
 import {
 	View,
 	Text,
-	StyleSheet,
 	TouchableOpacity,
 } from 'react-native';
+
 import s from '../../styles/TopBar/ToggleControlButton';
+import LinearGradient from 'react-native-linear-gradient';
+
+import { ControlView } from '../../constants/enumerables';
 
 import { toggleControlView } from '../../actions'
 
 class ToggleControlButton extends Component {
 	render() {
+		const { toggleControlView, controlView } = this.props;
 
 		return (
-			<TouchableOpacity
+			<View
 				style={s.container}
-				onPress={this.props.toggleControlView}
+
 			>
-				<View>
-					<Text style={s.buttonText}>
-						{this.props.toggleText}
-					</Text>
+				<View
+					style={s.controlViewButton}
+				>
+					<TouchableOpacity onPress={toggleControlView}>
+						<Text style={s.buttonText}>
+							Record
+						</Text>
+					</TouchableOpacity>
+					<View style={[s.toggleControlIndicator, controlView !== ControlView.Record && s.invisible]} />
+					{/* <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={s.toggleControlIndicator}></LinearGradient> */}
 				</View>
-			</TouchableOpacity>
+				<View
+					style={s.controlViewButton}
+				>
+					<TouchableOpacity onPress={toggleControlView}>
+						<Text style={s.buttonText}>
+							Playback
+						</Text>
+					</TouchableOpacity>
+					<View style={[s.toggleControlIndicator, controlView !== ControlView.Playback && s.invisible]} />
+				</View>
+			</View>
 		);
 	}
 }
 
 mapStateToProps = (state) => {
 	return {
-		toggleText: state.toggle.toggleText
+		toggleText: state.toggle.toggleText,
+		controlView: state.toggle.controlView
 	}
 }
 

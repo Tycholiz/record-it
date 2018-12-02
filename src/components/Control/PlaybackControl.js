@@ -1,24 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+
 import {
 	View,
 	Text,
-	StyleSheet,
-	TouchableOpacity
+	TouchableOpacity,
+	Image,
 } from 'react-native';
-import { } from 'expo';
 import s from '../../styles/Control/PlaybackControl';
 
 import { startPlaying } from '../../actions/index'
-
-import Icon from 'react-native-vector-icons/FontAwesome';
-const starIcon = (<Icon name="star" size={30} color='gold' />)
-const trashIcon = (<Icon name="trash" size={30} color='darkslategrey' />)
-const backwardIcon = (<Icon name="fast-backward" size={30} color='darkslategrey' />)
-const forwardIcon = (<Icon name="fast-forward" size={30} color='darkslategrey' />)
-const playIcon = (<Icon name="play" size={40} color='darkslategrey' />)
-const pauseIcon = (<Icon name="pause" size={40} color='darkslategrey' />)
 
 class PlaybackControl extends Component {
 	render() {
@@ -28,16 +19,14 @@ class PlaybackControl extends Component {
 				{/* {activeFile ? ( */}
 
 					<View>
-						<View style={s.iconContainer}>
-							<TouchableOpacity>
-								{trashIcon}
-							</TouchableOpacity>
-							<TouchableOpacity>
-								{starIcon}
-							</TouchableOpacity>
+						<View style={s.topLine}>
+							<Text style={s.text}>{title}.mp3</Text>
+							<View style={s.iconContainer}>
+								<TouchableOpacity>
+									<Image source={require('../../../assets/images/garbage.png')} style={{ width: 20, height: 25, margin: 6 }} />
+								</TouchableOpacity>
+							</View>
 						</View>
-
-						<Text style={s.text}>{title}.mp3</Text>
 
 						<View style={s.clipScroll}>
 							<Text style={s.time}>
@@ -53,13 +42,17 @@ class PlaybackControl extends Component {
 
 						<View style={s.clipNavigation}>
 							<TouchableOpacity>
-								{backwardIcon}
+								<Image source={require('../../../assets/images/fastbackward.png')} style={{ width: 55, height: 40 }} />
 							</TouchableOpacity>
 							<TouchableOpacity onPress={startPlaying}>
-								{playing ? pauseIcon : playIcon}
+								{playing ?
+									<Image source={require('../../../assets/images/play.png')} style={{ width: 70, height: 70 }} />
+										:
+									<Image source={require('../../../assets/images/pause.png')} style={{ width: 70, height: 70 }} />
+								}
 							</TouchableOpacity>
 							<TouchableOpacity>
-								{forwardIcon}
+								<Image source={require('../../../assets/images/fastforward.png')} style={{ width: 55, height: 40 }} />
 							</TouchableOpacity>
 						</View>
 

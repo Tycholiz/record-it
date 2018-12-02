@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
 	View,
-	StyleSheet,
 	ScrollView,
 	Text,
 	TouchableOpacity,
+	Image,
 	Alert,
 } from 'react-native';
+
 import s from '../../styles/FolderStructure/index';
 
 import {
@@ -25,15 +26,11 @@ import { Mode, Modification, UnitType } from '../../constants/enumerables';
 
 import Folder from './Folder';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
-const upOneLevelIcon = (<Icon name="arrow-circle-left" size={40} color='darkslategrey' />)
-const addFolderIcon = (<Icon name="plus" size={40} color='darkslategrey' />)
-const folderIcon = (<Icon name="folder" size={40} color='darkslategrey' />)
-const fileIcon = (<Icon name="headphones" size={40} color='darkslategrey' />)
-
 class FolderStructure extends Component {
 	handleUnitPress = (unitId, unitType, mode) => {
 		const { dispatch, selectedUnits } = this.props;
+
+		console.log('hey, were in the function!')
 
 		switch(mode) {
 			case Mode.Normal:
@@ -131,7 +128,11 @@ class FolderStructure extends Component {
 					id={id}
 					text={title}
 					unitType={unitType}
-					icon={unitType === UnitType.File ? fileIcon : folderIcon}
+					icon={unitType === UnitType.File ?
+						<Image source={require('../../../assets/images/audio.png')} style={[s.unitIcon, { height: 53}]} />
+							:
+						<Image source={require('../../../assets/images/folder.png')} style={s.unitIcon} />
+					}
 					handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
 					selected={this.unitSelectedStatus(id)}
 				/>
@@ -145,6 +146,7 @@ class FolderStructure extends Component {
 		return (
 			<View style={s.container}>
 
+				{/* MODE SELECT */}
 				{mode === Mode.Select &&
 					<View style={s.selectMultipleTopBar}>
 						<TouchableOpacity
@@ -166,6 +168,7 @@ class FolderStructure extends Component {
 					</View>
 				}
 
+				{/* MODE ACTION */}
 				{mode === Mode.Action &&
 					<View style={s.selectMultipleTopBar}>
 
@@ -195,26 +198,36 @@ class FolderStructure extends Component {
 						>
 							<Text>CANCEL</Text>
 						</TouchableOpacity>
-
 					</View>
 				}
 
+				{/* NAVIGATION FOLDERS */}
 				<View style={s.innerContainer}>
-					<Folder
-						text={'Up One Level'}
-						icon={upOneLevelIcon}
-						handleUnitPress={() =>
-							this.handleGoUpOneLevel(currentFolder)
-						}
-					/>
-					<Folder
-						text={'Add New Folder'}
-						icon={addFolderIcon}
-						handleUnitPress={() =>
-							this.handleNewFolder()
-						}
-					/>
+					<View>
+						<Folder
+							text={'Up One Level'}
+							icon={<Image source={require('../../../assets/images/uponelevel.png')} style={{ width: 40, height: 40 }} />}
+							style={s.navContainer}
+							handleUnitPress={() =>
+								this.handleGoUpOneLevel(currentFolder)
+							}
+						/>
+						<Image source={require('../../../assets/images/nav-unit-divider.png')} style={{ width: 100, height: 2.5, alignSelf: 'center', marginBottom: 5 }} />
+					</View>
+					<View>
+						<Folder
+							text={'Add New Folder'}
+							icon={<Image source={require('../../../assets/images/add-folder.png')} style={{ width: 50, height: 40 }} />}
+							style={s.navContainer}
+							handleUnitPress={() =>
+								this.handleNewFolder()
+							}
+						/>
+						<Image source={require('../../../assets/images/nav-unit-divider.png')} style={{ width: 100, height: 2.5, alignSelf: 'center', marginBottom: 5 }} />
+					</View>
 				</View>
+
+				{/* USER FOLDERS */}
 				<ScrollView style={s.container}>
 					<View style={s.innerContainer}>
 						{this.renderFolders()}

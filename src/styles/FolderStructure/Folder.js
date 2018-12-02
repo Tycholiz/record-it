@@ -4,13 +4,25 @@ import colors from '../colors'
 
 const styles = StyleSheet.create({
 	container: {
+		backgroundColor: '#bbb',
+		alignItems: 'center',
+		justifyContent: 'flex-start',
+		margin: 6,
+	},
+	navContainer: {
 		width: 140,
 		height: 80,
-		borderRadius: 15,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'flex-end',
-		margin: 6,
+		borderRadius: 30,
+	},
+	fileContainer: {
+		width: 100,
+		height: 100,
+		borderRadius: 100,
+	},
+	folderContainer: {
+		width: 100,
+		height: 100,
+		borderRadius: 38,
 	},
 	containerSelected: {
 		backgroundColor: 'teal'

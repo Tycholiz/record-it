@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import colors from '../colors';
 
 const styles = StyleSheet.create({
 	settingsIcon: {
@@ -6,6 +7,7 @@ const styles = StyleSheet.create({
 		height: 60,
 		justifyContent: 'center',
 		alignItems: 'center',
+		backgroundColor: colors.darkgrey,
 	},
 });
 
