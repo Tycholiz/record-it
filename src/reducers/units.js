@@ -218,7 +218,7 @@ const initialState = {
 		},
 		'57': {
 			id: 57,
-			title: 'Wayy better Vocals',
+			title: 'Way better Vocals',
 			dateCreated: 150238403,
 			parentId: 56,
 			unitType: 'folder',
@@ -266,11 +266,11 @@ const units = (state = initialState, action) => produce(state, draft => {
 
 			case DELETE_UNITS:
 				const typesOfUnits = ['files', 'folders']
-				console.log("sup")
 
 				for (let unitType of typesOfUnits) {
 					action.payload.unitIds.forEach((unitId) => {
 						if (unitId in state[unitType]) {
+							console.log(state[unitType][unitId])
 							delete state[unitType][unitId];
 						}
 					});

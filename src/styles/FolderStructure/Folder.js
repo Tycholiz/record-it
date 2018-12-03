@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 	fileContainer: {
 		width: 100,
 		height: 100,
-		borderRadius: 100,
+		borderRadius: 50,
 	},
 	folderContainer: {
 		width: 100,
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 		borderRadius: 38,
 	},
 	containerSelected: {
-		backgroundColor: 'teal'
+		borderWidth: 2
 	},
 	containerMultipleMode: {
 		borderWidth: 1,
