@@ -27,7 +27,7 @@ const multipleReducer = (state = initialState, action) => {
 				case Modification.Remove:
 					return {
 						...state,
-						selectedUnits: deleteSingleUnit(state.selectedUnits, action.payload.unitId)
+						selectedUnits: removeUnitFromMultipleArray(state.selectedUnits, action.payload.unitId)
 					}
 				case Modification.Empty:
 					return {
@@ -44,7 +44,7 @@ const multipleReducer = (state = initialState, action) => {
 	};
 	export default multipleReducer;
 
-function deleteSingleUnit(selectedUnits, unitId) {
+function removeUnitFromMultipleArray(selectedUnits, unitId) {
 	return selectedUnits.filter((unit) => {
 		return unit !== unitId
 	});

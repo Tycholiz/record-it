@@ -112,126 +112,126 @@ const initialState = {
 		'0': {
 			id: '0',
 			title: 'home',
-			dateCreated: 1502500102,
+			dateCreated: 1543868079341,
 			parentId: 'null',
 			unitType: 'folder',
 		},
-		'22': {
-			id: '22',
+		'11bbf7eb-5a44-4476-aee0-5bb0f2a0c01d': {
+			id: '11bbf7eb-5a44-4476-aee0-5bb0f2a0c01d',
 			title: 'Chimera',
-			dateCreated: 1502500102,
+			dateCreated: 1543868079341,
 			parentId: '0',
 			unitType: 'folder',
 		},
 		'29': {
 			id: '29',
 			title: 'Complete songs',
-			dateCreated: 150237935,
+			dateCreated: 1543868079341,
 			parentId: '0',
 			unitType: 'folder',
 		},
 		'32': {
 			id: '32',
 			title: 'Law of the Jungle',
-			dateCreated: 150238403,
+			dateCreated: 1543868079341,
 			parentId: '0',
 			unitType: 'folder',
 		},
 		'25': {
 			id: '25',
 			title: 'Compass',
-			dateCreated: 150238403,
+			dateCreated: 1543868079341,
 			parentId: '0',
 			unitType: 'folder',
 		},
 		'59': {
 			id: '59',
 			title: 'Since You',
-			dateCreated: 150238403,
+			dateCreated: 1543868079341,
 			parentId: '0',
 			unitType: 'folder',
 		},
 		'87': {
 			id: '87',
 			title: 'Alhambra',
-			dateCreated: 150238403,
+			dateCreated: 1543868079341,
 			parentId: '0',
 			unitType: 'folder',
 		},
 		'14': {
 			id: '14',
 			title: 'Silk Road',
-			dateCreated: 150238403,
+			dateCreated: 1543868079341,
 			parentId: '0',
 			unitType: 'folder',
 		},
 		'2': {
 			id: '2',
 			title: 'Hagia Sofia',
-			dateCreated: 150238403,
+			dateCreated: 1543868079341,
 			parentId: '0',
 			unitType: 'folder',
 		},
 		'3': {
 			id: '3',
 			title: 'Block out the Sun',
-			dateCreated: 150238403,
+			dateCreated: 1543868079341,
 			parentId: '0',
 			unitType: 'folder',
 		},
 		'1': {
 			id: '1',
 			title: 'Over Again',
-			dateCreated: 150238403,
+			dateCreated: 1543868079341,
 			parentId: '0',
 			unitType: 'folder',
 		},
 		'4': {
 			id: '4',
 			title: 'Guitar parts',
-			dateCreated: 150238403,
+			dateCreated: 1543868079341,
 			parentId: '1',
 			unitType: 'folder',
 		},
 		'5': {
 			id: '5',
 			title: 'Synth',
-			dateCreated: 150238403,
+			dateCreated: 1543868079341,
 			parentId: '22',
 			unitType: 'folder',
 		},
 		'6': {
 			id: '6',
 			title: 'Drums',
-			dateCreated: 150238403,
+			dateCreated: 1543868079341,
 			parentId: '22',
 			unitType: 'folder',
 		},
 		'7': {
 			id: '7',
 			title: 'Piano',
-			dateCreated: 150238403,
+			dateCreated: 1543868079341,
 			parentId: '22',
 			unitType: 'folder',
 		},
 		'8': {
 			id: '8',
 			title: 'Vocals',
-			dateCreated: 150238403,
+			dateCreated: 1543868079341,
 			parentId: '4',
 			unitType: 'folder',
 		},
 		'56': {
 			id: '56',
 			title: 'Even better Vocals',
-			dateCreated: 150238403,
+			dateCreated: 1543868079341,
 			parentId: '8',
 			unitType: 'folder',
 		},
 		'57': {
 			id: '57',
 			title: 'Way better Vocals',
-			dateCreated: 150238403,
+			dateCreated: 1543868079341,
 			parentId: '56',
 			unitType: 'folder',
 		},
@@ -281,9 +281,10 @@ const units = (state = initialState, action) => produce(state, draft => {
 
 				for (let unitType of typesOfUnits) {
 					action.payload.unitIds.forEach((unitId) => {
+						console.log(draft)
+						console.log(state)
 						if (unitId in state[unitType]) {
-							console.log(state[unitType][unitId])
-							delete state[unitType][unitId];
+							delete draft[unitType][unitId];
 						}
 					});
 				};

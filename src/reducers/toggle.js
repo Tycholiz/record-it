@@ -11,7 +11,6 @@ import { Mode, ControlView, UnitType } from '../constants/enumerables';
 
 const initialState = {
 	controlView: ControlView.Record,
-	toggleText: PLAYBACK,
 	recording: false,
 };
 
@@ -21,7 +20,6 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				controlView: state.controlView === ControlView.Record ? ControlView.Playback : ControlView.Record,
-				toggleText: state.toggleText === PLAYBACK ? RECORD : PLAYBACK,
 			};
 		case START_RECORDING:
 			return {
