@@ -281,8 +281,6 @@ const units = (state = initialState, action) => produce(state, draft => {
 
 				for (let unitType of typesOfUnits) {
 					action.payload.unitIds.forEach((unitId) => {
-						console.log(draft)
-						console.log(state)
 						if (unitId in state[unitType]) {
 							delete draft[unitType][unitId];
 						}

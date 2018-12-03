@@ -17,19 +17,24 @@ export const displayBreadCrumb = (state) => {
 	let currentFolderId = state.currentFolder
 	const { folders } = state.units;
 
-	let currentParent = folders[currentFolderId].parentId
-
 	const LENGTH_LIMIT = 45;
 	const path = [];
 
+	let currentParent = folders[currentFolderId]['parentId']
+	console.log('currentparent', currentParent)
+
 	if (currentParent === null) {
+		console.log("right???")
 		return "Home";
 	}
 
+	return;
+
 	do {
-		path.push(folders[currentFolderId].title)
+		if (folders[currentFolderId]) path.push(folders[currentFolderId].title)
 		currentFolderId = currentParent;
-		if (currentParent != null) currentParent = folders[currentParent].parentId
+		console.log(folders[currentParent])
+		if (currentParent != null) currentParent = folders[currentParent]['parentId']
 	} while (currentParent != null)
 	path.push("Home")
 

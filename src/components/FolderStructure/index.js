@@ -66,7 +66,7 @@ class FolderStructure extends Component {
 		const { dispatch, units, currentFolder } = this.props;
 
 		const parentId = units.folders[folderId].parentId
-		if (currentFolder) dispatch(enterFolder(parentId));
+		if (parseInt(currentFolder)) dispatch(enterFolder(parentId));
 	}
 
 	handleNewFolder = () => {
