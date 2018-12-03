@@ -28,7 +28,7 @@ class BreadcrumbBar extends Component {
 		return (
 			<View>
 				<TouchableOpacity style={s.container} onPress={() => this.setState({ modalOpen: true })}>
-					<Text style={s.text}>{displayBreadCrumb(state)}</Text>
+					{/* <Text style={s.text}>{displayBreadCrumb(state)}</Text> */}
 					<View style={s.searchIcon}>
 						<Image source={require('../../../assets/images/search.png')} style={{ width: 20, height: 20 }} />
 					</View>
