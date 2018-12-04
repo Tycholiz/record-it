@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 		height: 80,
 		backgroundColor: colors.darkgrey
 	},
-	containerMoveAndDelete: {
+	containerMultipleButtonRow: {
 		flex: 1.5,
 		flexDirection: 'row',
 		justifyContent: 'space-between',

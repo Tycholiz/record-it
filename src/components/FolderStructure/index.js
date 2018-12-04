@@ -66,7 +66,7 @@ class FolderStructure extends Component {
 		const { dispatch, units, currentFolder } = this.props;
 
 		const parentId = units.folders[folderId].parentId
-		if (currentFolder) dispatch(enterFolder(parentId));
+		if (parseInt(currentFolder)) dispatch(enterFolder(parentId));
 	}
 
 	handleNewFolder = () => {
@@ -156,7 +156,7 @@ class FolderStructure extends Component {
 								this.handleConfirmMultipleSelection()
 							}
 						>
-							<Text style={s.selectMultipleText}>CONFIRM SELECTION</Text>
+							<Text style={s.selectMultipleText}>CONFIRM</Text>
 						</TouchableOpacity>
 
 						<TouchableOpacity
@@ -174,7 +174,18 @@ class FolderStructure extends Component {
 				{/* MODE ACTION */}
 				{mode === Mode.Action || mode === Mode.ActionSingle ? (
 					<View style={s.selectMultipleTopBar}>
-						<View style={s.containerMoveAndDelete}>
+
+						<View style={s.containerMultipleButtonRow}>
+							{mode === Mode.Action &&
+								<TouchableOpacity
+									style={[s.selectMultipleUnitButton, { backgroundColor: colors.tertiaryColor }]}
+									onPress={() =>
+										this.props.dispatch(multipleMode(Mode.Select))
+									}
+								>
+									<Text style={s.selectMultipleText}>SELECT</Text>
+								</TouchableOpacity>
+							}
 							<TouchableOpacity
 								style={[s.selectMultipleUnitButton, { backgroundColor: colors.secondaryColor }]}
 								onPress={() =>
@@ -183,7 +194,9 @@ class FolderStructure extends Component {
 							>
 								<Text style={s.selectMultipleText}>MOVE HERE</Text>
 							</TouchableOpacity>
+						</View>
 
+						<View style={s.containerMultipleButtonRow}>
 							{mode === Mode.Action &&
 								<TouchableOpacity
 									style={[s.selectMultipleUnitButton, { backgroundColor: colors.primaryColor }]}
@@ -194,16 +207,16 @@ class FolderStructure extends Component {
 									<Text style={s.selectMultipleText}>DELETE</Text>
 								</TouchableOpacity>
 							}
+							<TouchableOpacity
+								style={[s.selectMultipleUnitButton, { backgroundColor: colors.gray }]}
+								onPress={() =>
+									this.handleCancelMultipleSelection()
+								}
+							>
+								<Text style={[s.selectMultipleText, {color: '#333333ff' }]}>CANCEL</Text>
+							</TouchableOpacity>
 						</View>
 
-						<TouchableOpacity
-							style={[s.selectMultipleUnitButton, { backgroundColor: colors.gray }]}
-							onPress={() =>
-								this.handleCancelMultipleSelection()
-							}
-						>
-							<Text style={[s.selectMultipleText, {color: '#333333ff' }]}>CANCEL</Text>
-						</TouchableOpacity>
 					</View>)
 						:
 					null

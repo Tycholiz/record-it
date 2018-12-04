@@ -4,7 +4,7 @@ import colors from '../colors'
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: '#bbb',
+		backgroundColor: colors.unitColor,
 		alignItems: 'center',
 		justifyContent: 'flex-start',
 		margin: 6,
@@ -24,12 +24,13 @@ const styles = StyleSheet.create({
 		height: 100,
 		borderRadius: 38,
 	},
-	containerSelected: {
-		backgroundColor: colors.tertiaryColor,
-	},
 	containerMultipleMode: {
 		borderWidth: 2,
 		borderColor: colors.white,
+	},
+	containerSelected: {
+		backgroundColor: colors.tertiaryColor,
+		borderColor: colors.tertiaryColor,
 	},
 	folderOptionsContainer: {
 		flex: 1,
