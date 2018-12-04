@@ -12,6 +12,7 @@ import {
 	Dimensions
 } from 'react-native';
 import s from '../../styles/FolderStructure/Folder'
+
 const screen = Dimensions.get('window');
 
 import { Mode, ControlView, UnitType, Modification } from '../../constants/enumerables';
@@ -92,7 +93,6 @@ class Folder extends Component {
 
 				{/* USER FOLDER */}
 				<TouchableOpacity onPress={handleUnitPress}>
-
 					<View
 						style={[
 							s.container, //styles applied to all units

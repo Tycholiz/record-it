@@ -25,11 +25,11 @@ const styles = StyleSheet.create({
 		borderRadius: 38,
 	},
 	containerSelected: {
-		borderWidth: 2
+		backgroundColor: colors.tertiaryColor,
 	},
 	containerMultipleMode: {
-		borderWidth: 1,
-		borderColor: 'red',
+		borderWidth: 2,
+		borderColor: colors.white,
 	},
 	folderOptionsContainer: {
 		flex: 1,

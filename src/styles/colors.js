@@ -6,6 +6,7 @@ const colors = {
 	red: 'rgba(190, 0, 4, 1)',
 	primaryColor: '#ff4141ff',
 	secondaryColor: '#41ffffff',
+	tertiaryColor: '#a0ff41ff',
 }
 
 export default colors;
