@@ -43,11 +43,15 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: 'rgba(0, 0, 0, 0.4)',
 	},
+	modalContainerOuter: {
+		flexDirection: 'row',
+		alignItems: 'center'
+	},
 	modalContainer: {
 		flex: 0,
 		width: 330,
 		height: 150,
-		backgroundColor: '#2B2B2B',
+		backgroundColor: colors.white,
 		// marginHorizontal: 40,
 		// justifyContent: 'center',
 		// alignItems: 'center',

@@ -142,55 +142,57 @@ class Folder extends Component {
 				}
 
 				{/* RENAME MODAL */}
-				<Modal
-					onBackdropPress={() => this.setState({ renaming: false })}
-					isVisible={renaming}
-					style={s.modalContainer}
-					avoidKeyboard={true}
-				>
-					<View style={s.modalContainerInner}>
-						{unitType === UnitType.File ?
-							<Text style={s.modalHeader}>Rename clip:</Text>
-								:
-							<Text style={s.modalHeader}>Rename folder:</Text>
-						}
-						<TextInput
-							style={s.modalInput}
-							onChangeText={(newTitle) =>
-								this.setState({
-									title: newTitle
-								})
+				<View style={s.modalContainerOuter}>
+					<Modal
+						onBackdropPress={() => this.setState({ renaming: false })}
+						isVisible={renaming}
+						style={s.modalContainer}
+						avoidKeyboard={true}
+					>
+						<View style={s.modalContainerInner}>
+							{unitType === UnitType.File ?
+								<Text style={s.modalHeader}>Rename clip:</Text>
+									:
+								<Text style={s.modalHeader}>Rename folder:</Text>
 							}
-							defaultValue={text !== 'New Folder' ? text : ''}
-							autoFocus={true}
-							selectTextOnFocus={true}
-							keyboardAppearance={'dark'}
-							maxLength={30}
-							underlineColorAndroid='transparent'
-						/>
-
-						<View style={s.modalOptions}>
-							<TouchableHighlight
-								onPress={() => {
-									this.handleCloseModal('renaming');
-								}}
-								style={s.modalOption}
-							>
-								<Text>CANCEL</Text>
-							</TouchableHighlight>
-
-							<TouchableHighlight
-								onPress={() => {
-									this.handleRename(id, unitType)}
+							<TextInput
+								style={s.modalInput}
+								onChangeText={(newTitle) =>
+									this.setState({
+										title: newTitle
+									})
 								}
-								style={[s.modalOption, s.renameOption]}
-							>
-								<Text style={{color: 'white'}}>RENAME</Text>
-							</TouchableHighlight>
-						</View>
+								defaultValue={text !== 'New Folder' ? text : ''}
+								autoFocus={true}
+								selectTextOnFocus={true}
+								keyboardAppearance={'dark'}
+								maxLength={30}
+								underlineColorAndroid='transparent'
+							/>
 
-					</View>
-				</Modal>
+							<View style={s.modalOptions}>
+								<TouchableHighlight
+									onPress={() => {
+										this.handleCloseModal('renaming');
+									}}
+									style={s.modalOption}
+								>
+									<Text>CANCEL</Text>
+								</TouchableHighlight>
+
+								<TouchableHighlight
+									onPress={() => {
+										this.handleRename(id, unitType)}
+									}
+									style={[s.modalOption, s.renameOption]}
+								>
+									<Text style={{color: 'white'}}>RENAME</Text>
+								</TouchableHighlight>
+							</View>
+
+						</View>
+					</Modal>
+				</View>
 
 				{/* DELETE CONFIRMATION MODAL */}
 				<Modal
