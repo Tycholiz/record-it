@@ -8,6 +8,8 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'flex-start',
 		margin: 6,
+		borderWidth: 2,
+		borderColor: colors.unitColor,
 	},
 	navContainer: {
 		width: 140,

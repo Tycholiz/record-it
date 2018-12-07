@@ -2,8 +2,8 @@
   "expoServerPort": 19000,
   "expoServerNgrokUrl": "https://gd-nzv.tycholiz.record-it.exp.direct",
   "packagerNgrokUrl": "https://packager.gd-nzv.tycholiz.record-it.exp.direct",
-  "ngrokPid": 21550,
+  "ngrokPid": 19809,
   "devToolsPort": 19002,
-  "packagerPort": 19004,
-  "packagerPid": 21494
+  "packagerPort": 19001,
+  "packagerPid": 19688
 }
