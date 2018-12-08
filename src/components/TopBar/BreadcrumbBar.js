@@ -8,7 +8,6 @@ import {
 	TextInput,
 	Image,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
 import Modal from "react-native-modal";
 import s from '../../styles/TopBar/BreadcrumbBar';
