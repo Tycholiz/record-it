@@ -45,9 +45,9 @@ const styles = StyleSheet.create({
 	},
 	modalContainer: {
 		flex: 0,
-		width: 330,
-		height: 150,
-		backgroundColor: '#2B2B2B',
+		// width: 330,
+		// height: 150,
+		// backgroundColor: '#2B2B2B',
 		// marginHorizontal: 40,
 		// justifyContent: 'center',
 		// alignItems: 'center',
@@ -66,6 +66,9 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		borderRadius: 4,
 		borderColor: 'rgba(0, 0, 0, 0.1)',
+		width: 330,
+		height: 150,
+		marginTop: 200,
 	},
 	modalHeader: {
 		flex: 1,
