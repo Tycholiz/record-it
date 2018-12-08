@@ -1,3 +1,5 @@
+import { UnitType } from '../constants/enumerables';
+
 export const getChildrenOfFolder = (state, folderId) => {
 	const { folders, files } = state.units;
 
@@ -11,6 +13,19 @@ export const getChildrenOfFolder = (state, folderId) => {
 	// const allChildrenOfFolder = { ...foldersWithinFolder, ...filesWithinFolder }
 	Array.prototype.push.apply(foldersWithinFolder, filesWithinFolder);
 	return foldersWithinFolder;
+}
+
+export const getUnitsToDelete = (state, selectedUnits, unitType) => {
+	UnitType.Folder = 'folder'
+	unitType = unitType === UnitType.Folder ? 'folders' : 'files';
+	const namesOfUnitsToDelete = [];
+
+	for (let unit = 0; unit < selectedUnits.length; unit++) {
+		if (selectedUnits[unit] in state.units[unitType]) {
+			namesOfUnitsToDelete.push(state.units[unitType][selectedUnits[unit]].title)
+		}
+	}
+	return namesOfUnitsToDelete;
 }
 
 export const displayBreadCrumb = (state) => {
@@ -28,7 +43,6 @@ export const displayBreadCrumb = (state) => {
 	do {
 		if (folders[currentFolderId]) path.push(folders[currentFolderId].title)
 		currentFolderId = currentParent;
-		console.log(folders[currentParent])
 		if (currentParent != null) currentParent = folders[currentParent]['parentId']
 	} while (currentParent != null)
 	path.push("Home")

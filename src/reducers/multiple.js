@@ -6,7 +6,7 @@ import {
 import { Modification, Mode } from '../constants/enumerables';
 
 const initialState = {
-	mode: Mode.Normal,
+	mode: Mode.Select,
 	selectedUnits: [],
 };
 

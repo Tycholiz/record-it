@@ -6,11 +6,10 @@ import {
 	Text,
 	TouchableOpacity,
 	Image,
-	KeyboardAvoidingView,
-	TouchableHighlight
 } from 'react-native';
-import s from '../../styles/Control/PlaybackControl';
 import Modal from "react-native-modal";
+
+import s from '../../styles/Control/PlaybackControl';
 
 import { UnitType } from '../../constants/enumerables';
 

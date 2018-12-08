@@ -8,6 +8,7 @@ import {
 	Image,
 	Alert,
 } from 'react-native';
+import Modal from "react-native-modal";
 
 import s from '../../styles/FolderStructure/index';
 import colors from '../../styles/colors';
@@ -22,12 +23,32 @@ import {
 	deleteUnits,
 } from '../../actions';
 
-import { getChildrenOfFolder } from '../../utils';
+import { getChildrenOfFolder, getUnitsToDelete } from '../../utils';
 import { Mode, Modification, UnitType } from '../../constants/enumerables';
 
 import Folder from './Folder';
 
 class FolderStructure extends Component {
+	state = {
+		deleteConfirmation: false,
+	}
+
+	handleOpenModal = () => {
+		this.setState(() => {
+			return {
+				deleteConfirmation: true
+			};
+		});
+	};
+
+	handleCloseModal = () => {
+		this.setState(() => {
+			return {
+				deleteConfirmation: false
+			};
+		});
+	}
+
 	handleUnitPress = (unitId, unitType, mode) => {
 		const { dispatch, selectedUnits } = this.props;
 
@@ -105,6 +126,7 @@ class FolderStructure extends Component {
 		const { dispatch, selectedUnits } = this.props;
 
 		dispatch(deleteUnits(selectedUnits))
+		this.handleCloseModal();
 		this.handleCancelMultipleSelection();
 	}
 
@@ -114,6 +136,20 @@ class FolderStructure extends Component {
 
 		dispatch(modifySelectedUnit(Empty))
 		dispatch(multipleMode(Mode.Normal));
+	}
+
+	listUnitsToDelete = (unitType) => {
+		const unitsToDelete = getUnitsToDelete(this.props, this.props.selectedUnits, unitType);
+		console.log(unitsToDelete)
+		return unitsToDelete.map((title) => {
+			return (
+				<Text
+					key={title}
+				>
+					{title}
+				</Text>
+			)
+		})
 	}
 
 	renderFolders = () => {
@@ -142,6 +178,7 @@ class FolderStructure extends Component {
 
 	render() {
 		const { currentFolder, mode } = this.props;
+		const { deleteConfirmation } = this.state;
 
 		return (
 			<View style={s.container}>
@@ -201,7 +238,7 @@ class FolderStructure extends Component {
 								<TouchableOpacity
 									style={[s.selectMultipleUnitButton, { backgroundColor: colors.primaryColor }]}
 									onPress={() =>
-										this.handleDeleteUnits()
+										this.handleOpenModal()
 									}
 								>
 									<Text style={s.selectMultipleText}>DELETE</Text>
@@ -249,6 +286,43 @@ class FolderStructure extends Component {
 						<Text style={[s.navButtonText, s.newFolder]}>NEW FOLDER</Text>
 					</TouchableOpacity>
 				</View>
+
+				{/* DELETE CONFIRMATION MODAL */}
+				<Modal
+					onBackdropPress={() => this.setState({ deleteConfirmation: false })}
+					isVisible={deleteConfirmation}
+					style={s.modalContainer}
+					avoidKeyboard={true}
+				>
+					<View style={s.modalContainerInner}>
+
+						<Text style={[s.modalHeader, { fontSize: 20 }]}>Are you sure you want to delete the following?</Text>
+						{/* <Text style={s.breadCrumb}>{text}</Text> */}
+						<View>
+							{this.listUnitsToDelete(UnitType.Folder)}
+						</View>
+						<View>
+							{this.listUnitsToDelete(UnitType.File)}
+						</View>
+						<View style={s.modalOptions}>
+							<TouchableOpacity
+								onPress={() => {
+									this.handleCloseModal();
+								}}
+							>
+								<Text style={[s.modalOption, s.cancelOption]}>CANCEL</Text>
+							</TouchableOpacity>
+
+							<TouchableOpacity
+								onPress={() => {
+									this.handleDeleteUnits();
+								}}
+							>
+								<Text style={[s.modalOption, s.confirmOption]}>CONFIRM</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
+				</Modal>
 
 			</View>
 		);
