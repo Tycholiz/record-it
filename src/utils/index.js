@@ -21,14 +21,9 @@ export const displayBreadCrumb = (state) => {
 	const path = [];
 
 	let currentParent = folders[currentFolderId]['parentId']
-	console.log('currentparent', currentParent)
-
-	if (currentParent === null) {
-		console.log("right???")
+	if (currentParent == null) {
 		return "Home";
 	}
-
-	return;
 
 	do {
 		if (folders[currentFolderId]) path.push(folders[currentFolderId].title)

@@ -15,9 +15,6 @@ import s from '../../styles/TopBar/BreadcrumbBar';
 
 import { displayBreadCrumb } from '../../utils';
 
-// import Icon from 'react-native-vector-icons/FontAwesome';
-// const searchIcon = (<Icon name="search" size={30} color='black' />)
-
 class BreadcrumbBar extends Component {
 	state = {
 		modalOpen: false

@@ -113,7 +113,7 @@ const initialState = {
 			id: '0',
 			title: 'home',
 			dateCreated: 1543868079341,
-			parentId: 'null',
+			parentId: null,
 			unitType: 'folder',
 		},
 		'11bbf7eb-5a44-4476-aee0-5bb0f2a0c01d': {
