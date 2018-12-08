@@ -60,11 +60,12 @@ const styles = StyleSheet.create({
 		marginTop: 180,
 	},
 	modalHeader: {
-		flex: 1,
+		// flex: 1,
 		fontSize: 25,
 		color: colors.white,
 		alignSelf: 'flex-start',
 		marginBottom: 10,
+		padding: 0,
 	},
 	breadCrumb: {
 		color: colors.white,
@@ -94,12 +95,28 @@ const styles = StyleSheet.create({
 		margin: 4,
 	},
 	confirmOption: {
-		borderRadius: 4,
 		color: colors.secondaryColor,
 	},
 	cancelOption: {
-		borderRadius: 4,
 		color: colors.primaryColor,
+		alignSelf: 'flex-end',
+	},
+	detailsModalContainerInner: {
+		height: 240,
+		alignItems: 'flex-start',
+		justifyContent: 'flex-start',
+	},
+	details: {
+		flex: 1,
+	},
+	lineItem: {
+		alignSelf: 'flex-start',
+	},
+	lineTitle: {
+		color: colors.white
+	},
+	lineInfo: {
+		color: colors.white
 	},
 	icon: {
 		justifyContent: 'center',

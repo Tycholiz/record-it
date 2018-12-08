@@ -28,6 +28,7 @@ class Folder extends Component {
 		_menu: null,
 		renaming: false,
 		deleteConfirmation: false,
+		moreInfo: false,
 		title: this.props.text,
 	};
 
@@ -85,7 +86,7 @@ class Folder extends Component {
 	}
 
 	render() {
-		const { renaming, deleteConfirmation } = this.state;
+		const { renaming, deleteConfirmation, moreInfo } = this.state;
 		const { id, text, icon, handleUnitPress, unitType, selected, mode } = this.props;
 
 		return (
@@ -134,7 +135,7 @@ class Folder extends Component {
 								</View>
 							}
 							<MenuDivider />
-							<MenuItem onPress={this.hideMenu}>More info...</MenuItem>
+							<MenuItem onPress={() => this.handleOpenModal('moreInfo')}>More info...</MenuItem>
 							<MenuDivider />
 							<MenuItem onPress={this.hideMenu}>Close</MenuItem>
 						</Menu>
@@ -223,6 +224,63 @@ class Folder extends Component {
 								<Text style={[s.modalOption, s.confirmOption]}>CONFIRM</Text>
 							</TouchableOpacity>
 						</View>
+					</View>
+				</Modal>
+
+				{/* MORE INFO MODAL */}
+				<Modal
+					onBackdropPress={() => this.setState({ moreInfo: false })}
+					isVisible={moreInfo}
+					style={s.modalContainer}
+					avoidKeyboard={true}
+				>
+					<View style={[s.modalContainerInner, s.detailsModalContainerInner]}>
+						<Text style={s.modalHeader}>Details</Text>
+						<View style={s.details}>
+							<View style={s.lineItem}>
+								<Text style={s.lineTitle}>Title</Text>
+								<Text style={s.lineInfo}></Text>
+							</View>
+							<View style={s.lineItem}>
+								<Text style={s.lineTitle}>Full Path</Text>
+								<Text style={s.lineInfo}></Text>
+							</View>
+							<View style={s.lineItem}>
+								<Text style={s.lineTitle}>Date Created</Text>
+								<Text style={s.lineInfo}></Text>
+							</View>
+							{unitType === UnitType.Folder &&
+								<View style={s.lineItem}>
+									<Text style={s.lineTitle}>Number of Children</Text>
+									<Text style={s.lineInfo}></Text>
+								</View>
+							}
+							{unitType === UnitType.File &&
+								<View>
+									<View style={s.lineItem}>
+										<Text style={s.lineTitle}>Duration</Text>
+										<Text style={s.lineInfo}></Text>
+									</View>
+									<View style={s.lineItem}>
+										<Text style={s.lineTitle}>File Type</Text>
+										<Text style={s.lineInfo}></Text>
+									</View>
+								</View>
+							}
+							<View style={s.lineItem}>
+								<Text style={s.lineTitle}>Size</Text>
+								<Text style={s.lineInfo}></Text>
+							</View>
+
+						</View>
+						<TouchableOpacity
+							onPress={() => {
+								this.handleCloseModal('moreInfo');
+							}}
+						>
+							<Text style={[s.modalOption, s.cancelOption]}>CLOSE</Text>
+						</TouchableOpacity>
+
 					</View>
 				</Modal>
 			</View>
