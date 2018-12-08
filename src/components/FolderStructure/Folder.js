@@ -150,43 +150,43 @@ class Folder extends Component {
 				>
 					<View style={s.modalContainerInner}>
 						{unitType === UnitType.File ?
-							<Text style={s.modalHeader}>Rename clip:</Text>
+							<Text style={s.modalHeader}>Rename Clip</Text>
 								:
-							<Text style={s.modalHeader}>Rename folder:</Text>
+							<Text style={s.modalHeader}>Rename Folder</Text>
 						}
-						<TextInput
-							style={s.modalInput}
-							onChangeText={(newTitle) =>
-								this.setState({
-									title: newTitle
-								})
-							}
-							defaultValue={text !== 'New Folder' ? text : ''}
-							autoFocus={true}
-							selectTextOnFocus={true}
-							keyboardAppearance={'dark'}
-							maxLength={30}
-							underlineColorAndroid='transparent'
-						/>
+						<View style={s.textInputUnderline}>
+							<TextInput
+								style={s.modalInput}
+								onChangeText={(newTitle) =>
+									this.setState({
+										title: newTitle
+									})
+								}
+								defaultValue={text !== 'New Folder' ? text : ''}
+								autoFocus={true}
+								selectTextOnFocus={true}
+								keyboardAppearance={'dark'}
+								maxLength={30}
+								underlineColorAndroid='transparent'
+							/>
+						</View>
 
 						<View style={s.modalOptions}>
-							<TouchableHighlight
+							<TouchableOpacity
 								onPress={() => {
 									this.handleCloseModal('renaming');
 								}}
-								style={s.modalOption}
 							>
-								<Text>CANCEL</Text>
-							</TouchableHighlight>
+								<Text style={[s.modalOption, s.cancelOption]}>CANCEL</Text>
+							</TouchableOpacity>
 
-							<TouchableHighlight
+							<TouchableOpacity
 								onPress={() => {
 									this.handleRename(id, unitType)}
 								}
-								style={[s.modalOption, s.renameOption]}
 							>
-								<Text style={{color: 'white'}}>RENAME</Text>
-							</TouchableHighlight>
+								<Text style={[s.modalOption, s.confirmOption]}>RENAME</Text>
+							</TouchableOpacity>
 						</View>
 
 					</View>
@@ -194,38 +194,36 @@ class Folder extends Component {
 
 				{/* DELETE CONFIRMATION MODAL */}
 				<Modal
-					animationType="slide"
-					transparent={true}
-					visible={deleteConfirmation}
-					onRequestClose={() => {
-						Alert.alert('Modal has been closed.');
-					}}
+					onBackdropPress={() => this.setState({ deleteConfirmation: false })}
+					isVisible={deleteConfirmation}
+					style={s.modalContainer}
+					avoidKeyboard={true}
 				>
-					<KeyboardAvoidingView style={s.modalMask} behavior="padding">
-						<View style={s.modalContainer}>
-							<Text>Are you sure you want to delete {text}?</Text>
-							<View style={s.modalOptions}>
-								<TouchableHighlight
-									onPress={() => {
-										this.handleCloseModal('deleteConfirmation');
-									}}
-									style={s.modalOption}
-									>
-									<Text>CANCEL</Text>
-								</TouchableHighlight>
+					<View style={s.modalContainerInner}>
+						{unitType === UnitType.File ?
+							<Text style={[s.modalHeader, { fontSize: 20 }]}>Are you sure you want to delete this clip?</Text>
+							:
+							<Text style={[s.modalHeader, { fontSize: 20 }]}>Are you sure you want to delete this folder?</Text>
+						}
+						<Text style={s.breadCrumb}>{text}</Text>
+						<View style={s.modalOptions}>
+							<TouchableOpacity
+								onPress={() => {
+									this.handleCloseModal('deleteConfirmation');
+								}}
+							>
+								<Text style={[s.modalOption, s.cancelOption]}>CANCEL</Text>
+							</TouchableOpacity>
 
-								<TouchableHighlight
-									onPress={() => {
-										this.handleDelete(id, unitType)
-									}}
-									style={[s.modalOption, s.renameOption]}
-									>
-									<Text style={{ color: 'white' }}>CONFIRM</Text>
-								</TouchableHighlight>
-							</View>
-							<Text>This action is not reversible</Text>
+							<TouchableOpacity
+								onPress={() => {
+									this.handleDelete(id, unitType)
+								}}
+							>
+								<Text style={[s.modalOption, s.confirmOption]}>CONFIRM</Text>
+							</TouchableOpacity>
 						</View>
-					</KeyboardAvoidingView>
+					</View>
 				</Modal>
 			</View>
 		);
