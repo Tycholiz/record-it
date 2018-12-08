@@ -85,12 +85,8 @@ class Folder extends Component {
 		dispatch(modifySelectedUnit(Add, unitId))
 	}
 
-	numChildren = () => {
-		const { currentFolder, units } = this.props;
-
-		// const uni = units.folders[currentFolder];
-		// console.log(Object.keys(currentFolder).length);
-		// return Object.keys(currentFolder).length;
+	getNumChildren = (id) => {
+		return 23;
 	}
 
 	render() {
@@ -257,7 +253,7 @@ class Folder extends Component {
 							{unitType === UnitType.Folder &&
 								<View style={s.lineItem}>
 									<Text style={s.lineTitle}>Number of Children</Text>
-									<Text style={s.lineInfo}>{this.numChildren()}</Text>
+									<Text style={s.lineInfo}>{this.getNumChildren(id)}</Text>
 								</View>
 							}
 							{unitType === UnitType.File &&
