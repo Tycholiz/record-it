@@ -103,41 +103,35 @@ class PlaybackControl extends Component {
 				}
 
 				{/* DELETE CONFIRMATION MODAL */}
-					<Modal
-						animationType="slide"
-						transparent={true}
-						visible={this.state.deleteConfirmation}
-						onRequestClose={() => {
-							Alert.alert('Modal has been closed.');
-						}}
-					>
-						<KeyboardAvoidingView style={s.modalMask} behavior="padding">
-							<View style={s.modalContainer}>
-								<Text>Are you sure you want to delete {title}?</Text>
-								<View style={s.modalOptions}>
-									<TouchableHighlight
-										onPress={() => {
-											this.handleCloseModal();
-										}}
-										style={s.modalOption}
-									>
-										<Text>CANCEL</Text>
-									</TouchableHighlight>
+				<Modal
+					onBackdropPress={() => this.setState({ deleteConfirmation: false })}
+					isVisible={this.state.deleteConfirmation}
+					style={s.modalContainer}
+					avoidKeyboard={true}
+				>
+					<View style={s.modalContainerInner}>
+						<Text style={[s.modalHeader, { fontSize: 20 }]}>Are you sure you want to delete this clip?</Text>
+						<Text style={s.breadCrumb}>{title}</Text>
+						<View style={s.modalOptions}>
+							<TouchableOpacity
+								onPress={() => {
+									this.handleCloseModal();
+								}}
+							>
+								<Text style={[s.modalOption, s.cancelOption]}>CANCEL</Text>
+							</TouchableOpacity>
 
-									<TouchableHighlight
-										onPress={() => {
-											this.handleDelete(activeFile)
-										}}
-										style={[s.modalOption, s.renameOption]}
-									>
-										<Text style={{ color: 'white' }}>CONFIRM</Text>
-									</TouchableHighlight>
-								</View>
-								<Text>This action is not reversible</Text>
-							</View>
-						</KeyboardAvoidingView>
-					</Modal>
-				</View>
+							<TouchableOpacity
+								onPress={() => {
+									this.handleDelete(activeFile)
+								}}
+							>
+								<Text style={[s.modalOption, s.confirmOption]}>CONFIRM</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
+				</Modal>
+			</View>
 		);
 	}
 }

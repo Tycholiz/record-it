@@ -194,7 +194,7 @@ class Folder extends Component {
 
 				{/* DELETE CONFIRMATION MODAL */}
 				<Modal
-					onBackdropPress={() => this.setState({ renaming: false })}
+					onBackdropPress={() => this.setState({ deleteConfirmation: false })}
 					isVisible={deleteConfirmation}
 					style={s.modalContainer}
 					avoidKeyboard={true}
@@ -211,7 +211,7 @@ class Folder extends Component {
 								onPress={() => {
 									this.handleCloseModal('deleteConfirmation');
 								}}
-								>
+							>
 								<Text style={[s.modalOption, s.cancelOption]}>CANCEL</Text>
 							</TouchableOpacity>
 
@@ -219,7 +219,7 @@ class Folder extends Component {
 								onPress={() => {
 									this.handleDelete(id, unitType)
 								}}
-								>
+							>
 								<Text style={[s.modalOption, s.confirmOption]}>CONFIRM</Text>
 							</TouchableOpacity>
 						</View>
