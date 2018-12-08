@@ -77,6 +77,11 @@ const styles = StyleSheet.create({
 		alignSelf: 'flex-start',
 		marginBottom: 10,
 	},
+	breadCrumb: {
+		color: colors.white,
+		alignSelf: 'flex-start',
+		marginLeft: 10,
+	},
 	modalInput: {
 		flex: 1,
 		// fontSize: 16,
@@ -99,7 +104,7 @@ const styles = StyleSheet.create({
 		fontSize: 22,
 		margin: 4,
 	},
-	renameOption: {
+	confirmOption: {
 		borderRadius: 4,
 		color: colors.secondaryColor,
 	},

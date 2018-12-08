@@ -150,9 +150,9 @@ class Folder extends Component {
 				>
 					<View style={s.modalContainerInner}>
 						{unitType === UnitType.File ?
-							<Text style={s.modalHeader}>Rename Clip:</Text>
+							<Text style={s.modalHeader}>Rename Clip</Text>
 								:
-							<Text style={s.modalHeader}>Rename Folder:</Text>
+							<Text style={s.modalHeader}>Rename Folder</Text>
 						}
 						<View style={s.textInputUnderline}>
 							<TextInput
@@ -185,7 +185,7 @@ class Folder extends Component {
 									this.handleRename(id, unitType)}
 								}
 							>
-								<Text style={[s.modalOption, s.renameOption]}>RENAME</Text>
+								<Text style={[s.modalOption, s.confirmOption]}>RENAME</Text>
 							</TouchableOpacity>
 						</View>
 
@@ -194,36 +194,36 @@ class Folder extends Component {
 
 				{/* DELETE CONFIRMATION MODAL */}
 				<Modal
-					animationType="slide"
-					transparent={true}
-					visible={deleteConfirmation}
-					onRequestClose={() => {
-						Alert.alert('Modal has been closed.');
-					}}
+					onBackdropPress={() => this.setState({ renaming: false })}
+					isVisible={deleteConfirmation}
+					style={s.modalContainer}
+					avoidKeyboard={true}
 				>
-					<KeyboardAvoidingView style={s.modalMask} behavior="padding">
-						<View style={s.modalContainer}>
-							<Text>Are you sure you want to delete {text}?</Text>
-							<View style={s.modalOptions}>
-								<TouchableHighlight
-									onPress={() => {
-										this.handleCloseModal('deleteConfirmation');
-									}}
-									>
-									<Text>CANCEL</Text>
-								</TouchableHighlight>
+					<View style={s.modalContainerInner}>
+						{unitType === UnitType.File ?
+							<Text style={[s.modalHeader, { fontSize: 20 }]}>Are you sure you want to delete this clip?</Text>
+							:
+							<Text style={[s.modalHeader, { fontSize: 20 }]}>Are you sure you want to delete this folder?</Text>
+						}
+						<Text style={s.breadCrumb}>{text}</Text>
+						<View style={s.modalOptions}>
+							<TouchableOpacity
+								onPress={() => {
+									this.handleCloseModal('deleteConfirmation');
+								}}
+								>
+								<Text style={[s.modalOption, s.cancelOption]}>CANCEL</Text>
+							</TouchableOpacity>
 
-								<TouchableHighlight
-									onPress={() => {
-										this.handleDelete(id, unitType)
-									}}
-									>
-									<Text style={{ color: 'white' }}>CONFIRM</Text>
-								</TouchableHighlight>
-							</View>
-							<Text>This action is not reversible</Text>
+							<TouchableOpacity
+								onPress={() => {
+									this.handleDelete(id, unitType)
+								}}
+								>
+								<Text style={[s.modalOption, s.confirmOption]}>CONFIRM</Text>
+							</TouchableOpacity>
 						</View>
-					</KeyboardAvoidingView>
+					</View>
 				</Modal>
 			</View>
 		);
