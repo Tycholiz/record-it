@@ -222,38 +222,34 @@ class FolderStructure extends Component {
 					null
 				}
 
-				{/* NAVIGATION FOLDERS */}
-				<View style={s.innerContainer}>
-					<View>
-						<Folder
-							text={'Up One Level'}
-							icon={<Image source={require('../../../assets/images/uponelevel.png')} style={{ width: 40, height: 40 }} />}
-							style={s.navContainer}
-							handleUnitPress={() =>
-								this.handleGoUpOneLevel(currentFolder)
-							}
-						/>
-						<Image source={require('../../../assets/images/nav-unit-divider.png')} style={{ width: 100, height: 2.5, alignSelf: 'center', marginBottom: 5 }} />
-					</View>
-					<View>
-						<Folder
-							text={'Add New Folder'}
-							icon={<Image source={require('../../../assets/images/add-folder.png')} style={{ width: 50, height: 40 }} />}
-							style={s.navContainer}
-							handleUnitPress={() =>
-								this.handleNewFolder()
-							}
-						/>
-						<Image source={require('../../../assets/images/nav-unit-divider.png')} style={{ width: 100, height: 2.5, alignSelf: 'center', marginBottom: 5 }} />
-					</View>
-				</View>
-
 				{/* USER FOLDERS */}
 				<ScrollView style={s.container}>
 					<View style={s.innerContainer}>
 						{this.renderFolders()}
 					</View>
 				</ScrollView>
+
+				{/* NAVIGATION BUTTONS */}
+				<View style={s.navButtonWrapper}>
+					<TouchableOpacity style={s.navButton}
+						onPress={() =>
+							this.handleGoUpOneLevel(currentFolder)
+						}
+					>
+						<Text style={[s.navButtonText, s.upOneLevel]}>UP ONE LEVEL</Text>
+						<Image source={require('../../../assets/images/uponelevel.png')} style={{ width: 20, height: 20, marginHorizontal: 5 }} />
+					</TouchableOpacity>
+
+					<TouchableOpacity style={s.navButton}
+						onPress={() =>
+							this.handleNewFolder()
+						}
+					>
+						<Image source={require('../../../assets/images/add-folder.png')} style={{ width: 20, height: 15, marginHorizontal: 5 }} />
+						<Text style={[s.navButtonText, s.newFolder]}>NEW FOLDER</Text>
+					</TouchableOpacity>
+				</View>
+
 			</View>
 		);
 	}

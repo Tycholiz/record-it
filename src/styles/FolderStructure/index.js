@@ -12,6 +12,30 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-evenly',
 		flexWrap: 'wrap',
 	},
+	navButtonWrapper: {
+		flexDirection: 'row',
+		marginVertical: 3,
+		height: 40,
+	},
+	navButton: {
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		margin: 4,
+		borderRadius: 5,
+		backgroundColor: colors.darkgrey,
+	},
+	navButtonText: {
+		fontWeight: 'bold',
+		fontSize: 20
+	},
+	upOneLevel: {
+		color: colors.tertiaryColor
+	},
+	newFolder: {
+		color: colors.secondaryColor,
+	},
 	selectMultipleTopBar: {
 		position: 'absolute',
 		top: -125,
