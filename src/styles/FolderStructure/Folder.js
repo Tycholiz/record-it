@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
 	},
 	modalContainerInner: {
 		// flex: 1,
+		flex: 0,
 		backgroundColor: 'white',
 		padding: 22,
 		justifyContent: 'center',
