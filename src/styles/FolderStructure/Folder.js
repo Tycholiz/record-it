@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
 		// flex: 1,
 		fontSize: 25,
 		color: colors.white,
-		alignSelf: 'flex-start',
+		alignSelf: 'center',
 		marginBottom: 10,
 		padding: 0,
 	},
@@ -99,10 +99,9 @@ const styles = StyleSheet.create({
 	},
 	cancelOption: {
 		color: colors.primaryColor,
-		alignSelf: 'flex-end',
 	},
 	detailsModalContainerInner: {
-		height: 240,
+		height: 350,
 		alignItems: 'flex-start',
 		justifyContent: 'flex-start',
 	},
@@ -111,12 +110,16 @@ const styles = StyleSheet.create({
 	},
 	lineItem: {
 		alignSelf: 'flex-start',
+		marginVertical: 5,
 	},
 	lineTitle: {
-		color: colors.white
+		color: colors.white,
+		fontSize: 16,
+		fontWeight: 'bold'
 	},
 	lineInfo: {
-		color: colors.white
+		color: colors.white,
+		marginLeft: 15,
 	},
 	icon: {
 		justifyContent: 'center',

@@ -85,9 +85,18 @@ class Folder extends Component {
 		dispatch(modifySelectedUnit(Add, unitId))
 	}
 
+	numChildren = () => {
+		const { currentFolder, units } = this.props;
+
+		// const uni = units.folders[currentFolder];
+		// console.log(Object.keys(currentFolder).length);
+		// return Object.keys(currentFolder).length;
+	}
+
 	render() {
 		const { renaming, deleteConfirmation, moreInfo } = this.state;
 		const { id, text, icon, handleUnitPress, unitType, selected, mode } = this.props;
+
 
 		return (
 			<View>
@@ -235,51 +244,50 @@ class Folder extends Component {
 					avoidKeyboard={true}
 				>
 					<View style={[s.modalContainerInner, s.detailsModalContainerInner]}>
-						<Text style={s.modalHeader}>Details</Text>
+						<Text style={s.modalHeader}>{text}</Text>
 						<View style={s.details}>
 							<View style={s.lineItem}>
-								<Text style={s.lineTitle}>Title</Text>
-								<Text style={s.lineInfo}></Text>
-							</View>
-							<View style={s.lineItem}>
 								<Text style={s.lineTitle}>Full Path</Text>
-								<Text style={s.lineInfo}></Text>
+								<Text style={s.lineInfo}>Home > Chimera > Guitar Parts > Electric > solo.mp3</Text>
 							</View>
 							<View style={s.lineItem}>
 								<Text style={s.lineTitle}>Date Created</Text>
-								<Text style={s.lineInfo}></Text>
+								<Text style={s.lineInfo}>October 22, 2018</Text>
 							</View>
 							{unitType === UnitType.Folder &&
 								<View style={s.lineItem}>
 									<Text style={s.lineTitle}>Number of Children</Text>
-									<Text style={s.lineInfo}></Text>
+									<Text style={s.lineInfo}>{this.numChildren()}</Text>
 								</View>
 							}
 							{unitType === UnitType.File &&
 								<View>
 									<View style={s.lineItem}>
 										<Text style={s.lineTitle}>Duration</Text>
-										<Text style={s.lineInfo}></Text>
+										<Text style={s.lineInfo}>1:22</Text>
 									</View>
 									<View style={s.lineItem}>
 										<Text style={s.lineTitle}>File Type</Text>
-										<Text style={s.lineInfo}></Text>
+										<Text style={s.lineInfo}>{unitType}</Text>
 									</View>
 								</View>
 							}
 							<View style={s.lineItem}>
 								<Text style={s.lineTitle}>Size</Text>
-								<Text style={s.lineInfo}></Text>
+								<Text style={s.lineInfo}>2.43mb</Text>
 							</View>
 
 						</View>
-						<TouchableOpacity
-							onPress={() => {
-								this.handleCloseModal('moreInfo');
-							}}
-						>
-							<Text style={[s.modalOption, s.cancelOption]}>CLOSE</Text>
-						</TouchableOpacity>
+						<View style={s.modalOptions}>
+							<TouchableOpacity
+								onPress={() => {
+									this.handleCloseModal('moreInfo');
+								}}
+								style={s.modalOptions}
+							>
+								<Text style={[s.modalOption, s.cancelOption]}>CLOSE</Text>
+							</TouchableOpacity>
+						</View>
 
 					</View>
 				</Modal>
