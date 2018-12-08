@@ -156,7 +156,7 @@ class FolderStructure extends Component {
 								this.handleConfirmMultipleSelection()
 							}
 						>
-							<Text style={s.selectMultipleText}>CONFIRM SELECTION</Text>
+							<Text style={s.selectMultipleText}>CONFIRM</Text>
 						</TouchableOpacity>
 
 						<TouchableOpacity
@@ -174,7 +174,18 @@ class FolderStructure extends Component {
 				{/* MODE ACTION */}
 				{mode === Mode.Action || mode === Mode.ActionSingle ? (
 					<View style={s.selectMultipleTopBar}>
-						<View style={s.containerMoveAndDelete}>
+
+						<View style={s.containerMultipleButtonRow}>
+							{mode === Mode.Action &&
+								<TouchableOpacity
+									style={[s.selectMultipleUnitButton, { backgroundColor: colors.tertiaryColor }]}
+									onPress={() =>
+										this.props.dispatch(multipleMode(Mode.Select))
+									}
+								>
+									<Text style={s.selectMultipleText}>SELECT</Text>
+								</TouchableOpacity>
+							}
 							<TouchableOpacity
 								style={[s.selectMultipleUnitButton, { backgroundColor: colors.secondaryColor }]}
 								onPress={() =>
@@ -183,7 +194,9 @@ class FolderStructure extends Component {
 							>
 								<Text style={s.selectMultipleText}>MOVE HERE</Text>
 							</TouchableOpacity>
+						</View>
 
+						<View style={s.containerMultipleButtonRow}>
 							{mode === Mode.Action &&
 								<TouchableOpacity
 									style={[s.selectMultipleUnitButton, { backgroundColor: colors.primaryColor }]}
@@ -194,46 +207,20 @@ class FolderStructure extends Component {
 									<Text style={s.selectMultipleText}>DELETE</Text>
 								</TouchableOpacity>
 							}
+							<TouchableOpacity
+								style={[s.selectMultipleUnitButton, { backgroundColor: colors.gray }]}
+								onPress={() =>
+									this.handleCancelMultipleSelection()
+								}
+							>
+								<Text style={[s.selectMultipleText, {color: '#333333ff' }]}>CANCEL</Text>
+							</TouchableOpacity>
 						</View>
 
-						<TouchableOpacity
-							style={[s.selectMultipleUnitButton, { backgroundColor: colors.gray }]}
-							onPress={() =>
-								this.handleCancelMultipleSelection()
-							}
-						>
-							<Text style={[s.selectMultipleText, {color: '#333333ff' }]}>CANCEL</Text>
-						</TouchableOpacity>
 					</View>)
 						:
 					null
 				}
-
-				{/* NAVIGATION FOLDERS */}
-				<View style={s.innerContainer}>
-					<View>
-						<Folder
-							text={'Up One Level'}
-							icon={<Image source={require('../../../assets/images/uponelevel.png')} style={{ width: 40, height: 40 }} />}
-							style={s.navContainer}
-							handleUnitPress={() =>
-								this.handleGoUpOneLevel(currentFolder)
-							}
-						/>
-						<Image source={require('../../../assets/images/nav-unit-divider.png')} style={{ width: 100, height: 2.5, alignSelf: 'center', marginBottom: 5 }} />
-					</View>
-					<View>
-						<Folder
-							text={'Add New Folder'}
-							icon={<Image source={require('../../../assets/images/add-folder.png')} style={{ width: 50, height: 40 }} />}
-							style={s.navContainer}
-							handleUnitPress={() =>
-								this.handleNewFolder()
-							}
-						/>
-						<Image source={require('../../../assets/images/nav-unit-divider.png')} style={{ width: 100, height: 2.5, alignSelf: 'center', marginBottom: 5 }} />
-					</View>
-				</View>
 
 				{/* USER FOLDERS */}
 				<ScrollView style={s.container}>
@@ -241,6 +228,28 @@ class FolderStructure extends Component {
 						{this.renderFolders()}
 					</View>
 				</ScrollView>
+
+				{/* NAVIGATION BUTTONS */}
+				<View style={s.navButtonWrapper}>
+					<TouchableOpacity style={s.navButton}
+						onPress={() =>
+							this.handleGoUpOneLevel(currentFolder)
+						}
+					>
+						<Text style={[s.navButtonText, s.upOneLevel]}>UP ONE LEVEL</Text>
+						<Image source={require('../../../assets/images/uponelevel.png')} style={{ width: 20, height: 20, marginHorizontal: 5 }} />
+					</TouchableOpacity>
+
+					<TouchableOpacity style={s.navButton}
+						onPress={() =>
+							this.handleNewFolder()
+						}
+					>
+						<Image source={require('../../../assets/images/add-folder.png')} style={{ width: 20, height: 15, marginHorizontal: 5 }} />
+						<Text style={[s.navButtonText, s.newFolder]}>NEW FOLDER</Text>
+					</TouchableOpacity>
+				</View>
+
 			</View>
 		);
 	}

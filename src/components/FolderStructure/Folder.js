@@ -12,6 +12,7 @@ import {
 	Dimensions
 } from 'react-native';
 import s from '../../styles/FolderStructure/Folder'
+
 const screen = Dimensions.get('window');
 
 import { Mode, ControlView, UnitType, Modification } from '../../constants/enumerables';
@@ -27,6 +28,7 @@ class Folder extends Component {
 		_menu: null,
 		renaming: false,
 		deleteConfirmation: false,
+		moreInfo: false,
 		title: this.props.text,
 	};
 
@@ -83,16 +85,20 @@ class Folder extends Component {
 		dispatch(modifySelectedUnit(Add, unitId))
 	}
 
+	getNumChildren = (id) => {
+		return 23;
+	}
+
 	render() {
-		const { renaming, deleteConfirmation } = this.state;
+		const { renaming, deleteConfirmation, moreInfo } = this.state;
 		const { id, text, icon, handleUnitPress, unitType, selected, mode } = this.props;
+
 
 		return (
 			<View>
 
 				{/* USER FOLDER */}
 				<TouchableOpacity onPress={handleUnitPress}>
-
 					<View
 						style={[
 							s.container, //styles applied to all units
@@ -134,7 +140,7 @@ class Folder extends Component {
 								</View>
 							}
 							<MenuDivider />
-							<MenuItem onPress={this.hideMenu}>More info...</MenuItem>
+							<MenuItem onPress={() => this.handleOpenModal('moreInfo')}>More info...</MenuItem>
 							<MenuDivider />
 							<MenuItem onPress={this.hideMenu}>Close</MenuItem>
 						</Menu>
@@ -150,43 +156,43 @@ class Folder extends Component {
 				>
 					<View style={s.modalContainerInner}>
 						{unitType === UnitType.File ?
-							<Text style={s.modalHeader}>Rename clip:</Text>
+							<Text style={s.modalHeader}>Rename Clip</Text>
 								:
-							<Text style={s.modalHeader}>Rename folder:</Text>
+							<Text style={s.modalHeader}>Rename Folder</Text>
 						}
-						<TextInput
-							style={s.modalInput}
-							onChangeText={(newTitle) =>
-								this.setState({
-									title: newTitle
-								})
-							}
-							defaultValue={text !== 'New Folder' ? text : ''}
-							autoFocus={true}
-							selectTextOnFocus={true}
-							keyboardAppearance={'dark'}
-							maxLength={30}
-							underlineColorAndroid='transparent'
-						/>
+						<View style={s.textInputUnderline}>
+							<TextInput
+								style={s.modalInput}
+								onChangeText={(newTitle) =>
+									this.setState({
+										title: newTitle
+									})
+								}
+								defaultValue={text !== 'New Folder' ? text : ''}
+								autoFocus={true}
+								selectTextOnFocus={true}
+								keyboardAppearance={'dark'}
+								maxLength={30}
+								underlineColorAndroid='transparent'
+							/>
+						</View>
 
 						<View style={s.modalOptions}>
-							<TouchableHighlight
+							<TouchableOpacity
 								onPress={() => {
 									this.handleCloseModal('renaming');
 								}}
-								style={s.modalOption}
 							>
-								<Text>CANCEL</Text>
-							</TouchableHighlight>
+								<Text style={[s.modalOption, s.cancelOption]}>CANCEL</Text>
+							</TouchableOpacity>
 
-							<TouchableHighlight
+							<TouchableOpacity
 								onPress={() => {
 									this.handleRename(id, unitType)}
 								}
-								style={[s.modalOption, s.renameOption]}
 							>
-								<Text style={{color: 'white'}}>RENAME</Text>
-							</TouchableHighlight>
+								<Text style={[s.modalOption, s.confirmOption]}>RENAME</Text>
+							</TouchableOpacity>
 						</View>
 
 					</View>
@@ -194,38 +200,92 @@ class Folder extends Component {
 
 				{/* DELETE CONFIRMATION MODAL */}
 				<Modal
-					animationType="slide"
-					transparent={true}
-					visible={deleteConfirmation}
-					onRequestClose={() => {
-						Alert.alert('Modal has been closed.');
-					}}
+					onBackdropPress={() => this.setState({ deleteConfirmation: false })}
+					isVisible={deleteConfirmation}
+					style={s.modalContainer}
+					avoidKeyboard={true}
 				>
-					<KeyboardAvoidingView style={s.modalMask} behavior="padding">
-						<View style={s.modalContainer}>
-							<Text>Are you sure you want to delete {text}?</Text>
-							<View style={s.modalOptions}>
-								<TouchableHighlight
-									onPress={() => {
-										this.handleCloseModal('deleteConfirmation');
-									}}
-									style={s.modalOption}
-									>
-									<Text>CANCEL</Text>
-								</TouchableHighlight>
+					<View style={s.modalContainerInner}>
+						{unitType === UnitType.File ?
+							<Text style={[s.modalHeader, { fontSize: 20 }]}>Are you sure you want to delete this clip?</Text>
+							:
+							<Text style={[s.modalHeader, { fontSize: 20 }]}>Are you sure you want to delete this folder?</Text>
+						}
+						<Text style={s.breadCrumb}>{text}</Text>
+						<View style={s.modalOptions}>
+							<TouchableOpacity
+								onPress={() => {
+									this.handleCloseModal('deleteConfirmation');
+								}}
+							>
+								<Text style={[s.modalOption, s.cancelOption]}>CANCEL</Text>
+							</TouchableOpacity>
 
-								<TouchableHighlight
-									onPress={() => {
-										this.handleDelete(id, unitType)
-									}}
-									style={[s.modalOption, s.renameOption]}
-									>
-									<Text style={{ color: 'white' }}>CONFIRM</Text>
-								</TouchableHighlight>
-							</View>
-							<Text>This action is not reversible</Text>
+							<TouchableOpacity
+								onPress={() => {
+									this.handleDelete(id, unitType)
+								}}
+							>
+								<Text style={[s.modalOption, s.confirmOption]}>CONFIRM</Text>
+							</TouchableOpacity>
 						</View>
-					</KeyboardAvoidingView>
+					</View>
+				</Modal>
+
+				{/* MORE INFO MODAL */}
+				<Modal
+					onBackdropPress={() => this.setState({ moreInfo: false })}
+					isVisible={moreInfo}
+					style={s.modalContainer}
+					avoidKeyboard={true}
+				>
+					<View style={[s.modalContainerInner, s.detailsModalContainerInner]}>
+						<Text style={s.modalHeader}>{text}</Text>
+						<View style={s.details}>
+							<View style={s.lineItem}>
+								<Text style={s.lineTitle}>Full Path</Text>
+								<Text style={s.lineInfo}>Home > Chimera > Guitar Parts > Electric > solo.mp3</Text>
+							</View>
+							<View style={s.lineItem}>
+								<Text style={s.lineTitle}>Date Created</Text>
+								<Text style={s.lineInfo}>October 22, 2018</Text>
+							</View>
+							{unitType === UnitType.Folder &&
+								<View style={s.lineItem}>
+									<Text style={s.lineTitle}>Number of Children</Text>
+									<Text style={s.lineInfo}>{this.getNumChildren(id)}</Text>
+								</View>
+							}
+							{unitType === UnitType.File &&
+								<View>
+									<View style={s.lineItem}>
+										<Text style={s.lineTitle}>Duration</Text>
+										<Text style={s.lineInfo}>1:22</Text>
+									</View>
+									<View style={s.lineItem}>
+										<Text style={s.lineTitle}>File Type</Text>
+										<Text style={s.lineInfo}>{unitType}</Text>
+									</View>
+								</View>
+							}
+							<View style={s.lineItem}>
+								<Text style={s.lineTitle}>Size</Text>
+								<Text style={s.lineInfo}>2.43mb</Text>
+							</View>
+
+						</View>
+						<View style={s.modalOptions}>
+							<TouchableOpacity
+								onPress={() => {
+									this.handleCloseModal('moreInfo');
+								}}
+								style={s.modalOptions}
+							>
+								<Text style={[s.modalOption, s.cancelOption]}>CLOSE</Text>
+							</TouchableOpacity>
+						</View>
+
+					</View>
 				</Modal>
 			</View>
 		);

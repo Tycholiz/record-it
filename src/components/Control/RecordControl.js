@@ -21,6 +21,7 @@ class RecordControl extends Component {
 						<Image source={require('../../../assets/images/cross.png')} style={{ width: 40, height: 40 }} />
 					</TouchableOpacity>
 				}
+
 				<TouchableOpacity style={s.icon} onPress={this.props.startRecording}>
 					{this.props.recording ?
 						<Image source={require('../../../assets/images/pause.png')} style={{ width: 80, height: 80 }} />

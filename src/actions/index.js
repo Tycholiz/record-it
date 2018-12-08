@@ -79,21 +79,6 @@ export const renameUnit = (unitId, unitType, newTitle) => ({
 	}
 });
 
-export const multipleMode = (mode) => ({
-	type: MULTIPLE_MODE,
-	payload: {
-		mode
-	}
-});
-
-export const modifySelectedUnit = (modification, unitId) => ({
-	type: MODIFY_SELECTED_UNIT,
-	payload: {
-		modification,
-		unitId
-	}
-});
-
 export const moveUnits = (unitIds, currentFolder) => ({
 	type: MOVE_UNITS,
 	payload: {
@@ -106,5 +91,20 @@ export const deleteUnits = (unitIds) => ({
 	type: DELETE_UNITS,
 	payload: {
 		unitIds,
+	}
+});
+
+export const multipleMode = (mode) => ({
+	type: MULTIPLE_MODE,
+	payload: {
+		mode
+	}
+});
+
+export const modifySelectedUnit = (modification, unitId) => ({
+	type: MODIFY_SELECTED_UNIT,
+	payload: {
+		modification,
+		unitId
 	}
 });

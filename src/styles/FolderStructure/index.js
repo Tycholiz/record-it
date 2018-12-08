@@ -12,6 +12,30 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-evenly',
 		flexWrap: 'wrap',
 	},
+	navButtonWrapper: {
+		flexDirection: 'row',
+		marginVertical: 3,
+		height: 40,
+	},
+	navButton: {
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		margin: 4,
+		borderRadius: 5,
+		backgroundColor: colors.darkgrey,
+	},
+	navButtonText: {
+		fontWeight: 'bold',
+		fontSize: 20
+	},
+	upOneLevel: {
+		color: colors.tertiaryColor
+	},
+	newFolder: {
+		color: colors.secondaryColor,
+	},
 	selectMultipleTopBar: {
 		position: 'absolute',
 		top: -125,
@@ -21,7 +45,7 @@ const styles = StyleSheet.create({
 		height: 80,
 		backgroundColor: colors.darkgrey
 	},
-	containerMoveAndDelete: {
+	containerMultipleButtonRow: {
 		flex: 1.5,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
