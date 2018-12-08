@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
 		// marginHorizontal: 40,
 		// justifyContent: 'center',
 		// alignItems: 'center',
-		borderRadius: 4,
+		// borderRadius: 4,
 		// flexDirection: 'column',
 		// flexWrap: 'wrap',
 		// flex: 1,
@@ -60,33 +60,52 @@ const styles = StyleSheet.create({
 	},
 	modalContainerInner: {
 		// flex: 1,
-		backgroundColor: 'white',
-		padding: 22,
+		backgroundColor: colors.darkgrey,
+		padding: 17,
 		justifyContent: 'center',
 		alignItems: 'center',
 		borderRadius: 4,
 		borderColor: 'rgba(0, 0, 0, 0.1)',
 		width: 330,
-		height: 150,
-		marginTop: 200,
+		height: 180,
+		marginTop: 180,
 	},
 	modalHeader: {
 		flex: 1,
-		fontSize: 25
+		fontSize: 25,
+		color: colors.white,
+		alignSelf: 'flex-start',
+		marginBottom: 10,
 	},
 	modalInput: {
 		flex: 1,
+		// fontSize: 16,
+		color: colors.white
+	},
+	textInputUnderline: {
+		flex: 1,
+		borderBottomColor: colors.white,
+		borderBottomWidth: StyleSheet.hairlineWidth,
+		width: '100%',
 	},
 	modalOptions: {
 		flex: 1,
 		flexDirection: 'row',
 		justifyContent: 'flex-end',
+		alignSelf: 'flex-end',
+		marginTop: 10,
 	},
 	modalOption: {
+		fontSize: 22,
+		margin: 4,
 	},
 	renameOption: {
 		borderRadius: 4,
-		backgroundColor: 'red',
+		color: colors.secondaryColor,
+	},
+	cancelOption: {
+		borderRadius: 4,
+		color: colors.primaryColor,
 	},
 	icon: {
 		justifyContent: 'center',

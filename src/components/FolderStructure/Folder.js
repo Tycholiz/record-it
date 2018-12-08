@@ -150,43 +150,43 @@ class Folder extends Component {
 				>
 					<View style={s.modalContainerInner}>
 						{unitType === UnitType.File ?
-							<Text style={s.modalHeader}>Rename clip:</Text>
+							<Text style={s.modalHeader}>Rename Clip:</Text>
 								:
-							<Text style={s.modalHeader}>Rename folder:</Text>
+							<Text style={s.modalHeader}>Rename Folder:</Text>
 						}
-						<TextInput
-							style={s.modalInput}
-							onChangeText={(newTitle) =>
-								this.setState({
-									title: newTitle
-								})
-							}
-							defaultValue={text !== 'New Folder' ? text : ''}
-							autoFocus={true}
-							selectTextOnFocus={true}
-							keyboardAppearance={'dark'}
-							maxLength={30}
-							underlineColorAndroid='transparent'
-						/>
+						<View style={s.textInputUnderline}>
+							<TextInput
+								style={s.modalInput}
+								onChangeText={(newTitle) =>
+									this.setState({
+										title: newTitle
+									})
+								}
+								defaultValue={text !== 'New Folder' ? text : ''}
+								autoFocus={true}
+								selectTextOnFocus={true}
+								keyboardAppearance={'dark'}
+								maxLength={30}
+								underlineColorAndroid='transparent'
+							/>
+						</View>
 
 						<View style={s.modalOptions}>
-							<TouchableHighlight
+							<TouchableOpacity
 								onPress={() => {
 									this.handleCloseModal('renaming');
 								}}
-								style={s.modalOption}
 							>
-								<Text>CANCEL</Text>
-							</TouchableHighlight>
+								<Text style={[s.modalOption, s.cancelOption]}>CANCEL</Text>
+							</TouchableOpacity>
 
-							<TouchableHighlight
+							<TouchableOpacity
 								onPress={() => {
 									this.handleRename(id, unitType)}
 								}
-								style={[s.modalOption, s.renameOption]}
 							>
-								<Text style={{color: 'white'}}>RENAME</Text>
-							</TouchableHighlight>
+								<Text style={[s.modalOption, s.renameOption]}>RENAME</Text>
+							</TouchableOpacity>
 						</View>
 
 					</View>
@@ -209,7 +209,6 @@ class Folder extends Component {
 									onPress={() => {
 										this.handleCloseModal('deleteConfirmation');
 									}}
-									style={s.modalOption}
 									>
 									<Text>CANCEL</Text>
 								</TouchableHighlight>
@@ -218,7 +217,6 @@ class Folder extends Component {
 									onPress={() => {
 										this.handleDelete(id, unitType)
 									}}
-									style={[s.modalOption, s.renameOption]}
 									>
 									<Text style={{ color: 'white' }}>CONFIRM</Text>
 								</TouchableHighlight>
