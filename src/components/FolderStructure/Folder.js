@@ -3,18 +3,16 @@ import { connect } from 'react-redux';
 import {
 	Text,
 	TouchableOpacity,
-	TouchableHighlight,
 	View,
 	TextInput,
 	Image,
+	Dimensions,
 	Alert,
-	KeyboardAvoidingView,
-	Dimensions
 } from 'react-native';
 import s from '../../styles/FolderStructure/Folder'
 
 const screen = Dimensions.get('window');
-import { timeConverter, displayBreadCrumb } from '../../utils';
+import { timeConverter, displayBreadCrumb, duplicateTitles } from '../../utils';
 
 import { Mode, ControlView, UnitType, Modification } from '../../constants/enumerables';
 
@@ -69,11 +67,23 @@ class Folder extends Component {
 	};
 
 	handleRename = (unitId, unitType) => {
-		const { dispatch } = this.props;
+		const { dispatch, units, currentFolder } = this.props;
 		const { title } = this.state;
 
+		if (duplicateTitles(units, currentFolder, title, unitType)) {
+			Alert.alert(`Cannot rename ${unitType}: Name already exists`);
+			this.handleCloseModal('renaming');
+			return;
+		}
+
+		if (!title) {
+			Alert.alert(`${unitType} must have a title`);
+			return;
+		}
+
 		this.handleCloseModal('renaming');
-		title ? dispatch(renameUnit(unitId, unitType, title)) : null
+		// title ? dispatch(renameUnit(unitId, unitType, title)) : null
+		dispatch(renameUnit(unitId, unitType, title))
 	}
 
 	handleMoveUnit = (unitId) => {

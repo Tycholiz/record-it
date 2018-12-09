@@ -245,7 +245,6 @@ const units = (state = initialState, action) => produce(state, draft => {
 			case CREATE_FOLDER:
 				draft.folders[action.payload.id] = {
 					id: action.payload.id,
-					// title: "New Folder",
 					title: newFolderName(state, action.payload.parentId),
 					dateCreated: Date.now(),
 					parentId: (action.payload.parentId).toString(),
