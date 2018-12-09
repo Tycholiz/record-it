@@ -82,7 +82,6 @@ class Folder extends Component {
 		}
 
 		this.handleCloseModal('renaming');
-		// title ? dispatch(renameUnit(unitId, unitType, title)) : null
 		dispatch(renameUnit(unitId, unitType, title))
 	}
 

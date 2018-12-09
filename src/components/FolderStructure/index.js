@@ -118,6 +118,8 @@ class FolderStructure extends Component {
 	handleMoveUnits = () => {
 		const { dispatch, selectedUnits, currentFolder } = this.props;
 
+		console.log("hey brah")
+
 		dispatch(moveUnits(selectedUnits, currentFolder))
 		this.handleCancelMultipleSelection();
 	}
