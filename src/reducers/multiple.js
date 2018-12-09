@@ -6,8 +6,8 @@ import {
 import { Modification, Mode } from '../constants/enumerables';
 
 const initialState = {
-	mode: Mode.Action,
-	selectedUnits: ["2", "3", "14", "25", "959", "286", "287"],
+	mode: Mode.Normal,
+	selectedUnits: [],
 };
 
 const multipleReducer = (state = initialState, action) => {
