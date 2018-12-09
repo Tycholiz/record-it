@@ -144,7 +144,7 @@ class FolderStructure extends Component {
 		return unitsToDelete.map((title) => {
 			return (
 				<Text
-					key={title}
+					key={title} //this is a temporary solution that must be fixed by having getUnitsToDelete return the entire unit object, from which we can then extract the unit Id as well as the title. Right now, the fn simply returns an array with the titles...
 				>
 					{title}
 				</Text>
