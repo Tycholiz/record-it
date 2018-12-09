@@ -145,6 +145,7 @@ class FolderStructure extends Component {
 			return (
 				<Text
 					key={title} //this is a temporary solution that must be fixed by having getUnitsToDelete return the entire unit object, from which we can then extract the unit Id as well as the title. Right now, the fn simply returns an array with the titles...
+					style={s.unitToDelete}
 				>
 					{title}
 				</Text>
@@ -297,13 +298,22 @@ class FolderStructure extends Component {
 					<View style={s.modalContainerInner}>
 
 						<Text style={[s.modalHeader, { fontSize: 20 }]}>Are you sure you want to delete the following?</Text>
-						{/* <Text style={s.breadCrumb}>{text}</Text> */}
-						<View>
-							{this.listUnitsToDelete(UnitType.Folder)}
-						</View>
-						<View>
-							{this.listUnitsToDelete(UnitType.File)}
-						</View>
+						<ScrollView style={s.deleteListContainer}>
+							<View style={s.deleteListContainerInner}>
+								<View style={s.unitTypeListSection}>
+									<Text style={s.unitTypeTitle}>Folders</Text>
+									<View>
+										{this.listUnitsToDelete(UnitType.Folder)}
+									</View>
+								</View>
+								<View>
+									<Text style={s.unitTypeTitle}>Files</Text>
+									<View>
+										{this.listUnitsToDelete(UnitType.File)}
+									</View>
+								</View>
+							</View>
+						</ScrollView>
 						<View style={s.modalOptions}>
 							<TouchableOpacity
 								onPress={() => {
