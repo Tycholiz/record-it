@@ -140,14 +140,13 @@ class FolderStructure extends Component {
 
 	listUnitsToDelete = (unitType) => {
 		const unitsToDelete = getUnitsToDelete(this.props, this.props.selectedUnits, unitType);
-		console.log(unitsToDelete)
-		return unitsToDelete.map((title) => {
+		return unitsToDelete.map((obj) => {
 			return (
 				<Text
-					key={title} //this is a temporary solution that must be fixed by having getUnitsToDelete return the entire unit object, from which we can then extract the unit Id as well as the title. Right now, the fn simply returns an array with the titles...
+					key={obj.id}
 					style={s.unitToDelete}
 				>
-					{title}
+					{obj.title}
 				</Text>
 			)
 		})

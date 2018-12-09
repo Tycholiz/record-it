@@ -16,13 +16,13 @@ export const getChildrenOfFolder = (state, folderId) => {
 }
 
 export const getUnitsToDelete = (state, selectedUnits, unitType) => {
-	UnitType.Folder = 'folder'
+	// UnitType.Folder = 'folder'
 	unitType = unitType === UnitType.Folder ? 'folders' : 'files';
 	const namesOfUnitsToDelete = [];
 
 	for (let unit = 0; unit < selectedUnits.length; unit++) {
 		if (selectedUnits[unit] in state.units[unitType]) {
-			namesOfUnitsToDelete.push(state.units[unitType][selectedUnits[unit]].title)
+			namesOfUnitsToDelete.push(state.units[unitType][selectedUnits[unit]])
 		}
 	}
 	return namesOfUnitsToDelete;
