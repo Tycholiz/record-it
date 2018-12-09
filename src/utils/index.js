@@ -64,15 +64,15 @@ export const displayBreadCrumb = (state, truncate) => {
 	}
 }
 
-export const duplicateTitles = (destinationFolderId, incomingUnitTitle, unitType) => {
+export const duplicateTitles = (units, destinationFolderId, incomingUnitTitle, unitType) => {
 	unitType = unitType === UnitType.Folder ? 'folders' : 'files';
 
-	const allUnitIdsWithinFolder = Object.keys(state.units[unitType])
+	const allUnitIdsWithinFolder = Object.keys(units[unitType])
 	const particularUnitsInDestination = allUnitIdsWithinFolder
-		.filter(unitId => state.units[unitType][unitId].parentId === destinationFolderId)
+		.filter(unitId => units[unitType][unitId].parentId === destinationFolderId)
 
 		.map((id) => {
-			return state.units[unitType][id].title
+			return units[unitType][id].title
 		});
 
 	return particularUnitsInDestination.includes(incomingUnitTitle);

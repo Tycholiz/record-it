@@ -7,6 +7,8 @@ import {
 	MOVE_UNITS
 } from "../constants/action-types";
 
+import { duplicateTitles } from '../utils';
+
 import { UnitType } from '../constants/enumerables';
 
 const initialState = {
@@ -243,7 +245,8 @@ const units = (state = initialState, action) => produce(state, draft => {
 			case CREATE_FOLDER:
 				draft.folders[action.payload.id] = {
 					id: action.payload.id,
-					title: "New Folder",
+					// title: "New Folder",
+					title: newFolderName(state, action.payload.parentId),
 					dateCreated: Date.now(),
 					parentId: (action.payload.parentId).toString(),
 					unitType: UnitType.Folder
@@ -287,7 +290,19 @@ const units = (state = initialState, action) => produce(state, draft => {
 					});
 				};
 				break;
-
 		};
 })
+
+const newFolderName = (units, destinationFolderId) => {
+	let newTitleString = "New Folder";
+	let count = 1;
+	while (duplicateTitles(units, destinationFolderId, newTitleString, UnitType.Folder)) {
+		newTitleString = "New Folder"
+		count++;
+		newTitleString += '(' + count + ')';
+	}
+	return newTitleString;
+
+}
+
 export default units;
