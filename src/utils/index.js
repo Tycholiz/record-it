@@ -64,10 +64,24 @@ export const displayBreadCrumb = (state, truncate) => {
 	}
 }
 
-export const timeConverter = (unixtimestamp) => {
+export const duplicateTitles = (destinationFolderId, incomingUnitTitle, unitType) => {
+	unitType = unitType === UnitType.Folder ? 'folders' : 'files';
+
+	const allUnitIdsWithinFolder = Object.keys(state.units[unitType])
+	const particularUnitsInDestination = allUnitIdsWithinFolder
+		.filter(unitId => state.units[unitType][unitId].parentId === destinationFolderId)
+
+		.map((id) => {
+			return state.units[unitType][id].title
+		});
+
+	return particularUnitsInDestination.includes(incomingUnitTitle);
+}
+
+export const timeConverter = (timeStamp) => {
 	var months_arr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-	var date = new Date(unixtimestamp);
+	var date = new Date(timeStamp);
 	var year = date.getFullYear();
 	var month = months_arr[date.getMonth()];
 	var day = date.getDate();
