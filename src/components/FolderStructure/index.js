@@ -141,12 +141,13 @@ class FolderStructure extends Component {
 	listUnitsToDelete = (unitType) => {
 		const unitsToDelete = getUnitsToDelete(this.props, this.props.selectedUnits, unitType);
 		return unitsToDelete.map((obj) => {
+			const { id, title } = obj;
 			return (
 				<Text
-					key={obj.id}
+					key={id}
 					style={s.unitToDelete}
 				>
-					{obj.title}
+					{title}
 				</Text>
 			)
 		})
@@ -157,13 +158,14 @@ class FolderStructure extends Component {
 		const childrenOfCurrentFolder = getChildrenOfFolder(this.props, currentFolder);
 
 		return Object.keys(childrenOfCurrentFolder).map((obj) => {
-			const { title, unitType, id } = childrenOfCurrentFolder[obj];
+			const { title, unitType, id, dateCreated } = childrenOfCurrentFolder[obj];
 			return (
 				<Folder
 					key={id}
 					id={id}
 					text={title}
 					unitType={unitType}
+					dateCreated={dateCreated}
 					icon={unitType === UnitType.File ?
 						<Image source={require('../../../assets/images/audio.png')} style={[s.unitIcon, { height: 53}]} />
 							:

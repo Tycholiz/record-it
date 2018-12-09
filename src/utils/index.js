@@ -28,7 +28,7 @@ export const getUnitsToDelete = (state, selectedUnits, unitType) => {
 	return namesOfUnitsToDelete;
 }
 
-export const displayBreadCrumb = (state) => {
+export const displayBreadCrumb = (state, truncate) => {
 	let currentFolderId = state.currentFolder
 	const { folders } = state.units;
 
@@ -52,7 +52,8 @@ export const displayBreadCrumb = (state) => {
 		breadcrumbString += path[i]
 		if (i > 0) breadcrumbString += ' > '
 	}
-	if (breadcrumbString.length <= LENGTH_LIMIT) {
+
+	if (breadcrumbString.length <= LENGTH_LIMIT || !truncate) {
 		return breadcrumbString;
 	} else {
 		const START_POINT = breadcrumbString.length - LENGTH_LIMIT;
@@ -61,4 +62,19 @@ export const displayBreadCrumb = (state) => {
 
 		return `...${truncatedBreadcrumbString}`;
 	}
+}
+
+export const timeConverter = (unixtimestamp) => {
+	var months_arr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+	var date = new Date(unixtimestamp);
+	var year = date.getFullYear();
+	var month = months_arr[date.getMonth()];
+	var day = date.getDate();
+	var hours = date.getHours();
+	var minutes = "0" + date.getMinutes();
+	var seconds = "0" + date.getSeconds();
+
+	var timeString = month + ' ' + day + ', ' + year + ' (' + hours + ':' + minutes.substr(-2) + ')';
+	return timeString;
 }

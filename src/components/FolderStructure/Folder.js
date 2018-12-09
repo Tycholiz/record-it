@@ -14,13 +14,13 @@ import {
 import s from '../../styles/FolderStructure/Folder'
 
 const screen = Dimensions.get('window');
+import { timeConverter, displayBreadCrumb } from '../../utils';
 
 import { Mode, ControlView, UnitType, Modification } from '../../constants/enumerables';
 
 import { deleteUnit, renameUnit, multipleMode, modifySelectedUnit } from '../../actions';
 
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
-
 import Modal from "react-native-modal";
 
 class Folder extends Component {
@@ -91,7 +91,7 @@ class Folder extends Component {
 
 	render() {
 		const { renaming, deleteConfirmation, moreInfo } = this.state;
-		const { id, text, icon, handleUnitPress, unitType, selected, mode } = this.props;
+		const { id, text, icon, dateCreated, handleUnitPress, unitType, selected, mode } = this.props;
 
 
 		return (
@@ -244,11 +244,12 @@ class Folder extends Component {
 						<View style={s.details}>
 							<View style={s.lineItem}>
 								<Text style={s.lineTitle}>Full Path</Text>
-								<Text style={s.lineInfo}>Home > Chimera > Guitar Parts > Electric > solo.mp3</Text>
+								<Text style={s.lineInfo}>{displayBreadCrumb(this.props, false)} > {text}</Text>
 							</View>
 							<View style={s.lineItem}>
 								<Text style={s.lineTitle}>Date Created</Text>
-								<Text style={s.lineInfo}>October 22, 2018</Text>
+								{/* <Text style={s.lineInfo}>October 22, 2018</Text> */}
+								<Text style={s.lineInfo}>{timeConverter(dateCreated)}</Text>
 							</View>
 							{unitType === UnitType.Folder &&
 								<View style={s.lineItem}>
