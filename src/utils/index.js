@@ -16,7 +16,6 @@ export const getChildrenOfFolder = (state, folderId) => {
 }
 
 export const getUnitsToDelete = (state, selectedUnits, unitType) => {
-	// UnitType.Folder = 'folder'
 	unitType = unitType === UnitType.Folder ? 'folders' : 'files';
 	const namesOfUnitsToDelete = [];
 
@@ -78,6 +77,23 @@ export const duplicateTitles = (units, destinationFolderId, incomingUnitTitle, u
 	return particularUnitsInDestination.includes(incomingUnitTitle);
 }
 
+export const childrenOfParent = (state, folderId) => {
+	const { folders, files } = state.units;
+
+	const foldersWithinFolder = Object.keys(folders)
+		.map((folderId) => folders[folderId])
+		.filter((folder) => folder.parentId === folderId)
+		.map((obj) => obj.id)
+
+	const filesWithinFolder = Object.keys(files)
+		.map((fileId) => files[fileId])
+		.filter((file) => file.parentId === folderId)
+		.map((obj) => obj.id)
+
+	Array.prototype.push.apply(foldersWithinFolder, filesWithinFolder);
+	return foldersWithinFolder;
+}
+
 export const timeConverter = (timeStamp) => {
 	var months_arr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -87,7 +103,6 @@ export const timeConverter = (timeStamp) => {
 	var day = date.getDate();
 	var hours = date.getHours();
 	var minutes = "0" + date.getMinutes();
-	var seconds = "0" + date.getSeconds();
 
 	var timeString = month + ' ' + day + ', ' + year + ' (' + hours + ':' + minutes.substr(-2) + ')';
 	return timeString;

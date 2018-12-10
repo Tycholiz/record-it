@@ -27,21 +27,21 @@ const state = {
 				unitType: 'file',
 			},
 		},
-	},
-	folders: {
-		'22': {
-			id: '22',
-			title: 'Chimera',
-			dateCreated: 1502500102,
-			parentId: null,
-			unitType: 'folder',
-		},
-		'29': {
-			id: '29',
-			title: 'Complete songs',
-			dateCreated: 150237935,
-			parentId: '22',
-			unitType: 'folder',
-		},
+		folders: {
+			'22': {
+				id: '22',
+				title: 'Chimera',
+				dateCreated: 1502500102,
+				parentId: null,
+				unitType: 'folder',
+			},
+			'29': {
+				id: '29',
+				title: 'Complete songs',
+				dateCreated: 150237935,
+				parentId: '22',
+				unitType: 'folder',
+			},
+		}
 	}
 }

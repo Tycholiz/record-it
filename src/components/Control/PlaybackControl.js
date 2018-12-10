@@ -13,7 +13,7 @@ import s from '../../styles/Control/PlaybackControl';
 
 import { UnitType } from '../../constants/enumerables';
 
-import { startPlaying, deleteUnit, setActiveFile } from '../../actions/index'
+import { startPlaying, deleteUnit, setActiveFile, deleteUnits } from '../../actions/index'
 
 class PlaybackControl extends Component {
 	state = {
@@ -41,6 +41,7 @@ class PlaybackControl extends Component {
 
 		dispatch(setActiveFile(null));
 		dispatch(deleteUnit(unitId, UnitType.File));
+
 		this.handleCloseModal();
 	};
 

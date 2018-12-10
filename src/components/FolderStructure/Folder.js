@@ -12,11 +12,11 @@ import {
 import s from '../../styles/FolderStructure/Folder'
 
 const screen = Dimensions.get('window');
-import { timeConverter, displayBreadCrumb, duplicateTitles } from '../../utils';
+import { timeConverter, displayBreadCrumb, duplicateTitles, childrenOfParent } from '../../utils';
 
 import { Mode, ControlView, UnitType, Modification } from '../../constants/enumerables';
 
-import { deleteUnit, renameUnit, multipleMode, modifySelectedUnit } from '../../actions';
+import { deleteUnit, deleteUnits, renameUnit, multipleMode, modifySelectedUnit } from '../../actions';
 
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import Modal from "react-native-modal";
@@ -62,7 +62,10 @@ class Folder extends Component {
 	handleDelete = (unitId, unitType) => {
 		const { dispatch } = this.props;
 
+		const childrenToDelete = childrenOfParent(this.props, unitId);
+
 		dispatch(deleteUnit(unitId, unitType));
+		dispatch(deleteUnits(childrenToDelete));
 		this.handleCloseModal('deleteConfirmation');
 	};
 
@@ -218,7 +221,7 @@ class Folder extends Component {
 						{unitType === UnitType.File ?
 							<Text style={[s.modalHeader, { fontSize: 20 }]}>Are you sure you want to delete this clip?</Text>
 							:
-							<Text style={[s.modalHeader, { fontSize: 20 }]}>Are you sure you want to delete this folder?</Text>
+							<Text style={[s.modalHeader, { fontSize: 20 }]}>Are you sure you want to delete this folder and all of its contents?</Text>
 						}
 						<Text style={s.breadCrumb}>{text}</Text>
 						<View style={s.modalOptions}>

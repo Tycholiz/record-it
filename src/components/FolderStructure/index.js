@@ -23,7 +23,7 @@ import {
 	deleteUnits,
 } from '../../actions';
 
-import { getChildrenOfFolder, getUnitsToDelete } from '../../utils';
+import { getChildrenOfFolder, getUnitsToDelete, duplicateTitles } from '../../utils';
 import { Mode, Modification, UnitType } from '../../constants/enumerables';
 
 import Folder from './Folder';
@@ -116,9 +116,13 @@ class FolderStructure extends Component {
 	}
 
 	handleMoveUnits = () => {
-		const { dispatch, selectedUnits, currentFolder } = this.props;
+		const { dispatch, selectedUnits, currentFolder, units } = this.props;
 
-		console.log("hey brah")
+		if (duplicateTitles(units, currentFolder, title, unitType)) {
+			Alert.alert(`Cannot rename ${unitType}: Name already exists`);
+			this.handleCloseModal('renaming');
+			return;
+		}
 
 		dispatch(moveUnits(selectedUnits, currentFolder))
 		this.handleCancelMultipleSelection();
