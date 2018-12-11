@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
 	text: {
 		flex: 1,
 		marginLeft: 10,
+		fontFamily: 'ubuntu',
 	},
 	searchIcon: {
 		marginRight: 10,

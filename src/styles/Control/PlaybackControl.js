@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
 		marginTop: 5,
 		marginLeft: 15,
 		flex: 1,
-		color: colors.white
+		color: colors.white,
+		fontFamily: 'ubuntu'
 	},
 	iconContainer: {
 		flexDirection: 'row',

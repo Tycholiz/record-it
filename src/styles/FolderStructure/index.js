@@ -27,11 +27,11 @@ const styles = StyleSheet.create({
 		backgroundColor: colors.darkgrey,
 	},
 	navButtonText: {
-		fontWeight: 'bold',
-		fontSize: 20
+		fontSize: 20,
+		fontFamily: 'ubuntu-bold',
 	},
 	upOneLevel: {
-		color: colors.tertiaryColor
+		color: colors.tertiaryColor,
 	},
 	newFolder: {
 		color: colors.secondaryColor,

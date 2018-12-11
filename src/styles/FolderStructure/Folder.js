@@ -26,6 +26,10 @@ const styles = StyleSheet.create({
 		height: 100,
 		borderRadius: 38,
 	},
+	unitTitleText: {
+		textAlign: 'center',
+		fontFamily: 'ubuntu'
+	},
 	containerMultipleMode: {
 		borderWidth: 2,
 		borderColor: colors.white,
