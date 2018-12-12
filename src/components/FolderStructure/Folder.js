@@ -91,10 +91,35 @@ class Folder extends Component {
 	handleDelete = (unitId, unitType) => {
 		const { dispatch } = this.props;
 
-		const childrenToDelete = childrenOfParent(this.props, unitId);
+		const descendants = [unitId];
+		const getDescendantsOfFolder = (state, folderId) => {
+			const { folders, files } = state.units;
 
-		dispatch(deleteUnit(unitId, unitType));
-		dispatch(deleteUnits(childrenToDelete));
+			const foldersWithinFolder = Object.keys(folders)
+				.map((folderId) => folders[folderId])
+				.filter((folder) => folder.parentId === folderId)
+				.map((obj) => obj.id)
+
+			const filesWithinFolder = Object.keys(files)
+				.map((fileId) => files[fileId])
+				.filter((file) => file.parentId === folderId)
+				.map((obj) => obj.id)
+
+			Array.prototype.push.apply(foldersWithinFolder, filesWithinFolder);
+			descendants.push(foldersWithinFolder)
+
+			if (!foldersWithinFolder.length) {
+				return;
+			} else {
+				for (let id of foldersWithinFolder) {
+					getDescendantsOfFolder(state, id)
+				}
+			}
+		}
+		getDescendantsOfFolder(this.props, unitId)
+		const mergedDescendants = [].concat.apply([], descendants)
+
+		dispatch(deleteUnits(mergedDescendants));
 		this.handleCloseModal('deleteConfirmation');
 	};
 
