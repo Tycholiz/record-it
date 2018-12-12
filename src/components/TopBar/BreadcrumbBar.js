@@ -8,6 +8,8 @@ import {
 	TextInput,
 	Image,
 } from 'react-native';
+import Icon from '../../styles/Icon';
+import colors from '../../styles/colors';
 
 import Modal from "react-native-modal";
 import s from '../../styles/TopBar/BreadcrumbBar';
@@ -27,7 +29,7 @@ class BreadcrumbBar extends Component {
 				<TouchableOpacity style={s.container} onPress={() => this.setState({ modalOpen: true })}>
 					<Text style={s.text}>{displayBreadCrumb(state, true)}</Text>
 					<View style={s.searchIcon}>
-						<Image source={require('../../../assets/images/search.png')} style={{ width: 20, height: 20 }} />
+						<Icon name='search' size={22} color={colors.darkgrey} />
 					</View>
 				</TouchableOpacity>
 				{/* <Modal

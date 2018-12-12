@@ -122,7 +122,7 @@ class Folder extends Component {
 						]}
 					>
 						{icon}
-						<Text style={{textAlign: 'center'}}>
+						<Text style={s.unitTitleText}>
 							{text}
 						</Text>
 					</View>

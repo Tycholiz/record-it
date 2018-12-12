@@ -8,6 +8,8 @@ import {
 	Image,
 } from 'react-native';
 import Modal from "react-native-modal";
+import Icon from '../../styles/Icon';
+import colors from '../../styles/colors';
 
 import s from '../../styles/Control/PlaybackControl';
 
@@ -61,7 +63,7 @@ class PlaybackControl extends Component {
 							<Text style={s.text}>{title}.mp3</Text>
 							<View style={s.iconContainer}>
 								<TouchableOpacity onPress={() => this.handleOpenModal()}>
-									<Image source={require('../../../assets/images/garbage.png')} style={{ width: 20, height: 25, margin: 6 }} />
+										<Icon name='garbage' size={25} color={colors.white} />
 								</TouchableOpacity>
 							</View>
 						</View>
@@ -80,7 +82,7 @@ class PlaybackControl extends Component {
 
 						<View style={s.clipNavigation}>
 							<TouchableOpacity>
-								<Image source={require('../../../assets/images/fastbackward.png')} style={{ width: 55, height: 40 }} />
+								<Icon name='fastbackward' size={32} color={colors.white} />
 							</TouchableOpacity>
 							<TouchableOpacity onPress={() => this.handlePlayButton()}>
 								{playing ?
@@ -90,7 +92,7 @@ class PlaybackControl extends Component {
 								}
 							</TouchableOpacity>
 							<TouchableOpacity>
-								<Image source={require('../../../assets/images/fastforward.png')} style={{ width: 55, height: 40 }} />
+								<Icon name='fastforward' size={32} color={colors.white} />
 							</TouchableOpacity>
 						</View>
 

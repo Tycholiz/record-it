@@ -6,9 +6,10 @@ import {
 	View,
 	Image
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import Icon from '../../styles/Icon';
 
 import s from '../../styles/TopBar/Settings';
+import colors from '../../styles/colors';
 
 import { multipleMode } from '../../actions';
 import { Mode } from '../../constants/enumerables';
@@ -23,11 +24,15 @@ class Settings extends Component {
 	};
 
 	hideMenu = () => {
-		this._menu.hide();
+		requestAnimationFrame(() => {
+			this._menu.hide();
+		});
 	};
 
 	showMenu = () => {
-		this._menu.show();
+		requestAnimationFrame(() => {
+			this._menu.show();
+		});
 	};
 
 	handleSelectMultiple = () => {
@@ -39,11 +44,11 @@ class Settings extends Component {
 
 	render() {
 		return (
-			<TouchableOpacity style={s.settingsIcon} onPress={this.showMenu}>
-				<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+			<View style={s.settingsIcon}>
+				<TouchableOpacity onPress={this.showMenu} style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 					<Menu
 						ref={this.setMenuRef}
-						button={<Image source={require('../../../assets/images/hamburger.png')} style={{ width: 50, height: 40 }} />}
+						button={<Icon name='hamburger-spaced' size={40} color={colors.gray} />}
 					>
 						<MenuItem onPress={this.hideMenu}>Import</MenuItem>
 						<MenuDivider />
@@ -55,8 +60,8 @@ class Settings extends Component {
 						<MenuDivider />
 						<MenuItem onPress={this.hideMenu}>Close</MenuItem>
 					</Menu>
-				</View>
-			</TouchableOpacity>
+				</TouchableOpacity>
+			</View>
 		);
 	}
 }

@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 	},
 	clipNavigation: {
 		flexDirection: 'row',
-		justifyContent: 'space-around'
+		justifyContent: 'space-around',
 	},
 	modalContainer: {
 		flex: 0,

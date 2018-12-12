@@ -8,6 +8,8 @@ import {
 	Image,
 	Alert,
 } from 'react-native';
+import Icon from '../../styles/Icon';
+
 import Modal from "react-native-modal";
 
 import s from '../../styles/FolderStructure/index';
@@ -173,9 +175,9 @@ class FolderStructure extends Component {
 					unitType={unitType}
 					dateCreated={dateCreated}
 					icon={unitType === UnitType.File ?
-						<Image source={require('../../../assets/images/audio.png')} style={[s.unitIcon, { height: 53}]} />
+						<Icon name='audio' size={40} color={colors.primaryColor} />
 							:
-						<Image source={require('../../../assets/images/folder.png')} style={s.unitIcon} />
+						<Icon name='folder' size={40} color={colors.darkgrey} />
 					}
 					handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
 					selected={this.unitSelectedStatus(id)}
@@ -282,7 +284,7 @@ class FolderStructure extends Component {
 						}
 					>
 						<Text style={[s.navButtonText, s.upOneLevel]}>UP ONE LEVEL</Text>
-						<Image source={require('../../../assets/images/uponelevel.png')} style={{ width: 20, height: 20, marginHorizontal: 5 }} />
+						<Icon name='up-one-level' color={colors.white} size={15}></Icon>
 					</TouchableOpacity>
 
 					<TouchableOpacity style={s.navButton}
@@ -290,7 +292,7 @@ class FolderStructure extends Component {
 							this.handleNewFolder()
 						}
 					>
-						<Image source={require('../../../assets/images/add-folder.png')} style={{ width: 20, height: 15, marginHorizontal: 5 }} />
+						<Icon name='add-folder' color={color = colors.white} size={15}></Icon>
 						<Text style={[s.navButtonText, s.newFolder]}>NEW FOLDER</Text>
 					</TouchableOpacity>
 				</View>

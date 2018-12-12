@@ -7,6 +7,8 @@ import {
 	Image
 } from 'react-native';
 import s from '../../styles/Control/RecordControl';
+import Icon from '../../styles/Icon';
+import colors from '../../styles/colors';
 
 import { startRecording } from '../../actions/index'
 
@@ -18,7 +20,7 @@ class RecordControl extends Component {
 			<View style={s.container}>
 				{recording &&
 					<TouchableOpacity>
-						<Image source={require('../../../assets/images/cross.png')} style={{ width: 40, height: 40 }} />
+						<Icon name='cross' size={40} color={colors.white} />
 					</TouchableOpacity>
 				}
 
@@ -31,7 +33,7 @@ class RecordControl extends Component {
 				</TouchableOpacity>
 				{recording &&
 					<TouchableOpacity>
-						<Image source={require('../../../assets/images/checkmark.png')} style={{ width: 40, height: 40 }} />
+						<Icon name='checkmark' size={40} color={colors.white} />
 					</TouchableOpacity>
 				}
 			</View>
