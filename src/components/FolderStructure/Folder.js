@@ -59,15 +59,6 @@ class Folder extends Component {
 		});
 	}
 
-	handleDelete = (unitId, unitType) => {
-		const { dispatch } = this.props;
-
-		const childrenToDelete = childrenOfParent(this.props, unitId);
-
-		dispatch(deleteUnit(unitId, unitType));
-		dispatch(deleteUnits(childrenToDelete));
-		this.handleCloseModal('deleteConfirmation');
-	};
 
 	handleRename = (unitId, unitType) => {
 		const { dispatch, units, currentFolder } = this.props;
@@ -96,6 +87,16 @@ class Folder extends Component {
 		dispatch(multipleMode(Mode.ActionSingle));
 		dispatch(modifySelectedUnit(Add, unitId))
 	}
+
+	handleDelete = (unitId, unitType) => {
+		const { dispatch } = this.props;
+
+		const childrenToDelete = childrenOfParent(this.props, unitId);
+
+		dispatch(deleteUnit(unitId, unitType));
+		dispatch(deleteUnits(childrenToDelete));
+		this.handleCloseModal('deleteConfirmation');
+	};
 
 	getNumChildren = (id) => {
 		return 23;

@@ -133,10 +133,7 @@ class FolderStructure extends Component {
 	handleDeleteUnits = () => {
 		const { dispatch, selectedUnits } = this.props;
 
-		const childrenToDelete = getChildrenOfAllParents(this.props, selectedUnits);
-
 		dispatch(deleteUnits(selectedUnits))
-		dispatch(deleteUnits(childrenToDelete))
 		this.handleCloseModal();
 		this.handleCancelMultipleSelection();
 	}
