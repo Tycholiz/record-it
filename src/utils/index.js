@@ -94,6 +94,16 @@ export const childrenOfParent = (state, folderId) => {
 	return foldersWithinFolder;
 }
 
+export const getChildrenOfAllParents = (state, selectedUnits) => {
+	const childrenToDelete = [];
+
+	for (let parent of selectedUnits) {
+		let children = childrenOfParent(state, parent);
+		childrenToDelete.push.apply(childrenToDelete, children)
+	}
+	return childrenToDelete;
+}
+
 export const timeConverter = (timeStamp) => {
 	var months_arr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 

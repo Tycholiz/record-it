@@ -25,7 +25,7 @@ import {
 	deleteUnits,
 } from '../../actions';
 
-import { getChildrenOfFolder, getUnitsToDelete, duplicateTitles } from '../../utils';
+import { getChildrenOfFolder, getUnitsToDelete, duplicateTitles, getChildrenOfAllParents } from '../../utils';
 import { Mode, Modification, UnitType } from '../../constants/enumerables';
 
 import Folder from './Folder';
@@ -133,7 +133,10 @@ class FolderStructure extends Component {
 	handleDeleteUnits = () => {
 		const { dispatch, selectedUnits } = this.props;
 
+		const childrenToDelete = getChildrenOfAllParents(this.props, selectedUnits);
+
 		dispatch(deleteUnits(selectedUnits))
+		dispatch(deleteUnits(childrenToDelete))
 		this.handleCloseModal();
 		this.handleCancelMultipleSelection();
 	}

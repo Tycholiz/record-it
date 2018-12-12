@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import {
 	TouchableOpacity,
 	View,
-	Image
 } from 'react-native';
 import Icon from '../../styles/Icon';
 
@@ -68,7 +67,6 @@ class Settings extends Component {
 
 const mapStateToProps = state => {
 	return {
-		// optionsOpen: state.toggle.optionsOpen,
 	};
 }
 
