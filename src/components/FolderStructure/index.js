@@ -172,9 +172,7 @@ class FolderStructure extends Component {
 		for (let id of selectedUnits) {
 			getDescendantsOfFolder(this.props, id)
 		}
-
 		const mergedDescendants = [].concat.apply([], descendants)
-		console.log(mergedDescendants);
 
 		dispatch(deleteUnits(mergedDescendants))
 		this.handleCloseModal();

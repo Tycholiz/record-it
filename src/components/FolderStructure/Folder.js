@@ -286,7 +286,6 @@ class Folder extends Component {
 							</View>
 							<View style={s.lineItem}>
 								<Text style={s.lineTitle}>Date Created</Text>
-								{/* <Text style={s.lineInfo}>October 22, 2018</Text> */}
 								<Text style={s.lineInfo}>{timeConverter(dateCreated)}</Text>
 							</View>
 							{unitType === UnitType.Folder &&
