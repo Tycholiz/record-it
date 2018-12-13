@@ -16,7 +16,7 @@ import { timeConverter, displayBreadCrumb, duplicateTitles, childrenOfParent } f
 
 import { Mode, ControlView, UnitType, Modification } from '../../constants/enumerables';
 
-import { deleteUnit, deleteUnits, renameUnit, multipleMode, modifySelectedUnit } from '../../actions';
+import { deleteUnits, renameUnit, multipleMode, modifySelectedUnit } from '../../actions';
 
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import Modal from "react-native-modal";

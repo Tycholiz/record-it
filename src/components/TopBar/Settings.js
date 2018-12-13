@@ -47,7 +47,7 @@ class Settings extends Component {
 				<TouchableOpacity onPress={this.showMenu} style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 					<Menu
 						ref={this.setMenuRef}
-						button={<Icon name='hamburger-spaced' size={40} color={colors.gray} />}
+						button={<Icon name='hamburger-spaced' size={35} color={colors.gray} />}
 					>
 						<MenuItem onPress={this.hideMenu}>Import</MenuItem>
 						<MenuDivider />

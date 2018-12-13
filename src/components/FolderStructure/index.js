@@ -88,8 +88,10 @@ class FolderStructure extends Component {
 	handleGoUpOneLevel = (folderId) => {
 		const { dispatch, units, currentFolder } = this.props;
 
+		console.log("Hey")
+
 		const parentId = units.folders[folderId].parentId
-		if (parseInt(currentFolder)) dispatch(enterFolder(parentId));
+		if (currentFolder !== "0") dispatch(enterFolder(parentId));
 	}
 
 	handleNewFolder = () => {
