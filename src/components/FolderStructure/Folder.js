@@ -88,7 +88,7 @@ class Folder extends Component {
 		dispatch(modifySelectedUnit(Add, unitId))
 	}
 
-	handleDelete = (unitId, unitType) => {
+	handleDelete = (unitId) => {
 		const { dispatch } = this.props;
 
 		const descendants = [unitId];
@@ -261,7 +261,7 @@ class Folder extends Component {
 
 							<TouchableOpacity
 								onPress={() => {
-									this.handleDelete(id, unitType)
+									this.handleDelete(id)
 								}}
 							>
 								<Text style={[s.modalOption, s.confirmOption]}>CONFIRM</Text>

@@ -130,10 +130,51 @@ class FolderStructure extends Component {
 		this.handleCancelMultipleSelection();
 	}
 
+	// handleDeleteUnits = () => {
+	// 	const { dispatch, selectedUnits } = this.props;
+
+	// 	dispatch(deleteUnits(selectedUnits))
+	// 	this.handleCloseModal();
+	// 	this.handleCancelMultipleSelection();
+	// }
+
 	handleDeleteUnits = () => {
 		const { dispatch, selectedUnits } = this.props;
 
-		dispatch(deleteUnits(selectedUnits))
+		const descendants = [];
+		Array.prototype.push.apply(descendants, selectedUnits)
+		const getDescendantsOfFolder = (state, folderId) => {
+			const { folders, files } = state.units;
+
+			const foldersWithinFolder = Object.keys(folders)
+				.map((folderId) => folders[folderId])
+				.filter((folder) => folder.parentId === folderId)
+				.map((obj) => obj.id)
+
+			const filesWithinFolder = Object.keys(files)
+				.map((fileId) => files[fileId])
+				.filter((file) => file.parentId === folderId)
+				.map((obj) => obj.id)
+
+			Array.prototype.push.apply(foldersWithinFolder, filesWithinFolder);
+			descendants.push(foldersWithinFolder)
+
+			if (!foldersWithinFolder.length) {
+				return;
+			} else {
+				for (let id of foldersWithinFolder) {
+					getDescendantsOfFolder(state, id)
+				}
+			}
+		}
+		for (let id of selectedUnits) {
+			getDescendantsOfFolder(this.props, id)
+		}
+
+		const mergedDescendants = [].concat.apply([], descendants)
+		console.log(mergedDescendants);
+
+		dispatch(deleteUnits(mergedDescendants))
 		this.handleCloseModal();
 		this.handleCancelMultipleSelection();
 	}
