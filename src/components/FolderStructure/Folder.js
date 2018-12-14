@@ -302,7 +302,7 @@ class Folder extends Component {
 									</View>
 									<View style={s.lineItem}>
 										<Text style={s.lineTitle}>File Type</Text>
-										<Text style={s.lineInfo}>{unitType}</Text>
+										<Text style={s.lineInfo}>mp3</Text>
 									</View>
 								</View>
 							}
