@@ -24,3 +24,25 @@ export const ControlView = {
 	Playback: 'playback',
 }
 Object.freeze(ControlView)
+
+export const RecordStatus = {
+	NotStarted: 'NOT_STARTED',
+	NotRecording: 'NOT_RECORDING',
+	Paused: 'PAUSED',
+	Recording: 'RECORDING',
+	RecordingComplete: 'RECORDING_COMPLETE',
+	Buffering: 'BUFFERING',
+	Error: 'ERROR'
+}
+Object.freeze(RecordStatus)
+
+export const PlaybackStatus = {
+	NoFileAvailable: 'NO_FILE_AVAILABLE',
+	Loading: 'LOADING',
+	Playing: 'PLAYING',
+	Paused: 'PAUSED',
+	Stopped: 'STOPPED',
+	Buffering: 'BUFFERING',
+	Error: 'ERROR',
+
+}

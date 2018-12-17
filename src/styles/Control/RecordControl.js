@@ -32,6 +32,13 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		marginHorizontal: 60,
 	},
+	permissionWarning: {
+		color: colors.primaryColor,
+		marginHorizontal: 40,
+		marginTop: 30,
+		fontSize: 20,
+		textAlign: 'center',
+	}
 });
 
 export default styles;
