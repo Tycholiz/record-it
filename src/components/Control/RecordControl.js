@@ -19,25 +19,7 @@ import colors from '../../styles/colors';
 
 import { RecordStatus } from '../../constants/enumerables';
 
-const initialState = {
-	durationMillis: 0,
-	playbackMillis: 0,
-	positionMillis: 0,
-	recordingInformation: {},
-	recordingDuration: 0,
-	soundDuration: 0,
-	maxSliderValue: 0,
-	currentSliderValue: 0,
-	isRecording: false,
-	isPaused: false,
-	stoppedRecording: false,
-	finished: false,
 
-	recordStatus: RecordStatus.NotStarted,
-	havePermission: false,
-	soundFileInfo: 'make a recording to see its information',
-	debugStatements: 'debug info will appear here: '
-};
 
 class RecordControl extends Component {
 
