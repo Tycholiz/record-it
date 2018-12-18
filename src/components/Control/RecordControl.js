@@ -57,7 +57,7 @@ class RecordControl extends Component {
 	componentWillUnmount = () => {
 		this.setState({ ...initialState });
 		if (this.sound) {
-			this.sound.setOnPlaybackStatusUpdate(null);
+			this.sound.setOnPlaybackStatusUpdate(null)
 		}
 		if (this.recording) {
 			this.recording.setOnRecordingStatusUpdate(null);
