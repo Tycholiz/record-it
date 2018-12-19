@@ -13,266 +13,148 @@ import Expo, {
 	Font,
 	Permissions
 } from 'expo';
+import { AudioRecorder, AudioUtils } from 'react-native-audio';
+
 import s from '../../styles/Control/RecordControl';
 import Icon from '../../styles/Icon';
 import colors from '../../styles/colors';
 
 import { RecordStatus } from '../../constants/enumerables';
 
-
-
 class RecordControl extends Component {
 
-	constructor(props) {
-		super(props);
-		this.sound = null;
-		this.recording = null;
-		this.state = {
-			...initialState,
-		};
+	state = {
+		currentTime: 0.0,
+		recording: false,
+		paused: false,
+		stoppedRecording: false,
+		finished: false,
+		audioPath: AudioUtils.DocumentDirectoryPath + '/test.aac',
+		hasPermission: undefined,
+	};
+
+	prepareRecordingPath(audioPath) {
+		AudioRecorder.prepareRecordingAtPath(audioPath, {
+			SampleRate: 22050,
+			Channels: 1,
+			AudioQuality: "High",
+			AudioEncoding: "aac",
+			AudioEncodingBitRate: 32000
+		});
 	}
 
 	componentDidMount() {
-		this._askForPermissions();
+		AudioRecorder.requestAuthorization().then((isAuthorised) => {
+			this.setState({ hasPermission: isAuthorised });
+
+			if (!isAuthorised) return;
+
+			this.prepareRecordingPath(this.state.audioPath);
+
+			AudioRecorder.onProgress = (data) => {
+				this.setState({ currentTime: Math.floor(data.currentTime) });
+			};
+
+			AudioRecorder.onFinished = (data) => {
+				// Android callback comes in the form of a promise instead.
+				if (Platform.OS === 'ios') {
+					this._finishRecording(data.status === "OK", data.audioFileURL, data.audioFileSize);
+				}
+			};
+		});
 	}
 
-	componentWillUnmount = () => {
-		this.setState({ ...initialState });
-		if (this.sound) {
-			this.sound.setOnPlaybackStatusUpdate(null)
+	async _pause() {
+		if (!this.state.recording) {
+			console.warn('Can\'t pause, not recording!');
+			return;
 		}
-		if (this.recording) {
-			this.recording.setOnRecordingStatusUpdate(null);
+
+		try {
+			const filePath = await AudioRecorder.pauseRecording();
+			this.setState({ paused: true });
+		} catch (error) {
+			console.error(error);
 		}
-	};
+	}
 
-	addDebugStatement = (statement) => {
-		this.setState({
-			debugStatements: this.state.debugStatements.concat(`- ${statement}\n`)
-		});
-	};
-
-	_askForPermissions = async () => {
-		const response = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
-		this.setState({
-			havePermission: response.status === 'granted',
-		});
-	};
-
-	updateScreenForRecordingStatus = (status) => {
-		//
-		if (!status.isRecording) {
-			this.setState({
-				recordStatus: RecordStatus.NotRecording
-			});
-			this.addDebugStatement(`NOT_RECORDING: ${status.durationMillis}`);
-		} else if (status.isRecording) {
-			this.setState({
-				recordStatus: RecordStatus.NotRecording,
-				recordingDuration: status.durationMillis,
-				currentSliderValue: status.durationMillis
-			});
-			this.addDebugStatement(`RECORDING: ${status.durationMillis}`);
-		} else if (status.isDoneRecording) {
-			this.setState({
-				recordStatus: RecordStatus.RecordingComplete,
-				recordingDuration: status.durationMillis
-			});
-			this.addDebugStatement(`isDoneRecording: ${status.durationMillis}`);
-
-      /* if (!this.state.isLoading) {
-        this.stopRecordingAndEnablePlayback();
-      } */
+	async _resume() {
+		if (!this.state.paused) {
+			console.warn('Can\'t resume, not paused!');
+			return;
 		}
-	};
 
-	_beginRecording = async () => {
-		// check to see if there is already a sound object loaded and unload it
-		// if there is
-		if (this.sound !== null) {
-			try {
-				this.sound.setOnPlaybackStatusUpdate(null);
-				await this.sound.unloadAsync().then(() => {
-					this.addDebugStatement('******** sound unloaded ********');
-				});
-			} catch (error) {
-				this.addDebugStatement(`Error: unloadAsync ${error}`);
+		try {
+			await AudioRecorder.resumeRecording();
+			this.setState({ paused: false });
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	async _stop() {
+		if (!this.state.recording) {
+			console.warn('Can\'t stop, not recording!');
+			return;
+		}
+
+		this.setState({ stoppedRecording: true, recording: false, paused: false });
+
+		try {
+			const filePath = await AudioRecorder.stopRecording();
+
+			if (Platform.OS === 'android') {
+				this._finishRecording(true, filePath);
 			}
-			this.sound.setOnPlaybackStatusUpdate(null);
-			this.sound = null;
-		}
-
-		// check to see if there is already a recording object loaded and unload it
-		// if there is
-		try {
-			await Audio.setAudioModeAsync({
-				playsInSilentModeIOS: true,
-				allowsRecordingIOS: true,
-				interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-				shouldDuckAndroid: true,
-				interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-				playThroughEarpieceAndroid: false,
-			});
-			if (this.recording !== null) {
-				this.recording.setOnRecordingStatusUpdate(null);
-				this.recording = null;
-			}
+			return filePath;
 		} catch (error) {
-			this.addDebugStatement(`Error: setAudioModeAsync ${error}`);
-			console.log(`Error: setAudioModeAsync ${error}`)
-		}
-
-		const recording = new Audio.Recording();
-		try {
-			console.log("1")
-			await recording.prepareToRecordAsync(Expo.Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY);
-			console.log("2")
-
-			recording.setOnRecordingStatusUpdate(
-				this.updateScreenForRecordingStatus.bind(this)
-			);
-
-			console.log(recording.getStatusAsync())
-			await recording.startAsync();
-			console.log("4")
-
-			this.setState({
-				recordStatus: RecordStatus.Recording,
-				isRecording: true,
-				maxSliderValue: this.props.maxDurationMillis
-			});
-			this.recording = recording;
-			console.log("we are now recording")
-			// console.log(recording.getStatusAsync())
-		} catch (error) {
-			console.log(`Error: startAsync: ${error}`);
-			this.addDebugStatement(`Error: startAsync: ${error}`);
-			this.setState({ recordStatus: RecordStatus.Error });
+			console.error(error);
 		}
 	}
 
-	_pauseRecording = async () => {
+	async _record() {
+		if (this.state.recording) {
+			console.warn('Already recording!');
+			return;
+		}
+
+		if (!this.state.hasPermission) {
+			console.warn('Can\'t record, no permission granted!');
+			return;
+		}
+
+		if (this.state.stoppedRecording) {
+			this.prepareRecordingPath(this.state.audioPath);
+		}
+
+		this.setState({ recording: true, paused: false });
+
 		try {
-			await this.recording.pauseAsync();
-			this.setState({
-				recordStatus: RecordStatus.Paused
-			});
-		} catch(error) {
-			console.log(`Error: pauseAsync: ${error}`)
-			this.addDebugStatement(`Error: pauseAsync: ${error}`);
+			const filePath = await AudioRecorder.startRecording();
+		} catch (error) {
+			console.error(error);
 		}
 	}
 
-	_acceptRecording = async () => {
-		try {
-			await this.recording.stopAndUnloadAsync();
-			this.recording.setOnRecordingStatusUpdate(null);
-			this.addDebugStatement(' +++ unloading recording +++ ');
-			this.setState({
-				isRecording: false,
-				isPaused: false,
-				recordStatus: RecordStatus.RecordingComplete
-			});
-		} catch (error) {
-			this.addDebugStatement(`Error: stopAndUnloadAsync ${error}`);
-			this.setState({
-				recordStatus: RecordStatus.Error,
-			});
-		}
-
-		let info;
-		try {
-			info = await FileSystem.getInfoAsync(this.recording.getURI());
-			console.log(`FILE INFO: ${JSON.stringify(info)}`);
-		} catch (error) {
-			this.addDebugStatement(`Error: FileSystem.getInfoAsync ${error}`);
-			this.setState({
-				recordStatus: RecordStatus.Error
-			});
-		}
-
-		this.addDebugStatement(`FILE INFO: ${JSON.stringify(info)}`);
-
-		try {
-			await Audio.setAudioModeAsync({
-				allowsRecordingIOS: false,
-				interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-				playsInSilentModeIOS: true,
-				playsInSilentLockedModeIOS: true,
-				shouldDuckAndroid: true,
-				interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-			});
-			this.setState({
-				recordStatus: RecordStatus.RecordingComplete
-			});
-		} catch(error) {
-			this.addDebugStatement(`Error: Audio.setAudioModeAsync ${error}`);
-			this.setState({
-				recordStatus: RecordStatus.Error,
-			});
-		}
-
-		// now that recording is complete, create and load a new sound object
-    // to save to component state so that it can be played back later
-		try {
-			const { sound, status } = await this.recording.createNewLoadedSound(
-				null,
-				this.onPlaybackStatusUpdate
-			);
-
-			this.setState({
-				soundFileInfo: { ...info, durationMillis: status.durationMillis }
-			});
-
-			this.setState({
-				positionMillis: status.positionMillis,
-				durationMillis: status.durationMillis,
-				maxSliderValue: status.durationMillis,
-				currentSliderValue: 0
-			});
-
-			this.sound = sound;
-		} catch (error) {
-			this.addDebugStatement(`Error: createNewLoadedSound ${error}`);
-		}
-		this.setState({
-			recordStatus: RecordStatus.RecordingComplete
-		});
+	_finishRecording(didSucceed, filePath, fileSize) {
+		this.setState({ finished: didSucceed });
+		console.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath} and size of ${fileSize || 0} bytes`);
 	}
-
-	_cancelRecording = async () => {
-		try {
-			await this.recording.stopAndUnloadAsync();
-			this.recording.setOnRecordingStatusUpdate(null);
-			this.addDebugStatement(' +++ unloading recording +++ ');
-			this.setState({
-				isRecording: false,
-				isPaused: false,
-				recordStatus: RecordStatus.NotRecording
-			});
-		} catch (error) {
-			this.addDebugStatement(`Error: stopAndUnloadAsync ${error}`);
-			console.log(`Error: stopAndUnloadAsync ${error}`)
-			this.setState({
-				recordStatus: RecordStatus.Error,
-			});
-		}
-	}
-
 
 	handlePressRecord = () => {
-		const { isRecording } = this.state;
+		const { recording, paused } = this.state;
 
-		if (!isRecording) {
-			this._beginRecording();
-		} else if (isRecording) {
-			this.setState({ isPaused: true, isRecording: false });
-			this._pauseRecording();
+		if (!recording && !paused) {
+			this._record();
+		} else if (recording && !paused) {
+			this._pause();
+		} else if (recording && paused) {
+			this._resume();
 		}
 	}
 
 	handleAccept = () => {
-		this._acceptRecording();
+		this._stop();
 	}
 
 	handleCancel = () => {
