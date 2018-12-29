@@ -3,13 +3,11 @@ package com.empty-project-template;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.rnim.rn.audio.ReactNativeAudioPackage;
-import com.rnim.rn.audio.ReactNativeAudioPackage;
-import com.zmxv.RNSound.RNSoundPackage;
-import com.rnim.rn.audio.ReactNativeAudioPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.zmxv.RNSound.RNSoundPackage;
 import com.surajit.rnrg.RNRadialGradientPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
+import com.rnim.rn.audio.ReactNativeAudioPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -30,13 +28,11 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new ReactNativeAudioPackage(),
-            new ReactNativeAudioPackage(),
-            new RNSoundPackage(),
-            new ReactNativeAudioPackage(),
             new VectorIconsPackage(),
+            new RNSoundPackage(),
             new RNRadialGradientPackage(),
-            new LinearGradientPackage()
+            new LinearGradientPackage(),
+            new ReactNativeAudioPackage()
       );
     }
 
