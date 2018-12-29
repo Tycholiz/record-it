@@ -30,7 +30,9 @@ class Settings extends Component {
 
 	showMenu = () => {
 		requestAnimationFrame(() => {
+			console.log(`${Date.now()}`)
 			this._menu.show();
+			console.log(`${Date.now()}`)
 		});
 	};
 
