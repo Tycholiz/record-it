@@ -31,6 +31,7 @@ class RecordControl extends Component {
 						<Image source={require('../../../assets/images/microphone.png')} style={{ width: 80, height: 80 }} />
 					}
 				</TouchableOpacity>
+
 				{recording &&
 					<TouchableOpacity>
 						<Icon name='checkmark' size={40} color={colors.white} />
