@@ -3,6 +3,7 @@ package com.empty-project-template;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.BV.LinearGradient.LinearGradientPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.surajit.rnrg.RNRadialGradientPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new LinearGradientPackage(),
             new VectorIconsPackage(),
             new RNSoundPackage(),
             new RNRadialGradientPackage(),
