@@ -1,9 +1,9 @@
 {
-  "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://eg-btn.tycholiz.record-it.exp.direct",
-  "packagerNgrokUrl": "https://packager.eg-btn.tycholiz.record-it.exp.direct",
-  "ngrokPid": 5760,
-  "devToolsPort": 19002,
-  "packagerPort": 19001,
-  "packagerPid": 5702
+  "expoServerPort": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "devToolsPort": 19003,
+  "packagerPort": null,
+  "packagerPid": null
 }

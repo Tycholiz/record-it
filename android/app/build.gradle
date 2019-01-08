@@ -137,10 +137,10 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-vector-icons')
+    // compile project(':react-native-vector-icons')
     compile project(':react-native-sound')
     compile project(':react-native-radial-gradient')
-    compile project(':react-native-linear-gradient')
+    // compile project(':react-native-linear-gradient')
     compile project(':react-native-audio')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
@@ -152,4 +152,24 @@ dependencies {
 task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
+}
+
+//the code below is from a suggestion found by googling. feel free to delete/comment out
+subprojects {
+  project.configurations.all {
+      afterEvaluate {project ->
+        if (project.hasProperty("android")) {
+            android {
+                compileSdkVersion 26
+                buildToolsVersion '26.0.2'
+            }
+        }
+    }
+     resolutionStrategy.eachDependency { details ->
+        if (details.requested.group == 'com.android.support'
+              && !details.requested.name.contains('multidex') ) {
+           details.useVersion "26.0.2"
+        }
+     }
+  }
 }
