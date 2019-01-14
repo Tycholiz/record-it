@@ -7,14 +7,14 @@ import {
 	StatusBar,
 	Image
 } from 'react-native';
-import {
-	Constants,
-} from 'expo';
+
 import { Mode } from '../constants/enumerables';
 
 import TopBar from './TopBar';
 import FolderStructure from './FolderStructure';
 import Control from './Control';
+
+import RadialGradient from 'react-native-radial-gradient'
 
 class App extends Component {
 	render() {
@@ -46,11 +46,9 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps)(App);
 
-
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		marginTop: Constants.statusBarHeight,
-		// backgroundColor: '#666666'
+		marginTop: StatusBar.currentHeight
 	},
 });
