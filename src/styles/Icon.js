@@ -7,11 +7,12 @@
 
 import React, {Component} from 'react'
 import {View} from "react-native";
+import Entypo from 'react-native-vector-icons/Entypo'
 
 export default class Icon extends Component {
     render(){
         return(
-            <View style={{width: 20, height: 20, backgroundColor: 'yellow'}}/>
+            <View style={{marginTop: 15, width: 45, height: 35, backgroundColor: 'yellow'}}/>
         )
     }
 }
