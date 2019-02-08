@@ -7,9 +7,6 @@ import {
 	StatusBar,
 	Image
 } from 'react-native';
-import {
-	Constants,
-} from 'expo';
 import { Mode } from '../constants/enumerables';
 
 import TopBar from './TopBar';
@@ -50,7 +47,7 @@ export default connect(mapStateToProps)(App);
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		marginTop: Constants.statusBarHeight,
+		marginTop: 34, //todo: replace it with status bar height
 		// backgroundColor: '#666666'
 	},
 });
