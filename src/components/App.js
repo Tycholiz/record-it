@@ -5,9 +5,12 @@ import {
 	StyleSheet,
 	Platform,
 	StatusBar,
-	Image
 } from 'react-native';
+// import {
+// 	Constants,
+// } from 'expo';
 import { Mode } from '../constants/enumerables';
+import RadialGradient from 'react-native-radial-gradient';
 
 import TopBar from './TopBar';
 import FolderStructure from './FolderStructure';
@@ -18,10 +21,13 @@ class App extends Component {
 		const { mode } = this.props;
 		return (
 			<View style={styles.container}>
-				<Image
-					style={{flex: 1, position: 'absolute'}}
-					source={require('../../assets/images/background.png')}
-				/>
+				<RadialGradient
+					style={{ flex: 1 }}
+					colors={[
+						'hsla(0, 0%, 80%, 1)',
+						'hsla(0, 0%, 15%, 1)',
+					]}
+					radius={250}>
 					{Platform.OS === 'ios' &&
 						<StatusBar barStyle="default" />
 					}
@@ -30,6 +36,7 @@ class App extends Component {
 					{mode === Mode.Normal &&
 						<Control />
 					}
+				</RadialGradient>
 			</View>
 		);
 	}
@@ -47,7 +54,5 @@ export default connect(mapStateToProps)(App);
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		// marginTop: 34, //todo: replace it with status bar height
-		// backgroundColor: '#666666'
 	},
 });

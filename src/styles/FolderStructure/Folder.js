@@ -4,12 +4,13 @@ import colors from '../colors'
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: colors.unitColor,
 		alignItems: 'center',
 		justifyContent: 'flex-start',
 		margin: 6,
 		borderWidth: 2,
 		borderColor: colors.unitColor,
+		borderRadius: 30,
+		overflow: 'hidden'
 	},
 	navContainer: {
 		width: 140,

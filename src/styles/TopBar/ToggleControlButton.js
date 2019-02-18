@@ -19,14 +19,12 @@ const styles = StyleSheet.create({
 	controlViewButton: {
 		flexDirection: 'column',
 	},
-	toggleControlIndicator: {
-		backgroundColor: 'red',
-		height: 10,
-		width: '80%',
-	},
-	invisible: {
-		backgroundColor: 'transparent',
-	},
+	linearGradient: {
+		paddingLeft: 15,
+		paddingRight: 15,
+		borderRadius: 4,
+		height: 10
+	}
 });
 
 export default styles;

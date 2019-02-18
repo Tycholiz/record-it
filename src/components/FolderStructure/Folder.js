@@ -10,6 +10,7 @@ import {
 	Alert,
 } from 'react-native';
 import s from '../../styles/FolderStructure/Folder'
+import RadialGradient from 'react-native-radial-gradient';
 
 const screen = Dimensions.get('window');
 import { timeConverter, displayBreadCrumb, duplicateTitles, childrenOfParent } from '../../utils';
@@ -136,25 +137,34 @@ class Folder extends Component {
 			<View>
 
 				{/* USER FOLDER */}
-				<TouchableOpacity onPress={handleUnitPress}>
+				<TouchableOpacity onPress={handleUnitPress} onLongPress={this.showMenu}>
 					<View
-						style={[
-							s.container, //styles applied to all units
-							unitType === undefined && s.navContainer,
-							unitType === UnitType.File && s.fileContainer,
-							unitType === UnitType.Folder && s.folderContainer,
-							mode === Mode.Select && unitType ? s.containerMultipleMode : null,
-							selected && s.containerSelected
-						]}
+						style={{ overflow: 'hidden', borderRadius: 4 }}
 					>
-						{icon}
-						<Text style={s.unitTitleText}>
-							{text}
-						</Text>
+						<RadialGradient
+							style={[
+								s.container, //styles applied to all units
+								unitType === undefined && s.navContainer,
+								unitType === UnitType.File && s.fileContainer,
+								unitType === UnitType.Folder && s.folderContainer,
+								mode === Mode.Select && unitType ? s.containerMultipleMode : null,
+								selected && s.containerSelected
+							]}
+							colors={[
+								'hsla(0, 0%, 80%, 1)',
+								'hsla(0, 0%, 15%, 1)',
+							]}
+							radius={250}
+						>
+							{icon}
+							<Text style={s.unitTitleText}>
+								{text}
+							</Text>
+						</RadialGradient>
 					</View>
 				</TouchableOpacity>
 
-				{/* FOLDER OPTIONS **temporary** */}
+				{/*  FOLDER OPTIONS **temporary** */}
 				{unitType &&
 					<TouchableOpacity
 						style={s.folderOptionsContainer}
@@ -162,7 +172,7 @@ class Folder extends Component {
 					>
 						<Menu
 							ref={this.setMenuRef}
-							button={<Image source={require('../../../assets/images/settings.png')} style={ { height: 14, width: 14 } } />}
+							button={<Image source={require('../../../assets/images/settings.png')} style={{ height: 0, width: 0 }} />}
 						>
 							<MenuItem onPress={() => this.handleMoveUnit(id)}>Move</MenuItem>
 							<MenuDivider />
@@ -195,7 +205,7 @@ class Folder extends Component {
 					<View style={s.modalContainerInner}>
 						{unitType === UnitType.File ?
 							<Text style={s.modalHeader}>Rename Clip</Text>
-								:
+							:
 							<Text style={s.modalHeader}>Rename Folder</Text>
 						}
 						<View style={s.textInputUnderline}>
@@ -226,7 +236,8 @@ class Folder extends Component {
 
 							<TouchableOpacity
 								onPress={() => {
-									this.handleRename(id, unitType)}
+									this.handleRename(id, unitType)
+								}
 								}
 							>
 								<Text style={[s.modalOption, s.confirmOption]}>RENAME</Text>

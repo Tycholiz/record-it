@@ -20,7 +20,6 @@ class ToggleControlButton extends Component {
 		return (
 			<View
 				style={s.container}
-
 			>
 				<View
 					style={s.controlViewButton}
@@ -30,7 +29,13 @@ class ToggleControlButton extends Component {
 							Record
 						</Text>
 					</TouchableOpacity>
-					<View style={[s.toggleControlIndicator, controlView !== ControlView.Record && s.invisible]} />
+					{/* TODO: add some animation to toggle */}
+					<LinearGradient
+						start={{ x: 0, y: 0 }}
+						end={{ x: 1, y: 0 }}
+						colors={[controlView !== ControlView.Record ? 'transparent' : 'red', 'transparent']}
+						style={s.linearGradient}
+					/>
 				</View>
 				<View
 					style={s.controlViewButton}
@@ -40,7 +45,12 @@ class ToggleControlButton extends Component {
 							Playback
 						</Text>
 					</TouchableOpacity>
-					<View style={[s.toggleControlIndicator, controlView !== ControlView.Playback && s.invisible]} />
+					<LinearGradient
+						start={{ x: 0, y: 0 }}
+						end={{ x: 1, y: 0 }}
+						colors={[controlView !== ControlView.Playback ? 'transparent' : 'red', 'transparent']}
+						style={s.linearGradient}
+					/>
 				</View>
 			</View>
 		);

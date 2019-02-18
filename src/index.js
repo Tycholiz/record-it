@@ -7,6 +7,7 @@ import {
     YellowBox,
 } from 'react-native';
 // YellowBox.ignoreWarnings(['Remote debugger']);
+YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
 
 import { MenuProvider } from 'react-native-popup-menu';
 
