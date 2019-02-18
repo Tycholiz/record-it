@@ -14,7 +14,7 @@
 				"isMulticolor2": false,
 				"grid": 0,
 				"tags": [
-					"up-one-level"
+					"add-folder"
 				]
 			},
 			"attrs": [
@@ -23,7 +23,7 @@
 			"properties": {
 				"order": 69,
 				"id": 11,
-				"name": "up-one-level",
+				"name": "add-folder",
 				"prevSize": 32,
 				"code": 59648
 			},
@@ -44,7 +44,7 @@
 				"isMulticolor2": false,
 				"grid": 0,
 				"tags": [
-					"search"
+					"audio"
 				]
 			},
 			"attrs": [
@@ -53,7 +53,7 @@
 			"properties": {
 				"order": 70,
 				"id": 10,
-				"name": "search",
+				"name": "audio",
 				"prevSize": 32,
 				"code": 59649
 			},
@@ -76,7 +76,7 @@
 				"isMulticolor2": false,
 				"grid": 0,
 				"tags": [
-					"garbage"
+					"checkmark"
 				]
 			},
 			"attrs": [
@@ -86,7 +86,7 @@
 			"properties": {
 				"order": 71,
 				"id": 9,
-				"name": "garbage",
+				"name": "checkmark",
 				"prevSize": 32,
 				"code": 59650
 			},
@@ -107,7 +107,7 @@
 				"isMulticolor2": false,
 				"grid": 0,
 				"tags": [
-					"folder"
+					"cross"
 				]
 			},
 			"attrs": [
@@ -116,7 +116,7 @@
 			"properties": {
 				"order": 72,
 				"id": 8,
-				"name": "folder",
+				"name": "cross",
 				"prevSize": 32,
 				"code": 59651
 			},
@@ -137,7 +137,7 @@
 				"isMulticolor2": false,
 				"grid": 0,
 				"tags": [
-					"fastforward"
+					"fastbackward"
 				]
 			},
 			"attrs": [
@@ -146,7 +146,7 @@
 			"properties": {
 				"order": 73,
 				"id": 7,
-				"name": "fastforward",
+				"name": "fastbackward",
 				"prevSize": 32,
 				"code": 59652
 			},
@@ -167,7 +167,7 @@
 				"isMulticolor2": false,
 				"grid": 0,
 				"tags": [
-					"fastbackward"
+					"fastforward"
 				]
 			},
 			"attrs": [
@@ -176,7 +176,7 @@
 			"properties": {
 				"order": 74,
 				"id": 6,
-				"name": "fastbackward",
+				"name": "fastforward",
 				"prevSize": 32,
 				"code": 59653
 			},
@@ -197,7 +197,7 @@
 				"isMulticolor2": false,
 				"grid": 0,
 				"tags": [
-					"cross"
+					"folder"
 				]
 			},
 			"attrs": [
@@ -206,7 +206,7 @@
 			"properties": {
 				"order": 75,
 				"id": 5,
-				"name": "cross",
+				"name": "folder",
 				"prevSize": 32,
 				"code": 59654
 			},
@@ -227,7 +227,7 @@
 				"isMulticolor2": false,
 				"grid": 0,
 				"tags": [
-					"checkmark"
+					"garbage"
 				]
 			},
 			"attrs": [
@@ -236,43 +236,13 @@
 			"properties": {
 				"order": 76,
 				"id": 4,
-				"name": "checkmark",
+				"name": "garbage",
 				"prevSize": 32,
 				"code": 59655
 			},
 			"setIdx": 0,
 			"setId": 1,
 			"iconIdx": 7
-		},
-		{
-			"icon": {
-				"paths": [
-					"M721.001 0c-257.695 0.935-505.586 40.935-738.371 114.302l17.37-4.727v97.135c0 45.557 36.947 82.307 83.158 82.307h1275.464c46.159 0 83.388-36.718 83.388-82.307v-99.524c-215.629-67.91-463.663-107.093-720.957-107.186l-0.052-0zM83.303 367.483c-46.15 0-83.303 37.153-83.303 83.303v125.969c0 46.15 37.153 83.303 83.303 83.303h1275.395c46.15 0 83.303-37.153 83.303-83.303v-125.969c0-46.15-37.153-83.303-83.303-83.303zM83.389 734.983c-46.159 0-83.388 36.714-83.388 82.303v99.528c215.633 67.911 463.667 107.093 720.961 107.186l0.048 0c257.699-0.937 505.59-40.939 738.374-114.307l-17.373 4.728v-97.135c0-45.557-36.99-82.303-83.149-82.303z"
-				],
-				"attrs": [
-					{}
-				],
-				"width": 1442,
-				"isMulticolor": false,
-				"isMulticolor2": false,
-				"grid": 0,
-				"tags": [
-					"audio"
-				]
-			},
-			"attrs": [
-				{}
-			],
-			"properties": {
-				"order": 80,
-				"id": 3,
-				"name": "audio",
-				"prevSize": 32,
-				"code": 59656
-			},
-			"setIdx": 0,
-			"setId": 1,
-			"iconIdx": 8
 		},
 		{
 			"icon": {
@@ -291,7 +261,7 @@
 				"isMulticolor2": false,
 				"grid": 0,
 				"tags": [
-					"add-folder"
+					"hamburger"
 				]
 			},
 			"attrs": [
@@ -302,9 +272,10 @@
 			"properties": {
 				"order": 78,
 				"id": 2,
-				"name": "add-folder",
+				"name": "hamburger",
 				"prevSize": 32,
-				"code": 59657
+				"code": 59657,
+				"ligatures": ""
 			},
 			"setIdx": 0,
 			"setId": 1,
@@ -323,7 +294,7 @@
 				"isMulticolor2": false,
 				"grid": 0,
 				"tags": [
-					"hamburger"
+					"search"
 				]
 			},
 			"attrs": [
@@ -332,13 +303,13 @@
 			"properties": {
 				"order": 77,
 				"id": 1,
-				"name": "hamburger",
+				"name": "search",
 				"prevSize": 32,
 				"code": 59658
 			},
 			"setIdx": 0,
 			"setId": 1,
-			"iconIdx": 10
+			"iconIdx": 11
 		},
 		{
 			"icon": {
@@ -368,7 +339,7 @@
 			},
 			"setIdx": 0,
 			"setId": 1,
-			"iconIdx": 11
+			"iconIdx": 12
 		}
 	],
 	"height": 1024,
@@ -407,8 +378,9 @@
 			"margin": 16
 		},
 		"historySize": 50,
-		"showCodes": true,
+		"showCodes": false,
 		"gridSize": 16,
-		"showGrid": false
+		"showGrid": false,
+		"showLiga": true
 	}
 }

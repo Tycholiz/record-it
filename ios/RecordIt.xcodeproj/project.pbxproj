@@ -59,6 +59,15 @@
 		865C2A2EDD22414C964224C8 /* libSRSRadialGradien-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BDF26F84B6D4F6FA7A6B660 /* libSRSRadialGradien-tvOS.a */; };
 		C755C847A9544E2E88651067 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7693CE4F0CA417CA604DAB4 /* libBVLinearGradient.a */; };
 		5F0B546C4EC0460E9D145DD6 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F3D3D3FC9DD4CF19C0BAF06 /* icomoon.ttf */; };
+		0D55A3EACE6A4286B58FC821 /* SpaceMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1379B5FBC0148C0ACF75C97 /* SpaceMono-Regular.ttf */; };
+		D3FC5EE2045B4959B19D750E /* Ubuntu-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DFA567D553074C27AA4902CB /* Ubuntu-Bold.ttf */; };
+		BC586ADC4BAB4AAAA9D0489C /* Ubuntu-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E774CCA18E5F4F77A0B331CB /* Ubuntu-BoldItalic.ttf */; };
+		9F1128801B8F49BF932B3199 /* Ubuntu-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D1B28ADA73440D9D055060 /* Ubuntu-Italic.ttf */; };
+		8F9B5DFD10CB46CEB826E4C3 /* Ubuntu-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0CC89F8A45124A91930F9C42 /* Ubuntu-Light.ttf */; };
+		8FC7B4821ED74E7994CAB301 /* Ubuntu-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9B63AF9CBD449D08DDEE0C7 /* Ubuntu-LightItalic.ttf */; };
+		36AFEDBEE6E641BE97B407F9 /* Ubuntu-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C4D8712E1384B8AABC272AA /* Ubuntu-Medium.ttf */; };
+		3CBB88DEDE0047A0ABD80CAA /* Ubuntu-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F12851D6C834E45AA6B9EE4 /* Ubuntu-MediumItalic.ttf */; };
+		A93C1361D4A14666BB86DBFC /* Ubuntu-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4CEE4C329D86491786EC3CB0 /* Ubuntu-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -389,6 +398,15 @@
 		8370D2A623F840EFB17329A0 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; name = "BVLinearGradient.xcodeproj"; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		D7693CE4F0CA417CA604DAB4 /* libBVLinearGradient.a */ = {isa = PBXFileReference; name = "libBVLinearGradient.a"; path = "libBVLinearGradient.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		3F3D3D3FC9DD4CF19C0BAF06 /* icomoon.ttf */ = {isa = PBXFileReference; name = "icomoon.ttf"; path = "../resources/fonts/icomoon.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B1379B5FBC0148C0ACF75C97 /* SpaceMono-Regular.ttf */ = {isa = PBXFileReference; name = "SpaceMono-Regular.ttf"; path = "../assets/fonts/SpaceMono-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DFA567D553074C27AA4902CB /* Ubuntu-Bold.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Bold.ttf"; path = "../assets/fonts/Ubuntu-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E774CCA18E5F4F77A0B331CB /* Ubuntu-BoldItalic.ttf */ = {isa = PBXFileReference; name = "Ubuntu-BoldItalic.ttf"; path = "../assets/fonts/Ubuntu-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D0D1B28ADA73440D9D055060 /* Ubuntu-Italic.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Italic.ttf"; path = "../assets/fonts/Ubuntu-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0CC89F8A45124A91930F9C42 /* Ubuntu-Light.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Light.ttf"; path = "../assets/fonts/Ubuntu-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B9B63AF9CBD449D08DDEE0C7 /* Ubuntu-LightItalic.ttf */ = {isa = PBXFileReference; name = "Ubuntu-LightItalic.ttf"; path = "../assets/fonts/Ubuntu-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8C4D8712E1384B8AABC272AA /* Ubuntu-Medium.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Medium.ttf"; path = "../assets/fonts/Ubuntu-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2F12851D6C834E45AA6B9EE4 /* Ubuntu-MediumItalic.ttf */ = {isa = PBXFileReference; name = "Ubuntu-MediumItalic.ttf"; path = "../assets/fonts/Ubuntu-MediumItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4CEE4C329D86491786EC3CB0 /* Ubuntu-Regular.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Regular.ttf"; path = "../assets/fonts/Ubuntu-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -679,6 +697,15 @@
 				1C4D9B8448AE44B79E6DE8A0 /* SimpleLineIcons.ttf */,
 				831AD09E53D74B20B4CA64E9 /* Zocial.ttf */,
 				3F3D3D3FC9DD4CF19C0BAF06 /* icomoon.ttf */,
+				B1379B5FBC0148C0ACF75C97 /* SpaceMono-Regular.ttf */,
+				DFA567D553074C27AA4902CB /* Ubuntu-Bold.ttf */,
+				E774CCA18E5F4F77A0B331CB /* Ubuntu-BoldItalic.ttf */,
+				D0D1B28ADA73440D9D055060 /* Ubuntu-Italic.ttf */,
+				0CC89F8A45124A91930F9C42 /* Ubuntu-Light.ttf */,
+				B9B63AF9CBD449D08DDEE0C7 /* Ubuntu-LightItalic.ttf */,
+				8C4D8712E1384B8AABC272AA /* Ubuntu-Medium.ttf */,
+				2F12851D6C834E45AA6B9EE4 /* Ubuntu-MediumItalic.ttf */,
+				4CEE4C329D86491786EC3CB0 /* Ubuntu-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1147,6 +1174,15 @@
 				DA543A3F362B49A48893D21C /* SimpleLineIcons.ttf in Resources */,
 				05488EA912BA46869DAD3C07 /* Zocial.ttf in Resources */,
 				5F0B546C4EC0460E9D145DD6 /* icomoon.ttf in Resources */,
+				0D55A3EACE6A4286B58FC821 /* SpaceMono-Regular.ttf in Resources */,
+				D3FC5EE2045B4959B19D750E /* Ubuntu-Bold.ttf in Resources */,
+				BC586ADC4BAB4AAAA9D0489C /* Ubuntu-BoldItalic.ttf in Resources */,
+				9F1128801B8F49BF932B3199 /* Ubuntu-Italic.ttf in Resources */,
+				8F9B5DFD10CB46CEB826E4C3 /* Ubuntu-Light.ttf in Resources */,
+				8FC7B4821ED74E7994CAB301 /* Ubuntu-LightItalic.ttf in Resources */,
+				36AFEDBEE6E641BE97B407F9 /* Ubuntu-Medium.ttf in Resources */,
+				3CBB88DEDE0047A0ABD80CAA /* Ubuntu-MediumItalic.ttf in Resources */,
+				A93C1361D4A14666BB86DBFC /* Ubuntu-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

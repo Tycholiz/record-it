@@ -3,7 +3,8 @@
   "private": true,
   "rnpm": {
     "assets": [
-      "resources/fonts"
+      "resources/fonts",
+      "./assets/fonts"
     ]
   },
   "scripts": {
