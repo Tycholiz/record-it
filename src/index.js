@@ -38,7 +38,3 @@ export default class Root extends Component {
 		this.setState({ isLoadingComplete: true });
 	};
 }
-
-// if (__DEV__) {
-// 	console.ignoredYellowBox = ['Remote debugger'];
-// }

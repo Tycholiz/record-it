@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 		fontWeight: '300',
 		fontSize: 30,
 		color: 'white',
-		fontFamily: 'ubuntu'
+		fontFamily: 'Ubuntu-Regular'
 	},
 	controlViewButton: {
 		flexDirection: 'column',

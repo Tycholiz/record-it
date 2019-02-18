@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 	},
 	navButtonText: {
 		fontSize: 20,
-		fontFamily: 'ubuntu-bold',
+		fontFamily: 'Ubuntu-Bold',
 	},
 	upOneLevel: {
 		color: colors.tertiaryColor,

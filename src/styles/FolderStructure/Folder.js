@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 	},
 	unitTitleText: {
 		textAlign: 'center',
-		fontFamily: 'ubuntu'
+		fontFamily: 'Ubuntu-Regular'
 	},
 	containerMultipleMode: {
 		borderWidth: 2,
