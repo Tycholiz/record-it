@@ -5,7 +5,8 @@ import {
 	TouchableOpacity,
 	View,
 } from 'react-native';
-import Icon from '../../styles/Icon';
+// import Icon from '../../styles/Icon';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import s from '../../styles/TopBar/Settings';
 import colors from '../../styles/colors';
@@ -14,6 +15,10 @@ import { multipleMode } from '../../actions';
 import { Mode } from '../../constants/enumerables';
 
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+
+// import Icon from 'react-native-vector-icons/FontAwesome';
+
+const myIcon = <Icon name="rocket" size={30} color="#900" />;
 
 class Settings extends Component {
 	_menu = null;
@@ -47,7 +52,8 @@ class Settings extends Component {
 				<TouchableOpacity onPress={this.showMenu} style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 					<Menu
 						ref={this.setMenuRef}
-						button={<Icon name='hamburger-spaced' size={35} color={colors.gray} />}
+						// button={<Icon name='hamburger-spaced' size={35} color={colors.gray} />}
+						button={myIcon}
 					>
 						<MenuItem onPress={this.hideMenu}>Import</MenuItem>
 						<MenuDivider />

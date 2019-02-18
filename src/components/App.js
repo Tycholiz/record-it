@@ -47,7 +47,7 @@ export default connect(mapStateToProps)(App);
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		marginTop: 34, //todo: replace it with status bar height
+		// marginTop: 34, //todo: replace it with status bar height
 		// backgroundColor: '#666666'
 	},
 });
