@@ -46,8 +46,8 @@ class ToggleControlButton extends Component {
 						</Text>
 					</TouchableOpacity>
 					<LinearGradient
-						start={{ x: 0, y: 0 }}
-						end={{ x: 1, y: 0 }}
+						start={{ x: 1, y: 0 }}
+						end={{ x: 0, y: 0 }}
 						colors={[controlView !== ControlView.Playback ? 'transparent' : 'red', 'transparent']}
 						style={s.linearGradient}
 					/>
