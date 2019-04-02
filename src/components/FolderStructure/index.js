@@ -85,18 +85,6 @@ class FolderStructure extends Component {
 		}
 	}
 
-	handleGoUpOneLevel = (folderId) => {
-		const { dispatch, units, currentFolder } = this.props;
-
-		const parentId = units.folders[folderId].parentId
-		if (currentFolder !== "0") dispatch(enterFolder(parentId));
-	}
-
-	handleNewFolder = () => {
-		const { currentFolder, dispatch } = this.props;
-
-		dispatch(createFolder(currentFolder));
-	}
 
 	unitSelectedStatus = (unitId) => {
 		const { selectedUnits } = this.props;
@@ -131,69 +119,69 @@ class FolderStructure extends Component {
 	}
 
 	// handleDeleteUnits = () => {
-	// 	const { dispatch, selectedUnits } = this.props;
+		// 	const { dispatch, selectedUnits } = this.props;
 
-	// 	dispatch(deleteUnits(selectedUnits))
-	// 	this.handleCloseModal();
-	// 	this.handleCancelMultipleSelection();
-	// }
+		// 	dispatch(deleteUnits(selectedUnits))
+		// 	this.handleCloseModal();
+		// 	this.handleCancelMultipleSelection();
+		// }
 
-	handleDeleteUnits = () => {
-		const { dispatch, selectedUnits } = this.props;
+		handleDeleteUnits = () => {
+			const { dispatch, selectedUnits } = this.props;
 
-		const descendants = [];
-		Array.prototype.push.apply(descendants, selectedUnits)
-		const getDescendantsOfFolder = (state, folderId) => {
-			const { folders, files } = state.units;
+			const descendants = [];
+			Array.prototype.push.apply(descendants, selectedUnits)
+			const getDescendantsOfFolder = (state, folderId) => {
+				const { folders, files } = state.units;
 
-			const foldersWithinFolder = Object.keys(folders)
+				const foldersWithinFolder = Object.keys(folders)
 				.map((folderId) => folders[folderId])
 				.filter((folder) => folder.parentId === folderId)
 				.map((obj) => obj.id)
 
-			const filesWithinFolder = Object.keys(files)
+				const filesWithinFolder = Object.keys(files)
 				.map((fileId) => files[fileId])
 				.filter((file) => file.parentId === folderId)
 				.map((obj) => obj.id)
 
-			Array.prototype.push.apply(foldersWithinFolder, filesWithinFolder);
-			descendants.push(foldersWithinFolder)
+				Array.prototype.push.apply(foldersWithinFolder, filesWithinFolder);
+				descendants.push(foldersWithinFolder)
 
-			if (!foldersWithinFolder.length) {
-				return;
-			} else {
-				for (let id of foldersWithinFolder) {
-					getDescendantsOfFolder(state, id)
+				if (!foldersWithinFolder.length) {
+					return;
+				} else {
+					for (let id of foldersWithinFolder) {
+						getDescendantsOfFolder(state, id)
+					}
 				}
 			}
+			for (let id of selectedUnits) {
+				getDescendantsOfFolder(this.props, id)
+			}
+			const mergedDescendants = [].concat.apply([], descendants)
+
+			dispatch(deleteUnits(mergedDescendants))
+			this.handleCloseModal();
+			this.handleCancelMultipleSelection();
 		}
-		for (let id of selectedUnits) {
-			getDescendantsOfFolder(this.props, id)
+
+		handleCancelMultipleSelection = () => {
+			const { dispatch } = this.props;
+			const { Empty } = Modification;
+
+			dispatch(modifySelectedUnit(Empty))
+			dispatch(multipleMode(Mode.Normal));
 		}
-		const mergedDescendants = [].concat.apply([], descendants)
 
-		dispatch(deleteUnits(mergedDescendants))
-		this.handleCloseModal();
-		this.handleCancelMultipleSelection();
-	}
-
-	handleCancelMultipleSelection = () => {
-		const { dispatch } = this.props;
-		const { Empty } = Modification;
-
-		dispatch(modifySelectedUnit(Empty))
-		dispatch(multipleMode(Mode.Normal));
-	}
-
-	listUnitsToDelete = (unitType) => {
-		const unitsToDelete = getUnitsToDelete(this.props, this.props.selectedUnits, unitType);
-		return unitsToDelete.map((obj) => {
-			const { id, title } = obj;
-			return (
-				<Text
+		listUnitsToDelete = (unitType) => {
+			const unitsToDelete = getUnitsToDelete(this.props, this.props.selectedUnits, unitType);
+			return unitsToDelete.map((obj) => {
+				const { id, title } = obj;
+				return (
+					<Text
 					key={id}
 					style={s.unitToDelete}
-				>
+					>
 					{title}
 				</Text>
 			)
@@ -208,29 +196,41 @@ class FolderStructure extends Component {
 			const { title, unitType, id, dateCreated } = childrenOfCurrentFolder[obj];
 			return (
 				<Folder
-					key={id}
-					id={id}
-					text={title}
-					unitType={unitType}
-					dateCreated={dateCreated}
-					icon={unitType === UnitType.File ?
-						<Icon name='audio' size={40} color={colors.primaryColor} />
-							:
-						<Icon name='folder' size={40} color={colors.darkgrey} />
-					}
-					handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
-					selected={this.unitSelectedStatus(id)}
+				key={id}
+				id={id}
+				text={title}
+				unitType={unitType}
+				dateCreated={dateCreated}
+				icon={unitType === UnitType.File ?
+					<Icon name='audio' size={40} color={colors.primaryColor} />
+					:
+					<Icon name='folder' size={40} color={colors.darkgrey} />
+				}
+				handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
+				selected={this.unitSelectedStatus(id)}
 				/>
-			)
-		})
-	}
+				)
+			})
+		}
+		handleGoUpOneLevel = (folderId) => {
+			const { dispatch, units, currentFolder } = this.props;
 
-	render() {
-		const { currentFolder, mode } = this.props;
-		const { deleteConfirmation } = this.state;
+			const parentId = units.folders[folderId].parentId
+			if (currentFolder !== "0") dispatch(enterFolder(parentId));
+		}
 
-		return (
-			<View style={s.container}>
+		handleNewFolder = () => {
+			const { currentFolder, dispatch } = this.props;
+
+			dispatch(createFolder(currentFolder));
+		}
+
+		render() {
+			const { currentFolder, mode } = this.props;
+			const { deleteConfirmation } = this.state;
+
+			return (
+				<View style={s.container}>
 
 				{/* MODE SELECT */}
 				{mode === Mode.Select &&
