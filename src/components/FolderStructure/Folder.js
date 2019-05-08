@@ -61,70 +61,70 @@ class Folder extends Component {
 	}
 
 
-	handleRename = (unitId, unitType) => {
-		const { dispatch, units, currentFolder } = this.props;
-		const { title } = this.state;
+	// handleRename = (unitId, unitType) => {
+	// 	const { dispatch, units, currentFolder } = this.props;
+	// 	const { title } = this.state;
 
-		if (duplicateTitles(units, currentFolder, title, unitType)) {
-			Alert.alert(`Cannot rename ${unitType}: Name already exists`);
-			this.handleCloseModal('renaming');
-			return;
-		}
+	// 	if (duplicateTitles(units, currentFolder, title, unitType)) {
+	// 		Alert.alert(`Cannot rename ${unitType}: Name already exists`);
+	// 		this.handleCloseModal('renaming');
+	// 		return;
+	// 	}
 
-		if (!title) {
-			Alert.alert(`${unitType} must have a title`);
-			return;
-		}
+	// 	if (!title) {
+	// 		Alert.alert(`${unitType} must have a title`);
+	// 		return;
+	// 	}
 
-		this.handleCloseModal('renaming');
-		dispatch(renameUnit(unitId, unitType, title))
-	}
+	// 	this.handleCloseModal('renaming');
+	// 	dispatch(renameUnit(unitId, unitType, title))
+	// }
 
-	handleMoveUnit = (unitId) => {
-		const { dispatch } = this.props;
-		const { Add } = Modification;
+	// handleMoveUnit = (unitId) => {
+	// 	const { dispatch } = this.props;
+	// 	const { Add } = Modification;
 
-		this.hideMenu();
-		dispatch(multipleMode(Mode.ActionSingle));
-		dispatch(modifySelectedUnit(Add, unitId))
-	}
+	// 	this.hideMenu();
+	// 	dispatch(multipleMode(Mode.ActionSingle));
+	// 	dispatch(modifySelectedUnit(Add, unitId))
+	// }
 
-	handleDelete = (unitId) => {
-		const { dispatch } = this.props;
+	// handleDelete = (unitId) => {
+	// 	const { dispatch } = this.props;
 
-		const descendants = [unitId];
-		const getDescendantsOfFolder = (state, folderId) => {
-			const { folders, files } = state.units;
+	// 	const descendants = [unitId];
+	// 	const getDescendantsOfFolder = (state, folderId) => {
+	// 		const { folders, files } = state.units;
 
-			const foldersWithinFolder = Object.keys(folders)
-				.map((folderId) => folders[folderId])
-				.filter((folder) => folder.parentId === folderId)
-				.map((obj) => obj.id)
+	// 		const foldersWithinFolder = Object.keys(folders)
+	// 			.map((folderId) => folders[folderId])
+	// 			.filter((folder) => folder.parentId === folderId)
+	// 			.map((obj) => obj.id)
 
-			const filesWithinFolder = Object.keys(files)
-				.map((fileId) => files[fileId])
-				.filter((file) => file.parentId === folderId)
-				.map((obj) => obj.id)
+	// 		const filesWithinFolder = Object.keys(files)
+	// 			.map((fileId) => files[fileId])
+	// 			.filter((file) => file.parentId === folderId)
+	// 			.map((obj) => obj.id)
 
-			Array.prototype.push.apply(foldersWithinFolder, filesWithinFolder);
-			descendants.push(foldersWithinFolder)
+	// 		Array.prototype.push.apply(foldersWithinFolder, filesWithinFolder);
+	// 		descendants.push(foldersWithinFolder)
 
-			if (!foldersWithinFolder.length) {
-				return;
-			} else {
-				for (let id of foldersWithinFolder) {
-					getDescendantsOfFolder(state, id)
-				}
-			}
-		}
-		getDescendantsOfFolder(this.props, unitId)
-		const mergedDescendants = [].concat.apply([], descendants)
+	// 		if (!foldersWithinFolder.length) {
+	// 			return;
+	// 		} else {
+	// 			for (let id of foldersWithinFolder) {
+	// 				getDescendantsOfFolder(state, id)
+	// 			}
+	// 		}
+	// 	}
+	// 	getDescendantsOfFolder(this.props, unitId)
+	// 	const mergedDescendants = [].concat.apply([], descendants)
 
-		dispatch(deleteUnits(mergedDescendants));
-		this.handleCloseModal('deleteConfirmation');
-	};
+	// 	dispatch(deleteUnits(mergedDescendants));
+	// 	this.handleCloseModal('deleteConfirmation');
+	// };
 
-	getNumChildren = (id) => {
+	getNumChildren = () => {
 		return 23;
 	}
 
@@ -165,7 +165,7 @@ class Folder extends Component {
 				</TouchableOpacity>
 
 				{/*  FOLDER OPTIONS **temporary** */}
-				{unitType &&
+				{/* {unitType &&
 					<TouchableOpacity
 						style={s.folderOptionsContainer}
 						onPress={this.showMenu}
@@ -193,7 +193,7 @@ class Folder extends Component {
 							<MenuItem onPress={this.hideMenu}>Close</MenuItem>
 						</Menu>
 					</TouchableOpacity>
-				}
+				} */}
 
 				{/* RENAME MODAL */}
 				<Modal
@@ -234,14 +234,13 @@ class Folder extends Component {
 								<Text style={[s.modalOption, s.cancelOption]}>CANCEL</Text>
 							</TouchableOpacity>
 
-							<TouchableOpacity
+							{/* <TouchableOpacity
 								onPress={() => {
 									this.handleRename(id, unitType)
-								}
-								}
+								}}
 							>
 								<Text style={[s.modalOption, s.confirmOption]}>RENAME</Text>
-							</TouchableOpacity>
+							</TouchableOpacity> */}
 						</View>
 
 					</View>
@@ -270,13 +269,13 @@ class Folder extends Component {
 								<Text style={[s.modalOption, s.cancelOption]}>CANCEL</Text>
 							</TouchableOpacity>
 
-							<TouchableOpacity
+							{/* <TouchableOpacity
 								onPress={() => {
 									this.handleDelete(id)
 								}}
 							>
 								<Text style={[s.modalOption, s.confirmOption]}>CONFIRM</Text>
-							</TouchableOpacity>
+							</TouchableOpacity> */}
 						</View>
 					</View>
 				</Modal>
@@ -293,7 +292,7 @@ class Folder extends Component {
 						<View style={s.details}>
 							<View style={s.lineItem}>
 								<Text style={s.lineTitle}>Full Path</Text>
-								<Text style={s.lineInfo}>{displayBreadCrumb(this.props, false)} > {text}</Text>
+								{/* <Text style={s.lineInfo}>{displayBreadCrumb(this.props, false)} > {text}</Text> */}
 							</View>
 							<View style={s.lineItem}>
 								<Text style={s.lineTitle}>Date Created</Text>
@@ -302,7 +301,7 @@ class Folder extends Component {
 							{unitType === UnitType.Folder &&
 								<View style={s.lineItem}>
 									<Text style={s.lineTitle}>Number of Children</Text>
-									<Text style={s.lineInfo}>{this.getNumChildren(id)}</Text>
+									<Text style={s.lineInfo}>{this.getNumChildren()}</Text>
 								</View>
 							}
 							{unitType === UnitType.File &&
@@ -343,7 +342,7 @@ class Folder extends Component {
 
 const mapStateToProps = state => {
 	return {
-		currentFolder: state.currentFolder,
+		currentRelativePath: state.currentRelativePath,
 		units: state.units,
 		mode: state.multiple.mode
 	};

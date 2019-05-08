@@ -107,125 +107,68 @@ class FolderStructure extends Component {
 		}
 	}
 
-	// handleMoveUnits = () => {
-	// 	const { dispatch, selectedUnits, currentFolder, units } = this.props;
-
-	// 	if (duplicateTitles(units, currentFolder, title, unitType)) {
-	// 		Alert.alert(`Cannot rename ${unitType}: Name already exists`);
-	// 		this.handleCloseModal('renaming');
-	// 		return;
-	// 	}
-
-	// 	dispatch(moveUnits(selectedUnits, currentFolder))
-	// 	this.handleCancelMultipleSelection();
-	// }
-
-	// handleDeleteUnits = () => {
-		// 	const { dispatch, selectedUnits } = this.props;
-
-		// 	dispatch(deleteUnits(selectedUnits))
-		// 	this.handleCloseModal();
-		// 	this.handleCancelMultipleSelection();
-		// }
-
-	// 	handleDeleteUnits = () => {
-	// 		const { dispatch, selectedUnits } = this.props;
-
-	// 		const descendants = [];
-	// 		Array.prototype.push.apply(descendants, selectedUnits)
-	// 		const getDescendantsOfFolder = (state, folderId) => {
-	// 			const { folders, files } = state.units;
-
-	// 			const foldersWithinFolder = Object.keys(folders)
-	// 			.map((folderId) => folders[folderId])
-	// 			.filter((folder) => folder.parentId === folderId)
-	// 			.map((obj) => obj.id)
-
-	// 			const filesWithinFolder = Object.keys(files)
-	// 			.map((fileId) => files[fileId])
-	// 			.filter((file) => file.parentId === folderId)
-	// 			.map((obj) => obj.id)
-
-	// 			Array.prototype.push.apply(foldersWithinFolder, filesWithinFolder);
-	// 			descendants.push(foldersWithinFolder)
-
-	// 			if (!foldersWithinFolder.length) {
-	// 				return;
-	// 			} else {
-	// 				for (let id of foldersWithinFolder) {
-	// 					getDescendantsOfFolder(state, id)
-	// 				}
-	// 			}
-	// 		}
-	// 		for (let id of selectedUnits) {
-	// 			getDescendantsOfFolder(this.props, id)
-	// 		}
-	// 		const mergedDescendants = [].concat.apply([], descendants)
-
-	// 		dispatch(deleteUnits(mergedDescendants))
-	// 		this.handleCloseModal();
-	// 		this.handleCancelMultipleSelection();
-	// 	}
-
-	// 	handleCancelMultipleSelection = () => {
-	// 		const { dispatch } = this.props;
-	// 		const { Empty } = Modification;
-
-	// 		dispatch(modifySelectedUnit(Empty))
-	// 		dispatch(multipleMode(Mode.Normal));
-	// 	}
-
-	// 	listUnitsToDelete = (unitType) => {
-	// 		const unitsToDelete = getUnitsToDelete(this.props, this.props.selectedUnits, unitType);
-	// 		return unitsToDelete.map((obj) => {
-	// 			const { id, title } = obj;
-	// 			return (
-	// 				<Text
-	// 				key={id}
-	// 				style={s.unitToDelete}
-	// 				>
-	// 				{title}
-	// 			</Text>
-	// 		)
-	// 	})
-	// }
-
 	// TODO: Implement renderFolder
-	renderFolder = (name, isDirectory, dateCreated) => {
-		console.log('name', name)
-		return (
-			<Folder
-				text={name}
-				unitType={isDirectory() === true ? UnitType.Folder : UnitType.File}
-				dateCreated={dateCreated}
-				icon={isDirectory() === false ?
-					<Icon name='audio' size={40} color={colors.primaryColor} />
-					:
-					<Icon name='folder' size={40} color={colors.darkgrey} />
-				}
-				handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
-				// selected={this.unitSelectedStatus(id)}
-				selected={false}
-			/>
-		)
+	renderFolder = () => {
+		const { currentRelativePath } = this.props;
+		this.readDirectory(currentRelativePath).then(units => {
+			units.forEach(unit => {
+				return (
+					<Folder
+						text="kyle"
+						unitType={UnitType.Folder}
+						dateCreated={"jan"}
+						icon={
+							<Icon name='audio' size={40} color={colors.primaryColor} />
+						}
+						handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
+						// selected={this.unitSelectedStatus(id)}
+						selected={false}
+					/>
+				)
+			})
+		})
+		// return (
+		// 	<Folder
+		// 		text="kyle"
+		// 		unitType={UnitType.Folder}
+		// 		dateCreated={"jan"}
+		// 		icon={
+		// 			<Icon name='audio' size={40} color={colors.primaryColor} />
+		// 		}
+		// 		handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
+		// 		// selected={this.unitSelectedStatus(id)}
+		// 		selected={false}
+		// 	/>
+
+			// <Folder
+			// 	text={name}
+			// 	unitType={isDirectory() === true ? UnitType.Folder : UnitType.File}
+			// 	dateCreated={dateCreated}
+			// 	icon={isDirectory() === false ?
+			// 		<Icon name='audio' size={40} color={colors.primaryColor} />
+			// 		:
+			// 		<Icon name='folder' size={40} color={colors.darkgrey} />
+			// 	}
+			// 	handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
+			// 	// selected={this.unitSelectedStatus(id)}
+			// 	selected={false}
+			// />
+		// )
 	}
 
 	// TODO: Implement readDir
 	readDirectory = (currentRelativePath) => {
 
 		const pathToRead = `${RNFS.DocumentDirectoryPath}${currentRelativePath}`
-		RNFS.readDir(pathToRead)
-			.then(result => {
-				result.forEach(unit => {
-					const { name, isDirectory, mtime } = unit;
-
-					this.renderFolder(name, isDirectory, mtime)
-				})
+		var promise = RNFS.readDir(pathToRead)
+			.then(units => {
+					// const { name, isDirectory, mtime } = unit;
+				return units
 			})
 			.catch(err => {
-				console.log('error!!!');
-				console.err(err)
+				console.log("error!:", err)
 			})
+			return promise
 	}
 
 	// TODO: Implement mkdir
@@ -234,11 +177,9 @@ class FolderStructure extends Component {
 
 		const { currentRelativePath } = this.props;
 		const absolutePath = `${RNFS.DocumentDirectoryPath}${currentRelativePath}/New Folder`
-		console.log(currentRelativePath)
 		RNFS.mkdir(absolutePath)
 			.then(() => {
 				console.log("new directory created!")
-				this.readDirectory(currentRelativePath)
 			})
 			.catch(err => {
 				console.log(err)
@@ -269,22 +210,6 @@ class FolderStructure extends Component {
 	// 		)
 	// 	})
 	// }
-
-
-	// handleGoUpOneLevel = (folderId) => {
-	// 	const { dispatch, units, currentFolder } = this.props;
-
-	// 	const parentId = units.folders[folderId].parentId
-	// 	if (currentFolder !== "0") dispatch(enterFolder(parentId));
-	// }
-
-	// handleNewFolder = () => {
-	// 	const { currentFolder, dispatch } = this.props;
-
-	// 	dispatch(createFolder(currentFolder));
-	// }
-
-
 
 		render() {
 			const { currentRelativePath, mode } = this.props;
@@ -372,9 +297,8 @@ class FolderStructure extends Component {
 				{/* USER FOLDERS */}
 				<ScrollView style={s.container}>
 					<View style={s.innerContainer}>
-						{/* {this.renderFolders()} */}
 						{/* //TODO: IMPLEMENT */}
-						{this.readDirectory(currentRelativePath)}
+						{this.renderFolder()}
 					</View>
 				</ScrollView>
 
