@@ -15,6 +15,8 @@ import Modal from "react-native-modal";
 import s from '../../styles/FolderStructure/index';
 import colors from '../../styles/colors';
 
+import RNFS from 'react-native-fs'
+
 import {
 	enterFolder,
 	setActiveFile,
@@ -188,6 +190,34 @@ class FolderStructure extends Component {
 		})
 	}
 
+	// TODO: Implement readDir
+	readDirectory = () => {
+		const pathToRead = RNFS.DocumentDirectoryPath
+		RNFS.readDir(pathToRead)
+			.then(result => {
+				result.forEach(unit => {
+					console.log(unit.name)
+				})
+			})
+			.catch(err => {
+				console.err(err)
+			})
+	}
+
+	// TODO: Implement mkdir
+	makeDirectory = () => {
+		/* documentDirectoryPath = /data/user/0/com.recordit */
+		const absolutePath = RNFS.DocumentDirectoryPath + "/"
+		RNFS.mkdir(absolutePath)
+			.then(() => {
+				console.log("new directory created!")
+				this.readDirectory()
+			})
+			.catch(err => {
+				console.log(err)
+			})
+	}
+
 	renderFolders = () => {
 		const { currentFolder, mode } = this.props;
 		const childrenOfCurrentFolder = getChildrenOfFolder(this.props, currentFolder);
@@ -209,21 +239,23 @@ class FolderStructure extends Component {
 				handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
 				selected={this.unitSelectedStatus(id)}
 				/>
-				)
-			})
-		}
-		handleGoUpOneLevel = (folderId) => {
-			const { dispatch, units, currentFolder } = this.props;
+			)
+		})
+	}
+	handleGoUpOneLevel = (folderId) => {
+		const { dispatch, units, currentFolder } = this.props;
 
-			const parentId = units.folders[folderId].parentId
-			if (currentFolder !== "0") dispatch(enterFolder(parentId));
-		}
+		const parentId = units.folders[folderId].parentId
+		if (currentFolder !== "0") dispatch(enterFolder(parentId));
+	}
 
-		handleNewFolder = () => {
-			const { currentFolder, dispatch } = this.props;
+	handleNewFolder = () => {
+		const { currentFolder, dispatch } = this.props;
 
-			dispatch(createFolder(currentFolder));
-		}
+		dispatch(createFolder(currentFolder));
+	}
+
+
 
 		render() {
 			const { currentFolder, mode } = this.props;
@@ -328,7 +360,8 @@ class FolderStructure extends Component {
 
 					<TouchableOpacity style={s.navButton}
 						onPress={() =>
-							this.handleNewFolder()
+							// this.handleNewFolder()
+							this.makeDirectory()
 						}
 					>
 						<Icon name='add-folder' color={color = colors.white} size={15}></Icon>
