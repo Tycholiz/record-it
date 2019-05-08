@@ -1,6 +1,6 @@
 const state = {
 	activeFile: '223',
-	currentFolder: '1',
+	currentRelativePath: '/home',
 	selectMultiple: [],
 	toggle: {
 		controlView: 'playback',

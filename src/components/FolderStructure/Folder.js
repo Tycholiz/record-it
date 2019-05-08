@@ -130,7 +130,7 @@ class Folder extends Component {
 
 	render() {
 		const { renaming, deleteConfirmation, moreInfo } = this.state;
-		const { id, text, icon, dateCreated, handleUnitPress, unitType, selected, mode } = this.props;
+		const { text, icon, dateCreated, handleUnitPress, unitType, selected, mode } = this.props;
 
 
 		return (

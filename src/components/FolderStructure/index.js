@@ -107,18 +107,18 @@ class FolderStructure extends Component {
 		}
 	}
 
-	handleMoveUnits = () => {
-		const { dispatch, selectedUnits, currentFolder, units } = this.props;
+	// handleMoveUnits = () => {
+	// 	const { dispatch, selectedUnits, currentFolder, units } = this.props;
 
-		if (duplicateTitles(units, currentFolder, title, unitType)) {
-			Alert.alert(`Cannot rename ${unitType}: Name already exists`);
-			this.handleCloseModal('renaming');
-			return;
-		}
+	// 	if (duplicateTitles(units, currentFolder, title, unitType)) {
+	// 		Alert.alert(`Cannot rename ${unitType}: Name already exists`);
+	// 		this.handleCloseModal('renaming');
+	// 		return;
+	// 	}
 
-		dispatch(moveUnits(selectedUnits, currentFolder))
-		this.handleCancelMultipleSelection();
-	}
+	// 	dispatch(moveUnits(selectedUnits, currentFolder))
+	// 	this.handleCancelMultipleSelection();
+	// }
 
 	// handleDeleteUnits = () => {
 		// 	const { dispatch, selectedUnits } = this.props;
@@ -128,78 +128,102 @@ class FolderStructure extends Component {
 		// 	this.handleCancelMultipleSelection();
 		// }
 
-		handleDeleteUnits = () => {
-			const { dispatch, selectedUnits } = this.props;
+	// 	handleDeleteUnits = () => {
+	// 		const { dispatch, selectedUnits } = this.props;
 
-			const descendants = [];
-			Array.prototype.push.apply(descendants, selectedUnits)
-			const getDescendantsOfFolder = (state, folderId) => {
-				const { folders, files } = state.units;
+	// 		const descendants = [];
+	// 		Array.prototype.push.apply(descendants, selectedUnits)
+	// 		const getDescendantsOfFolder = (state, folderId) => {
+	// 			const { folders, files } = state.units;
 
-				const foldersWithinFolder = Object.keys(folders)
-				.map((folderId) => folders[folderId])
-				.filter((folder) => folder.parentId === folderId)
-				.map((obj) => obj.id)
+	// 			const foldersWithinFolder = Object.keys(folders)
+	// 			.map((folderId) => folders[folderId])
+	// 			.filter((folder) => folder.parentId === folderId)
+	// 			.map((obj) => obj.id)
 
-				const filesWithinFolder = Object.keys(files)
-				.map((fileId) => files[fileId])
-				.filter((file) => file.parentId === folderId)
-				.map((obj) => obj.id)
+	// 			const filesWithinFolder = Object.keys(files)
+	// 			.map((fileId) => files[fileId])
+	// 			.filter((file) => file.parentId === folderId)
+	// 			.map((obj) => obj.id)
 
-				Array.prototype.push.apply(foldersWithinFolder, filesWithinFolder);
-				descendants.push(foldersWithinFolder)
+	// 			Array.prototype.push.apply(foldersWithinFolder, filesWithinFolder);
+	// 			descendants.push(foldersWithinFolder)
 
-				if (!foldersWithinFolder.length) {
-					return;
-				} else {
-					for (let id of foldersWithinFolder) {
-						getDescendantsOfFolder(state, id)
-					}
+	// 			if (!foldersWithinFolder.length) {
+	// 				return;
+	// 			} else {
+	// 				for (let id of foldersWithinFolder) {
+	// 					getDescendantsOfFolder(state, id)
+	// 				}
+	// 			}
+	// 		}
+	// 		for (let id of selectedUnits) {
+	// 			getDescendantsOfFolder(this.props, id)
+	// 		}
+	// 		const mergedDescendants = [].concat.apply([], descendants)
+
+	// 		dispatch(deleteUnits(mergedDescendants))
+	// 		this.handleCloseModal();
+	// 		this.handleCancelMultipleSelection();
+	// 	}
+
+	// 	handleCancelMultipleSelection = () => {
+	// 		const { dispatch } = this.props;
+	// 		const { Empty } = Modification;
+
+	// 		dispatch(modifySelectedUnit(Empty))
+	// 		dispatch(multipleMode(Mode.Normal));
+	// 	}
+
+	// 	listUnitsToDelete = (unitType) => {
+	// 		const unitsToDelete = getUnitsToDelete(this.props, this.props.selectedUnits, unitType);
+	// 		return unitsToDelete.map((obj) => {
+	// 			const { id, title } = obj;
+	// 			return (
+	// 				<Text
+	// 				key={id}
+	// 				style={s.unitToDelete}
+	// 				>
+	// 				{title}
+	// 			</Text>
+	// 		)
+	// 	})
+	// }
+
+	// TODO: Implement renderFolder
+	renderFolder = (name, isDirectory, dateCreated) => {
+		console.log('name', name)
+		return (
+			<Folder
+				text={name}
+				unitType={isDirectory() === true ? UnitType.Folder : UnitType.File}
+				dateCreated={dateCreated}
+				icon={isDirectory() === false ?
+					<Icon name='audio' size={40} color={colors.primaryColor} />
+					:
+					<Icon name='folder' size={40} color={colors.darkgrey} />
 				}
-			}
-			for (let id of selectedUnits) {
-				getDescendantsOfFolder(this.props, id)
-			}
-			const mergedDescendants = [].concat.apply([], descendants)
-
-			dispatch(deleteUnits(mergedDescendants))
-			this.handleCloseModal();
-			this.handleCancelMultipleSelection();
-		}
-
-		handleCancelMultipleSelection = () => {
-			const { dispatch } = this.props;
-			const { Empty } = Modification;
-
-			dispatch(modifySelectedUnit(Empty))
-			dispatch(multipleMode(Mode.Normal));
-		}
-
-		listUnitsToDelete = (unitType) => {
-			const unitsToDelete = getUnitsToDelete(this.props, this.props.selectedUnits, unitType);
-			return unitsToDelete.map((obj) => {
-				const { id, title } = obj;
-				return (
-					<Text
-					key={id}
-					style={s.unitToDelete}
-					>
-					{title}
-				</Text>
-			)
-		})
+				handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
+				// selected={this.unitSelectedStatus(id)}
+				selected={false}
+			/>
+		)
 	}
 
 	// TODO: Implement readDir
-	readDirectory = () => {
-		const pathToRead = RNFS.DocumentDirectoryPath
+	readDirectory = (currentRelativePath) => {
+
+		const pathToRead = `${RNFS.DocumentDirectoryPath}${currentRelativePath}`
 		RNFS.readDir(pathToRead)
 			.then(result => {
 				result.forEach(unit => {
-					console.log(unit.name)
+					const { name, isDirectory, mtime } = unit;
+
+					this.renderFolder(name, isDirectory, mtime)
 				})
 			})
 			.catch(err => {
+				console.log('error!!!');
 				console.err(err)
 			})
 	}
@@ -207,59 +231,63 @@ class FolderStructure extends Component {
 	// TODO: Implement mkdir
 	makeDirectory = () => {
 		/* documentDirectoryPath = /data/user/0/com.recordit/files */
-		const { currentFolder } = this.props;
-		const absolutePath = `${RNFS.DocumentDirectoryPath}/${currentFolder}`
+
+		const { currentRelativePath } = this.props;
+		const absolutePath = `${RNFS.DocumentDirectoryPath}${currentRelativePath}/New Folder`
+		console.log(currentRelativePath)
 		RNFS.mkdir(absolutePath)
 			.then(() => {
 				console.log("new directory created!")
-				this.readDirectory()
+				this.readDirectory(currentRelativePath)
 			})
 			.catch(err => {
 				console.log(err)
 			})
 	}
 
-	renderFolders = () => {
-		const { currentFolder, mode } = this.props;
-		const childrenOfCurrentFolder = getChildrenOfFolder(this.props, currentFolder);
+	// renderFolders = () => {
+	// 	const { currentFolder, mode } = this.props;
+	// 	const childrenOfCurrentFolder = getChildrenOfFolder(this.props, currentFolder);
 
-		return Object.keys(childrenOfCurrentFolder).map((obj) => {
-			const { title, unitType, id, dateCreated } = childrenOfCurrentFolder[obj];
-			return (
-				<Folder
-				key={id}
-				id={id}
-				text={title}
-				unitType={unitType}
-				dateCreated={dateCreated}
-				icon={unitType === UnitType.File ?
-					<Icon name='audio' size={40} color={colors.primaryColor} />
-					:
-					<Icon name='folder' size={40} color={colors.darkgrey} />
-				}
-				handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
-				selected={this.unitSelectedStatus(id)}
-				/>
-			)
-		})
-	}
-	handleGoUpOneLevel = (folderId) => {
-		const { dispatch, units, currentFolder } = this.props;
+	// 	return Object.keys(childrenOfCurrentFolder).map((obj) => {
+	// 		const { title, unitType, id, dateCreated } = childrenOfCurrentFolder[obj];
+	// 		return (
+	// 			<Folder
+	// 			key={id}
+	// 			id={id}
+	// 			text={title}
+	// 			unitType={unitType}
+	// 			dateCreated={dateCreated}
+	// 			icon={unitType === UnitType.File ?
+	// 				<Icon name='audio' size={40} color={colors.primaryColor} />
+	// 				:
+	// 				<Icon name='folder' size={40} color={colors.darkgrey} />
+	// 			}
+	// 			handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
+	// 			selected={this.unitSelectedStatus(id)}
+	// 			/>
+	// 		)
+	// 	})
+	// }
 
-		const parentId = units.folders[folderId].parentId
-		if (currentFolder !== "0") dispatch(enterFolder(parentId));
-	}
 
-	handleNewFolder = () => {
-		const { currentFolder, dispatch } = this.props;
+	// handleGoUpOneLevel = (folderId) => {
+	// 	const { dispatch, units, currentFolder } = this.props;
 
-		dispatch(createFolder(currentFolder));
-	}
+	// 	const parentId = units.folders[folderId].parentId
+	// 	if (currentFolder !== "0") dispatch(enterFolder(parentId));
+	// }
+
+	// handleNewFolder = () => {
+	// 	const { currentFolder, dispatch } = this.props;
+
+	// 	dispatch(createFolder(currentFolder));
+	// }
 
 
 
 		render() {
-			const { currentFolder, mode } = this.props;
+			const { currentRelativePath, mode } = this.props;
 			const { deleteConfirmation } = this.state;
 
 			return (
@@ -344,16 +372,18 @@ class FolderStructure extends Component {
 				{/* USER FOLDERS */}
 				<ScrollView style={s.container}>
 					<View style={s.innerContainer}>
-						{this.renderFolders()}
+						{/* {this.renderFolders()} */}
+						{/* //TODO: IMPLEMENT */}
+						{this.readDirectory(currentRelativePath)}
 					</View>
 				</ScrollView>
 
 				{/* NAVIGATION BUTTONS */}
 				<View style={s.navButtonWrapper}>
 					<TouchableOpacity style={s.navButton}
-						onPress={() =>
-							this.handleGoUpOneLevel(currentFolder)
-						}
+						// onPress={() =>
+						// 	this.handleGoUpOneLevel(currentFolder)
+						// }
 					>
 						<Text style={[s.navButtonText, s.upOneLevel]}>UP ONE LEVEL</Text>
 						<Icon name='up-one-level' color={colors.white} size={15}></Icon>
@@ -384,15 +414,15 @@ class FolderStructure extends Component {
 							<View style={s.deleteListContainerInner}>
 								<View style={s.unitTypeListSection}>
 									<Text style={s.unitTypeTitle}>Folders</Text>
-									<View>
+									{/* <View>
 										{this.listUnitsToDelete(UnitType.Folder)}
-									</View>
+									</View> */}
 								</View>
 								<View>
 									<Text style={s.unitTypeTitle}>Files</Text>
-									<View>
+									{/* <View>
 										{this.listUnitsToDelete(UnitType.File)}
-									</View>
+									</View> */}
 								</View>
 							</View>
 						</ScrollView>
@@ -423,7 +453,7 @@ class FolderStructure extends Component {
 
 const mapStateToProps = state => {
 	return {
-		currentFolder: state.currentFolder,
+		currentRelativePath: state.currentRelativePath,
 		units: state.units,
 		mode: state.multiple.mode,
 		selectedUnits: state.multiple.selectedUnits
