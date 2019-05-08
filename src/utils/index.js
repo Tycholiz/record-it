@@ -77,6 +77,10 @@ export const duplicateTitles = (units, destinationFolderId, incomingUnitTitle, u
 	return particularUnitsInDestination.includes(incomingUnitTitle);
 }
 
+export const getCurrentPath = () => {
+
+}
+
 export const childrenOfParent = (state, folderId) => {
 	const { folders, files } = state.units;
 

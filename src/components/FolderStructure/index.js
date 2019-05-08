@@ -206,8 +206,9 @@ class FolderStructure extends Component {
 
 	// TODO: Implement mkdir
 	makeDirectory = () => {
-		/* documentDirectoryPath = /data/user/0/com.recordit */
-		const absolutePath = RNFS.DocumentDirectoryPath + "/"
+		/* documentDirectoryPath = /data/user/0/com.recordit/files */
+		const { currentFolder } = this.props;
+		const absolutePath = `${RNFS.DocumentDirectoryPath}/${currentFolder}`
 		RNFS.mkdir(absolutePath)
 			.then(() => {
 				console.log("new directory created!")

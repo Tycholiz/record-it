@@ -1,3 +1,5 @@
+// ! deprecated
+
 import { ENTER_FOLDER } from "../constants/action-types";
 
 const reducer = (state = "0", action) => {
@@ -9,4 +11,5 @@ const reducer = (state = "0", action) => {
 			return state;
 	}
 };
+
 export default reducer;

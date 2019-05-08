@@ -30,10 +30,10 @@ export const startPlaying = () => ({
 	type: START_PLAYING,
 });
 
-export const enterFolder = (currentFolder) => ({
+export const enterFolder = (currentRelativePath) => ({
 	type: ENTER_FOLDER,
 	payload: {
-		currentFolder,
+		currentRelativePath,
 	}
 });
 
