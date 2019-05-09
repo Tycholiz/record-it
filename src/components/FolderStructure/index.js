@@ -41,6 +41,10 @@ class FolderStructure extends Component {
 	}
 
 	componentDidMount() {
+		this.updateUnitsState()
+	}
+
+	updateUnitsState() {
 		const { currentRelativePath } = this.props;
 		this.readDirectory(currentRelativePath).then(units => {
 			this.setState({
@@ -130,21 +134,22 @@ class FolderStructure extends Component {
 			.catch(err => {
 				console.log("error!:", err)
 			})
-			return promise
+		return promise
 	}
 
 	makeDirectory = () => {
 		/* documentDirectoryPath = /data/user/0/com.recordit/files */
-
 		const { currentRelativePath } = this.props;
-		const absolutePath = `${RNFS.DocumentDirectoryPath}${currentRelativePath}/New Folder(2)`
+		const absolutePath = `${RNFS.DocumentDirectoryPath}${currentRelativePath}/Test Folder(4)`
 		RNFS.mkdir(absolutePath)
-			.then(() => {
-				console.log("new directory created!")
-			})
-			.catch(err => {
-				console.log(err)
-			})
+		.then(() => {
+			console.log("new directory created!")
+		})
+		.catch(err => {
+			console.log(err)
+		})
+		this.updateUnitsState()
+		console.log(this.state.units)
 	}
 
 	render() {
