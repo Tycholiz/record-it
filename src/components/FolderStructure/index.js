@@ -29,7 +29,7 @@ import {
 	deleteUnits,
 } from '../../actions';
 
-import { getChildrenOfFolder, getUnitsToDelete, duplicateTitles, getChildrenOfAllParents, removeCurrentDirectoryFromPath } from '../../utils';
+import { getChildrenOfFolder, getUnitsToDelete, duplicateTitles, getChildrenOfAllParents, popCurrentDirectoryOffPath, addNewDirOnPath } from '../../utils';
 import { Mode, Modification, UnitType } from '../../constants/enumerables';
 
 import Folder from './Folder';
@@ -72,13 +72,13 @@ class FolderStructure extends Component {
 	handleGoUpOneLevel = (currentRelativePath) => {
 		const { dispatch } = this.props;
 
-		const newCurrentPath = removeCurrentDirectoryFromPath(currentRelativePath)
+		const newCurrentPath = popCurrentDirectoryOffPath(currentRelativePath)
 		console.log(newCurrentPath)
 		dispatch(enterFolder(newCurrentPath));
 	}
 
 	handleUnitPress = (unitName, isDirectory, mode) => {
-		const { dispatch, selectedUnits } = this.props;
+		const { dispatch, selectedUnits, currentRelativePath } = this.props;
 
 		switch(mode) {
 			case Mode.Normal:
@@ -90,7 +90,8 @@ class FolderStructure extends Component {
 				// }
 				if (isDirectory) {
 					this.updateUnitsState();
-					dispatch(enterFolder(unitName));
+
+					dispatch(enterFolder(addNewDirOnPath(currentRelativePath, unitName)));
 				} else if (!isDirectory) {
 					dispatch(setActiveFile(unitId))
 				} else {

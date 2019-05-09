@@ -1,20 +1,5 @@
 import { UnitType } from '../constants/enumerables';
 
-export const getChildrenOfFolder = (state, folderId) => {
-	const { folders, files } = state.units;
-
-	const foldersWithinFolder = Object.keys(folders)
-		.map((folderId) => folders[folderId])
-		.filter((folder) => folder.parentId === folderId)
-	const filesWithinFolder = Object.keys(files)
-		.map((fileId) => files[fileId])
-		.filter((file) => file.parentId === folderId)
-
-	// const allChildrenOfFolder = { ...foldersWithinFolder, ...filesWithinFolder }
-	Array.prototype.push.apply(foldersWithinFolder, filesWithinFolder);
-	return foldersWithinFolder;
-}
-
 export const getUnitsToDelete = (state, selectedUnits, unitType) => {
 	unitType = unitType === UnitType.Folder ? 'folders' : 'files';
 	const namesOfUnitsToDelete = [];
@@ -26,42 +11,6 @@ export const getUnitsToDelete = (state, selectedUnits, unitType) => {
 	}
 	return namesOfUnitsToDelete;
 }
-
-// export const displayBreadCrumb = (state, truncate) => {
-// 	let currentFolderId = state.currentFolder
-// 	const { folders } = state.units;
-
-// 	const LENGTH_LIMIT = 45;
-// 	const path = [];
-
-// 	let currentParent = folders[currentFolderId]['parentId']
-// 	if (currentParent == null) {
-// 		return "Home";
-// 	}
-
-// 	do {
-// 		if (folders[currentFolderId]) path.push(folders[currentFolderId].title)
-// 		currentFolderId = currentParent;
-// 		if (currentParent != null) currentParent = folders[currentParent]['parentId']
-// 	} while (currentParent != null)
-// 	path.push("Home")
-
-// 	let breadcrumbString = ''
-// 	for (let i = path.length - 1; i >= 0; i--) {
-// 		breadcrumbString += path[i]
-// 		if (i > 0) breadcrumbString += ' > '
-// 	}
-
-// 	if (breadcrumbString.length <= LENGTH_LIMIT || !truncate) {
-// 		return breadcrumbString;
-// 	} else {
-// 		const START_POINT = breadcrumbString.length - LENGTH_LIMIT;
-// 		const amountOverLimit = breadcrumbString.length - LENGTH_LIMIT
-// 		let truncatedBreadcrumbString = breadcrumbString.substring(START_POINT, LENGTH_LIMIT + amountOverLimit);
-
-// 		return `...${truncatedBreadcrumbString}`;
-// 	}
-// }
 
 export const duplicateTitles = (units, destinationFolderId, incomingUnitTitle, unitType) => {
 	unitType = unitType === UnitType.Folder ? 'folders' : 'files';
@@ -118,24 +67,25 @@ export const timeConverter = (timeStamp) => {
 	return timeString;
 }
 
-export const removeCurrentDirectoryFromPath = (currentRelativePath) => {
-	function hasLeadingSlash(path) {
-		if (path[0] === '/') {
-			return true;
-		}
-		return false;
+function hasLeadingSlash(path) {
+	if (path[0] === '/') {
+		return true;
 	}
+	return false;
+}
 
-	function hasTrailingSlash(path) {
-		if (path[path.length - 1] === '/') {
-			return true;
-		}
-		return false
+function hasTrailingSlash(path) {
+	if (path[path.length - 1] === '/') {
+		return true;
 	}
+	return false
+}
 
-	function addLeadingSlash(path) {
-		return '/' + path
-	}
+function addLeadingSlash(path) {
+	return '/' + path
+}
+
+export const popCurrentDirectoryOffPath = (currentRelativePath) => {
 
 	let workingString = currentRelativePath;
 	if (hasLeadingSlash(workingString)) {
@@ -150,5 +100,17 @@ export const removeCurrentDirectoryFromPath = (currentRelativePath) => {
 		workingArr.pop()
 	}
 	let newPath = workingArr.join('/')
-	return addLeadingSlash(newPath)
+	return addLeadingSlash(newPath);
+}
+
+export const addNewDirOnPath = (currentPath, nextDir) => {
+	let workingCurrentPath = currentPath;
+	if (hasTrailingSlash(currentPath)) {
+		workingCurrentPath = workingCurrentPath.slice(0, workingCurrentPath.length - 1)
+	}
+	let workingNextDir = nextDir;
+	if (!hasLeadingSlash(nextDir)) {
+		workingNextDir = addLeadingSlash(workingNextDir)
+	}
+	return workingCurrentPath + workingNextDir;
 }
