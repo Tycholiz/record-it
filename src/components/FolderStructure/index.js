@@ -65,7 +65,7 @@ class FolderStructure extends Component {
 		});
 	}
 
-	handleUnitPress = (unitName, unitType, mode) => {
+	handleUnitPress = (unitName, isDirectory, mode) => {
 		const { dispatch, selectedUnits } = this.props;
 
 		switch(mode) {
@@ -76,9 +76,9 @@ class FolderStructure extends Component {
 				// 	Alert.alert('Cannot enter a selected folder');
 				// 	return;
 				// }
-				if (unitType === UnitType.Folder) {
+				if (isDirectory) {
 						dispatch(enterFolder(unitName));
-					} else if (unitType === UnitType.File) {
+					} else if (!isDirectory) {
 						dispatch(setActiveFile(unitId))
 					} else {
 						return;
@@ -163,7 +163,7 @@ class FolderStructure extends Component {
 							:
 						<Icon name='audio' size={40} color={colors.primaryColor} />
 					}
-					handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
+					handleUnitPress={() => this.handleUnitPress(unit.name, unit.isDirectory(), mode)}
 					selected={false}
 				/>
 				)
