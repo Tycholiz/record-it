@@ -15,6 +15,8 @@ import Modal from "react-native-modal";
 import s from '../../styles/FolderStructure/index';
 import colors from '../../styles/colors';
 
+import uuid from 'uuid/v4'
+
 import RNFS from 'react-native-fs'
 
 import {
@@ -35,6 +37,7 @@ import Folder from './Folder';
 class FolderStructure extends Component {
 	state = {
 		deleteConfirmation: false,
+		units: []
 	}
 
 	handleOpenModal = () => {
@@ -87,7 +90,6 @@ class FolderStructure extends Component {
 		}
 	}
 
-
 	unitSelectedStatus = (unitId) => {
 		const { selectedUnits } = this.props;
 
@@ -107,38 +109,34 @@ class FolderStructure extends Component {
 		}
 	}
 
-	// TODO: Implement renderFolder
+	componentDidMount() {
+		const { currentRelativePath } = this.props;
+		this.readDirectory(currentRelativePath).then(units => {
+			this.setState({
+				units
+			})
+		})
+	}
+
 	renderFolder = () => {
 		const { currentRelativePath } = this.props;
 		this.readDirectory(currentRelativePath).then(units => {
-			units.forEach(unit => {
+			return units.map(unit => {
 				return (
 					<Folder
 						text="kyle"
+						key={unit.id}
 						unitType={UnitType.Folder}
-						dateCreated={"jan"}
 						icon={
 							<Icon name='audio' size={40} color={colors.primaryColor} />
 						}
 						handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
-						// selected={this.unitSelectedStatus(id)}
 						selected={false}
 					/>
 				)
 			})
 		})
-		// return (
-		// 	<Folder
-		// 		text="kyle"
-		// 		unitType={UnitType.Folder}
-		// 		dateCreated={"jan"}
-		// 		icon={
-		// 			<Icon name='audio' size={40} color={colors.primaryColor} />
-		// 		}
-		// 		handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
-		// 		// selected={this.unitSelectedStatus(id)}
-		// 		selected={false}
-		// 	/>
+	}
 
 			// <Folder
 			// 	text={name}
@@ -154,15 +152,14 @@ class FolderStructure extends Component {
 			// 	selected={false}
 			// />
 		// )
-	}
 
-	// TODO: Implement readDir
 	readDirectory = (currentRelativePath) => {
-
 		const pathToRead = `${RNFS.DocumentDirectoryPath}${currentRelativePath}`
 		var promise = RNFS.readDir(pathToRead)
 			.then(units => {
-					// const { name, isDirectory, mtime } = unit;
+				units.forEach(unit => {
+					unit.id = uuid() //note: this will product a new id each time the units are rendered on the screen. will this cause issues?
+				})
 				return units
 			})
 			.catch(err => {
@@ -171,7 +168,6 @@ class FolderStructure extends Component {
 			return promise
 	}
 
-	// TODO: Implement mkdir
 	makeDirectory = () => {
 		/* documentDirectoryPath = /data/user/0/com.recordit/files */
 
@@ -211,10 +207,27 @@ class FolderStructure extends Component {
 	// 	})
 	// }
 
-		render() {
-			const { currentRelativePath, mode } = this.props;
-			const { deleteConfirmation } = this.state;
+	render() {
+		const { mode } = this.props;
+		const { deleteConfirmation, units } = this.state;
 
+		console.log(units);
+		folders = units.map(unit => {
+			return (
+				<Folder
+					text={unit.name}
+					key={unit.id}
+					unitType={UnitType.Folder}
+					icon={ unit.isDirectory() ?
+						<Icon name='folder' size={40} color={colors.darkgrey} />
+							:
+						<Icon name='audio' size={40} color={colors.primaryColor} />
+					}
+					handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
+					selected={false}
+				/>
+				)
+			});
 			return (
 				<View style={s.container}>
 
@@ -296,9 +309,9 @@ class FolderStructure extends Component {
 
 				{/* USER FOLDERS */}
 				<ScrollView style={s.container}>
+					{/* //TODO: IMPLEMENT */}
 					<View style={s.innerContainer}>
-						{/* //TODO: IMPLEMENT */}
-						{this.renderFolder()}
+						{folders}
 					</View>
 				</ScrollView>
 

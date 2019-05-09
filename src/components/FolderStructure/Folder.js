@@ -130,7 +130,7 @@ class Folder extends Component {
 
 	render() {
 		const { renaming, deleteConfirmation, moreInfo } = this.state;
-		const { text, icon, dateCreated, handleUnitPress, unitType, selected, mode } = this.props;
+		const { text, icon, handleUnitPress, unitType, selected, mode } = this.props;
 
 
 		return (
@@ -296,7 +296,7 @@ class Folder extends Component {
 							</View>
 							<View style={s.lineItem}>
 								<Text style={s.lineTitle}>Date Created</Text>
-								<Text style={s.lineInfo}>{timeConverter(dateCreated)}</Text>
+								{/* <Text style={s.lineInfo}>{timeConverter(dateCreated)}</Text> */}
 							</View>
 							{unitType === UnitType.Folder &&
 								<View style={s.lineItem}>
