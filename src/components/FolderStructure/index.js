@@ -65,19 +65,19 @@ class FolderStructure extends Component {
 		});
 	}
 
-	handleUnitPress = (unitId, unitType, mode) => {
+	handleUnitPress = (unitName, unitType, mode) => {
 		const { dispatch, selectedUnits } = this.props;
 
 		switch(mode) {
 			case Mode.Normal:
 			case Mode.Action:
 			case Mode.ActionSingle:
-				if (selectedUnits.indexOf(unitId) !== -1 && Mode.Action) {
-					Alert.alert('Cannot enter a selected folder');
-					return;
-				}
+				// if (selectedUnits.indexOf(unitId) !== -1 && Mode.Action) {
+				// 	Alert.alert('Cannot enter a selected folder');
+				// 	return;
+				// }
 				if (unitType === UnitType.Folder) {
-						dispatch(enterFolder(unitId));
+						dispatch(enterFolder(unitName));
 					} else if (unitType === UnitType.File) {
 						dispatch(setActiveFile(unitId))
 					} else {
@@ -137,7 +137,7 @@ class FolderStructure extends Component {
 		/* documentDirectoryPath = /data/user/0/com.recordit/files */
 
 		const { currentRelativePath } = this.props;
-		const absolutePath = `${RNFS.DocumentDirectoryPath}${currentRelativePath}/New Folder`
+		const absolutePath = `${RNFS.DocumentDirectoryPath}${currentRelativePath}/New Folder(2)`
 		RNFS.mkdir(absolutePath)
 			.then(() => {
 				console.log("new directory created!")
