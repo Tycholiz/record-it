@@ -4,7 +4,7 @@ const reducer = (state = "/home", action) => {
 	console.log(state);
 	switch (action.type) {
 		case ENTER_FOLDER:
-			return `${state}/${action.payload.folderName}`
+			return `${action.payload.newPath}`
 
 		default:
 			return state;

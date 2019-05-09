@@ -29,7 +29,7 @@ import {
 	deleteUnits,
 } from '../../actions';
 
-import { getChildrenOfFolder, getUnitsToDelete, duplicateTitles, getChildrenOfAllParents } from '../../utils';
+import { getChildrenOfFolder, getUnitsToDelete, duplicateTitles, getChildrenOfAllParents, removeCurrentDirectoryFromPath } from '../../utils';
 import { Mode, Modification, UnitType } from '../../constants/enumerables';
 
 import Folder from './Folder';
@@ -69,6 +69,14 @@ class FolderStructure extends Component {
 		});
 	}
 
+	handleGoUpOneLevel = (currentRelativePath) => {
+		const { dispatch } = this.props;
+
+		const newCurrentPath = removeCurrentDirectoryFromPath(currentRelativePath)
+		console.log(newCurrentPath)
+		dispatch(enterFolder(newCurrentPath));
+	}
+
 	handleUnitPress = (unitName, isDirectory, mode) => {
 		const { dispatch, selectedUnits } = this.props;
 
@@ -81,12 +89,13 @@ class FolderStructure extends Component {
 				// 	return;
 				// }
 				if (isDirectory) {
-						dispatch(enterFolder(unitName));
-					} else if (!isDirectory) {
-						dispatch(setActiveFile(unitId))
-					} else {
-						return;
-					}
+					this.updateUnitsState();
+					dispatch(enterFolder(unitName));
+				} else if (!isDirectory) {
+					dispatch(setActiveFile(unitId))
+				} else {
+					return;
+				}
 				break;
 
 			case Mode.Select:
@@ -124,10 +133,11 @@ class FolderStructure extends Component {
 
 	readDirectory = (currentRelativePath) => {
 		const pathToRead = `${RNFS.DocumentDirectoryPath}${currentRelativePath}`
+		console.log('pathToRead', pathToRead)
 		var promise = RNFS.readDir(pathToRead)
 			.then(units => {
 				units.forEach(unit => {
-					unit.id = uuid() //note: this will product a new id each time the units are rendered on the screen. will this cause issues?
+					unit.id = uuid() //note: this will produce a new id each time the units are rendered on the screen. will this cause issues?
 				})
 				return units
 			})
@@ -140,7 +150,7 @@ class FolderStructure extends Component {
 	makeDirectory = () => {
 		/* documentDirectoryPath = /data/user/0/com.recordit/files */
 		const { currentRelativePath } = this.props;
-		const absolutePath = `${RNFS.DocumentDirectoryPath}${currentRelativePath}/Test Folder(4)`
+		const absolutePath = `${RNFS.DocumentDirectoryPath}${currentRelativePath}/Test Folder(6)`
 		RNFS.mkdir(absolutePath)
 		.then(() => {
 			console.log("new directory created!")
@@ -149,11 +159,10 @@ class FolderStructure extends Component {
 			console.log(err)
 		})
 		this.updateUnitsState()
-		console.log(this.state.units)
 	}
 
 	render() {
-		const { mode } = this.props;
+		const { mode, currentRelativePath } = this.props;
 		const { deleteConfirmation, units } = this.state;
 
 		folders = units.map(unit => {
@@ -263,9 +272,9 @@ class FolderStructure extends Component {
 				{/* NAVIGATION BUTTONS */}
 				<View style={s.navButtonWrapper}>
 					<TouchableOpacity style={s.navButton}
-						// onPress={() =>
-						// 	this.handleGoUpOneLevel(currentFolder)
-						// }
+						onPress={() =>
+							this.handleGoUpOneLevel(currentRelativePath)
+						}
 					>
 						<Text style={[s.navButtonText, s.upOneLevel]}>UP ONE LEVEL</Text>
 						<Icon name='up-one-level' color={colors.white} size={15}></Icon>

@@ -30,10 +30,10 @@ export const startPlaying = () => ({
 	type: START_PLAYING,
 });
 
-export const enterFolder = (folderName) => ({
+export const enterFolder = (newPath) => ({
 	type: ENTER_FOLDER,
 	payload: {
-		folderName,
+		newPath
 	}
 });
 
@@ -48,17 +48,6 @@ export const setActiveFile = (fileId) => ({
 	type: SET_ACTIVE_FILE,
 	payload: {
 		fileId,
-	}
-});
-
-export const createFolder = (currentFolder) => ({
-	type: CREATE_FOLDER,
-	payload: {
-		id: uuid(),
-		title: "New folder",
-		dateCreated: Date.now(),
-		parentId: currentFolder,
-		unitType: UnitType.Folder
 	}
 });
 

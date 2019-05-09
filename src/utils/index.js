@@ -77,10 +77,6 @@ export const duplicateTitles = (units, destinationFolderId, incomingUnitTitle, u
 	return particularUnitsInDestination.includes(incomingUnitTitle);
 }
 
-export const getCurrentPath = () => {
-
-}
-
 export const childrenOfParent = (state, folderId) => {
 	const { folders, files } = state.units;
 
@@ -120,4 +116,39 @@ export const timeConverter = (timeStamp) => {
 
 	var timeString = month + ' ' + day + ', ' + year + ' (' + hours + ':' + minutes.substr(-2) + ')';
 	return timeString;
+}
+
+export const removeCurrentDirectoryFromPath = (currentRelativePath) => {
+	function hasLeadingSlash(path) {
+		if (path[0] === '/') {
+			return true;
+		}
+		return false;
+	}
+
+	function hasTrailingSlash(path) {
+		if (path[path.length - 1] === '/') {
+			return true;
+		}
+		return false
+	}
+
+	function addLeadingSlash(path) {
+		return '/' + path
+	}
+
+	let workingString = currentRelativePath;
+	if (hasLeadingSlash(workingString)) {
+		workingString = workingString.slice(1)
+	}
+	if (hasTrailingSlash(workingString)) {
+		workingString = workingString.slice(0, workingString.length - 1)
+	}
+
+	let workingArr = workingString.split('/')
+	if (workingArr.length > 1) {
+		workingArr.pop()
+	}
+	let newPath = workingArr.join('/')
+	return addLeadingSlash(newPath)
 }
