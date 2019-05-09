@@ -40,6 +40,15 @@ class FolderStructure extends Component {
 		units: []
 	}
 
+	componentDidMount() {
+		const { currentRelativePath } = this.props;
+		this.readDirectory(currentRelativePath).then(units => {
+			this.setState({
+				units
+			})
+		})
+	}
+
 	handleOpenModal = () => {
 		this.setState(() => {
 			return {
@@ -109,50 +118,6 @@ class FolderStructure extends Component {
 		}
 	}
 
-	componentDidMount() {
-		const { currentRelativePath } = this.props;
-		this.readDirectory(currentRelativePath).then(units => {
-			this.setState({
-				units
-			})
-		})
-	}
-
-	renderFolder = () => {
-		const { currentRelativePath } = this.props;
-		this.readDirectory(currentRelativePath).then(units => {
-			return units.map(unit => {
-				return (
-					<Folder
-						text="kyle"
-						key={unit.id}
-						unitType={UnitType.Folder}
-						icon={
-							<Icon name='audio' size={40} color={colors.primaryColor} />
-						}
-						handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
-						selected={false}
-					/>
-				)
-			})
-		})
-	}
-
-			// <Folder
-			// 	text={name}
-			// 	unitType={isDirectory() === true ? UnitType.Folder : UnitType.File}
-			// 	dateCreated={dateCreated}
-			// 	icon={isDirectory() === false ?
-			// 		<Icon name='audio' size={40} color={colors.primaryColor} />
-			// 		:
-			// 		<Icon name='folder' size={40} color={colors.darkgrey} />
-			// 	}
-			// 	handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
-			// 	// selected={this.unitSelectedStatus(id)}
-			// 	selected={false}
-			// />
-		// )
-
 	readDirectory = (currentRelativePath) => {
 		const pathToRead = `${RNFS.DocumentDirectoryPath}${currentRelativePath}`
 		var promise = RNFS.readDir(pathToRead)
@@ -182,42 +147,17 @@ class FolderStructure extends Component {
 			})
 	}
 
-	// renderFolders = () => {
-	// 	const { currentFolder, mode } = this.props;
-	// 	const childrenOfCurrentFolder = getChildrenOfFolder(this.props, currentFolder);
-
-	// 	return Object.keys(childrenOfCurrentFolder).map((obj) => {
-	// 		const { title, unitType, id, dateCreated } = childrenOfCurrentFolder[obj];
-	// 		return (
-	// 			<Folder
-	// 			key={id}
-	// 			id={id}
-	// 			text={title}
-	// 			unitType={unitType}
-	// 			dateCreated={dateCreated}
-	// 			icon={unitType === UnitType.File ?
-	// 				<Icon name='audio' size={40} color={colors.primaryColor} />
-	// 				:
-	// 				<Icon name='folder' size={40} color={colors.darkgrey} />
-	// 			}
-	// 			handleUnitPress={() => this.handleUnitPress(id, unitType, mode)}
-	// 			selected={this.unitSelectedStatus(id)}
-	// 			/>
-	// 		)
-	// 	})
-	// }
-
 	render() {
 		const { mode } = this.props;
 		const { deleteConfirmation, units } = this.state;
 
-		console.log(units);
 		folders = units.map(unit => {
 			return (
 				<Folder
 					text={unit.name}
 					key={unit.id}
 					unitType={UnitType.Folder}
+					unitType={unit.isDirectory() ? UnitType.Folder : UnitType.File}
 					icon={ unit.isDirectory() ?
 						<Icon name='folder' size={40} color={colors.darkgrey} />
 							:
@@ -228,6 +168,7 @@ class FolderStructure extends Component {
 				/>
 				)
 			});
+
 			return (
 				<View style={s.container}>
 
@@ -309,7 +250,6 @@ class FolderStructure extends Component {
 
 				{/* USER FOLDERS */}
 				<ScrollView style={s.container}>
-					{/* //TODO: IMPLEMENT */}
 					<View style={s.innerContainer}>
 						{folders}
 					</View>
