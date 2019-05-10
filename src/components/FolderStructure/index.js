@@ -29,7 +29,7 @@ import {
 	deleteUnits,
 } from '../../actions';
 
-import { getChildrenOfFolder, getUnitsToDelete, duplicateTitles, getChildrenOfAllParents, popCurrentDirectoryOffPath, addNewDirOnPath } from '../../utils';
+import { getUnitsToDelete, duplicateTitles, popCurrentDirectoryOffPath, addNewDirOnPath, chooseNameForNewFolder } from '../../utils';
 import { Mode, Modification, UnitType } from '../../constants/enumerables';
 
 import Folder from './Folder';
@@ -151,7 +151,15 @@ class FolderStructure extends Component {
 	makeDirectory = () => {
 		/* documentDirectoryPath = /data/user/0/com.recordit/files */
 		const { currentRelativePath } = this.props;
-		const absolutePath = `${RNFS.DocumentDirectoryPath}${currentRelativePath}/Test Folder(6)`
+		const { units } = this.state;
+
+		const unitsInCurrentDir = units.map(unitObj => {
+			return unitObj.name;
+		})
+
+		const newFolderName = chooseNameForNewFolder(unitsInCurrentDir)
+
+		const absolutePath = `${RNFS.DocumentDirectoryPath}${currentRelativePath}/${newFolderName}`
 		RNFS.mkdir(absolutePath)
 		.then(() => {
 			console.log("new directory created!")

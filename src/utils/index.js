@@ -114,3 +114,13 @@ export const addNewDirOnPath = (currentPath, nextDir) => {
 	}
 	return workingCurrentPath + workingNextDir;
 }
+
+export const chooseNameForNewFolder = (unitsInDir) => {
+	let currentLevel = 'New Folder';
+	let currentValue = 1;
+	while (unitsInDir.includes(currentLevel)) {
+		currentValue++
+		currentLevel = `New Folder(${currentValue})`
+	}
+	return currentLevel;
+}
