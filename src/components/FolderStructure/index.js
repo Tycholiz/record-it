@@ -47,7 +47,6 @@ class FolderStructure extends Component {
 	updateUnitsState() {
 		const { currentRelativePath } = this.props;
 		this.readDirectory(currentRelativePath).then(units => {
-			console.log('units', units)
 			this.setState({
 				units
 			})
@@ -135,7 +134,6 @@ class FolderStructure extends Component {
 
 	readDirectory = (currentRelativePath) => {
 		const pathToRead = `${RNFS.DocumentDirectoryPath}${currentRelativePath}`
-		console.log('currentRelativePath', currentRelativePath)
 
 		var promise = RNFS.readDir(pathToRead)
 			.then(units => {
