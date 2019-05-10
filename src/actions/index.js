@@ -5,7 +5,6 @@ import {
 	ENTER_FOLDER,
 	GET_INITIAL_UNITS,
 	SET_ACTIVE_FILE,
-	CREATE_FOLDER,
 	DELETE_UNIT,
 	DELETE_UNITS,
 	RENAME_UNIT,
@@ -13,10 +12,6 @@ import {
 	MULTIPLE_MODE,
 	MOVE_UNITS,
 } from "../constants/action-types";
-
-import { UnitType } from '../constants/enumerables';
-
-import uuid from 'uuid/v4'
 
 export const toggleControlView = () => ({
 	type: TOGGLE_CONTROL_VIEW,
