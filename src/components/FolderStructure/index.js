@@ -47,6 +47,7 @@ class FolderStructure extends Component {
 	updateUnitsState() {
 		const { currentRelativePath } = this.props;
 		this.readDirectory(currentRelativePath).then(units => {
+			console.log('units', units)
 			this.setState({
 				units
 			})
@@ -69,15 +70,15 @@ class FolderStructure extends Component {
 		});
 	}
 
-	handleGoUpOneLevel = (currentRelativePath) => {
+	handleGoUpOneLevel = async (currentRelativePath) => {
 		const { dispatch } = this.props;
 
 		const newCurrentPath = popCurrentDirectoryOffPath(currentRelativePath)
-		console.log(newCurrentPath)
-		dispatch(enterFolder(newCurrentPath));
+		await dispatch(enterFolder(newCurrentPath)); //need to call this function and the one below it synchronously
+		this.updateUnitsState();
 	}
 
-	handleUnitPress = (unitName, isDirectory, mode) => {
+	handleUnitPress =  async (unitName, isDirectory, mode) => {
 		const { dispatch, selectedUnits, currentRelativePath } = this.props;
 
 		switch(mode) {
@@ -89,9 +90,9 @@ class FolderStructure extends Component {
 				// 	return;
 				// }
 				if (isDirectory) {
-					this.updateUnitsState();
 
-					dispatch(enterFolder(addNewDirOnPath(currentRelativePath, unitName)));
+					await dispatch(enterFolder(addNewDirOnPath(currentRelativePath, unitName))) //need to call this function and the one below it synchronously
+					this.updateUnitsState()
 				} else if (!isDirectory) {
 					dispatch(setActiveFile(unitId))
 				} else {
@@ -134,7 +135,8 @@ class FolderStructure extends Component {
 
 	readDirectory = (currentRelativePath) => {
 		const pathToRead = `${RNFS.DocumentDirectoryPath}${currentRelativePath}`
-		console.log('pathToRead', pathToRead)
+		console.log('currentRelativePath', currentRelativePath)
+
 		var promise = RNFS.readDir(pathToRead)
 			.then(units => {
 				units.forEach(unit => {
