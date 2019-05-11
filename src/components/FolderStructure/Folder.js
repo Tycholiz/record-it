@@ -23,7 +23,6 @@ import { BASE_URL } from '../../constants/constants'
 
 import { deleteUnits, renameUnit, multipleMode, modifySelectedUnit } from '../../actions';
 
-
 class Folder extends Component {
 	state = {
 		_menu: null,
@@ -60,6 +59,21 @@ class Folder extends Component {
 				[modal]: false
 			};
 		});
+	}
+
+	handleDeleteUnit = (name) => {
+		const { currentRelativePath } = this.props;
+		const unitToDelete = `${BASE_URL}${currentRelativePath}/${name}`
+
+		console.log(unitToDelete)
+		return RNFS.unlink(unitToDelete)
+			.then(() => {
+				console.log('FILE DELETED');
+			})
+			// `unlink` will throw an error, if the item to unlink does not exist
+			.catch((err) => {
+				console.log(err.message);
+			});
 	}
 
 	handleRenameUnit = () => {
@@ -220,13 +234,13 @@ class Folder extends Component {
 								<Text style={[s.modalOption, s.cancelOption]}>CANCEL</Text>
 							</TouchableOpacity>
 
-							{/* <TouchableOpacity
+							<TouchableOpacity
 								onPress={() => {
-									this.handleDelete(id)
+									this.handleDeleteUnit(text)
 								}}
 							>
 								<Text style={[s.modalOption, s.confirmOption]}>CONFIRM</Text>
-							</TouchableOpacity> */}
+							</TouchableOpacity>
 						</View>
 					</View>
 				</Modal>
