@@ -39,10 +39,10 @@ export const getInitialUnits = (currentFolder) => ({
 	}
 });
 
-export const setActiveFile = (fileId) => ({
+export const setActiveFile = (fullAudioPath) => ({
 	type: SET_ACTIVE_FILE,
 	payload: {
-		fileId,
+		fullAudioPath,
 	}
 });
 

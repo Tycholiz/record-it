@@ -1,9 +1,9 @@
 import { SET_ACTIVE_FILE } from "../constants/action-types";
 
-const reducer = (state = "222", action) => {
+const reducer = (state = null, action) => {
 	switch (action.type) {
 		case SET_ACTIVE_FILE:
-			return action.payload.fileId
+			return action.payload.fullAudioPath
 		default:
 			return state;
 	}

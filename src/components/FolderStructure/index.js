@@ -92,7 +92,8 @@ class FolderStructure extends Component {
 					await dispatch(enterFolder(addNewDirOnPath(currentRelativePath, unitName))) //need to call this function and the one below it synchronously
 					this.updateUnitsState()
 				} else if (!isDirectory) {
-					dispatch(setActiveFile(unitId))
+					const fullAudioPath = `${BASE_URL}${currentRelativePath}/${unitName}`
+					dispatch(setActiveFile(fullAudioPath))
 				} else {
 					return;
 				}
