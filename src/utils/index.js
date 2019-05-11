@@ -115,12 +115,28 @@ export const addNewDirOnPath = (currentPath, nextDir) => {
 	return workingCurrentPath + workingNextDir;
 }
 
-export const chooseNameForNewFolder = (unitsInDir) => {
-	let currentLevel = 'New Folder';
+export const chooseNameForNewUnit = (unitsInDir, unitType) => {
+	let currentLevel;
+	const baseAudioName = 'Audio'
+	const baseFolderName = 'New Folder'
 	let currentValue = 1;
-	while (unitsInDir.includes(currentLevel)) {
-		currentValue++
-		currentLevel = `New Folder(${currentValue})`
+	switch (unitType) {
+		case 'folder':
+			currentLevel = 'New Folder';
+			while (unitsInDir.includes(currentLevel)) {
+				currentValue++
+				currentLevel = `${baseFolderName}(${currentValue})`
+			}
+			break;
+		case 'file':
+			currentLevel = 'Audio'
+			while (unitsInDir.includes(currentLevel)) {
+				currentValue++
+				currentLevel = `${baseAudioName}(${currentValue})`
+			}
+			break;
+		default:
+			console.err("unit type not specified");
 	}
 	return currentLevel;
 }

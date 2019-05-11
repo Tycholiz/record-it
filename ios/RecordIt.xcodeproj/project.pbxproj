@@ -69,6 +69,7 @@
 		3CBB88DEDE0047A0ABD80CAA /* Ubuntu-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F12851D6C834E45AA6B9EE4 /* Ubuntu-MediumItalic.ttf */; };
 		A93C1361D4A14666BB86DBFC /* Ubuntu-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4CEE4C329D86491786EC3CB0 /* Ubuntu-Regular.ttf */; };
 		D9C4BC6D62B447B2A273F953 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E3B78AB99340C8AE44BED7 /* libRNFS.a */; };
+		BD76579BEAD6419F8BDEEEAA /* libRNAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCA2F4BD2B674103A394CE8B /* libRNAudio.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -410,6 +411,8 @@
 		4CEE4C329D86491786EC3CB0 /* Ubuntu-Regular.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Regular.ttf"; path = "../assets/fonts/Ubuntu-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		89B77D88B3664544987AC241 /* RNFS.xcodeproj */ = {isa = PBXFileReference; name = "RNFS.xcodeproj"; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		C1E3B78AB99340C8AE44BED7 /* libRNFS.a */ = {isa = PBXFileReference; name = "libRNFS.a"; path = "libRNFS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		DF6EAD3A2BD54DC0B5927914 /* RNAudio.xcodeproj */ = {isa = PBXFileReference; name = "RNAudio.xcodeproj"; path = "../node_modules/react-native-audio/ios/RNAudio.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		BCA2F4BD2B674103A394CE8B /* libRNAudio.a */ = {isa = PBXFileReference; name = "libRNAudio.a"; path = "libRNAudio.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -442,6 +445,7 @@
 				0B92EEB764094425954A5A97 /* libSRSRadialGradient.a in Frameworks */,
 				C755C847A9544E2E88651067 /* libBVLinearGradient.a in Frameworks */,
 				D9C4BC6D62B447B2A273F953 /* libRNFS.a in Frameworks */,
+				BD76579BEAD6419F8BDEEEAA /* libRNAudio.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,6 +638,7 @@
 				914E6AA28F474B2F8165B62B /* SRSRadialGradient.xcodeproj */,
 				8370D2A623F840EFB17329A0 /* BVLinearGradient.xcodeproj */,
 				89B77D88B3664544987AC241 /* RNFS.xcodeproj */,
+				DF6EAD3A2BD54DC0B5927914 /* RNAudio.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1327,6 +1332,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1334,6 +1340,7 @@
 					"$(SRCROOT)/../node_modules/react-native-radial-gradient/ios",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
+					"$(SRCROOT)/../node_modules/react-native-audio/ios",
 				);
 			};
 			name = Debug;
@@ -1360,6 +1367,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1367,6 +1375,7 @@
 					"$(SRCROOT)/../node_modules/react-native-radial-gradient/ios",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
+					"$(SRCROOT)/../node_modules/react-native-audio/ios",
 				);
 			};
 			name = Release;
@@ -1392,6 +1401,7 @@
 					"$(SRCROOT)/../node_modules/react-native-radial-gradient/ios",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
+					"$(SRCROOT)/../node_modules/react-native-audio/ios",
 				);
 			};
 			name = Debug;
@@ -1416,6 +1426,7 @@
 					"$(SRCROOT)/../node_modules/react-native-radial-gradient/ios",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
+					"$(SRCROOT)/../node_modules/react-native-audio/ios",
 				);
 			};
 			name = Release;
@@ -1451,6 +1462,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1458,6 +1470,7 @@
 					"$(SRCROOT)/../node_modules/react-native-radial-gradient/ios",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
+					"$(SRCROOT)/../node_modules/react-native-audio/ios",
 				);
 			};
 			name = Debug;
@@ -1493,6 +1506,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1500,6 +1514,7 @@
 					"$(SRCROOT)/../node_modules/react-native-radial-gradient/ios",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
+					"$(SRCROOT)/../node_modules/react-native-audio/ios",
 				);
 			};
 			name = Release;
@@ -1534,6 +1549,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1541,6 +1557,7 @@
 					"$(SRCROOT)/../node_modules/react-native-radial-gradient/ios",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
+					"$(SRCROOT)/../node_modules/react-native-audio/ios",
 				);
 			};
 			name = Debug;
@@ -1575,6 +1592,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1582,6 +1600,7 @@
 					"$(SRCROOT)/../node_modules/react-native-radial-gradient/ios",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
+					"$(SRCROOT)/../node_modules/react-native-audio/ios",
 				);
 			};
 			name = Release;

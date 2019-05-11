@@ -3,6 +3,7 @@ package com.recordit;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.rnim.rn.audio.ReactNativeAudioPackage;
 import com.rnfs.RNFSPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.surajit.rnrg.RNRadialGradientPackage;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativeAudioPackage(),
             new RNFSPackage(),
             new LinearGradientPackage(),
             new RNRadialGradientPackage(),

@@ -27,7 +27,7 @@ import {
 	modifySelectedUnit,
 } from '../../actions';
 
-import { duplicateTitles, popCurrentDirectoryOffPath, addNewDirOnPath, chooseNameForNewFolder } from '../../utils';
+import { duplicateTitles, popCurrentDirectoryOffPath, addNewDirOnPath, chooseNameForNewUnit } from '../../utils';
 import { Mode, Modification, UnitType } from '../../constants/enumerables';
 import { BASE_URL } from '../../constants/constants';
 
@@ -156,7 +156,7 @@ class FolderStructure extends Component {
 			return unitObj.name;
 		})
 
-		const newFolderName = chooseNameForNewFolder(unitsInCurrentDir)
+		const newFolderName = chooseNameForNewUnit(unitsInCurrentDir, UnitType.Folder)
 
 		const absolutePath = `${BASE_URL}${currentRelativePath}/${newFolderName}`
 		RNFS.mkdir(absolutePath)
