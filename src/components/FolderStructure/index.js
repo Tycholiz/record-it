@@ -31,6 +31,7 @@ import {
 
 import { getUnitsToDelete, duplicateTitles, popCurrentDirectoryOffPath, addNewDirOnPath, chooseNameForNewFolder } from '../../utils';
 import { Mode, Modification, UnitType } from '../../constants/enumerables';
+import { BASE_URL } from '../../constants/constants';
 
 import Folder from './Folder';
 
@@ -133,7 +134,7 @@ class FolderStructure extends Component {
 	}
 
 	readDirectory = (currentRelativePath) => {
-		const pathToRead = `${RNFS.DocumentDirectoryPath}${currentRelativePath}`
+		const pathToRead = `${BASE_URL}${currentRelativePath}`
 
 		var promise = RNFS.readDir(pathToRead)
 			.then(units => {
@@ -159,7 +160,7 @@ class FolderStructure extends Component {
 
 		const newFolderName = chooseNameForNewFolder(unitsInCurrentDir)
 
-		const absolutePath = `${RNFS.DocumentDirectoryPath}${currentRelativePath}/${newFolderName}`
+		const absolutePath = `${BASE_URL}${currentRelativePath}/${newFolderName}`
 		RNFS.mkdir(absolutePath)
 		.then(() => {
 			console.log("new directory created!")
