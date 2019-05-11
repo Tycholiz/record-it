@@ -124,3 +124,8 @@ export const chooseNameForNewFolder = (unitsInDir) => {
 	}
 	return currentLevel;
 }
+
+export const showShortDirPath = (dirPath) => {
+	const shortPath = dirPath.split('/').slice(2).join('/')
+	return '/' + shortPath
+}

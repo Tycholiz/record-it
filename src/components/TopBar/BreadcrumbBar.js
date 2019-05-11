@@ -8,26 +8,25 @@ import {
 	TextInput,
 	Image,
 } from 'react-native';
+import { showShortDirPath } from '../../utils'
 import Icon from '../../styles/Icon';
 import colors from '../../styles/colors';
 
 import Modal from "react-native-modal";
 import s from '../../styles/TopBar/BreadcrumbBar';
 
-// import { displayBreadCrumb } from '../../utils';
-
 class BreadcrumbBar extends Component {
 	state = {
 		modalOpen: false
 	}
 	render() {
-		const { state } = this.props;
+		const { state, currentRelativePath } = this.props;
 		const { modalOpen } = this.state;
 
 		return (
 			<View>
 				<TouchableOpacity style={s.container} onPress={() => this.setState({ modalOpen: true })}>
-					{/* <Text style={s.text}>{displayBreadCrumb(state, true)}</Text> */}
+					<Text style={s.text}>{showShortDirPath(currentRelativePath)}</Text>
 					<View style={s.searchIcon}>
 						<Icon name='search' size={22} color={colors.darkgrey} />
 					</View>
