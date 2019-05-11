@@ -10,17 +10,19 @@ import {
 	Alert,
 } from 'react-native';
 import s from '../../styles/FolderStructure/Folder'
+import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+import Modal from "react-native-modal";
+import RNFS from 'react-native-fs';
 import RadialGradient from 'react-native-radial-gradient';
 
 const screen = Dimensions.get('window');
-import { timeConverter, displayBreadCrumb, duplicateTitles, childrenOfParent } from '../../utils';
+import { timeConverter, duplicateTitles, childrenOfParent } from '../../utils';
 
 import { Mode, ControlView, UnitType, Modification } from '../../constants/enumerables';
+import { BASE_URL } from '../../constants/constants'
 
 import { deleteUnits, renameUnit, multipleMode, modifySelectedUnit } from '../../actions';
 
-import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
-import Modal from "react-native-modal";
 
 class Folder extends Component {
 	state = {
@@ -60,69 +62,19 @@ class Folder extends Component {
 		});
 	}
 
+	handleRenameUnit = () => {
+		const { currentRelativePath, text } = this.props;
 
-	// handleRename = (unitId, unitType) => {
-	// 	const { dispatch, units, currentFolder } = this.props;
-	// 	const { title } = this.state;
-
-	// 	if (duplicateTitles(units, currentFolder, title, unitType)) {
-	// 		Alert.alert(`Cannot rename ${unitType}: Name already exists`);
-	// 		this.handleCloseModal('renaming');
-	// 		return;
-	// 	}
-
-	// 	if (!title) {
-	// 		Alert.alert(`${unitType} must have a title`);
-	// 		return;
-	// 	}
-
-	// 	this.handleCloseModal('renaming');
-	// 	dispatch(renameUnit(unitId, unitType, title))
-	// }
-
-	// handleMoveUnit = (unitId) => {
-	// 	const { dispatch } = this.props;
-	// 	const { Add } = Modification;
-
-	// 	this.hideMenu();
-	// 	dispatch(multipleMode(Mode.ActionSingle));
-	// 	dispatch(modifySelectedUnit(Add, unitId))
-	// }
-
-	// handleDelete = (unitId) => {
-	// 	const { dispatch } = this.props;
-
-	// 	const descendants = [unitId];
-	// 	const getDescendantsOfFolder = (state, folderId) => {
-	// 		const { folders, files } = state.units;
-
-	// 		const foldersWithinFolder = Object.keys(folders)
-	// 			.map((folderId) => folders[folderId])
-	// 			.filter((folder) => folder.parentId === folderId)
-	// 			.map((obj) => obj.id)
-
-	// 		const filesWithinFolder = Object.keys(files)
-	// 			.map((fileId) => files[fileId])
-	// 			.filter((file) => file.parentId === folderId)
-	// 			.map((obj) => obj.id)
-
-	// 		Array.prototype.push.apply(foldersWithinFolder, filesWithinFolder);
-	// 		descendants.push(foldersWithinFolder)
-
-	// 		if (!foldersWithinFolder.length) {
-	// 			return;
-	// 		} else {
-	// 			for (let id of foldersWithinFolder) {
-	// 				getDescendantsOfFolder(state, id)
-	// 			}
-	// 		}
-	// 	}
-	// 	getDescendantsOfFolder(this.props, unitId)
-	// 	const mergedDescendants = [].concat.apply([], descendants)
-
-	// 	dispatch(deleteUnits(mergedDescendants));
-	// 	this.handleCloseModal('deleteConfirmation');
-	// };
+		const unitToBeRenamed = `${BASE_URL}${currentRelativePath}/${text}`
+		const newName = `${BASE_URL}${currentRelativePath}/${this.state.title}`
+		RNFS.moveFile(unitToBeRenamed, newName)
+			.then(() => {
+				console.log('unit renamed!')
+			})
+			.catch(err => {
+				console.log("error!", err);
+			})
+	}
 
 	getNumChildren = () => {
 		return 23;
@@ -131,7 +83,6 @@ class Folder extends Component {
 	render() {
 		const { renaming, deleteConfirmation, moreInfo } = this.state;
 		const { text, icon, handleUnitPress, unitType, selected, mode } = this.props;
-
 
 		return (
 			<View>
@@ -165,7 +116,7 @@ class Folder extends Component {
 				</TouchableOpacity>
 
 				{/*  FOLDER OPTIONS **temporary** */}
-				{/* {unitType &&
+				{unitType &&
 					<TouchableOpacity
 						style={s.folderOptionsContainer}
 						onPress={this.showMenu}
@@ -193,7 +144,7 @@ class Folder extends Component {
 							<MenuItem onPress={this.hideMenu}>Close</MenuItem>
 						</Menu>
 					</TouchableOpacity>
-				} */}
+				}
 
 				{/* RENAME MODAL */}
 				<Modal
@@ -234,13 +185,13 @@ class Folder extends Component {
 								<Text style={[s.modalOption, s.cancelOption]}>CANCEL</Text>
 							</TouchableOpacity>
 
-							{/* <TouchableOpacity
+							<TouchableOpacity
 								onPress={() => {
-									this.handleRename(id, unitType)
+									this.handleRenameUnit()
 								}}
 							>
 								<Text style={[s.modalOption, s.confirmOption]}>RENAME</Text>
-							</TouchableOpacity> */}
+							</TouchableOpacity>
 						</View>
 
 					</View>
