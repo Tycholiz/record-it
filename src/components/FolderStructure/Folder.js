@@ -16,7 +16,7 @@ import RNFS from 'react-native-fs';
 import RadialGradient from 'react-native-radial-gradient';
 
 const screen = Dimensions.get('window');
-import { timeConverter, duplicateTitles, childrenOfParent } from '../../utils';
+import { timeConverter, duplicateTitles, childrenOfParent, showShortDirPath } from '../../utils';
 
 import { Mode, ControlView, UnitType, Modification } from '../../constants/enumerables';
 import { BASE_URL } from '../../constants/constants'
@@ -95,7 +95,17 @@ class Folder extends Component {
 
 	render() {
 		const { renaming, deleteConfirmation, moreInfo } = this.state;
-		const { text, icon, handleUnitPress, unitType, selected, mode } = this.props;
+		const {
+			text,
+			icon,
+			handleUnitPress,
+			currentRelativePath,
+			unitType,
+			selected,
+			mode,
+			dateCreated,
+			size
+		} = this.props;
 
 		return (
 			<View>
@@ -256,11 +266,11 @@ class Folder extends Component {
 						<View style={s.details}>
 							<View style={s.lineItem}>
 								<Text style={s.lineTitle}>Full Path</Text>
-								{/* <Text style={s.lineInfo}>{displayBreadCrumb(this.props, false)} > {text}</Text> */}
+								<Text style={s.lineInfo}>{showShortDirPath(currentRelativePath)}{text}</Text>
 							</View>
 							<View style={s.lineItem}>
 								<Text style={s.lineTitle}>Date Created</Text>
-								{/* <Text style={s.lineInfo}>{timeConverter(dateCreated)}</Text> */}
+								<Text style={s.lineInfo}>{dateCreated.toString()}</Text>
 							</View>
 							{unitType === UnitType.Folder &&
 								<View style={s.lineItem}>
@@ -282,7 +292,7 @@ class Folder extends Component {
 							}
 							<View style={s.lineItem}>
 								<Text style={s.lineTitle}>Size</Text>
-								<Text style={s.lineInfo}>2.43mb</Text>
+								<Text style={s.lineInfo}>{size}</Text>
 							</View>
 
 						</View>

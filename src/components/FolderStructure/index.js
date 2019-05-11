@@ -179,7 +179,8 @@ class FolderStructure extends Component {
 				<Folder
 					text={unit.name}
 					key={unit.id}
-					unitType={UnitType.Folder}
+					dateCreated={unit.mtime}
+					size={unit.size}
 					unitType={unit.isDirectory() ? UnitType.Folder : UnitType.File}
 					icon={ unit.isDirectory() ?
 						<Icon name='folder' size={40} color={colors.darkgrey} />
