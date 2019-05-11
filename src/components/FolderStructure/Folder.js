@@ -70,7 +70,6 @@ class Folder extends Component {
 			.then(() => {
 				console.log('FILE DELETED');
 			})
-			// `unlink` will throw an error, if the item to unlink does not exist
 			.catch((err) => {
 				console.log(err.message);
 			});
