@@ -150,7 +150,6 @@ class FolderStructure extends Component {
 	}
 
 	makeDirectory = () => {
-		/* documentDirectoryPath = /data/user/0/com.recordit/files */
 		const { currentRelativePath } = this.props;
 		const { units } = this.state;
 
