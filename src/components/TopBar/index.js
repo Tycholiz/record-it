@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import {
 	View,
 } from 'react-native';
@@ -9,8 +8,7 @@ import ToggleControlButton from './ToggleControlButton';
 import Settings from './Settings';
 import BreadcrumbBar from './BreadcrumbBar';
 
-const TopBar = ({
-}) => (
+const TopBar = () => (
 	<View style={s.container}>
 		<View style={s.topbarUpper}>
 			<ToggleControlButton />
