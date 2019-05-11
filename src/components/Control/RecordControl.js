@@ -13,7 +13,8 @@ import colors from '../../styles/colors';
 import { chooseNameForNewUnit } from '../../utils'
 import { BASE_URL } from '../../constants/constants';
 
-import { AudioRecorder, AudioUtils } from 'react-native-audio';
+import { AudioRecorder } from 'react-native-audio';
+import Sound from 'react-native-sound';
 
 import { startRecording } from '../../actions/index'
 
@@ -24,7 +25,7 @@ class RecordControl extends Component {
 		paused: false,
 		stoppedRecording: false,
 		finished: false,
-		audioPath: `${BASE_URL}${currentRelativePath}/Audio(1)`,
+		audioPath: `${BASE_URL}${this.props.currentRelativePath}/Audio(1)`,
 		hasPermission: undefined,
 	};
 

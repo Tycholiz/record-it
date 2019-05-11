@@ -173,10 +173,11 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-audio')
-    compile project(':react-native-fs')
-    compile project(':react-native-linear-gradient')
-    compile project(':react-native-radial-gradient')
+    implementation project(':react-native-sound')
+    implementation project(':react-native-audio')
+    implementation project(':react-native-fs')
+    implementation project(':react-native-linear-gradient')
+    implementation project(':react-native-radial-gradient')
     implementation 'com.android.support:multidex:1.0.1'
 
     // Our dependencies
