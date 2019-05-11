@@ -129,3 +129,11 @@ export const showShortDirPath = (dirPath) => {
 	const shortPath = dirPath.split('/').slice(2).join('/')
 	return '/' + shortPath
 }
+
+export const extractEndPoint = (path) => {
+	if (hasTrailingSlash(path)) {
+		path = path.slice(0, path.length - 1)
+	}
+	const endPoint = path.split('/')
+	return endPoint[endPoint.length - 1]
+}

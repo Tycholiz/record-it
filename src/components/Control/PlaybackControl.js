@@ -16,6 +16,7 @@ import colors from '../../styles/colors';
 
 
 import { UnitType } from '../../constants/enumerables';
+import { extractEndPoint } from '../../utils'
 
 import { startPlaying, setActiveFile } from '../../actions/index'
 
@@ -55,13 +56,14 @@ class PlaybackControl extends Component {
 
 	render() {
 		const { playing, activeFile, title } = this.props;
+
 		return (
 			<View style={s.container}>
 				{activeFile ? (
 
 					<View>
 						<View style={s.topLine}>
-							<Text style={s.text}>{title}.mp3</Text>
+							<Text style={s.text}>{extractEndPoint(activeFile)}</Text>
 							<View style={s.iconContainer}>
 								<TouchableOpacity onPress={() => this.handleOpenModal()}>
 										<Icon name='garbage' size={25} color={colors.white} />
