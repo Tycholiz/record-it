@@ -6,6 +6,7 @@ import {
 	TouchableOpacity,
 	Image
 } from 'react-native';
+import T from 'prop-types'
 import s from '../../styles/Control/RecordControl';
 import Icon from '../../styles/Icon';
 import colors from '../../styles/colors';
@@ -40,6 +41,10 @@ class RecordControl extends Component {
 			</View>
 		);
 	}
+}
+
+RecordControl.propTypes = {
+	recording: T.bool.isRequired
 }
 
 mapStateToProps = (state) => {

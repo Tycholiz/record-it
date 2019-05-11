@@ -5,7 +5,7 @@ import {
 	Text,
 	TouchableOpacity,
 } from 'react-native';
-
+import T from 'prop-types'
 import s from '../../styles/TopBar/ToggleControlButton';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -55,6 +55,11 @@ class ToggleControlButton extends Component {
 			</View>
 		);
 	}
+}
+
+ToggleControlButton.propTypes = {
+	controlView: T.string.isRequired,
+	toggleControlView: T.func.isRequired
 }
 
 mapStateToProps = (state) => {

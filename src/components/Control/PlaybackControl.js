@@ -7,11 +7,13 @@ import {
 	TouchableOpacity,
 	Image,
 } from 'react-native';
+import T from 'prop-types'
+import s from '../../styles/Control/PlaybackControl';
+
 import Modal from "react-native-modal";
 import Icon from '../../styles/Icon';
 import colors from '../../styles/colors';
 
-import s from '../../styles/Control/PlaybackControl';
 
 import { UnitType } from '../../constants/enumerables';
 
@@ -136,6 +138,12 @@ class PlaybackControl extends Component {
 			</View>
 		);
 	}
+}
+
+PlaybackControl.propTypes = {
+	playing: T.bool.isRequired,
+	// title:
+	// activeFile:
 }
 
 mapStateToProps = (state) => {

@@ -6,9 +6,7 @@ import {
 	Platform,
 	StatusBar,
 } from 'react-native';
-// import {
-// 	Constants,
-// } from 'expo';
+import T from 'prop-types'
 import { Mode } from '../constants/enumerables';
 import RadialGradient from 'react-native-radial-gradient';
 
@@ -40,6 +38,10 @@ class App extends Component {
 			</View>
 		);
 	}
+}
+
+App.propTypes = {
+	mode: T.string.isRequired
 }
 
 const mapStateToProps = state => {

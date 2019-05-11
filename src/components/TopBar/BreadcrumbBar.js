@@ -8,12 +8,13 @@ import {
 	TextInput,
 	Image,
 } from 'react-native';
+import T from 'prop-types'
+import s from '../../styles/TopBar/BreadcrumbBar';
 import { showShortDirPath } from '../../utils'
 import Icon from '../../styles/Icon';
 import colors from '../../styles/colors';
 
 import Modal from "react-native-modal";
-import s from '../../styles/TopBar/BreadcrumbBar';
 
 class BreadcrumbBar extends Component {
 	state = {
@@ -39,6 +40,10 @@ class BreadcrumbBar extends Component {
 			</View>
 		);
 	}
+}
+
+BreadcrumbBar.propTypes = {
+	currentRelativePath: T.string.isRequired
 }
 
 const mapStateToProps = state => {

@@ -9,6 +9,7 @@ import {
 	Dimensions,
 	Alert,
 } from 'react-native';
+import T from 'prop-types'
 import s from '../../styles/FolderStructure/Folder'
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import Modal from "react-native-modal";
@@ -312,6 +313,19 @@ class Folder extends Component {
 			</View>
 		);
 	}
+}
+
+
+Folder.propTypes = {
+	text: T.string.isRequired,
+	icon: T.object.isRequired,
+	handleUnitPress: T.func.isRequired,
+	currentRelativePath: T.string.isRequired,
+	unitType: T.string.isRequired,
+	selected: T.bool.isRequired,
+	mode: T.string.isRequired,
+	dateCreated: T.instanceOf(Date),
+	size: T.number
 }
 
 const mapStateToProps = state => {

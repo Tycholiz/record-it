@@ -5,9 +5,9 @@ import {
 	TouchableOpacity,
 	View,
 } from 'react-native';
+import s from '../../styles/TopBar/Settings';
 import Icon from '../../styles/Icon';
 
-import s from '../../styles/TopBar/Settings';
 import colors from '../../styles/colors';
 
 import { multipleMode } from '../../actions';

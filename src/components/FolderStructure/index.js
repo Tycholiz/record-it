@@ -8,11 +8,12 @@ import {
 	Image,
 	Alert,
 } from 'react-native';
+import T from 'prop-types'
+import s from '../../styles/FolderStructure/index';
+import Modal from "react-native-modal";
 import Icon from '../../styles/Icon';
 
-import Modal from "react-native-modal";
 
-import s from '../../styles/FolderStructure/index';
 import colors from '../../styles/colors';
 
 import uuid from 'uuid/v4'
@@ -350,6 +351,11 @@ class FolderStructure extends Component {
 			</View>
 		);
 	}
+}
+
+FolderStructure.propTypes = {
+	currentRelativePath: T.string,
+	mode: T.string,
 }
 
 const mapStateToProps = state => {

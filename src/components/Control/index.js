@@ -5,6 +5,8 @@ import {
 	View,
 	Text,
 } from 'react-native';
+
+import T from 'prop-types'
 import s from '../../styles/Control/index';
 
 import RecordControl from './RecordControl';
@@ -25,6 +27,10 @@ class Control extends Component {
 			</View>
 		);
 	}
+}
+
+Control.propTypes = {
+	controlView: T.string.isRequired
 }
 
 // If mapStateToProps is specified, the new component will subscribe to Redux store updates.This means that any time the store is updated, mapStateToProps will be called
