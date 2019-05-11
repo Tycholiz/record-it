@@ -13,7 +13,6 @@ import s from '../../styles/FolderStructure/index';
 import Modal from "react-native-modal";
 import Icon from '../../styles/Icon';
 
-
 import colors from '../../styles/colors';
 
 import uuid from 'uuid/v4'
@@ -157,8 +156,8 @@ class FolderStructure extends Component {
 		})
 
 		const newFolderName = chooseNameForNewUnit(unitsInCurrentDir, UnitType.Folder)
-
 		const absolutePath = `${BASE_URL}${currentRelativePath}/${newFolderName}`
+
 		RNFS.mkdir(absolutePath)
 		.then(() => {
 			console.log("new directory created!")
