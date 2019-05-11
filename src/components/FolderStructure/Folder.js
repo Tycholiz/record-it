@@ -16,13 +16,12 @@ import Modal from "react-native-modal";
 import RNFS from 'react-native-fs';
 import RadialGradient from 'react-native-radial-gradient';
 
-const screen = Dimensions.get('window');
-import { timeConverter, duplicateTitles, childrenOfParent, showShortDirPath } from '../../utils';
+import { showShortDirPath } from '../../utils';
 
 import { Mode, ControlView, UnitType, Modification } from '../../constants/enumerables';
 import { BASE_URL } from '../../constants/constants'
 
-import { deleteUnits, renameUnit, multipleMode, modifySelectedUnit } from '../../actions';
+import { multipleMode, modifySelectedUnit } from '../../actions';
 
 class Folder extends Component {
 	state = {

@@ -17,7 +17,7 @@ import colors from '../../styles/colors';
 
 import { UnitType } from '../../constants/enumerables';
 
-import { startPlaying, deleteUnit, setActiveFile, deleteUnits } from '../../actions/index'
+import { startPlaying, setActiveFile } from '../../actions/index'
 
 class PlaybackControl extends Component {
 	state = {
@@ -44,7 +44,6 @@ class PlaybackControl extends Component {
 		const { dispatch } = this.props;
 
 		dispatch(setActiveFile(null));
-		dispatch(deleteUnit(unitId, UnitType.File));
 
 		this.handleCloseModal();
 	};
@@ -141,7 +140,7 @@ class PlaybackControl extends Component {
 }
 
 PlaybackControl.propTypes = {
-	playing: T.bool.isRequired,
+	// playing: T.bool.isRequired,
 	// title:
 	// activeFile:
 }
@@ -150,7 +149,7 @@ mapStateToProps = (state) => {
 	return {
 		playing: state.toggle.playing,
 		activeFile: state.activeFile,
-		title: state.activeFile && state.units.files[state.activeFile].title,
+		// title: state.activeFile && state.units.files[state.activeFile].title,
 	};
 };
 

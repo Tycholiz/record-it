@@ -23,14 +23,11 @@ import RNFS from 'react-native-fs'
 import {
 	enterFolder,
 	setActiveFile,
-	createFolder,
 	multipleMode,
 	modifySelectedUnit,
-	moveUnits,
-	deleteUnits,
 } from '../../actions';
 
-import { getUnitsToDelete, duplicateTitles, popCurrentDirectoryOffPath, addNewDirOnPath, chooseNameForNewFolder } from '../../utils';
+import { duplicateTitles, popCurrentDirectoryOffPath, addNewDirOnPath, chooseNameForNewFolder } from '../../utils';
 import { Mode, Modification, UnitType } from '../../constants/enumerables';
 import { BASE_URL } from '../../constants/constants';
 
@@ -130,7 +127,7 @@ class FolderStructure extends Component {
 		if (selectedUnits.length > 0) {
 			dispatch(multipleMode(Mode.Action));
 		} else {
-			this.handleCancelMultipleSelection();
+			// this.handleCancelMultipleSelection();
 		}
 	}
 
@@ -212,9 +209,9 @@ class FolderStructure extends Component {
 
 						<TouchableOpacity
 							style={[s.selectMultipleUnitButton, {backgroundColor: colors.gray} ]}
-							onPress={() =>
-								this.handleCancelMultipleSelection()
-							}
+							// onPress={() =>
+							// 	// this.handleCancelMultipleSelection()
+							// }
 						>
 							<Text style={[s.selectMultipleText, { color: '#333333ff' }]}>CANCEL</Text>
 						</TouchableOpacity>
@@ -260,9 +257,9 @@ class FolderStructure extends Component {
 							}
 							<TouchableOpacity
 								style={[s.selectMultipleUnitButton, { backgroundColor: colors.gray }]}
-								onPress={() =>
-									this.handleCancelMultipleSelection()
-								}
+								// onPress={() =>
+								// 	// this.handleCancelMultipleSelection()
+								// }
 							>
 								<Text style={[s.selectMultipleText, {color: '#333333ff' }]}>CANCEL</Text>
 							</TouchableOpacity>
