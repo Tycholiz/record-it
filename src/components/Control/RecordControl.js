@@ -4,7 +4,9 @@ import {
 	View,
 	Text,
 	TouchableOpacity,
-	Image
+	Image,
+	AppRegistry,
+	PermissionsAndroid,
 } from 'react-native';
 import T from 'prop-types'
 import s from '../../styles/Control/RecordControl';
@@ -14,20 +16,42 @@ import { chooseNameForNewUnit } from '../../utils'
 import { BASE_URL } from '../../constants/constants';
 
 import { AudioRecorder } from 'react-native-audio';
-import Sound from 'react-native-sound';
 
 import { startRecording } from '../../actions/index'
 
 class RecordControl extends Component {
 	state = {
 		currentTime: 0.0,
-		recording: false,
 		paused: false,
 		stoppedRecording: false,
 		finished: false,
-		audioPath: `${BASE_URL}${this.props.currentRelativePath}/Audio(1)`,
+		audioPath: `${BASE_URL}${this.props.currentRelativePath}/Audio(4).aac`,
 		hasPermission: undefined,
 	};
+
+	requestMicrophonePermission = async () => {
+		try {
+			const granted = await PermissionsAndroid.request(
+				PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+				{
+					title: 'RecordIt Recording Permission',
+					message:
+						'Recordit needs access to your microphone ' +
+						'so you can record.',
+					buttonNeutral: 'Ask Me Later',
+					buttonNegative: 'Cancel',
+					buttonPositive: 'OK',
+				},
+			);
+			if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+				console.log('You can use the mic');
+			} else {
+				console.log('Mic permission denied');
+			}
+		} catch (err) {
+			console.warn(err);
+		}
+	}
 
 	prepareRecordingPath(audioPath){
 		AudioRecorder.prepareRecordingAtPath(audioPath, {
@@ -40,6 +64,7 @@ class RecordControl extends Component {
 	}
 
 	componentDidMount() {
+		// this.requestMicrophonePermission()
 		AudioRecorder.requestAuthorization().then((isAuthorised) => {
 			this.setState({ hasPermission: isAuthorised });
 
@@ -60,8 +85,44 @@ class RecordControl extends Component {
 		});
 	}
 
+	async _record() {
+		const { recording, startRecording } = this.props;
+
+		console.log('recording');
+		// if (this.state.recording) {
+		if (recording) {
+			console.warn('Already recording!');
+			return;
+		}
+
+		if (!this.state.hasPermission) {
+			console.warn('Can\'t record, no permission granted!');
+			return;
+		}
+
+		if (this.state.stoppedRecording) {
+			this.prepareRecordingPath(this.state.audioPath);
+		}
+
+		startRecording()
+
+		this.setState({
+			// recording: true,
+			paused: false
+		});
+
+		try {
+			const filePath = await AudioRecorder.startRecording();
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
 	async _pause() {
-		if (!this.state.recording) {
+		const { recording } = this.props;
+		console.log('pausing');
+		// if (!this.state.recording) {
+		if (!recording) {
 			console.warn('Can\'t pause, not recording!');
 			return;
 		}
@@ -89,7 +150,10 @@ class RecordControl extends Component {
 	}
 
 	async _stop() {
-		if (!this.state.recording) {
+		const { recording } = this.props;
+
+		// if (!this.state.recording) {
+		if (!recording) {
 			console.warn('Can\'t stop, not recording!');
 			return;
 		}
@@ -108,56 +172,6 @@ class RecordControl extends Component {
 		}
 	}
 
-	async _play() {
-		if (this.state.recording) {
-			await this._stop();
-		}
-
-		// These timeouts are a hacky workaround for some issues with react-native-sound.
-		// See https://github.com/zmxv/react-native-sound/issues/89.
-		setTimeout(() => {
-			var sound = new Sound(this.state.audioPath, '', (error) => {
-				if (error) {
-					console.log('failed to load the sound', error);
-				}
-			});
-
-			setTimeout(() => {
-				sound.play((success) => {
-					if (success) {
-						console.log('successfully finished playing');
-					} else {
-						console.log('playback failed due to audio decoding errors');
-					}
-				});
-			}, 100);
-		}, 100);
-	}
-
-	async _record() {
-		if (this.state.recording) {
-			console.warn('Already recording!');
-			return;
-		}
-
-		if (!this.state.hasPermission) {
-			console.warn('Can\'t record, no permission granted!');
-			return;
-		}
-
-		if (this.state.stoppedRecording) {
-			this.prepareRecordingPath(this.state.audioPath);
-		}
-
-		this.setState({ recording: true, paused: false });
-
-		try {
-			const filePath = await AudioRecorder.startRecording();
-		} catch (error) {
-			console.error(error);
-		}
-	}
-
 	_finishRecording(didSucceed, filePath, fileSize) {
 		this.setState({ finished: didSucceed });
 		console.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath} and size of ${fileSize || 0} bytes`);
@@ -169,21 +183,23 @@ class RecordControl extends Component {
 		return (
 			<View style={s.container}>
 				{recording &&
-					<TouchableOpacity>
+					<TouchableOpacity onPress={() => this._stop()}>
 						<Icon name='cross' size={40} color={colors.white} />
 					</TouchableOpacity>
 				}
 
-				<TouchableOpacity style={s.icon} onPress={this.props.startRecording}>
-					{this.props.recording ?
+				{recording ?
+					<TouchableOpacity style={s.icon} onPress={() => this._pause()}>
 						<Image source={require('../../../assets/images/pause.png')} style={{ width: 80, height: 80 }} />
-							:
+					</TouchableOpacity>
+						:
+					<TouchableOpacity style={s.icon} onPress={() => this._record()}>
 						<Image source={require('../../../assets/images/microphone.png')} style={{ width: 80, height: 80 }} />
-					}
-				</TouchableOpacity>
+					</TouchableOpacity>
+				}
 
 				{recording &&
-					<TouchableOpacity>
+					<TouchableOpacity onPress={() => this._finishRecording()}>
 						<Icon name='checkmark' size={40} color={colors.white} />
 					</TouchableOpacity>
 				}

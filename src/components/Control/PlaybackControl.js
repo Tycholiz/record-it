@@ -14,6 +14,7 @@ import Modal from "react-native-modal";
 import Icon from '../../styles/Icon';
 import colors from '../../styles/colors';
 
+import Sound from 'react-native-sound';
 
 import { UnitType } from '../../constants/enumerables';
 import { extractEndPoint } from '../../utils'
@@ -53,6 +54,30 @@ class PlaybackControl extends Component {
 		const { dispatch } = this.props;
 		dispatch(startPlaying());
 	};
+
+	async _play() {
+		if (this.state.recording) {
+			await this._stop();
+		}
+
+		setTimeout(() => {
+			var sound = new Sound(this.state.audioPath, '', (error) => {
+				if (error) {
+					console.log('failed to load the sound', error);
+				}
+			});
+
+			setTimeout(() => {
+				sound.play((success) => {
+					if (success) {
+						console.log('successfully finished playing');
+					} else {
+						console.log('playback failed due to audio decoding errors');
+					}
+				});
+			}, 100);
+		}, 100);
+	}
 
 	render() {
 		const { playing, activeFile, title } = this.props;

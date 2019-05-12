@@ -14,15 +14,35 @@ import PlaybackControl from './PlaybackControl';
 import { ControlView } from '../../constants/enumerables';
 
 class Control extends Component {
+	state = {
+		recording: false,
+		// paused: false,
+		// stoppedRecording: false,
+		// finished: false,
+		// hasPermission: undefined,
+	};
+
+	startRecording = () => {
+		this.setState({
+			recording: true
+		})
+	}
 
 	render() {
 		const { controlView } = this.props;
+		const { recording } = this.state;
 		return (
 			<View style={s.container}>
 				{controlView === ControlView.Record ?
-					<RecordControl />
-						:
-					<PlaybackControl />
+					<RecordControl
+						recording={recording}
+						startRecording={this.startRecording}
+					/>
+					:
+					<PlaybackControl
+						recording={recording}
+						startRecording={this.startRecording}
+					/>
 				}
 			</View>
 		);
@@ -33,9 +53,6 @@ Control.propTypes = {
 	controlView: T.string.isRequired
 }
 
-// If mapStateToProps is specified, the new component will subscribe to Redux store updates.This means that any time the store is updated, mapStateToProps will be called
-
-//The mapStateToProps function's first argument is the entire Redux store’s state and it returns an object to be passed as props.
 mapStateToProps = (state) => {
 	return {
 		controlView: state.toggle.controlView,
