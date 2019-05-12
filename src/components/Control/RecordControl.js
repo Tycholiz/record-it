@@ -23,9 +23,6 @@ import { startRecording } from '../../actions/index'
 class RecordControl extends Component {
 	state = {
 		currentTime: 0.0,
-		paused: false,
-		stoppedRecording: false,
-		finished: false,
 		audioPath: `${BASE_URL}${this.props.currentRelativePath}/Audio(4).aac`,
 		hasPermission: undefined,
 	};
@@ -71,7 +68,7 @@ class RecordControl extends Component {
 
 			if (!isAuthorised) return;
 
-			this.prepareRecordingPath(this.state.audioPath);
+			// this.prepareRecordingPath(this.state.audioPath);
 
 			AudioRecorder.onProgress = (data) => {
 				this.setState({ currentTime: Math.floor(data.currentTime) });
@@ -87,7 +84,9 @@ class RecordControl extends Component {
 	}
 
 	async _record() {
-		const { recording, startRecording } = this.props;
+		const { recording, startRecording, stoppedRecording, pauseRecording } = this.props;
+
+		this.prepareRecordingPath(this.state.audioPath);
 
 		console.log('recording');
 		// if (this.state.recording) {
@@ -101,15 +100,16 @@ class RecordControl extends Component {
 			return;
 		}
 
-		if (this.state.stoppedRecording) {
+		if (stoppedRecording) {
 			this.prepareRecordingPath(this.state.audioPath);
 		}
 
-		startRecording()
+		startRecording(true)
+		pauseRecording(false)
 
 		this.setState({
 			// recording: true,
-			paused: false
+			// paused: false
 		});
 
 		try {
@@ -136,14 +136,16 @@ class RecordControl extends Component {
 	}
 
 	async _resume() {
-		if (!this.state.paused) {
+		const { paused } = this.props
+		if (!paused) {
 			console.warn('Can\'t resume, not paused!');
 			return;
 		}
 
 		try {
 			await AudioRecorder.resumeRecording();
-			this.setState({ paused: false });
+			// this.setState({ paused: false });
+			pauseRecording(false)
 		} catch (error) {
 			console.error(error);
 		}
@@ -182,7 +184,9 @@ class RecordControl extends Component {
 	}
 
 	_finishRecording(didSucceed, filePath, fileSize) {
-		this.setState({ finished: didSucceed });
+		const { finishRecording } = this.props;
+		// this.setState({ finished: didSucceed });
+		finishRecording(didSucceed)
 		console.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath} and size of ${fileSize || 0} bytes`);
 	}
 
