@@ -16,27 +16,51 @@ import { ControlView } from '../../constants/enumerables';
 class Control extends Component {
 	state = {
 		recording: false,
-		// paused: false,
-		// stoppedRecording: false,
-		// finished: false,
+		paused: false,
+		stoppedRecording: false,
+		finished: false,
 		// hasPermission: undefined,
 	};
 
-	startRecording = () => {
+	startRecording = (flag) => {
 		this.setState({
-			recording: true
+			recording: flag
+		})
+	}
+
+	pauseRecording = (flag) => {
+		this.setState({
+			paused: flag
+		})
+	}
+
+	stopRecording = (flag) => {
+		this.setState({
+			stoppedRecording: flag
+		})
+	}
+
+	finishRecording = (flag) => {
+		this.setState({
+			finished: flag
 		})
 	}
 
 	render() {
 		const { controlView } = this.props;
-		const { recording } = this.state;
+		const { recording, paused, stoppedRecording, finished } = this.state;
 		return (
 			<View style={s.container}>
 				{controlView === ControlView.Record ?
 					<RecordControl
 						recording={recording}
+						paused={paused}
+						stoppedRecording={stoppedRecording}
+						finished={finished}
 						startRecording={this.startRecording}
+						pauseRecording={this.pauseRecording}
+						stopRecording={this.stopRecording}
+						finishRecording={this.finishRecording}
 					/>
 					:
 					<PlaybackControl

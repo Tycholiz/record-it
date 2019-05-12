@@ -56,7 +56,8 @@ class PlaybackControl extends Component {
 	};
 
 	async _play() {
-		if (this.state.recording) {
+		const { recording } = this.props
+		if (recording) {
 			await this._stop();
 		}
 

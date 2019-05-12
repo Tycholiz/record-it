@@ -7,6 +7,7 @@ import {
 	Image,
 	AppRegistry,
 	PermissionsAndroid,
+	Platform
 } from 'react-native';
 import T from 'prop-types'
 import s from '../../styles/Control/RecordControl';
@@ -119,9 +120,8 @@ class RecordControl extends Component {
 	}
 
 	async _pause() {
-		const { recording } = this.props;
+		const { recording, pauseRecording } = this.props;
 		console.log('pausing');
-		// if (!this.state.recording) {
 		if (!recording) {
 			console.warn('Can\'t pause, not recording!');
 			return;
@@ -129,7 +129,7 @@ class RecordControl extends Component {
 
 		try {
 			const filePath = await AudioRecorder.pauseRecording();
-			this.setState({ paused: true });
+			pauseRecording(true)
 		} catch (error) {
 			console.error(error);
 		}
@@ -149,26 +149,35 @@ class RecordControl extends Component {
 		}
 	}
 
-	async _stop() {
-		const { recording } = this.props;
+	async _stop(saveRecording) {
+		const { recording, pauseRecording, startRecording, stopRecording } = this.props;
 
-		// if (!this.state.recording) {
 		if (!recording) {
 			console.warn('Can\'t stop, not recording!');
 			return;
 		}
 
-		this.setState({ stoppedRecording: true, recording: false, paused: false });
+		// this.setState({
+		// 	stoppedRecording: true,
+		// 	recording: false,
+		// 	paused: false
+		// });
 
-		try {
-			const filePath = await AudioRecorder.stopRecording();
+		pauseRecording(false)
+		startRecording(false)
+		stopRecording(true)
 
-			if (Platform.OS === 'android') {
-				this._finishRecording(true, filePath);
+		if (saveRecording) {
+			try {
+				const filePath = await AudioRecorder.stopRecording();
+
+				if (Platform.OS === 'android') {
+					this._finishRecording(true, filePath);
+				}
+				return filePath;
+			} catch (error) {
+				console.error(error);
 			}
-			return filePath;
-		} catch (error) {
-			console.error(error);
 		}
 	}
 
@@ -178,28 +187,38 @@ class RecordControl extends Component {
 	}
 
 	render() {
-		const { recording } = this.props;
+		const { recording, paused } = this.props;
 
 		return (
 			<View style={s.container}>
 				{recording &&
-					<TouchableOpacity onPress={() => this._stop()}>
+					<TouchableOpacity onPress={() => this._stop(false)}>
 						<Icon name='cross' size={40} color={colors.white} />
 					</TouchableOpacity>
 				}
 
-				{recording ?
-					<TouchableOpacity style={s.icon} onPress={() => this._pause()}>
+				{recording && !paused ?
+					<TouchableOpacity style={s.icon}
+						onPress={() =>
+							this._pause()
+						}
+					>
 						<Image source={require('../../../assets/images/pause.png')} style={{ width: 80, height: 80 }} />
 					</TouchableOpacity>
 						:
-					<TouchableOpacity style={s.icon} onPress={() => this._record()}>
+					<TouchableOpacity style={s.icon}
+						onPress={recording && paused ?
+							() => this._resume()
+								:
+							() => this._record()
+						}
+					>
 						<Image source={require('../../../assets/images/microphone.png')} style={{ width: 80, height: 80 }} />
 					</TouchableOpacity>
 				}
 
 				{recording &&
-					<TouchableOpacity onPress={() => this._finishRecording()}>
+					<TouchableOpacity onPress={() => this._stop(true)}>
 						<Icon name='checkmark' size={40} color={colors.white} />
 					</TouchableOpacity>
 				}
