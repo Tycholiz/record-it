@@ -11,6 +11,7 @@ import {
 	MODIFY_SELECTED_UNIT,
 	MULTIPLE_MODE,
 	MOVE_UNITS,
+	READ_DIRECTORY
 } from "../constants/action-types";
 
 export const toggleControlView = () => ({
@@ -92,3 +93,10 @@ export const modifySelectedUnit = (modification, unitId) => ({
 		unitId
 	}
 });
+
+export const readDirectory = (units) => ({
+	type: READ_DIRECTORY,
+	payload: {
+		units
+	}
+})

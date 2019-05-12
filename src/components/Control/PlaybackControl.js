@@ -50,19 +50,17 @@ class PlaybackControl extends Component {
 		this.handleCloseModal();
 	};
 
-	handlePlayButton = () => {
-		const { dispatch } = this.props;
-		dispatch(startPlaying());
-	};
-
 	async _play() {
-		const { recording } = this.props
+		const { recording, activeFile } = this.props;
+
+		const activeFilePath = `${BASE_URL}${this.props.currentRelativePath}/${activeFile}`
+
 		if (recording) {
 			await this._stop();
 		}
 
 		setTimeout(() => {
-			var sound = new Sound(this.state.audioPath, '', (error) => {
+			var sound = new Sound(activeFilePath, '', (error) => {
 				if (error) {
 					console.log('failed to load the sound', error);
 				}

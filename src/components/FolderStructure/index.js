@@ -24,6 +24,7 @@ import {
 	setActiveFile,
 	multipleMode,
 	modifySelectedUnit,
+	readDirectory
 } from '../../actions';
 
 import { duplicateTitles, popCurrentDirectoryOffPath, addNewDirOnPath, chooseNameForNewUnit } from '../../utils';
@@ -35,19 +36,21 @@ import Folder from './Folder';
 class FolderStructure extends Component {
 	state = {
 		deleteConfirmation: false,
-		units: []
+		units: this.props.units
 	}
 
 	componentDidMount() {
 		this.updateUnitsState()
 	}
 
-	updateUnitsState() {
-		const { currentRelativePath } = this.props;
-		this.readDirectory(currentRelativePath).then(units => {
+	updateUnitsState = async () => {
+		const { currentRelativePath, dispatch } = this.props;
+		console.log("updateUnitsState called");
+		await this.readDirectory(currentRelativePath).then(units => {
 			this.setState({
 				units
 			})
+		 dispatch(readDirectory(units))
 		})
 	}
 
@@ -75,6 +78,7 @@ class FolderStructure extends Component {
 		this.updateUnitsState();
 	}
 
+	//TODO: tapping an audio file should switch control mode to playback, and should automatically start playing the clip
 	handleUnitPress =  async (unitName, isDirectory, mode) => {
 		const { dispatch, selectedUnits, currentRelativePath } = this.props;
 
@@ -131,22 +135,6 @@ class FolderStructure extends Component {
 		}
 	}
 
-	readDirectory = (currentRelativePath) => {
-		const pathToRead = `${BASE_URL}${currentRelativePath}`
-
-		var promise = RNFS.readDir(pathToRead)
-			.then(units => {
-				units.forEach(unit => {
-					unit.id = uuid() //note: this will produce a new id each time the units are rendered on the screen. will this cause issues?
-				})
-				return units
-			})
-			.catch(err => {
-				console.log("error!:", err)
-			})
-		return promise
-	}
-
 	makeDirectory = () => {
 		const { currentRelativePath } = this.props;
 		const { units } = this.state;
@@ -168,6 +156,22 @@ class FolderStructure extends Component {
 		this.updateUnitsState()
 	}
 
+	readDirectory = (currentRelativePath) => {
+		const pathToRead = `${BASE_URL}${currentRelativePath}`
+
+		var promise = RNFS.readDir(pathToRead)
+			.then(units => {
+				units.forEach(unit => {
+					unit.id = uuid() //note: this will produce a new id each time the units are rendered on the screen. will this cause issues?
+				})
+				return units
+			})
+			.catch(err => {
+				console.log("error!:", err)
+			})
+		return promise
+	}
+
 	render() {
 		const { mode, currentRelativePath } = this.props;
 		const { deleteConfirmation, units } = this.state;
@@ -187,6 +191,7 @@ class FolderStructure extends Component {
 					}
 					handleUnitPress={() => this.handleUnitPress(unit.name, unit.isDirectory(), mode)}
 					selected={false}
+					updateUnitsState={this.updateUnitsState}
 				/>
 				)
 			});

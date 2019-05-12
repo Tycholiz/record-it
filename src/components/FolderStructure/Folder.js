@@ -61,32 +61,37 @@ class Folder extends Component {
 		});
 	}
 
-	handleDeleteUnit = (name) => {
-		const { currentRelativePath } = this.props;
+	handleDeleteUnit = async (name) => {
+		const { currentRelativePath, updateUnitsState } = this.props;
 		const unitToDelete = `${BASE_URL}${currentRelativePath}/${name}`
 
 		console.log(unitToDelete)
-		return RNFS.unlink(unitToDelete)
+		await RNFS.unlink(unitToDelete)
 			.then(() => {
 				console.log('FILE DELETED');
 			})
 			.catch((err) => {
 				console.log(err.message);
 			});
+		updateUnitsState()
 	}
 
-	handleRenameUnit = () => {
-		const { currentRelativePath, text } = this.props;
+	handleRenameUnit = async () => {
+		const { currentRelativePath, text, updateUnitsState } = this.props;
 
 		const unitToBeRenamed = `${BASE_URL}${currentRelativePath}/${text}`
 		const newName = `${BASE_URL}${currentRelativePath}/${this.state.title}`
-		RNFS.moveFile(unitToBeRenamed, newName)
+		await RNFS.moveFile(unitToBeRenamed, newName)
 			.then(() => {
 				console.log('unit renamed!')
+				this.setState({
+					renaming: false
+				})
 			})
 			.catch(err => {
 				console.log("error!", err);
 			})
+		updateUnitsState()
 	}
 
 	getNumChildren = () => {

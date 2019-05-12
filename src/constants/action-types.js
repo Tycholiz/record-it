@@ -14,6 +14,7 @@ export const MULTIPLE_MODE = "MULTIPLE_MODE";
 export const MODIFY_SELECTED_UNIT = "MODIFY_SELECTED_UNIT";
 export const MOVE_UNIT = "MOVE_UNIT";
 export const MOVE_UNITS = "MOVE_UNITS";
+export const READ_DIRECTORY = "READ_DIRECTORY"
 
 export const RECORD = "RECORD";
 export const PLAYBACK = "PLAYBACK";
