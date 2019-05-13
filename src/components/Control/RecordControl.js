@@ -23,7 +23,7 @@ import { startRecording } from '../../actions/index'
 class RecordControl extends Component {
 	state = {
 		currentTime: 0.0,
-		audioPath: `${BASE_URL}${this.props.currentRelativePath}/Audio(4).aac`,
+		audioPath: `${BASE_URL}${this.props.currentRelativePath}/${chooseNameForNewUnit(this.props.units, "file")}`,
 		hasPermission: undefined,
 	};
 
@@ -84,7 +84,8 @@ class RecordControl extends Component {
 	}
 
 	async _record() {
-		const { recording, startRecording, stoppedRecording, pauseRecording } = this.props;
+		const { recording, startRecording, stoppedRecording, pauseRecording, stopRecording } = this.props;
+		const { audioPath } = this.state;
 
 		this.prepareRecordingPath(this.state.audioPath);
 
@@ -101,16 +102,14 @@ class RecordControl extends Component {
 		}
 
 		if (stoppedRecording) {
-			this.prepareRecordingPath(this.state.audioPath);
+			console.log("before prepareRecordingPath")
+			// this.prepareRecordingPath(audioPath);
+			console.log("after prepareRecordingPath")
+
 		}
 
 		startRecording(true)
 		pauseRecording(false)
-
-		this.setState({
-			// recording: true,
-			// paused: false
-		});
 
 		try {
 			const filePath = await AudioRecorder.startRecording();
@@ -136,13 +135,14 @@ class RecordControl extends Component {
 	}
 
 	async _resume() {
-		const { paused } = this.props
+		const { paused, pauseRecording } = this.props
 		if (!paused) {
 			console.warn('Can\'t resume, not paused!');
 			return;
 		}
 
 		try {
+			console.log("resuming recording");
 			await AudioRecorder.resumeRecording();
 			// this.setState({ paused: false });
 			pauseRecording(false)
@@ -152,26 +152,22 @@ class RecordControl extends Component {
 	}
 
 	async _stop(saveRecording) {
-		const { recording, pauseRecording, startRecording, stopRecording } = this.props;
+		const { recording, pauseRecording, startRecording, stopRecording, currentRelativePath } = this.props;
 
 		if (!recording) {
 			console.warn('Can\'t stop, not recording!');
 			return;
 		}
 
-		// this.setState({
-		// 	stoppedRecording: true,
-		// 	recording: false,
-		// 	paused: false
-		// });
-
 		pauseRecording(false)
 		startRecording(false)
 		stopRecording(true)
 
 		if (saveRecording) {
+			console.log("attempting to save recording");
 			try {
-				const filePath = await AudioRecorder.stopRecording();
+				// const filePath = await AudioRecorder.stopRecording();
+				const filePath = `${BASE_URL}${currentRelativePath}/${chooseNameForNewUnit(this.props.units, "file")}`
 
 				if (Platform.OS === 'android') {
 					this._finishRecording(true, filePath);
@@ -184,6 +180,7 @@ class RecordControl extends Component {
 	}
 
 	_finishRecording(didSucceed, filePath, fileSize) {
+		console.log("recording succeeded");
 		const { finishRecording } = this.props;
 		// this.setState({ finished: didSucceed });
 		finishRecording(didSucceed)
@@ -238,7 +235,8 @@ RecordControl.propTypes = {
 mapStateToProps = (state) => {
 	return {
 		recording: state.toggle.recording,
-		currentRelativePath: state.currentRelativePath
+		currentRelativePath: state.currentRelativePath,
+		units: state.units
 	}
 }
 
