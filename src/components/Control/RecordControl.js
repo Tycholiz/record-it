@@ -5,7 +5,6 @@ import {
 	Text,
 	TouchableOpacity,
 	Image,
-	AppRegistry,
 	PermissionsAndroid,
 	Platform
 } from 'react-native';
@@ -190,7 +189,6 @@ class RecordControl extends Component {
 
 	render() {
 		const { isRecording, isPaused } = this.props;
-		// console.log('recording', recording)
 
 		return (
 			<View style={s.container}>
@@ -216,7 +214,7 @@ class RecordControl extends Component {
 							() => this._record()
 						}
 					>
-						<Image source={require('../../../assets/images/microphone.png')} style={{ width: 80, height: 80 }} />
+						<Image source={require('../../../assets/images/microphone.png')} style={{ width: 80, height: 80}}/>
 					</TouchableOpacity>
 				}
 
@@ -231,12 +229,18 @@ class RecordControl extends Component {
 }
 
 RecordControl.propTypes = {
-	isRecording: T.bool.isRequired
+	isRecording: T.bool.isRequired,
+	isPaused: T.bool.isRequired,
+	stoppedRecording: T.bool.isRequired,
+	finished: T.bool.isRequired,
+	startRecording: T.func,
+	pauseRecording: T.func,
+	stopRecording: T.func,
+	finishRecording: T.func,
 }
 
 mapStateToProps = (state) => {
 	return {
-		// recording: state.toggle.recording,
 		currentRelativePath: state.currentRelativePath,
 		units: state.units
 	}

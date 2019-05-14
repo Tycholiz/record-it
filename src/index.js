@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 
 import {
-    Platform,
-    StatusBar, View,
-    YellowBox,
+	Platform,
+	StatusBar,
+	YellowBox,
+	AppRegistry
 } from 'react-native';
 // YellowBox.ignoreWarnings(['Remote debugger']);
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
@@ -38,3 +39,5 @@ export default class Root extends Component {
 		this.setState({ isLoadingComplete: true });
 	};
 }
+
+AppRegistry.registerComponent('Root', () => Root);

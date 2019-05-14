@@ -64,7 +64,7 @@ class Control extends Component {
 					/>
 					:
 					<PlaybackControl
-						recording={recording}
+						isRecording={isRecording}
 						startRecording={this.startRecording}
 					/>
 				}
@@ -73,9 +73,9 @@ class Control extends Component {
 	}
 }
 
-Control.propTypes = {
-	controlView: T.string.isRequired
-}
+// Control.propTypes = {
+// 	controlView: T.string.isRequired
+// }
 
 mapStateToProps = (state) => {
 	return {
