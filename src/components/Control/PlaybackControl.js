@@ -18,8 +18,9 @@ import Sound from 'react-native-sound';
 
 import { UnitType } from '../../constants/enumerables';
 import { extractEndPoint } from '../../utils'
+import { BASE_URL } from '../../constants/constants';
 
-import { startPlaying, setActiveFile } from '../../actions/index'
+import { setActiveFile } from '../../actions/index'
 
 class PlaybackControl extends Component {
 	state = {
@@ -51,16 +52,16 @@ class PlaybackControl extends Component {
 	};
 
 	async _play() {
-		const { recording, activeFile } = this.props;
+		const { isRecording, activeFile, stopRecording, currentRelativePath } = this.props;
 
-		const activeFilePath = `${BASE_URL}${this.props.currentRelativePath}/${activeFile}`
+		// const activeFilePath = `${BASE_URL}${currentRelativePath}/${activeFile}`
 
-		if (recording) {
-			await this._stop();
+		if (isRecording) {
+			await stopRecording();
 		}
 
 		setTimeout(() => {
-			var sound = new Sound(activeFilePath, '', (error) => {
+			var sound = new Sound(activeFile, '', (error) => {
 				if (error) {
 					console.log('failed to load the sound', error);
 				}
@@ -79,7 +80,7 @@ class PlaybackControl extends Component {
 	}
 
 	render() {
-		const { playing, activeFile, title } = this.props;
+		const { isPlaying, activeFile, title } = this.props;
 
 		return (
 			<View style={s.container}>
@@ -111,11 +112,11 @@ class PlaybackControl extends Component {
 							<TouchableOpacity>
 								<Icon name='fastbackward' size={32} color={colors.white} />
 							</TouchableOpacity>
-							<TouchableOpacity onPress={() => this.handlePlayButton()}>
-								{playing ?
-									<Image source={require('../../../assets/images/play.png')} style={{ width: 70, height: 70 }} />
-										:
+							<TouchableOpacity onPress={() => this._play()}>
+								{isPlaying ?
 									<Image source={require('../../../assets/images/pause.png')} style={{ width: 70, height: 70 }} />
+									:
+									<Image source={require('../../../assets/images/play.png')} style={{ width: 70, height: 70 }} />
 								}
 							</TouchableOpacity>
 							<TouchableOpacity>
@@ -126,7 +127,7 @@ class PlaybackControl extends Component {
 					</View>
 					)	: (
 					<View>
-						<Text>Please select an audio clip</Text>
+						<Text style={{color: 'white'}}>Please select an audio clip</Text>
 					</View>
 					)
 				}

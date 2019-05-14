@@ -82,8 +82,12 @@ class RecordControl extends Component {
 	}
 
 	async _record() {
-		const { isRecording, startRecording, stoppedRecording, pauseRecording, stopRecording } = this.props;
+		const { isRecording, startRecording, stoppedRecording, pauseRecording, stopRecording, finishRecording } = this.props;
 		const { audioPath } = this.state;
+
+		//test
+		stopRecording(false)
+		finishRecording(false)
 
 		this.prepareRecordingPath(this.state.audioPath);
 

@@ -19,6 +19,7 @@ class Control extends Component {
 		isPaused: false,
 		stoppedRecording: false,
 		finished: false,
+		isPlaying: false,
 		// hasPermission: undefined,
 	};
 
@@ -46,9 +47,15 @@ class Control extends Component {
 		})
 	}
 
+	startPlaying = (flag) => {
+		this.setState({
+			isPlaying: flag
+		})
+	}
+
 	render() {
 		const { controlView } = this.props;
-		const { isRecording, isPaused, stoppedRecording, finished } = this.state;
+		const { isRecording, isPaused, isPlaying, stoppedRecording, finished } = this.state;
 		return (
 			<View style={s.container}>
 				{controlView === ControlView.Record ?
@@ -65,7 +72,10 @@ class Control extends Component {
 					:
 					<PlaybackControl
 						isRecording={isRecording}
+						isPlaying={isPlaying}
 						startRecording={this.startRecording}
+						stopRecording={this.stopRecording}
+						startPlaying={this.startPlaying}
 					/>
 				}
 			</View>
@@ -73,9 +83,9 @@ class Control extends Component {
 	}
 }
 
-// Control.propTypes = {
-// 	controlView: T.string.isRequired
-// }
+Control.propTypes = {
+	controlView: T.string.isRequired
+}
 
 mapStateToProps = (state) => {
 	return {
