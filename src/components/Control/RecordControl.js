@@ -60,13 +60,14 @@ class RecordControl extends Component {
 	}
 
 	componentDidMount() {
+		console.log("componentDidMount")
 		this.requestMicrophonePermission()
 		AudioRecorder.requestAuthorization().then((isAuthorised) => {
 			this.setState({ hasPermission: isAuthorised });
 
 			if (!isAuthorised) return;
 
-			this.prepareRecordingPath(this.state.audioPath);
+			// this.prepareRecordingPath(this.state.audioPath);
 
 			AudioRecorder.onProgress = (data) => {
 				this.setState({ currentTime: Math.floor(data.currentTime) });
@@ -85,10 +86,9 @@ class RecordControl extends Component {
 		const { isRecording, startRecording, stoppedRecording, pauseRecording, stopRecording } = this.props;
 		const { audioPath } = this.state;
 
-		// this.prepareRecordingPath(this.state.audioPath);
+		this.prepareRecordingPath(this.state.audioPath);
 
 		console.log('recording');
-		// if (this.state.recording) {
 		if (isRecording) {
 			console.warn('Already recording!');
 			return;
@@ -100,10 +100,7 @@ class RecordControl extends Component {
 		}
 
 		if (stoppedRecording) {
-			console.log("before prepareRecordingPath")
-			// this.prepareRecordingPath(audioPath);
-			console.log("after prepareRecordingPath")
-
+			this.prepareRecordingPath(audioPath);
 		}
 
 		startRecording(true)
@@ -125,7 +122,8 @@ class RecordControl extends Component {
 		}
 
 		try {
-			const filePath = await AudioRecorder.pauseRecording();
+			// const filePath = await AudioRecorder.pauseRecording();
+	    await AudioRecorder.pauseRecording();
 			pauseRecording(true)
 		} catch (error) {
 			console.error(error);
@@ -149,7 +147,7 @@ class RecordControl extends Component {
 	}
 
 	async _stop(saveRecording) {
-		const { isRecording, pauseRecording, startRecording, stopRecording, currentRelativePath } = this.props;
+		const { isRecording, pauseRecording, startRecording, stopRecording, currentRelativePath, units } = this.props;
 
 		if (!isRecording) {
 			console.warn('Can\'t stop, not recording!');
@@ -164,7 +162,9 @@ class RecordControl extends Component {
 			console.log("attempting to save recording");
 			try {
 				// const filePath = await AudioRecorder.stopRecording();
-				const filePath = `${BASE_URL}${currentRelativePath}/${chooseNameForNewUnit(this.props.units, "file")}`
+				await AudioRecorder.stopRecording();
+				const filePath = `${BASE_URL}${currentRelativePath}/${chooseNameForNewUnit(units, "file")}`
+				console.log('filePath', filePath)
 
 				if (Platform.OS === 'android') {
 					this._finishRecording(true, filePath);

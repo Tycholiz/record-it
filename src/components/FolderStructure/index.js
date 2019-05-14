@@ -139,11 +139,7 @@ class FolderStructure extends Component {
 		const { currentRelativePath } = this.props;
 		const { units } = this.state;
 
-		const unitsInCurrentDir = units.map(unitObj => {
-			return unitObj.name;
-		})
-
-		const newFolderName = chooseNameForNewUnit(unitsInCurrentDir, UnitType.Folder)
+		const newFolderName = chooseNameForNewUnit(units, UnitType.Folder)
 		const absolutePath = `${BASE_URL}${currentRelativePath}/${newFolderName}`
 
 		RNFS.mkdir(absolutePath)
@@ -295,7 +291,6 @@ class FolderStructure extends Component {
 
 					<TouchableOpacity style={s.navButton}
 						onPress={() =>
-							// this.handleNewFolder()
 							this.makeDirectory()
 						}
 					>
