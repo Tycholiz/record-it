@@ -23,6 +23,7 @@ class Control extends Component {
 	};
 
 	startRecording = (flag) => {
+		console.log("called startRecording in control comp.")
 		this.setState({
 			recording: flag
 		})

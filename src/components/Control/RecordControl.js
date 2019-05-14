@@ -18,8 +18,6 @@ import { BASE_URL } from '../../constants/constants';
 
 import { AudioRecorder } from 'react-native-audio';
 
-import { startRecording } from '../../actions/index'
-
 class RecordControl extends Component {
 	state = {
 		currentTime: 0.0,
@@ -62,13 +60,13 @@ class RecordControl extends Component {
 	}
 
 	componentDidMount() {
-		// this.requestMicrophonePermission()
+		this.requestMicrophonePermission()
 		AudioRecorder.requestAuthorization().then((isAuthorised) => {
 			this.setState({ hasPermission: isAuthorised });
 
 			if (!isAuthorised) return;
 
-			// this.prepareRecordingPath(this.state.audioPath);
+			this.prepareRecordingPath(this.state.audioPath);
 
 			AudioRecorder.onProgress = (data) => {
 				this.setState({ currentTime: Math.floor(data.currentTime) });
@@ -87,7 +85,7 @@ class RecordControl extends Component {
 		const { recording, startRecording, stoppedRecording, pauseRecording, stopRecording } = this.props;
 		const { audioPath } = this.state;
 
-		this.prepareRecordingPath(this.state.audioPath);
+		// this.prepareRecordingPath(this.state.audioPath);
 
 		console.log('recording');
 		// if (this.state.recording) {
@@ -240,4 +238,4 @@ mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps, { startRecording })(RecordControl);
+export default connect(mapStateToProps)(RecordControl);

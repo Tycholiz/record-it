@@ -65,7 +65,6 @@ class Folder extends Component {
 		const { currentRelativePath, updateUnitsState } = this.props;
 		const unitToDelete = `${BASE_URL}${currentRelativePath}/${name}`
 
-		console.log(unitToDelete)
 		await RNFS.unlink(unitToDelete)
 			.then(() => {
 				console.log('FILE DELETED');
