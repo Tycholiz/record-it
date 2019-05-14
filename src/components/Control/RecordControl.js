@@ -82,14 +82,14 @@ class RecordControl extends Component {
 	}
 
 	async _record() {
-		const { recording, startRecording, stoppedRecording, pauseRecording, stopRecording } = this.props;
+		const { isRecording, startRecording, stoppedRecording, pauseRecording, stopRecording } = this.props;
 		const { audioPath } = this.state;
 
 		// this.prepareRecordingPath(this.state.audioPath);
 
 		console.log('recording');
 		// if (this.state.recording) {
-		if (recording) {
+		if (isRecording) {
 			console.warn('Already recording!');
 			return;
 		}
@@ -117,9 +117,9 @@ class RecordControl extends Component {
 	}
 
 	async _pause() {
-		const { recording, pauseRecording } = this.props;
+		const { isRecording, pauseRecording } = this.props;
 		console.log('pausing');
-		if (!recording) {
+		if (!isRecording) {
 			console.warn('Can\'t pause, not recording!');
 			return;
 		}
@@ -133,8 +133,8 @@ class RecordControl extends Component {
 	}
 
 	async _resume() {
-		const { paused, pauseRecording } = this.props
-		if (!paused) {
+		const { isPaused, pauseRecording } = this.props
+		if (!isPaused) {
 			console.warn('Can\'t resume, not paused!');
 			return;
 		}
@@ -142,7 +142,6 @@ class RecordControl extends Component {
 		try {
 			console.log("resuming recording");
 			await AudioRecorder.resumeRecording();
-			// this.setState({ paused: false });
 			pauseRecording(false)
 		} catch (error) {
 			console.error(error);
@@ -150,9 +149,9 @@ class RecordControl extends Component {
 	}
 
 	async _stop(saveRecording) {
-		const { recording, pauseRecording, startRecording, stopRecording, currentRelativePath } = this.props;
+		const { isRecording, pauseRecording, startRecording, stopRecording, currentRelativePath } = this.props;
 
-		if (!recording) {
+		if (!isRecording) {
 			console.warn('Can\'t stop, not recording!');
 			return;
 		}
@@ -186,17 +185,18 @@ class RecordControl extends Component {
 	}
 
 	render() {
-		const { recording, paused } = this.props;
+		const { isRecording, isPaused } = this.props;
+		// console.log('recording', recording)
 
 		return (
 			<View style={s.container}>
-				{recording &&
+				{isRecording &&
 					<TouchableOpacity onPress={() => this._stop(false)}>
 						<Icon name='cross' size={40} color={colors.white} />
 					</TouchableOpacity>
 				}
 
-				{recording && !paused ?
+				{isRecording && !isPaused ?
 					<TouchableOpacity style={s.icon}
 						onPress={() =>
 							this._pause()
@@ -206,7 +206,7 @@ class RecordControl extends Component {
 					</TouchableOpacity>
 						:
 					<TouchableOpacity style={s.icon}
-						onPress={recording && paused ?
+						onPress={isRecording && isPaused ?
 							() => this._resume()
 								:
 							() => this._record()
@@ -216,7 +216,7 @@ class RecordControl extends Component {
 					</TouchableOpacity>
 				}
 
-				{recording &&
+				{isRecording &&
 					<TouchableOpacity onPress={() => this._stop(true)}>
 						<Icon name='checkmark' size={40} color={colors.white} />
 					</TouchableOpacity>
@@ -227,12 +227,12 @@ class RecordControl extends Component {
 }
 
 RecordControl.propTypes = {
-	recording: T.bool.isRequired
+	isRecording: T.bool.isRequired
 }
 
 mapStateToProps = (state) => {
 	return {
-		recording: state.toggle.recording,
+		// recording: state.toggle.recording,
 		currentRelativePath: state.currentRelativePath,
 		units: state.units
 	}

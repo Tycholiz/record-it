@@ -15,23 +15,22 @@ import { ControlView } from '../../constants/enumerables';
 
 class Control extends Component {
 	state = {
-		recording: false,
-		paused: false,
+		isRecording: false,
+		isPaused: false,
 		stoppedRecording: false,
 		finished: false,
 		// hasPermission: undefined,
 	};
 
 	startRecording = (flag) => {
-		console.log("called startRecording in control comp.")
 		this.setState({
-			recording: flag
+			isRecording: flag
 		})
 	}
 
 	pauseRecording = (flag) => {
 		this.setState({
-			paused: flag
+			isPaused: flag
 		})
 	}
 
@@ -49,13 +48,13 @@ class Control extends Component {
 
 	render() {
 		const { controlView } = this.props;
-		const { recording, paused, stoppedRecording, finished } = this.state;
+		const { isRecording, isPaused, stoppedRecording, finished } = this.state;
 		return (
 			<View style={s.container}>
 				{controlView === ControlView.Record ?
 					<RecordControl
-						recording={recording}
-						paused={paused}
+						isRecording={isRecording}
+						isPaused={isPaused}
 						stoppedRecording={stoppedRecording}
 						finished={finished}
 						startRecording={this.startRecording}
