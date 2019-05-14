@@ -161,9 +161,13 @@ class RecordControl extends Component {
 		if (saveRecording) {
 			console.log("attempting to save recording");
 			try {
+
+				const unitsInCurrentDir = units.map(unitObj => {
+					return unitObj.name;
+				})
 				// const filePath = await AudioRecorder.stopRecording();
 				await AudioRecorder.stopRecording();
-				const filePath = `${BASE_URL}${currentRelativePath}/${chooseNameForNewUnit(units, "file")}`
+				const filePath = `${BASE_URL}${currentRelativePath}/${chooseNameForNewUnit(unitsInCurrentDir, "file")}`
 				console.log('filePath', filePath)
 
 				if (Platform.OS === 'android') {
