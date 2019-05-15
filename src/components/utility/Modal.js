@@ -1,51 +1,25 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import {
 	View,
 	Text,
-	StyleSheet,
 	TextInput,
 	TouchableOpacity
 } from 'react-native';
 import Modal from "react-native-modal";
+import s from '../../styles/FolderStructure/Folder'
+import T from 'prop-types';
+import { Mode, ControlView, UnitType, Modification } from '../../constants/enumerables';
 import { newFolderName } from '../../utils/constants';
+import { showShortDirPath } from '../../utils';
 
-class Modal extends React {
+class OptionsModal extends Component {
 	state = {
 		unitTitle: undefined,
 		modalWindowOpen: false,
 	}
 
-	setMenuRef = ref => {
-		this.state._menu = ref;
-	};
-
-	hideMenu = () => {
-		this.state._menu.hide();
-	};
-
-	showMenu = () => {
-		this.state._menu.show();
-	};
-
-	handleOpenModal = (modal) => {
-		this.hideMenu()
-		this.setState(() => {
-			return {
-				[modal]: true
-			};
-		});
-	};
-
-	handleCloseModal = (modal) => {
-		this.setState(() => {
-			return {
-				[modal]: false
-			};
-		});
-	}
-
 	render() {
+		const { unitType } = this.props;
 		return (
 			<Modal
 				onBackdropPress={() => this.setState({ modalWindowOpen: false })}
@@ -54,23 +28,23 @@ class Modal extends React {
 				avoidKeyboard={true}
 			>
 				<View style={[s.modalContainerInner, s.detailsModalContainerInner]}>
-					{type === moreInfoModal || renameModal &&
+					{this.props.modalType === "moreInfoModal" || "renameModal" &&
 						<Text style={s.modalHeader}>{this.props.heading}</Text>
 					}
 
 					{/* DELETE CONFIRMATION */}
 					{/* ! this one looks like it could fail */}
-					{type === deleteModal && unitType === UnitType.File ?
-							<Text style={[s.modalHeader, { fontSize: 20 }]}>Are you sure you want to delete this clip?</Text>
-							:
-							<Text style={[s.modalHeader, { fontSize: 20 }]}>Are you sure you want to delete this folder and all of its contents?</Text>
+					{this.props.modalType === "deleteModal" && unitType === UnitType.File ?
+						<Text style={[s.modalHeader, { fontSize: 20 }]}>Are you sure you want to delete this clip?</Text>
+						:
+						<Text style={[s.modalHeader, { fontSize: 20 }]}>Are you sure you want to delete this folder and all of its contents?</Text>
 					}
-					{type === deleteModal &&
+					{this.props.modalType === "deleteModal" &&
 						<Text style={s.breadCrumb}>{this.props.breadcrumb}</Text>
 					}
 
 					{/* RENAME MODAL */}
-					{type === renameModal &&
+					{this.props.modalType === "renameModal" &&
 						<View style={s.textInputUnderline}>
 							<TextInput
 								style={s.modalInput}
@@ -79,7 +53,7 @@ class Modal extends React {
 										unitTitle: newTitle
 									})
 								}
-								defaultValue={text !== newFolderName ? text : ''}
+								// defaultValue={text !== newFolderName ? text : ''}
 								autoFocus={true}
 								selectTextOnFocus={true}
 								keyboardAppearance={'dark'}
@@ -90,20 +64,20 @@ class Modal extends React {
 					}
 
 					{/* MORE INFO */}
-					{type === moreInfoModal &&
+					{this.props.modalType === "moreInfoModal" &&
 						<View style={s.details}>
 							<View style={s.lineItem}>
 								<Text style={s.lineTitle}>Full Path</Text>
-								<Text style={s.lineInfo}>{showShortDirPath(currentRelativePath)}{text}</Text>
+								{/* <Text style={s.lineInfo}>{showShortDirPath(currentRelativePath)}{text}</Text> */}
 							</View>
 							<View style={s.lineItem}>
 								<Text style={s.lineTitle}>Date Created</Text>
-								<Text style={s.lineInfo}>{dateCreated.toString()}</Text>
+								{/* <Text style={s.lineInfo}>{dateCreated.toString()}</Text> */}
 							</View>
 							{unitType === UnitType.Folder &&
 								<View style={s.lineItem}>
 									<Text style={s.lineTitle}>Number of Children</Text>
-									<Text style={s.lineInfo}>{this.getNumChildren()}</Text>
+									{/* <Text style={s.lineInfo}>{this.getNumChildren()}</Text> */}
 								</View>
 							}
 							{unitType === UnitType.File &&
@@ -120,7 +94,7 @@ class Modal extends React {
 							}
 							<View style={s.lineItem}>
 								<Text style={s.lineTitle}>Size</Text>
-								<Text style={s.lineInfo}>{size}</Text>
+								<Text style={s.lineInfo}>{this.props.size}</Text>
 							</View>
 						</View>
 					}
@@ -129,7 +103,7 @@ class Modal extends React {
 					<View style={s.modalOptions}>
 						<TouchableOpacity
 							onPress={() => {
-								this.props.closeMethod();
+								this.props.handleCloseModal(this.props.modalType);
 							}}
 							style={s.modalOptions}
 						>
@@ -146,7 +120,7 @@ class Modal extends React {
 								}}
 								style={s.modalOptions}
 							>
-								<Text style={[s.modalOption, s.cancelOption]}>{this.props.acceptText}</Text>
+								<Text style={s.modalOption}>{this.props.acceptText}</Text>
 							</TouchableOpacity>
 						</View>
 					}
@@ -158,13 +132,16 @@ class Modal extends React {
 }
 
 Modal.propTypes = {
-	type: T.string.isRequired,
-	closeText: T.string.isRequired,
-	acceptText: T.string,
-	hasAcceptButton: T.string,
-	closeMethod: T.func.isRequired,
-	acceptMethod: T.func,
+	// modalType: T.string.isRequired,
+	modalType: T.string,
 	heading: T.string,
+	// closeText: T.string.isRequired,
+	closeText: T.string,
+	hasAcceptButton: T.string,
+	acceptText: T.string,
+	acceptMethod: T.func,
 	breadcrumb: T.string,
 
 }
+
+export default OptionsModal;

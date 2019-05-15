@@ -182,7 +182,8 @@ class FolderStructure extends Component {
 		folders = units.map(unit => {
 			return (
 				<Folder
-					text={unit.name}
+					unitName={unit.name}
+					// text={unit.name}
 					key={unit.id}
 					dateCreated={unit.mtime}
 					size={unit.size}

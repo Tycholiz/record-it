@@ -12,7 +12,8 @@ import {
 import T from 'prop-types'
 import s from '../../styles/FolderStructure/Folder'
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
-import Modal from "react-native-modal";
+// import Modal from "react-native-modal";
+import Modal from '../utility/Modal'
 import RNFS from 'react-native-fs';
 import RadialGradient from 'react-native-radial-gradient';
 
@@ -26,11 +27,40 @@ import { multipleMode, modifySelectedUnit } from '../../actions';
 class Folder extends Component {
 	state = {
 		_menu: null,
-		renaming: false,
-		deleteConfirmation: false,
-		moreInfo: false,
-		title: this.props.text,
+		renameModal: false,
+		deleteModal: false,
+		moreInfoModal: false,
+		title: this.props.unitName,
 	};
+
+	setMenuRef = ref => {
+		this.state._menu = ref;
+	};
+
+	hideMenu = () => {
+		this.state._menu.hide();
+	};
+
+	showMenu = () => {
+		this.state._menu.show();
+	};
+
+	handleOpenModal = (modal) => {
+		this.hideMenu()
+		this.setState(() => {
+			return {
+				[modal]: true
+			};
+		});
+	};
+
+	handleCloseModal = (modal) => {
+		this.setState(() => {
+			return {
+				[modal]: false
+			};
+		});
+	}
 
 	handleDeleteUnit = async (name) => {
 		const { currentRelativePath, updateUnitsState } = this.props;
@@ -47,15 +77,15 @@ class Folder extends Component {
 	}
 
 	handleRenameUnit = async () => {
-		const { currentRelativePath, text, updateUnitsState } = this.props;
+		const { currentRelativePath, unitName, updateUnitsState } = this.props;
 
-		const unitToBeRenamed = `${BASE_URL}${currentRelativePath}/${text}`
+		const unitToBeRenamed = `${BASE_URL}${currentRelativePath}/${unitName}`
 		const newName = `${BASE_URL}${currentRelativePath}/${this.state.title}`
 		await RNFS.moveFile(unitToBeRenamed, newName)
 			.then(() => {
 				console.log('unit renamed!')
 				this.setState({
-					renaming: false
+					renameModal: false
 				})
 			})
 			.catch(err => {
@@ -69,9 +99,9 @@ class Folder extends Component {
 	}
 
 	render() {
-		const { renaming, deleteConfirmation, moreInfo } = this.state;
+		const { renameModal, deleteModal, moreInfoModal } = this.state;
 		const {
-			text,
+			unitName,
 			icon,
 			handleUnitPress,
 			currentRelativePath,
@@ -107,7 +137,7 @@ class Folder extends Component {
 						>
 							{icon}
 							<Text style={s.unitTitleText}>
-								{text}
+								{unitName}
 							</Text>
 						</RadialGradient>
 					</View>
@@ -125,9 +155,9 @@ class Folder extends Component {
 						>
 							<MenuItem onPress={() => this.handleMoveUnit(id)}>Move</MenuItem>
 							<MenuDivider />
-							<MenuItem onPress={() => this.handleOpenModal('renaming')}>Rename</MenuItem>
+							<MenuItem onPress={() => this.handleOpenModal('renameModal')}>Rename</MenuItem>
 							<MenuDivider />
-							<MenuItem onPress={() => this.handleOpenModal('deleteConfirmation')}>Delete</MenuItem>
+							<MenuItem onPress={() => this.handleOpenModal('deleteModal')}>Delete</MenuItem>
 							<MenuDivider />
 							<MenuItem onPress={this.hideMenu}>Favorite</MenuItem>
 							{unitType === UnitType.File &&
@@ -137,7 +167,7 @@ class Folder extends Component {
 								</View>
 							}
 							<MenuDivider />
-							<MenuItem onPress={() => this.handleOpenModal('moreInfo')}>More info...</MenuItem>
+							<MenuItem onPress={() => this.handleOpenModal('moreInfoModal')}>More info...</MenuItem>
 							<MenuDivider />
 							<MenuItem onPress={this.hideMenu}>Close</MenuItem>
 						</Menu>
@@ -145,66 +175,37 @@ class Folder extends Component {
 				}
 
 				<Modal
-					type="renameModal"
+					isVisible={this.state.renameModal}
+					modalType="renameModal"
 					heading={`rename ${unitType === UnitType.File ? "File" : "Folder"}`}
 					closeText="Cancel"
-					closeMethod={}
 					hasAcceptButton={true}
 					acceptText="Confirm"
 					acceptMethod={this.handleDeleteUnit}
+					unitType={unitType}
+					handleCloseModal={this.handleCloseModal}
 				/>
-
-				{/* RENAME MODAL */}
 				<Modal
-					onBackdropPress={() => this.setState({ renaming: false })}
-					isVisible={renaming}
-					style={s.modalContainer}
-					avoidKeyboard={true}
-				>
-					<View style={s.modalContainerInner}>
-						{unitType === UnitType.File ?
-							<Text style={s.modalHeader}>Rename Clip</Text>
-							:
-							<Text style={s.modalHeader}>Rename Folder</Text>
-						}
-						<View style={s.textInputUnderline}>
-							<TextInput
-								style={s.modalInput}
-								onChangeText={(newTitle) =>
-									this.setState({
-										title: newTitle
-									})
-								}
-								defaultValue={text !== 'New Folder' ? text : ''}
-								autoFocus={true}
-								selectTextOnFocus={true}
-								keyboardAppearance={'dark'}
-								maxLength={30}
-								underlineColorAndroid='transparent'
-							/>
-						</View>
-
-						<View style={s.modalOptions}>
-							<TouchableOpacity
-								onPress={() => {
-									this.handleCloseModal('renaming');
-								}}
-							>
-								<Text style={[s.modalOption, s.cancelOption]}>CANCEL</Text>
-							</TouchableOpacity>
-
-							<TouchableOpacity
-								onPress={() => {
-									this.handleRenameUnit()
-								}}
-							>
-								<Text style={[s.modalOption, s.confirmOption]}>RENAME</Text>
-							</TouchableOpacity>
-						</View>
-
-					</View>
-				</Modal>
-
+					isVisible={this.state.deleteModal}
+					modalType="deleteModal"
+					heading={`Are you sure you want to delete ${unitName}?`}
+					closeText="Cancel"
+					hasAcceptButton={true}
+					acceptText="Confirm"
+					acceptMethod={this.handleDeleteUnit}
+					unitType={unitType}
+					handleCloseModal={this.handleCloseModal}
+				/>
+				<Modal
+					isVisible={this.state.moreInfoModal}
+					modalType="moreInfoModal"
+					heading={unitName}
+					closeText="Close"
+					hasAcceptButton={false}
+					unitType={unitType}
+					size={size}
+					handleCloseModal={this.handleCloseModal}
+				/>
 			</View>
 		);
 	}
@@ -212,7 +213,7 @@ class Folder extends Component {
 
 
 Folder.propTypes = {
-	text: T.string.isRequired,
+	unitName: T.string.isRequired,
 	icon: T.object.isRequired,
 	handleUnitPress: T.func.isRequired,
 	currentRelativePath: T.string.isRequired,
