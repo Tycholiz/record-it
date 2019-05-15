@@ -76,17 +76,17 @@ class Folder extends Component {
 		updateUnitsState()
 	}
 
-	handleRenameUnit = async () => {
+	handleRenameUnit = async (newTitle) => {
 		const { currentRelativePath, unitName, updateUnitsState } = this.props;
 
 		const unitToBeRenamed = `${BASE_URL}${currentRelativePath}/${unitName}`
-		const newName = `${BASE_URL}${currentRelativePath}/${this.state.title}`
+		console.log('unitToBeRenamed', unitToBeRenamed)
+		const newName = `${BASE_URL}${currentRelativePath}/${newTitle}`
+		console.log('newName', newName)
 		await RNFS.moveFile(unitToBeRenamed, newName)
 			.then(() => {
 				console.log('unit renamed!')
-				this.setState({
-					renameModal: false
-				})
+				this.setState({renameModal: false})
 			})
 			.catch(err => {
 				console.log("error!", err);

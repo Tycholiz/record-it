@@ -15,6 +15,7 @@ import { showShortDirPath } from '../../utils';
 class OptionsModal extends Component {
 	state = {
 		unitTitle: undefined,
+		newTitle: undefined,
 		modalWindowOpen: false,
 	}
 
@@ -36,6 +37,7 @@ class OptionsModal extends Component {
 			handleCloseModal,
 			acceptMethod
 		} = this.props;
+		const { newTitle } = this.state;
 		return (
 			<Modal
 				onBackdropPress={() => this.setState({ modalWindowOpen: false })}
@@ -64,9 +66,9 @@ class OptionsModal extends Component {
 						<View style={s.textInputUnderline}>
 							<TextInput
 								style={s.modalInput}
-								onChangeText={(newTitle) =>
+								onChangeText={newTitle =>
 									this.setState({
-										unitTitle: newTitle
+										newTitle: newTitle
 									})
 								}
 								defaultValue={unitName !== newFolderName ? unitName : ''}
@@ -131,9 +133,16 @@ class OptionsModal extends Component {
 					{hasAcceptButton &&
 						<View style={s.modalOptions}>
 							<TouchableOpacity
-								onPress={() => {
-									acceptMethod();
-								}}
+								onPress={modalType === 'renameModal' ?
+									() => {
+										acceptMethod(newTitle);
+									}
+									:
+									() => {
+										acceptMethod();
+									}
+								}
+
 								style={s.modalOptions}
 							>
 								<Text style={s.modalOption}>{acceptText}</Text>
