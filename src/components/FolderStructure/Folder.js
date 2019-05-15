@@ -62,9 +62,9 @@ class Folder extends Component {
 		});
 	}
 
-	handleDeleteUnit = async (name) => {
-		const { currentRelativePath, updateUnitsState } = this.props;
-		const unitToDelete = `${BASE_URL}${currentRelativePath}/${name}`
+	handleDeleteUnit = async () => {
+		const { currentRelativePath, updateUnitsState, unitName } = this.props;
+		const unitToDelete = `${BASE_URL}${currentRelativePath}/${unitName}`
 
 		await RNFS.unlink(unitToDelete)
 			.then(() => {
@@ -177,12 +177,13 @@ class Folder extends Component {
 				<Modal
 					isVisible={this.state.renameModal}
 					modalType="renameModal"
+					unitName={unitName}
 					heading={`rename ${unitType === UnitType.File ? "File" : "Folder"}`}
 					closeText="Cancel"
 					hasAcceptButton={true}
 					acceptText="Confirm"
-					acceptMethod={this.handleDeleteUnit}
 					unitType={unitType}
+					acceptMethod={this.handleRenameUnit}
 					handleCloseModal={this.handleCloseModal}
 				/>
 				<Modal
@@ -192,8 +193,8 @@ class Folder extends Component {
 					closeText="Cancel"
 					hasAcceptButton={true}
 					acceptText="Confirm"
-					acceptMethod={this.handleDeleteUnit}
 					unitType={unitType}
+					acceptMethod={this.handleDeleteUnit}
 					handleCloseModal={this.handleCloseModal}
 				/>
 				<Modal
@@ -205,6 +206,9 @@ class Folder extends Component {
 					unitType={unitType}
 					size={size}
 					handleCloseModal={this.handleCloseModal}
+					dateCreated={dateCreated}
+					numChildren={this.getNumChildren()}
+					fullPath={`${showShortDirPath(currentRelativePath)}/${unitName}`}
 				/>
 			</View>
 		);

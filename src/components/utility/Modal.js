@@ -19,32 +19,48 @@ class OptionsModal extends Component {
 	}
 
 	render() {
-		const { unitType } = this.props;
+		const {
+			modalType,
+			isVisible,
+			unitType,
+			unitName,
+			dateCreated,
+			acceptText,
+			heading,
+			breadcrumb,
+			fullPath,
+			numChildren,
+			size,
+			closeText,
+			hasAcceptButton,
+			handleCloseModal,
+			acceptMethod
+		} = this.props;
 		return (
 			<Modal
 				onBackdropPress={() => this.setState({ modalWindowOpen: false })}
-				isVisible={this.props.isVisible}
+				isVisible={isVisible}
 				style={s.modalContainer}
 				avoidKeyboard={true}
 			>
 				<View style={[s.modalContainerInner, s.detailsModalContainerInner]}>
-					{this.props.modalType === "moreInfoModal" || "renameModal" &&
-						<Text style={s.modalHeader}>{this.props.heading}</Text>
+					{modalType === "moreInfoModal" || "renameModal" &&
+						<Text style={s.modalHeader}>{heading}</Text>
 					}
 
 					{/* DELETE CONFIRMATION */}
 					{/* ! this one looks like it could fail */}
-					{this.props.modalType === "deleteModal" && unitType === UnitType.File ?
+					{modalType === "deleteModal" && unitType === UnitType.File ?
 						<Text style={[s.modalHeader, { fontSize: 20 }]}>Are you sure you want to delete this clip?</Text>
 						:
 						<Text style={[s.modalHeader, { fontSize: 20 }]}>Are you sure you want to delete this folder and all of its contents?</Text>
 					}
-					{this.props.modalType === "deleteModal" &&
-						<Text style={s.breadCrumb}>{this.props.breadcrumb}</Text>
+					{modalType === "deleteModal" &&
+						<Text style={s.breadCrumb}>{breadcrumb}</Text>
 					}
 
 					{/* RENAME MODAL */}
-					{this.props.modalType === "renameModal" &&
+					{modalType === "renameModal" &&
 						<View style={s.textInputUnderline}>
 							<TextInput
 								style={s.modalInput}
@@ -53,7 +69,7 @@ class OptionsModal extends Component {
 										unitTitle: newTitle
 									})
 								}
-								// defaultValue={text !== newFolderName ? text : ''}
+								defaultValue={unitName !== newFolderName ? unitName : ''}
 								autoFocus={true}
 								selectTextOnFocus={true}
 								keyboardAppearance={'dark'}
@@ -64,20 +80,20 @@ class OptionsModal extends Component {
 					}
 
 					{/* MORE INFO */}
-					{this.props.modalType === "moreInfoModal" &&
+					{modalType === "moreInfoModal" &&
 						<View style={s.details}>
 							<View style={s.lineItem}>
 								<Text style={s.lineTitle}>Full Path</Text>
-								{/* <Text style={s.lineInfo}>{showShortDirPath(currentRelativePath)}{text}</Text> */}
+								<Text style={s.lineInfo}>{fullPath}</Text>
 							</View>
 							<View style={s.lineItem}>
 								<Text style={s.lineTitle}>Date Created</Text>
-								{/* <Text style={s.lineInfo}>{dateCreated.toString()}</Text> */}
+								<Text style={s.lineInfo}>{dateCreated.toString()}</Text>
 							</View>
 							{unitType === UnitType.Folder &&
 								<View style={s.lineItem}>
 									<Text style={s.lineTitle}>Number of Children</Text>
-									{/* <Text style={s.lineInfo}>{this.getNumChildren()}</Text> */}
+									<Text style={s.lineInfo}>{numChildren}</Text>
 								</View>
 							}
 							{unitType === UnitType.File &&
@@ -94,7 +110,7 @@ class OptionsModal extends Component {
 							}
 							<View style={s.lineItem}>
 								<Text style={s.lineTitle}>Size</Text>
-								<Text style={s.lineInfo}>{this.props.size}</Text>
+								<Text style={s.lineInfo}>{size}</Text>
 							</View>
 						</View>
 					}
@@ -103,28 +119,27 @@ class OptionsModal extends Component {
 					<View style={s.modalOptions}>
 						<TouchableOpacity
 							onPress={() => {
-								this.props.handleCloseModal(this.props.modalType);
+								handleCloseModal(modalType);
 							}}
 							style={s.modalOptions}
 						>
-							<Text style={[s.modalOption, s.cancelOption]}>{this.props.closeText}</Text>
+							<Text style={[s.modalOption, s.cancelOption]}>{closeText}</Text>
 						</TouchableOpacity>
 					</View>
 
 					{/* ACCEPT */}
-					{this.props.hasAcceptButton &&
+					{hasAcceptButton &&
 						<View style={s.modalOptions}>
 							<TouchableOpacity
 								onPress={() => {
-									this.props.acceptMethod();
+									acceptMethod();
 								}}
 								style={s.modalOptions}
 							>
-								<Text style={s.modalOption}>{this.props.acceptText}</Text>
+								<Text style={s.modalOption}>{acceptText}</Text>
 							</TouchableOpacity>
 						</View>
 					}
-
 				</View>
 			</Modal>
 		);
@@ -132,16 +147,21 @@ class OptionsModal extends Component {
 }
 
 Modal.propTypes = {
-	// modalType: T.string.isRequired,
 	modalType: T.string,
+	isVisible: T.bool,
+	unitType: T.string,
+	unitName: T.string,
+	dateCreated: T.instanceOf(Date),
+	acceptText: T.string,
 	heading: T.string,
-	// closeText: T.string.isRequired,
+	breadcrumb: T.string,
+	fullPath: T.string,
+	numChildren: T.number,
+	size: T.number,
 	closeText: T.string,
 	hasAcceptButton: T.string,
-	acceptText: T.string,
+	handleCloseModal: T.func,
 	acceptMethod: T.func,
-	breadcrumb: T.string,
-
 }
 
 export default OptionsModal;
