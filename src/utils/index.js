@@ -1,4 +1,5 @@
 import { UnitType } from '../constants/enumerables';
+import { newFolderName, newAudioName } from './constants'
 
 export const getUnitsToDelete = (state, selectedUnits, unitType) => {
 	unitType = unitType === UnitType.Folder ? 'folders' : 'files';
@@ -117,8 +118,8 @@ export const addNewDirOnPath = (currentPath, nextDir) => {
 
 export const chooseNameForNewUnit = (unitsInDir, unitType) => {
 	let currentLevel;
-	const baseAudioName = 'Audio'
-	const baseFolderName = 'New Folder'
+	const baseAudioName = newAudioName
+	const baseFolderName = newFolderName
 	let currentValue = 1;
 	switch (unitType) {
 		case 'folder':

@@ -50,7 +50,7 @@ class FolderStructure extends Component {
 			this.setState({
 				units
 			})
-		 dispatch(readDirectory(units))
+		dispatch(readDirectory(units))
 		})
 	}
 

@@ -32,35 +32,6 @@ class Folder extends Component {
 		title: this.props.text,
 	};
 
-	setMenuRef = ref => {
-		this.state._menu = ref;
-	};
-
-	hideMenu = () => {
-		this.state._menu.hide();
-	};
-
-	showMenu = () => {
-		this.state._menu.show();
-	};
-
-	handleOpenModal = (modal) => {
-		this.hideMenu()
-		this.setState(() => {
-			return {
-				[modal]: true
-			};
-		});
-	};
-
-	handleCloseModal = (modal) => {
-		this.setState(() => {
-			return {
-				[modal]: false
-			};
-		});
-	}
-
 	handleDeleteUnit = async (name) => {
 		const { currentRelativePath, updateUnitsState } = this.props;
 		const unitToDelete = `${BASE_URL}${currentRelativePath}/${name}`
@@ -173,6 +144,16 @@ class Folder extends Component {
 					</TouchableOpacity>
 				}
 
+				<Modal
+					type="renameModal"
+					heading={`rename ${unitType === UnitType.File ? "File" : "Folder"}`}
+					closeText="Cancel"
+					closeMethod={}
+					hasAcceptButton={true}
+					acceptText="Confirm"
+					acceptMethod={this.handleDeleteUnit}
+				/>
+
 				{/* RENAME MODAL */}
 				<Modal
 					onBackdropPress={() => this.setState({ renaming: false })}
@@ -224,95 +205,6 @@ class Folder extends Component {
 					</View>
 				</Modal>
 
-				{/* DELETE CONFIRMATION MODAL */}
-				<Modal
-					onBackdropPress={() => this.setState({ deleteConfirmation: false })}
-					isVisible={deleteConfirmation}
-					style={s.modalContainer}
-					avoidKeyboard={true}
-				>
-					<View style={s.modalContainerInner}>
-						{unitType === UnitType.File ?
-							<Text style={[s.modalHeader, { fontSize: 20 }]}>Are you sure you want to delete this clip?</Text>
-							:
-							<Text style={[s.modalHeader, { fontSize: 20 }]}>Are you sure you want to delete this folder and all of its contents?</Text>
-						}
-						<Text style={s.breadCrumb}>{text}</Text>
-						<View style={s.modalOptions}>
-							<TouchableOpacity
-								onPress={() => {
-									this.handleCloseModal('deleteConfirmation');
-								}}
-							>
-								<Text style={[s.modalOption, s.cancelOption]}>CANCEL</Text>
-							</TouchableOpacity>
-
-							<TouchableOpacity
-								onPress={() => {
-									this.handleDeleteUnit(text)
-								}}
-							>
-								<Text style={[s.modalOption, s.confirmOption]}>CONFIRM</Text>
-							</TouchableOpacity>
-						</View>
-					</View>
-				</Modal>
-
-				{/* MORE INFO MODAL */}
-				<Modal
-					onBackdropPress={() => this.setState({ moreInfo: false })}
-					isVisible={moreInfo}
-					style={s.modalContainer}
-					avoidKeyboard={true}
-				>
-					<View style={[s.modalContainerInner, s.detailsModalContainerInner]}>
-						<Text style={s.modalHeader}>{text}</Text>
-						<View style={s.details}>
-							<View style={s.lineItem}>
-								<Text style={s.lineTitle}>Full Path</Text>
-								<Text style={s.lineInfo}>{showShortDirPath(currentRelativePath)}{text}</Text>
-							</View>
-							<View style={s.lineItem}>
-								<Text style={s.lineTitle}>Date Created</Text>
-								<Text style={s.lineInfo}>{dateCreated.toString()}</Text>
-							</View>
-							{unitType === UnitType.Folder &&
-								<View style={s.lineItem}>
-									<Text style={s.lineTitle}>Number of Children</Text>
-									<Text style={s.lineInfo}>{this.getNumChildren()}</Text>
-								</View>
-							}
-							{unitType === UnitType.File &&
-								<View>
-									<View style={s.lineItem}>
-										<Text style={s.lineTitle}>Duration</Text>
-										<Text style={s.lineInfo}>1:22</Text>
-									</View>
-									<View style={s.lineItem}>
-										<Text style={s.lineTitle}>File Type</Text>
-										<Text style={s.lineInfo}>{unitType}</Text>
-									</View>
-								</View>
-							}
-							<View style={s.lineItem}>
-								<Text style={s.lineTitle}>Size</Text>
-								<Text style={s.lineInfo}>{size}</Text>
-							</View>
-
-						</View>
-						<View style={s.modalOptions}>
-							<TouchableOpacity
-								onPress={() => {
-									this.handleCloseModal('moreInfo');
-								}}
-								style={s.modalOptions}
-							>
-								<Text style={[s.modalOption, s.cancelOption]}>CLOSE</Text>
-							</TouchableOpacity>
-						</View>
-
-					</View>
-				</Modal>
 			</View>
 		);
 	}
