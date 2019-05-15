@@ -61,9 +61,10 @@ class PlaybackControl extends Component {
 		}
 
 		setTimeout(() => {
-			var sound = new Sound(activeFile, '', (error) => {
+			var sound = new Sound(activeFile, (error) => {
 				if (error) {
 					console.log('failed to load the sound', error);
+					return;
 				}
 			});
 
@@ -73,6 +74,7 @@ class PlaybackControl extends Component {
 						console.log('successfully finished playing');
 					} else {
 						console.log('playback failed due to audio decoding errors');
+						sound.release();
 					}
 				});
 			}, 100);
