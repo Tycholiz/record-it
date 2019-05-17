@@ -1,7 +1,6 @@
 const state = {
 	activeFile: '223',
 	currentRelativePath: '/home',
-	selectMultiple: [],
 	toggle: {
 		controlView: 'playback',
 		recording: false,
@@ -11,37 +10,22 @@ const state = {
 		selectedUnits: [],
 	},
 	units: {
-		files: {
-			'944': {
-				id: '944',
-				title: 'solo',
-				duration: 44356,
-				parentId: '22',
-				unitType: 'file',
-			},
-			'253': {
-				id: '253',
-				title: 'intro idea',
-				duration: 22573,
-				parentId: '22',
-				unitType: 'file',
-			},
+		"1": {
+			ctime: null,
+			mtime: "2019-05-10T23:21:56.000Z",
+			name: "dogsAreGreat",
+			path: "/data/user/0/com.recordit/files/home/dogsAreGreat",
+			size: 4096,
+			id: "2ca54811-771d-4518-8601-6f83c7e7deeb"
 		},
-		folders: {
-			'22': {
-				id: '22',
-				title: 'Chimera',
-				dateCreated: 1502500102,
-				parentId: null,
-				unitType: 'folder',
-			},
-			'29': {
-				id: '29',
-				title: 'Complete songs',
-				dateCreated: 150237935,
-				parentId: '22',
-				unitType: 'folder',
-			},
+		"2": {
+			ctime: null,
+			mtime: "2019-05-08T16:22:19.000Z",
+			name: "Block out the Sun",
+			path: "/data/user/0/com.recordit/files/home/Block out the Sun",
+			size: 0,
+			id: "09b867e8-7011-4e3f-a41f-5d9c535c4cd7"
 		}
 	}
+
 }

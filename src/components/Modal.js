@@ -8,13 +8,12 @@ import {
 import Modal from "react-native-modal";
 import s from '../styles/utility/Modal'
 import T from 'prop-types';
-import { Mode, ControlView, UnitType, Modification } from '../../constants/enumerables';
-import { newFolderName } from '../../utils/constants';
+import { Mode, ControlView, UnitType, Modification } from '../constants/enumerables';
+import { newFolderName } from '../utils/constants';
 
 class OptionsModal extends Component {
 	state = {
-		unitTitle: undefined,
-		newTitle: undefined,
+		newName: this.props.unitName,
 		modalWindowOpen: false,
 	}
 
@@ -36,7 +35,7 @@ class OptionsModal extends Component {
 			handleCloseModal,
 			acceptMethod
 		} = this.props;
-		const { newTitle } = this.state;
+		const { newName } = this.state;
 		return (
 			<Modal
 				onBackdropPress={() => this.setState({ modalWindowOpen: false })}
@@ -65,9 +64,9 @@ class OptionsModal extends Component {
 						<View style={s.textInputUnderline}>
 							<TextInput
 								style={s.modalInput}
-								onChangeText={newTitle =>
+								onChangeText={newName =>
 									this.setState({
-										newTitle: newTitle
+										newName
 									})
 								}
 								defaultValue={unitName !== newFolderName ? unitName : ''}
@@ -134,7 +133,7 @@ class OptionsModal extends Component {
 							<TouchableOpacity
 								onPress={modalType === 'renameModal' ?
 									() => {
-										acceptMethod(newTitle);
+										acceptMethod(newName);
 									}
 									:
 									() => {

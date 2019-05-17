@@ -4,6 +4,11 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.zmxv.RNSound.RNSoundPackage;
+import com.surajit.rnrg.RNRadialGradientPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
+import com.rnfs.RNFSPackage;
+import com.rnim.rn.audio.ReactNativeAudioPackage;
+import com.zmxv.RNSound.RNSoundPackage;
 import com.rnim.rn.audio.ReactNativeAudioPackage;
 import com.rnfs.RNFSPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -30,10 +35,10 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new RNSoundPackage(),
-            new ReactNativeAudioPackage(),
-            new RNFSPackage(),
-            new LinearGradientPackage(),
             new RNRadialGradientPackage(),
+            new LinearGradientPackage(),
+            new RNFSPackage(),
+            new ReactNativeAudioPackage(),
             new VectorIconsPackage()
       );
     }

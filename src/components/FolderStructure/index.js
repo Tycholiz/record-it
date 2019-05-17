@@ -183,8 +183,8 @@ class FolderStructure extends Component {
 			return (
 				<Folder
 					unitName={unit.name}
-					// text={unit.name}
-					key={unit.id}
+					key={unit.path}
+					// key={unit.id}
 					dateCreated={unit.mtime}
 					size={unit.size}
 					unitType={unit.isDirectory() ? UnitType.Folder : UnitType.File}
