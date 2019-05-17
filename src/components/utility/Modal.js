@@ -6,11 +6,10 @@ import {
 	TouchableOpacity
 } from 'react-native';
 import Modal from "react-native-modal";
-import s from '../../styles/FolderStructure/Folder'
+import s from '../../styles/utility/Modal'
 import T from 'prop-types';
 import { Mode, ControlView, UnitType, Modification } from '../../constants/enumerables';
 import { newFolderName } from '../../utils/constants';
-import { showShortDirPath } from '../../utils';
 
 class OptionsModal extends Component {
 	state = {

@@ -4,15 +4,11 @@ import {
 	Text,
 	TouchableOpacity,
 	View,
-	TextInput,
 	Image,
-	Dimensions,
-	Alert,
 } from 'react-native';
 import T from 'prop-types'
 import s from '../../styles/FolderStructure/Folder'
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
-// import Modal from "react-native-modal";
 import Modal from '../utility/Modal'
 import RNFS from 'react-native-fs';
 import RadialGradient from 'react-native-radial-gradient';
@@ -99,7 +95,6 @@ class Folder extends Component {
 	}
 
 	render() {
-		const { renameModal, deleteModal, moreInfoModal } = this.state;
 		const {
 			unitName,
 			icon,
