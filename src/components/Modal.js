@@ -128,21 +128,21 @@ class OptionsModal extends Component {
 
 					{/* ACCEPT */}
 					{hasAcceptButton &&
-							<TouchableOpacity
-								onPress={modalType === 'renameModal' ?
-									() => {
-										acceptMethod(newName);
-									}
-									:
-									() => {
-										acceptMethod();
-									}
+						<TouchableOpacity
+							onPress={modalType === 'renameModal' ?
+								() => {
+									acceptMethod(newName);
 								}
+								:
+								() => {
+									acceptMethod();
+								}
+							}
 
-								style={s.modalOptions}
-							>
-								<Text style={[s.modalOption, s.confirmOption]}>{acceptText}</Text>
-							</TouchableOpacity>
+							style={s.modalOptions}
+						>
+							<Text style={[s.modalOption, s.confirmOption]}>{acceptText}</Text>
+						</TouchableOpacity>
 					}
 					</View>
 				</View>
