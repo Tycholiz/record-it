@@ -9,7 +9,7 @@ import {
 import T from 'prop-types'
 import s from '../../styles/FolderStructure/Folder'
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
-import Modal from '../utility/Modal'
+import Modal from '../Modal'
 import RNFS from 'react-native-fs';
 import RadialGradient from 'react-native-radial-gradient';
 
