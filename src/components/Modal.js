@@ -8,7 +8,7 @@ import {
 import Modal from "react-native-modal";
 import s from '../styles/utility/Modal'
 import T from 'prop-types';
-import { Mode, ControlView, UnitType, Modification } from '../constants/enumerables';
+import { UnitType } from '../constants/enumerables';
 import { newFolderName } from '../utils/constants';
 
 class OptionsModal extends Component {
@@ -125,11 +125,9 @@ class OptionsModal extends Component {
 						>
 							<Text style={[s.modalOption, s.cancelOption]}>{closeText}</Text>
 						</TouchableOpacity>
-					</View>
 
 					{/* ACCEPT */}
 					{hasAcceptButton &&
-						<View style={s.modalOptions}>
 							<TouchableOpacity
 								onPress={modalType === 'renameModal' ?
 									() => {
@@ -143,10 +141,10 @@ class OptionsModal extends Component {
 
 								style={s.modalOptions}
 							>
-								<Text style={s.modalOption}>{acceptText}</Text>
+								<Text style={[s.modalOption, s.confirmOption]}>{acceptText}</Text>
 							</TouchableOpacity>
-						</View>
 					}
+					</View>
 				</View>
 			</Modal>
 		);

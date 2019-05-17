@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import {
 	View,
-	Text,
 } from 'react-native';
 
 import T from 'prop-types'
