@@ -21,7 +21,6 @@ class RecordControl extends Component {
 	state = {
 		currentTime: 0.0,
 		audioPath: `${BASE_URL}${this.props.currentRelativePath}/${chooseNameForNewUnit(this.props.units, "file")}`,
-		// audioPath: `${ BASE_URL }${ this.props.currentRelativePath }/dogsAreFantastic`,
 		hasPermission: undefined,
 	};
 
@@ -171,8 +170,7 @@ class RecordControl extends Component {
 				})
 				// const filePath = await AudioRecorder.stopRecording();
 				await AudioRecorder.stopRecording();
-				// const filePath = `${BASE_URL}${currentRelativePath}/${chooseNameForNewUnit(unitsInCurrentDir, "file")}`
-				const filePath = this.state.audioPath
+				const filePath = `${BASE_URL}${currentRelativePath}/${chooseNameForNewUnit(unitsInCurrentDir, "file")}`
 				console.log('filePath', filePath)
 
 				if (Platform.OS === 'android') {
@@ -185,13 +183,13 @@ class RecordControl extends Component {
 		}
 	}
 
-	_finishRecording(didSucceed, filePath, fileSize) {
+	async _finishRecording(didSucceed, filePath, fileSize) {
 		console.log("recording succeeded");
 		const { finishRecording } = this.props;
-		// this.setState({ finished: didSucceed });
-		finishRecording(didSucceed)
-		console.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath} and size of ${fileSize || 0} bytes`);
 		this.setState({ currentTime: 0.0 })
+		// this.setState({ finished: didSucceed });
+		await finishRecording(didSucceed)
+		console.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath} and size of ${fileSize || 0} bytes`);
 	}
 
 	render() {
