@@ -164,7 +164,7 @@ class Folder extends Component {
 							<MenuDivider />
 							<MenuItem onPress={() => this.handleOpenModal('moreInfoModal')}>More info...</MenuItem>
 							<MenuDivider />
-							<MenuItem onPress={this.hideMenu}>Close</MenuItem>
+							<MenuItem onPress={this.hideMenu}>Cloze</MenuItem>
 						</Menu>
 					</TouchableOpacity>
 				}

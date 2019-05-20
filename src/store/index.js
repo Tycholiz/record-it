@@ -6,7 +6,7 @@ import {
 import thunk from 'redux-thunk';
 import logger from 'redux-logger'
 import { composeWithDevTools } from 'redux-devtools-extension';
-import devToolsEnhancer from 'remote-redux-devtools';
+// import devToolsEnhancer from 'remote-redux-devtools';
 
 import reducers from "../reducers";
 
