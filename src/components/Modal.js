@@ -110,6 +110,7 @@ class OptionsModal extends Component {
 							}
 							<View style={s.lineItem}>
 								<Text style={s.lineTitle}>Size</Text>
+								{/* //TODO: for folders, size should be calculated by recursing on contents of folder and summing size of all audio files */}
 								<Text style={s.lineInfo}>{size}</Text>
 							</View>
 						</View>

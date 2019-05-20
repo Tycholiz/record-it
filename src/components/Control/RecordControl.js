@@ -60,13 +60,13 @@ class RecordControl extends Component {
 
 	componentDidMount() {
 		console.log("componentDidMount")
-		this.requestMicrophonePermission()
+		this.requestMicrophonePermission() //could this be moved to index.js so the fun. isn't called each time user goes to RecordControl?
 		AudioRecorder.requestAuthorization().then((isAuthorised) => {
 			this.setState({ hasPermission: isAuthorised });
 
 			if (!isAuthorised) return;
 
-			// this.prepareRecordingPath(this.state.audioPath);
+			this.prepareRecordingPath(this.state.audioPath);
 
 			AudioRecorder.onProgress = (data) => {
 				this.setState({ currentTime: Math.floor(data.currentTime) });
@@ -86,10 +86,10 @@ class RecordControl extends Component {
 		const { audioPath } = this.state;
 
 		//test
-		stopRecording(false)
-		finishRecording(false)
+		// stopRecording(false)
+		// finishRecording(false)
 
-		this.prepareRecordingPath(this.state.audioPath);
+		// this.prepareRecordingPath(this.state.audioPath);
 
 		console.log('recording');
 		if (isRecording) {
@@ -183,11 +183,12 @@ class RecordControl extends Component {
 		}
 	}
 
-	_finishRecording(didSucceed, filePath, fileSize) {
+	async _finishRecording(didSucceed, filePath, fileSize) {
 		console.log("recording succeeded");
 		const { finishRecording } = this.props;
+		this.setState({ currentTime: 0.0 })
 		// this.setState({ finished: didSucceed });
-		finishRecording(didSucceed)
+		await finishRecording(didSucceed)
 		console.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath} and size of ${fileSize || 0} bytes`);
 	}
 
@@ -201,26 +202,28 @@ class RecordControl extends Component {
 						<Icon name='cross' size={40} color={colors.white} />
 					</TouchableOpacity>
 				}
-
-				{isRecording && !isPaused ?
-					<TouchableOpacity style={s.icon}
-						onPress={() =>
-							this._pause()
-						}
-					>
-						<Image source={require('../../../assets/images/pause.png')} style={{ width: 80, height: 80 }} />
-					</TouchableOpacity>
-						:
-					<TouchableOpacity style={s.icon}
-						onPress={isRecording && isPaused ?
-							() => this._resume()
-								:
-							() => this._record()
-						}
-					>
-						<Image source={require('../../../assets/images/microphone.png')} style={{ width: 80, height: 80}}/>
-					</TouchableOpacity>
-				}
+				<View style={s.recordButtonContainer}>
+					{isRecording && !isPaused ?
+						<TouchableOpacity style={s.icon}
+							onPress={() =>
+								this._pause()
+							}
+						>
+							<Image source={require('../../../assets/images/pause.png')} style={{ width: 80, height: 80 }} />
+						</TouchableOpacity>
+							:
+						<TouchableOpacity style={s.icon}
+							onPress={isRecording && isPaused ?
+								() => this._resume()
+									:
+								() => this._record()
+							}
+						>
+							<Image source={require('../../../assets/images/microphone.png')} style={{ width: 80, height: 80}}/>
+						</TouchableOpacity>
+					}
+					<Text style={s.recordTimer}>{this.state.currentTime}</Text>
+				</View>
 
 				{isRecording &&
 					<TouchableOpacity onPress={() => this._stop(true)}>

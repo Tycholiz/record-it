@@ -100,7 +100,7 @@ class PlaybackControl extends Component {
 
 						<View style={s.clipScroll}>
 							<Text style={s.time}>
-								00:10
+								00:05
 							</Text>
 							<Text style={[s.time, s.scroller]}>
 								-----------O-----------------------------------

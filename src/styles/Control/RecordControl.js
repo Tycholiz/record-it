@@ -18,6 +18,14 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		marginHorizontal: 60,
 	},
+	recordButtonContainer: {
+		flexDirection: 'column',
+		alignItems: 'center',
+	},
+	recordTimer: {
+		marginTop: 10,
+		color: 'white'
+	}
 });
 
 export default styles;
