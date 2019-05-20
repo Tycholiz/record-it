@@ -8,10 +8,11 @@ import {
 } from 'react-native';
 import T from 'prop-types'
 import s from '../../styles/FolderStructure/Folder'
-import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import Modal from '../Modal'
 import RNFS from 'react-native-fs';
 import RadialGradient from 'react-native-radial-gradient';
+
+import MenuOptions from './Menu'
 
 import { showShortDirPath } from '../../utils';
 
@@ -19,14 +20,15 @@ import { Mode, ControlView, UnitType, Modification } from '../../constants/enume
 import { BASE_URL } from '../../constants/constants'
 
 import { multipleMode, modifySelectedUnit } from '../../actions';
+import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
 class Folder extends Component {
 	state = {
-		_menu: null,
 		renameModal: false,
 		deleteModal: false,
 		moreInfoModal: false,
 		title: this.props.unitName,
+		_menu: null,
 	};
 
 	setMenuRef = ref => {
@@ -109,7 +111,6 @@ class Folder extends Component {
 
 		return (
 			<View>
-
 				{/* USER FOLDER */}
 				<TouchableOpacity onPress={handleUnitPress} onLongPress={this.showMenu}>
 					<View
@@ -138,35 +139,14 @@ class Folder extends Component {
 					</View>
 				</TouchableOpacity>
 
-				{/*  FOLDER OPTIONS **temporary** */}
 				{unitType &&
-					<TouchableOpacity
-						style={s.folderOptionsContainer}
-						onPress={this.showMenu}
-					>
-						<Menu
-							ref={this.setMenuRef}
-							button={<Image source={require('../../../assets/images/settings.png')} style={{ height: 0, width: 0 }} />}
-						>
-							<MenuItem onPress={() => this.handleMoveUnit(id)}>Move</MenuItem>
-							<MenuDivider />
-							<MenuItem onPress={() => this.handleOpenModal('renameModal')}>Rename</MenuItem>
-							<MenuDivider />
-							<MenuItem onPress={() => this.handleOpenModal('deleteModal')}>Delete</MenuItem>
-							<MenuDivider />
-							<MenuItem onPress={this.hideMenu}>Favorite</MenuItem>
-							{unitType === UnitType.File &&
-								<View>
-									<MenuDivider />
-									<MenuItem onPress={this.hideMenu}>Share</MenuItem>
-								</View>
-							}
-							<MenuDivider />
-							<MenuItem onPress={() => this.handleOpenModal('moreInfoModal')}>More info...</MenuItem>
-							<MenuDivider />
-							<MenuItem onPress={this.hideMenu}>Cloze</MenuItem>
-						</Menu>
-					</TouchableOpacity>
+					<MenuOptions
+						unitType={unitType}
+						handleOpenModal={this.handleOpenModal}
+						setMenuRef={this.setMenuRef}
+						showMenu={this.showMenu}
+						hideMenu={this.hideMenu}
+					/>
 				}
 
 				<Modal
