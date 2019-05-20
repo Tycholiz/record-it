@@ -143,10 +143,7 @@ class FolderStructure extends Component {
 			return unitObj.name;
 		})
 
-		console.log('units', units)
-		console.log('unitsInCurrentDir', unitsInCurrentDir)
-
-		const newFolderName = chooseNameForNewUnit(units, UnitType.Folder)
+		const newFolderName = chooseNameForNewUnit(unitsInCurrentDir, UnitType.Folder)
 		const absolutePath = `${BASE_URL}${currentRelativePath}/${newFolderName}`
 
 		RNFS.mkdir(absolutePath)
