@@ -61,14 +61,13 @@ class PlaybackControl extends Component {
 		}
 
 		setTimeout(() => {
-			var sound = new Sound(activeFile, (error) => {
+			console.log('activeFile', activeFile)
+			var sound = new Sound(activeFile, Sound.MAIN_BUNDLE, (error) => {
 				if (error) {
 					console.log('failed to load the sound', error);
 					return;
 				}
-			});
-
-			setTimeout(() => {
+				console.log(sound)
 				sound.play((success) => {
 					if (success) {
 						console.log('successfully finished playing');
@@ -77,7 +76,10 @@ class PlaybackControl extends Component {
 						sound.release();
 					}
 				});
-			}, 100);
+			});
+
+			// setTimeout(() => {
+			// }, 100);
 		}, 100);
 	}
 

@@ -130,7 +130,7 @@ export const chooseNameForNewUnit = (unitsInDir, unitType) => {
 			}
 			break;
 		case 'file':
-			currentLevel = 'Audio'
+			currentLevel = 'Audio.aac'
 			while (unitsInDir.includes(currentLevel)) {
 				currentValue++
 				currentLevel = `${baseAudioName}(${currentValue})`
