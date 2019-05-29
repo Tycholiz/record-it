@@ -14,16 +14,18 @@ import Icon from '../../styles/Icon';
 import colors from '../../styles/colors';
 import { chooseNameForNewUnit } from '../../utils'
 import { BASE_URL } from '../../constants/constants';
+import { UnitType } from '../../constants/enumerables';
 
 import { AudioRecorder } from 'react-native-audio';
 
 class RecordControl extends Component {
+	// ! problem seems to be that props are received from redux store asynchronously. This results in this.state.audioPath being inaccurate when componentMounts, because the directory hasn't actually been read properly
 	state = {
 		currentTime: 0.0,
-		audioPath: `${BASE_URL}${this.props.currentRelativePath}/${chooseNameForNewUnit(this.props.units, "file")}`,
+		audioPath: `${BASE_URL}${this.props.currentRelativePath}/${chooseNameForNewUnit(this.props.units, UnitType.File)}`,
+		// audioPath: undefined,
 		hasPermission: undefined,
 	};
-
 	requestMicrophonePermission = async () => {
 		try {
 			const granted = await PermissionsAndroid.request(
@@ -59,12 +61,25 @@ class RecordControl extends Component {
 	}
 
 	componentDidMount() {
-		console.log("componentDidMount")
+		console.log('this.props', this.props)
+		console.log('this.state', this.state)
+
+		setTimeout(() => {
+			console.log('this.props after 1 second', this.props)
+			console.log('this.state after 1 second', this.state)
+		}, 100);
+
 		this.requestMicrophonePermission() //could this be moved to index.js so the fun. isn't called each time user goes to RecordControl?
 		AudioRecorder.requestAuthorization().then((isAuthorised) => {
 			this.setState({ hasPermission: isAuthorised });
 
 			if (!isAuthorised) return;
+
+			setTimeout(() => {
+				this.setState({
+					audioPath: `${BASE_URL}${this.props.currentRelativePath}/${chooseNameForNewUnit(this.props.units, UnitType.File)}`
+				})
+			}, 100);
 
 			this.prepareRecordingPath(this.state.audioPath);
 
@@ -82,8 +97,8 @@ class RecordControl extends Component {
 	}
 
 	async _record() {
-		const { isRecording, startRecording, stoppedRecording, pauseRecording, stopRecording, finishRecording } = this.props;
-		const { audioPath } = this.state;
+		const { isRecording, startRecording, stoppedRecording, pauseRecording, stopRecording, finishRecording, units } = this.props;
+		// const { audioPath } = this.state;
 
 		console.log('recording');
 		if (isRecording) {
@@ -95,9 +110,13 @@ class RecordControl extends Component {
 			console.warn('Can\'t record, no permission granted!');
 			return;
 		}
-
+		// console.log('units', units.map(unit => unit.name))
+		// console.log("newUnitName:", chooseNameForNewUnit(units, UnitType.File));
 		if (stoppedRecording) {
-			this.prepareRecordingPath(audioPath);
+			this.setState({
+				audioPath: `${BASE_URL}${this.props.currentRelativePath}/${chooseNameForNewUnit(units, UnitType.File)}`
+			})
+			await this.prepareRecordingPath(this.state.audioPath);
 		}
 
 		startRecording(true)
@@ -158,14 +177,9 @@ class RecordControl extends Component {
 		if (saveRecording) {
 			console.log("attempting to save recording");
 			try {
-
-				const unitsInCurrentDir = units.map(unitObj => {
-					return unitObj.name;
-				})
 				// const filePath = await AudioRecorder.stopRecording();
 				await AudioRecorder.stopRecording();
-				const filePath = `${BASE_URL}${currentRelativePath}/${chooseNameForNewUnit(unitsInCurrentDir, "file")}`
-				console.log('filePath', filePath)
+				const filePath = this.state.audioPath
 
 				if (Platform.OS === 'android') {
 					this._finishRecording(true, filePath);
@@ -241,6 +255,7 @@ RecordControl.propTypes = {
 }
 
 mapStateToProps = (state) => {
+	console.log("mapstatetoprops ran");
 	return {
 		currentRelativePath: state.currentRelativePath,
 		units: state.units

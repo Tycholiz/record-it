@@ -139,12 +139,9 @@ class FolderStructure extends Component {
 		const { currentRelativePath, units } = this.props;
 		// const { units } = this.state;
 
-		const unitsInCurrentDir = units.map(unitObj => {
-			return unitObj.name;
-		})
-
-		console.log('units', units)
-		console.log('unitsInCurrentDir', unitsInCurrentDir)
+		// const unitsInCurrentDir = units.map(unitObj => {
+		// 	return unitObj.name;
+		// })
 
 		const newFolderName = chooseNameForNewUnit(units, UnitType.Folder)
 		const absolutePath = `${BASE_URL}${currentRelativePath}/${newFolderName}`

@@ -116,31 +116,83 @@ export const addNewDirOnPath = (currentPath, nextDir) => {
 	return workingCurrentPath + workingNextDir;
 }
 
+function removeFileExtension(fileName) {
+	const fileNameArray = fileName.split('.')
+	fileNameArray.splice(-1)
+	const joinedFileName = fileNameArray.join('.')
+	return joinedFileName
+}
+
 export const chooseNameForNewUnit = (unitsInDir, unitType) => {
+	if (!unitsInDir) {
+		console.error("no units being passed through!")
+	}
+
 	let currentLevel;
 	const baseAudioName = newAudioName
 	const baseFolderName = newFolderName
 	let currentValue = 1;
 	switch (unitType) {
 		case 'folder':
+			const foldersInDir = unitsInDir
+				.filter(unit => unit.isDirectory())
+				.map(unit => unit.name)
 			currentLevel = 'New Folder';
-			while (unitsInDir.includes(currentLevel)) {
+			while (foldersInDir.includes(currentLevel)) {
 				currentValue++
 				currentLevel = `${baseFolderName}(${currentValue})`
 			}
 			break;
 		case 'file':
-			currentLevel = 'Audio.aac'
-			while (unitsInDir.includes(currentLevel)) {
+			const filesInDir = unitsInDir
+			.filter(unit => !unit.isDirectory())
+			.map(unit => unit.name)
+
+			const withoutFileExt = filesInDir.map(unit => {
+				return removeFileExtension(unit)
+			})
+			currentLevel = 'Audio'
+			while (withoutFileExt.includes(currentLevel)) {
 				currentValue++
 				currentLevel = `${baseAudioName}(${currentValue})`
 			}
+			currentLevel += '.aac'
 			break;
 		default:
-			console.err("unit type not specified");
+			console.error("unit type not specified");
 	}
 	return currentLevel;
 }
+
+// export const chooseNameForNewUnit = (unitsInDir, unitType) => {
+// 	const unitsInDirWithoutExtension = unitsInDir.map(unit => {
+// 		return removeFileExtension(unit)
+// 	})
+// 	let currentLevel;
+// 	const baseAudioName = newAudioName
+// 	const baseFolderName = newFolderName
+// 	let currentValue = 1;
+// 	switch (unitType) {
+// 		case 'folder':
+// 			currentLevel = 'New Folder';
+// 			while (unitsInDirWithoutExtension.includes(currentLevel)) {
+// 				currentValue++
+// 				currentLevel = `${baseFolderName}(${currentValue})`
+// 			}
+// 			break;
+// 		case 'file':
+// 			currentLevel = 'Audio'
+// 			while (unitsInDirWithoutExtension.includes(currentLevel)) {
+// 				currentValue++
+// 				currentLevel = `${baseAudioName}(${currentValue})`
+// 			}
+// 			currentLevel += '.aac'
+// 			break;
+// 		default:
+// 			console.err("unit type not specified");
+// 	}
+// 	return currentLevel;
+// }
 
 export const showShortDirPath = (dirPath) => {
 	const shortPath = dirPath.split('/').slice(2).join('/')

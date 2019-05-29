@@ -38,7 +38,7 @@ class OptionsModal extends Component {
 		const { newName } = this.state;
 		return (
 			<Modal
-				onBackdropPress={() => this.setState({ modalWindowOpen: false })}
+				// onBackdropPress={() => this.setState({ modalWindowOpen: false })}
 				isVisible={isVisible}
 				style={s.modalContainer}
 				avoidKeyboard={true}
@@ -64,11 +64,11 @@ class OptionsModal extends Component {
 						<View style={s.textInputUnderline}>
 							<TextInput
 								style={s.modalInput}
-								onChangeText={newName =>
-									this.setState({
-										newName
-									})
-								}
+								// onChangeText={newName =>
+								// 	this.setState({
+								// 		newName
+								// 	})
+								// }
 								defaultValue={unitName !== newFolderName ? unitName : ''}
 								autoFocus={true}
 								selectTextOnFocus={true}
