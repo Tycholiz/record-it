@@ -5,7 +5,7 @@ import {
 import { ControlView } from '../constants/enumerables';
 
 const initialState = {
-	controlView: ControlView.Record,
+	controlView: ControlView.Playback,
 	recording: false,
 };
 

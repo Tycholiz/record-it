@@ -6,6 +6,7 @@ import {
 	Text,
 	TouchableOpacity,
 	Image,
+	Slider
 } from 'react-native';
 import T from 'prop-types'
 import s from '../../styles/Control/PlaybackControl';
@@ -24,6 +25,9 @@ import { setActiveFile } from '../../actions/index'
 
 class PlaybackControl extends Component {
 	state = {
+		playState: 'paused',
+		playSeconds: 0,
+		duration: 0,
 		deleteConfirmation: false,
 	};
 
@@ -59,7 +63,6 @@ class PlaybackControl extends Component {
 		if (isRecording) {
 			await stopRecording();
 		}
-		//fucka
 
 		setTimeout(() => {
 			console.log('activeFile', activeFile)
@@ -105,9 +108,11 @@ class PlaybackControl extends Component {
 							<Text style={s.time}>
 								00:05
 							</Text>
-							<Text style={[s.time, s.scroller]}>
+							{/* <Text style={[s.time, s.scroller]}>
 								-----------O-----------------------------------
-							</Text>
+							</Text> */}
+							<Slider style={{flex: 1, alignSelf: 'center'}}
+							/>
 							<Text style={s.time}>
 								00:34
 							</Text>
@@ -131,8 +136,8 @@ class PlaybackControl extends Component {
 
 					</View>
 					)	: (
-					<View>
-						<Text style={{color: 'white'}}>Please select an audio clip</Text>
+					<View style={{justifyContent: 'center', alignItems: 'center'}}>
+						<Text style={{color: 'whitesmoke'}}>Please select an audio clip</Text>
 					</View>
 					)
 				}
