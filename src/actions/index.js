@@ -5,7 +5,8 @@ import {
 	// DELETE_UNITS,
 	MODIFY_SELECTED_UNIT,
 	MULTIPLE_MODE,
-	READ_DIRECTORY
+	READ_DIRECTORY,
+	ADD_AUDIO_FILE
 } from "../constants/action-types";
 
 export const toggleControlView = () => ({
@@ -51,6 +52,6 @@ export const modifySelectedUnit = (modification, unitId) => ({
 export const readDirectory = (units) => ({
 	type: READ_DIRECTORY,
 	payload: {
-		units
+		units,
 	}
 })

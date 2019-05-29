@@ -137,22 +137,17 @@ class FolderStructure extends Component {
 
 	makeDirectory = () => {
 		const { currentRelativePath, units } = this.props;
-		// const { units } = this.state;
-
-		// const unitsInCurrentDir = units.map(unitObj => {
-		// 	return unitObj.name;
-		// })
 
 		const newFolderName = chooseNameForNewUnit(units, UnitType.Folder)
 		const absolutePath = `${BASE_URL}${currentRelativePath}/${newFolderName}`
 
 		RNFS.mkdir(absolutePath)
-		.then(() => {
-			console.log("new directory created!")
-		})
-		.catch(err => {
-			console.log(err)
-		})
+			.then(() => {
+				console.log("new directory created!")
+			})
+			.catch(err => {
+				console.log(err)
+			})
 		this.updateUnitsState()
 	}
 
@@ -161,9 +156,9 @@ class FolderStructure extends Component {
 
 		var promise = RNFS.readDir(pathToRead)
 			.then(units => {
-				units.forEach(unit => {
-					unit.id = uuid() //note: this will produce a new id each time the units are rendered on the screen. will this cause issues?
-				})
+				// units.forEach(unit => {
+				// 	unit.id = uuid() //note: this will produce a new id each time the units are rendered on the screen. will this cause issues?
+				// })
 				return units
 			})
 			.catch(err => {

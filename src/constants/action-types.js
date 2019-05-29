@@ -6,6 +6,7 @@ export const DELETE_UNITS = "DELETE_UNITS";
 export const MULTIPLE_MODE = "MULTIPLE_MODE";
 export const MODIFY_SELECTED_UNIT = "MODIFY_SELECTED_UNIT";
 export const READ_DIRECTORY = "READ_DIRECTORY"
+export const ADD_AUDIO_FILE = "ADD_AUDIO_FILE"
 
 export const RECORD = "RECORD";
 export const PLAYBACK = "PLAYBACK";

@@ -1,4 +1,6 @@
-import { READ_DIRECTORY } from "../constants/action-types";
+import { READ_DIRECTORY, ADD_AUDIO_FILE } from "../constants/action-types";
+
+import RNFS from 'react-native-fs'
 
 const reducer = (state = [], action) => {
 	switch (action.type) {

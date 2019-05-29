@@ -8,6 +8,7 @@ import {
 	PermissionsAndroid,
 	Platform
 } from 'react-native';
+import { readDirectory, addAudioFile } from '../../actions'
 import T from 'prop-types'
 import s from '../../styles/Control/RecordControl';
 import Icon from '../../styles/Icon';
@@ -189,6 +190,7 @@ class RecordControl extends Component {
 		this.setState({ currentTime: 0.0 })
 		// this.setState({ finished: didSucceed });
 		await finishRecording(didSucceed)
+
 		console.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath} and size of ${fileSize || 0} bytes`);
 	}
 
