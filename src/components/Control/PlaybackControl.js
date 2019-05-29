@@ -59,6 +59,7 @@ class PlaybackControl extends Component {
 		if (isRecording) {
 			await stopRecording();
 		}
+		//fucka
 
 		setTimeout(() => {
 			console.log('activeFile', activeFile)
