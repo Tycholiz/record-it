@@ -85,12 +85,6 @@ class RecordControl extends Component {
 		const { isRecording, startRecording, stoppedRecording, pauseRecording, stopRecording, finishRecording } = this.props;
 		const { audioPath } = this.state;
 
-		//test
-		// stopRecording(false)
-		// finishRecording(false)
-
-		// this.prepareRecordingPath(this.state.audioPath);
-
 		console.log('recording');
 		if (isRecording) {
 			console.warn('Already recording!');
