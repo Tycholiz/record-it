@@ -23,7 +23,6 @@ class RecordControl extends Component {
 	state = {
 		currentTime: 0.0,
 		audioPath: `${BASE_URL}${this.props.currentRelativePath}/${chooseNameForNewUnit(this.props.units, UnitType.File)}`,
-		// audioPath: undefined,
 		hasPermission: undefined,
 	};
 	requestMicrophonePermission = async () => {
@@ -61,30 +60,26 @@ class RecordControl extends Component {
 	}
 
 	componentDidMount() {
-		console.log('this.props', this.props)
-		console.log('this.state', this.state)
-
-		setTimeout(() => {
-			console.log('this.props after 1 second', this.props)
-			console.log('this.state after 1 second', this.state)
-		}, 100);
-
 		this.requestMicrophonePermission() //could this be moved to index.js so the fun. isn't called each time user goes to RecordControl?
 		AudioRecorder.requestAuthorization().then((isAuthorised) => {
-			this.setState({ hasPermission: isAuthorised });
-
+			this.setState({
+				hasPermission: isAuthorised
+			});
 			if (!isAuthorised) return;
 
+			this.setState({
+				audioPath: `${BASE_URL}${this.props.currentRelativePath}/${chooseNameForNewUnit(this.props.units, UnitType.File)}`
+			})
+
+			//this is a hacky solution to get around the fact that this.props.units is not loaded into the component from redux store immediately
 			setTimeout(() => {
-				this.setState({
-					audioPath: `${BASE_URL}${this.props.currentRelativePath}/${chooseNameForNewUnit(this.props.units, UnitType.File)}`
-				})
+				this.prepareRecordingPath(this.state.audioPath);
 			}, 100);
 
-			this.prepareRecordingPath(this.state.audioPath);
-
 			AudioRecorder.onProgress = (data) => {
-				this.setState({ currentTime: Math.floor(data.currentTime) });
+				this.setState({
+					currentTime: Math.floor(data.currentTime)
+				});
 			};
 
 			AudioRecorder.onFinished = (data) => {
@@ -98,7 +93,6 @@ class RecordControl extends Component {
 
 	async _record() {
 		const { isRecording, startRecording, stoppedRecording, pauseRecording, stopRecording, finishRecording, units } = this.props;
-		// const { audioPath } = this.state;
 
 		console.log('recording');
 		if (isRecording) {
@@ -110,8 +104,6 @@ class RecordControl extends Component {
 			console.warn('Can\'t record, no permission granted!');
 			return;
 		}
-		// console.log('units', units.map(unit => unit.name))
-		// console.log("newUnitName:", chooseNameForNewUnit(units, UnitType.File));
 		if (stoppedRecording) {
 			this.setState({
 				audioPath: `${BASE_URL}${this.props.currentRelativePath}/${chooseNameForNewUnit(units, UnitType.File)}`
@@ -123,7 +115,8 @@ class RecordControl extends Component {
 		pauseRecording(false)
 
 		try {
-			const filePath = await AudioRecorder.startRecording();
+			// const filePath = await AudioRecorder.startRecording();
+			await AudioRecorder.startRecording();
 		} catch (error) {
 			console.error(error);
 		}
@@ -138,7 +131,6 @@ class RecordControl extends Component {
 		}
 
 		try {
-			// const filePath = await AudioRecorder.pauseRecording();
 	    await AudioRecorder.pauseRecording();
 			pauseRecording(true)
 		} catch (error) {
@@ -255,7 +247,6 @@ RecordControl.propTypes = {
 }
 
 mapStateToProps = (state) => {
-	console.log("mapstatetoprops ran");
 	return {
 		currentRelativePath: state.currentRelativePath,
 		units: state.units
