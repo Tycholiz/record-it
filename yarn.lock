@@ -4528,6 +4528,11 @@ react-native-screens@^1.0.0-alpha.11:
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.16.tgz#e3651b7077ea8fa04e8dd3265ad9b87f1f77a758"
   integrity sha512-t+/aq5jQa+Is6afiQHa1P+2UPnwPGY9NT0pSqNr2zQ5llCn8TcPq6GN8xDMuEc08g+y/9R5zWo32hlVStwWn1A==
 
+react-native-scrubber@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/react-native-scrubber/-/react-native-scrubber-0.1.3.tgz#ee52abb17451b75f9f905663a225f85811b2003c"
+  integrity sha512-LOZpWUIgi92CjEXs/CxhDtypNk4Lm+AHGuynB0i8jtiVqMQGtugw9fMVOCHAPDZc0AX8HZsVBBUA76IsnV5qSA==
+
 react-native-sound@^0.10.12:
   version "0.10.12"
   resolved "https://registry.yarnpkg.com/react-native-sound/-/react-native-sound-0.10.12.tgz#f912d6f9d6e9e2b42b391e0226787628d940f01a"

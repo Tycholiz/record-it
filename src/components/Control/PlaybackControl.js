@@ -8,6 +8,7 @@ import {
 	Image,
 	Slider
 } from 'react-native';
+import Scrubber from 'react-native-scrubber'
 import T from 'prop-types'
 import s from '../../styles/Control/PlaybackControl';
 
@@ -24,12 +25,16 @@ import { BASE_URL } from '../../constants/constants';
 import { setActiveFile } from '../../actions/index'
 
 class PlaybackControl extends Component {
-	state = {
-		playState: 'paused',
-		playSeconds: 0,
-		duration: 0,
-		deleteConfirmation: false,
-	};
+	constructor() {
+		super();
+		this.state = {
+			playState: 'paused',
+			playSeconds: 0,
+			duration: 0,
+			deleteConfirmation: false,
+		}
+		this.sliderEditing = false;
+	}
 
 	handleOpenModal = () => {
 		this.setState(() => {
@@ -38,6 +43,12 @@ class PlaybackControl extends Component {
 			};
 		});
 	};
+
+	valueChange = (value) => {
+		this.setState({
+			position: value
+		})
+	}
 
 	handleCloseModal = () => {
 		this.setState(() => {
@@ -56,13 +67,15 @@ class PlaybackControl extends Component {
 	};
 
 	async _play() {
-		const { isRecording, activeFile, stopRecording, currentRelativePath } = this.props;
+		const { isRecording, activeFile, stopRecording, currentRelativePath, startPlaying } = this.props;
 
 		// const activeFilePath = `${BASE_URL}${currentRelativePath}/${activeFile}`
 
 		if (isRecording) {
 			await stopRecording();
 		}
+
+		startPlaying(true)
 
 		setTimeout(() => {
 			console.log('activeFile', activeFile)
@@ -81,14 +94,12 @@ class PlaybackControl extends Component {
 					}
 				});
 			});
-
-			// setTimeout(() => {
-			// }, 100);
 		}, 100);
 	}
 
 	render() {
 		const { isPlaying, activeFile, title } = this.props;
+		const { position, duration } = this.state;
 
 		return (
 			<View style={s.container}>
@@ -99,22 +110,31 @@ class PlaybackControl extends Component {
 							<Text style={s.text}>{extractEndPoint(activeFile)}</Text>
 							<View style={s.iconContainer}>
 								<TouchableOpacity onPress={() => this.handleOpenModal()}>
-										<Icon name='garbage' size={25} color={colors.white} />
+									<Icon name='garbage' size={25} color={colors.white} />
 								</TouchableOpacity>
 							</View>
 						</View>
 
 						<View style={s.clipScroll}>
 							<Text style={s.time}>
-								00:05
+								{position}
 							</Text>
-							{/* <Text style={[s.time, s.scroller]}>
-								-----------O-----------------------------------
-							</Text> */}
-							<Slider style={{flex: 1, alignSelf: 'center'}}
+							<Slider
+								onTouchStart={this.onSliderEditStart}
+								// onTouchMove={() => console.log('onTouchMove')}
+								onTouchEnd={this.onSliderEditEnd}
+								// onTouchEndCapture={() => console.log('onTouchEndCapture')}
+								// onTouchCancel={() => console.log('onTouchCancel')}
+								onValueChange={this.onSliderEditing}
+								value={this.state.position}
+								maximumValue={this.state.duration}
+								style={{flex: 1, alignSelf: 'center'}}
+								maximumTrackTintColor='gray'
+								minimumTrackTintColor='white'
+								thumbTintColor='white'
 							/>
 							<Text style={s.time}>
-								00:34
+								{duration}
 							</Text>
 						</View>
 
