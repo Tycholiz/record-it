@@ -39,7 +39,7 @@
     "yoga-layout": "^1.9.3"
   },
   "devDependencies": {
-    "immer": "^2.0.0",
+    "immer": "^8.0.1",
     "redux": "^4.0.1",
     "remote-redux-devtools": "^0.5.13",
     "remotedev-server": "^0.2.6"
